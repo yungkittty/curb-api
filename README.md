@@ -8,7 +8,7 @@ Pour lancer le projet rapidement, assurez-vous d'avoir Docker d'installé.
 
 ```bash
 git clone https://github.com/yungkittty/curb-api
-docker-compose up
+docker-compose up # ajouter -d pour lancer en background
 ```
 
 Les différents micro-services se lancent en fonction des ports mappés dans le fichier `docker-compose.yml`.
