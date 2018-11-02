@@ -1,8 +1,7 @@
 {
-  "name": "curb-ms-blank",
-  "description": "Boilerplate for Curb Microservice",
-  "author": "Curb",
-  "license": "UNLICENSED",
+  "name": "sign-up",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
@@ -21,7 +20,9 @@
   "devDependencies": {
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "nodemon": "^1.18.5"
+    "nodemon": "^1.18.5",
+    "prettier": "^1.14.3"
   }
 }
