@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  curb-sign-in:
+    build: ./services/sign-in
+    ports:
+      - 3001:3000
+
+  curb-sign-up:
+    build: ./services/sign-up
+    ports:
+      - 3002:3000
