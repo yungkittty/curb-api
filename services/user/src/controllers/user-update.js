@@ -1,12 +1,14 @@
 const update = require('../services/update');
-const express = require('express');
-const mongoose = require('mongoose');
 
 async function userUpdate(req, res) {
+  try {
     const doService = await update(req.body.id, req.body.changePassword);
-    res.status(200).json({
-        updatedUser: doService
+    return res.status(200).json({
+      updatedUser: doService
     });
-};
+  } catch (error) {
+    return res.status(400).json({});
+  }
+}
 
 module.exports = userUpdate;

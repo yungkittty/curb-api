@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
-    login: {type: String, unique: true, required: true},
-    password: {type: String, required: true},
-    refreshToken: String,
-    dateCreation: Date
-});
+mongoose.connect(
+  'mongodb://localhost/Curb',
+  { useNewUrlParser: true }
+);
 
-mongoose.set('debug', true)
+const userSchema = mongoose.Schema({
+  login: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  refreshToken: String,
+  dateCreation: Date
+});
 
 module.exports = mongoose.model('user', userSchema);

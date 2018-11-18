@@ -4,8 +4,8 @@ const userUpdate = require('./user-update');
 const userDelete = require('./user-delete');
 
 module.exports = {
-    userCreate,
-    userRead,
-    userUpdate,
-    userDelete
+  userCreate,
+  userRead,
+  userUpdate,
+  userDelete
 };

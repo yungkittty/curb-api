@@ -2,13 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const controllers = require('../controllers');
+const controllers = require('./controllers');
+
 const app = express();
 
-mongoose.connect('mongodb://localhost/EIP', { useNewUrlParser: true});
+mongoose.set('debug', true);
 
 app.use(bodyParser.json());
-
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
