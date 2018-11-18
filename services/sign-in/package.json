@@ -1,5 +1,7 @@
 {
-  "name": "curb-ms-auth",
+  "name": "sign-in",
+  "version": "0.0.1",
+  "private": true,
   "description": "Curb Microservice Authentication",
   "author": "Curb",
   "license": "UNLICENSED",
