@@ -15,13 +15,13 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.post('/auth/signin', controllers.signIn);
-app.post('/auth/signout', middlewares.validate, controllers.signOut);
-app.post('/auth/refresh', controllers.refresh);
-app.post('/auth/validate', controllers.validate);
+app.post('/signin', controllers.signIn);
+app.post('/signout', middlewares.validate, controllers.signOut);
+app.post('/refresh', controllers.refresh);
+app.post('/validate', controllers.validate);
 
-app.post('/auth/test', middlewares.validate, (req, res) => {
-  return res.json({ toto: 'coucou' }).end();
-});
+// app.post('/test', middlewares.validate, (req, res) => {
+//   return res.json({ toto: 'coucou' }).end();
+// });
 
 module.exports = app;

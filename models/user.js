@@ -31,21 +31,4 @@ userSchema.methods.getPublicFields = function() {
   return { id: _id, ...publicUser };
 };
 
-const userModel = mongoose.model('users', userSchema);
-
-// const toto = new userModel({
-//   login: 'maamll',
-//   password: 'obo',
-//   refreshToken: ''
-// });
-
-// toto.save(err => {
-//   userModel.find({}, function(err, docs) {
-//     console.log({ err, docs });
-//   });
-// });
-userModel.find({}, function(err, docs) {
-  console.log({ err, docs });
-});
-
 module.exports = mongoose.model('users', userSchema);
