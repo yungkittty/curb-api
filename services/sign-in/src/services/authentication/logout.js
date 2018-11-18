@@ -1,4 +1,4 @@
-const User = require('../../user');
+const User = require('../../../../../models/user');
 
 async function logout(userInfo) {
   const user = await User.findOne({ login: userInfo.login });

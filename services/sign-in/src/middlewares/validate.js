@@ -1,6 +1,6 @@
 const tokens = require('../services/tokens');
 
-function validate(req, res) {
+function validate(req, res, next) {
   const { token, id } = req.body;
   if (!token || !id) {
     return res.send(403).end();
@@ -10,7 +10,7 @@ function validate(req, res) {
     if (!decoded) {
       return res.sendStatus(403).end();
     }
-    return res.sendStatus(200).end();
+    return next();
   } catch (error) {
     return res.sendStatus(403).end();
   }

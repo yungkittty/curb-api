@@ -1,5 +1,5 @@
 const tokens = require('../tokens');
-const User = require('../../user');
+const User = require('../../../../../models/user');
 const { validatePassword } = require('./validate-password');
 
 async function authenticate(userInfo) {
@@ -8,17 +8,12 @@ async function authenticate(userInfo) {
     if (!user) return null;
     const trustUser = await validatePassword(userInfo.password, user.password);
     if (!trustUser) return null;
-    const token = tokens.createToken(user._id);
-    const refreshToken = tokens.createRefreshToken(user._id);
+    const token = tokens.createToken(user._id.toString());
+    const refreshToken = tokens.createRefreshToken(user._id.toString());
     if (!token || !refreshToken) return null;
     user.refreshToken = refreshToken;
     user.save();
-    // eslint-disable-next-line
-    const { password, __v, _id, ...safeUser } = user.toObject();
-    /**
-     * Schema.options.toObject() ~ toJSON();
-     */
-    return { user: { id: _id, ...safeUser }, token };
+    return { user: user.getPublicFields(), token };
   } catch (error) {
     throw error;
   }

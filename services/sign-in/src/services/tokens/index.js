@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../../user');
+const User = require('../../../../../models/user');
 const jwtConfig = require('../../configurations/jwt');
 
 function generateToken(payload, expireTime) {
@@ -9,20 +9,28 @@ function generateToken(payload, expireTime) {
 }
 
 function createToken(payload) {
-  return generateToken(payload, jwtConfig.tokenExpiration);
+  return generateToken(
+    { type: 'token', userId: payload },
+    jwtConfig.tokenExpiration
+  );
 }
 
 function createRefreshToken(payload) {
-  return generateToken(payload, jwtConfig.refreshTokenExpiration);
+  return generateToken(
+    { type: 'refreshToken', userId: payload },
+    jwtConfig.refreshTokenExpiration
+  );
 }
 
-function verify(token) {
-  return jwt.verify(token, jwtConfig.secret);
+function verify(token, type, userId) {
+  const decoded = jwt.verify(token, jwtConfig.secret);
+  return decoded.payload.type === type && decoded.payload.userId === userId;
 }
 
 async function refreshTokens(token, refreshToken, userId) {
   try {
-    verify(token);
+    const decoded = verify(token, 'token', userId);
+    if (!decoded) return null;
   } catch (error) {
     if (error.name !== 'TokenExpiredError') {
       throw error;
