@@ -1,10 +1,12 @@
 {
-    "extends": "airbnb-base",
-    "env": {
-        "node": true,
-        "mocha": true
-    },
-    "rules": {
-        "import/no-unresolved": "off"
-    }
+  "extends": "airbnb-base",
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "import/no-unresolved": "off",
+    "comma-dangle": "off",
+    "no-underscore-dangle": "off"
+  }
 }
