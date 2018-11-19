@@ -1,12 +1,12 @@
 const tokens = require('../services/tokens');
 
-function validate(req, res) {
-  const { token, id } = req.body;
-  if (!token || !id) {
+async function validate(req, res) {
+  const { token } = req.body;
+  if (!token) {
     return res.send(403).end();
   }
   try {
-    const decoded = tokens.verify(token, 'token', id);
+    const decoded = await tokens.verify(token, 'token');
     if (!decoded) {
       return res.sendStatus(403).end();
     }

@@ -22,14 +22,20 @@ function createRefreshToken(payload) {
   );
 }
 
-function verify(token, type, userId) {
+async function verify(token, type, userId = null) {
   const decoded = jwt.verify(token, jwtConfig.secret);
+  if (!userId) {
+    const { _id } = await User.findById(decoded.payload.userId);
+    return (
+      decoded.payload.type === type && decoded.payload.userId === _id.toString()
+    );
+  }
   return decoded.payload.type === type && decoded.payload.userId === userId;
 }
 
 async function refreshTokens(token, refreshToken, userId) {
   try {
-    const decoded = verify(token, 'token', userId);
+    const decoded = await verify(token, 'token', userId);
     if (!decoded) return null;
   } catch (error) {
     if (error.name !== 'TokenExpiredError') {
