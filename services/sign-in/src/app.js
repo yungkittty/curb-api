@@ -20,8 +20,4 @@ app.post('/sign-out', middlewares.validate, controllers.signOut);
 app.post('/refresh', controllers.refresh);
 app.post('/validate', controllers.validate);
 
-app.post('/test', middlewares.validate, (req, res) => {
-  return res.json({ toto: 'coucou' }).end();
-});
-
 module.exports = app;
