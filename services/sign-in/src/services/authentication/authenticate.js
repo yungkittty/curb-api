@@ -13,7 +13,7 @@ async function authenticate(userInfo) {
     if (!token || !refreshToken) return null;
     user.refreshToken = refreshToken;
     user.save();
-    return { user: user.getPublicFields(), token };
+    return { id: user._id.toString(), token, refreshToken };
   } catch (error) {
     throw error;
   }

@@ -12,7 +12,8 @@ async function signIn(req, res) {
     }
     return res.status(200).json({
       token: signed.token,
-      user: signed.user
+      refreshToken: signed.refreshToken,
+      id: signed.id
     });
   } catch (error) {
     return res.status(400).end();
