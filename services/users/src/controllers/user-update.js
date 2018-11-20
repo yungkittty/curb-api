@@ -7,7 +7,7 @@ async function userUpdate(req, res) {
       updatedUser: doService
     });
   } catch (error) {
-    return res.status(400).json({});
+    return res.status(400).end();
   }
 }
 

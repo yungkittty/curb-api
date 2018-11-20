@@ -6,7 +6,7 @@ async function userDelete(req, res) {
     if (!doService) return res.status(400).end();
     return res.status(200).end();
   } catch (error) {
-    return res.status(400).json({});
+    return res.status(400).end();
   }
 }
 
