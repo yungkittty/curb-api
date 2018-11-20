@@ -15,13 +15,9 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.post('/signin', controllers.signIn);
-app.post('/signout', middlewares.validate, controllers.signOut);
+app.post('/sign-in', controllers.signIn);
+app.post('/sign-out', middlewares.validate, controllers.signOut);
 app.post('/refresh', controllers.refresh);
 app.post('/validate', controllers.validate);
-
-// app.post('/test', middlewares.validate, (req, res) => {
-//   return res.json({ toto: 'coucou' }).end();
-// });
 
 module.exports = app;

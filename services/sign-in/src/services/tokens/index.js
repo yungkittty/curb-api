@@ -22,29 +22,29 @@ function createRefreshToken(payload) {
   );
 }
 
-async function verify(token, type, userId = null) {
+async function verify(token, type) {
   const decoded = jwt.verify(token, jwtConfig.secret);
-  if (!userId) {
-    const { _id } = await User.findById(decoded.payload.userId);
-    return (
-      decoded.payload.type === type && decoded.payload.userId === _id.toString()
-    );
-  }
-  return decoded.payload.type === type && decoded.payload.userId === userId;
+  const { _id } = await User.findById(decoded.payload.userId);
+  // eslint-disable-next-line
+  return decoded.payload.type === type &&
+    decoded.payload.userId === _id.toString()
+    ? decoded
+    : null;
 }
 
-async function refreshTokens(token, refreshToken, userId) {
+async function refreshTokens(token, refreshToken) {
   try {
-    const decoded = await verify(token, 'token', userId);
+    const decoded = await verify(token, 'token');
     if (!decoded) return null;
   } catch (error) {
     if (error.name !== 'TokenExpiredError') {
       throw error;
     }
-    const user = await User.findById(userId);
+    const decoded = jwt.decode(token);
+    const user = await User.findById(decoded.payload.userId);
     if (!user || refreshToken !== user.refreshToken) return null;
-    const newRefreshToken = createRefreshToken(user._id);
-    const newToken = createToken(user._id);
+    const newRefreshToken = createRefreshToken(user._id.toString());
+    const newToken = createToken(user._id.toString());
     user.refreshToken = newRefreshToken;
     user.save();
     return {
