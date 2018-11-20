@@ -7,7 +7,7 @@ async function userCreate(req, res) {
       createdUser: doService
     });
   } catch (error) {
-    return res.status(400).json({});
+    return res.status(400).end();
   }
 }
 
