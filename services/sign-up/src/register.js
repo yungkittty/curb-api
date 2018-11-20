@@ -13,10 +13,13 @@ router.put('/', (req, res) => {
     dateCreation: Date.now(),
   });
 
-  newUser.save((err) => {
-    if (err) res.status(409).end();
+  newUser.save((error) => {
+    if (error) {
+      res.status(409).end();
+    } else {
+      res.status(200).end();
+    }
   });
-  res.status(200).end();
 });
 
 module.exports = router;

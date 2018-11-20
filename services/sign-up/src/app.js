@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.use('/signup', register);
+app.use('/sign-up', register);
 
 
 module.exports = app;
