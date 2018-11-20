@@ -8,7 +8,7 @@ function create(newUser) {
     dateCreation: currentDate
   });
   user.save();
-  return user;
+  return user.getPublicFields();
 }
 
 module.exports = create;

@@ -2,7 +2,7 @@ const update = require('../services/update');
 
 async function userUpdate(req, res) {
   try {
-    const doService = await update(req.body.id, req.body.changePassword);
+    const doService = await update(req.body.id, req.body.newPassword);
     return res.status(200).json({
       updatedUser: doService
     });

@@ -2,7 +2,7 @@ const User = require('../../../../models/user');
 
 async function read(id) {
   const user = await User.findById(id);
-  return user;
+  return user.getPublicFields();
 }
 
 module.exports = read;
