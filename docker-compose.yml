@@ -10,3 +10,8 @@ services:
     build: ./services/sign-up
     ports:
       - 3002:3000
+
+  curb-users:
+    build: ./services/users
+    ports:
+      - 3003:3000

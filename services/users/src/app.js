@@ -1,12 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const controllers = require('./controllers');
-const middlewares = require('./middlewares');
 
 const app = express();
-app.use(bodyParser.json());
 
+mongoose.set('debug', true);
+
+app.use(bodyParser.json());
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
@@ -15,9 +17,9 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.post('/sign-in', controllers.signIn);
-app.post('/sign-out', middlewares.validate, controllers.signOut);
-app.post('/refresh', controllers.refresh);
-app.post('/validate', controllers.validate);
+app.post('/users', controllers.userCreate);
+app.get('/users', controllers.userRead);
+app.patch('/users', controllers.userUpdate);
+app.delete('/users', controllers.userDelete);
 
 module.exports = app;
