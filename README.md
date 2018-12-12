@@ -215,12 +215,13 @@ avatarUrl: {String}
 
 ```
 id: {Uuid},
+creatorId: {Uuid},
 name: {String},
 public: {Bool},
 dateCreation: {String},
 avatarUrl: {String},
 users: [Users],
-contentList: [Contents]
+contents: [Contents]
 
 ```
 
