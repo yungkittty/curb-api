@@ -93,6 +93,82 @@ changer la route sign-up/create/sign-in
 
 :lock: : Routes where user need to be authenticate, request will need to pass the token in the request.
 
+### AUTH
+
+:warning: As for all the routes that need a authentificated user, a token need to be provided in the Authorization request header as follow :
+
+`Authorization: 'Bearer ' + userToken;`
+
+#### /sign-in {POST}
+
+##### parameter:
+
+```
+{
+  email: {String},
+  password: {String},
+}
+```
+
+##### response: success: 200 | failure: 400
+
+```
+{
+  id: {Uuid},
+  token: {String},
+  refreshToken: {String}
+}
+```
+
+#### /sign-out/:id {POST} :lock:
+
+##### response: success: 200 | failure: 400 | 401
+
+#### /refresh {POST}
+
+#### header: Authorization: 'Bearer ' + token
+
+##### parameter:
+
+```
+{
+  refreshToken: {String}
+}
+```
+
+##### response: success: 200 | failure: 400
+
+```
+{
+  token: {String},
+  refreshToken: {String},
+  id: {Uuid}
+}
+```
+
+#### /validate {POST}
+
+route to validate the user's token
+
+#### header: Authorization: 'Bearer ' + token
+
+##### response: success: 200 | failure: 403
+
+### SIGN-UP
+
+#### /sign-up {POST}
+
+##### parameter:
+
+```
+{
+  email: {String},
+  password: {String}
+}
+```
+
+##### response: success: 200 | failure: 401 | 409
+
 ### USERS
 
 #### Model
