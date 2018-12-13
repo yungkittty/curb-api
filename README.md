@@ -109,6 +109,12 @@ route to validate the user's token
 
 ##### response: success: 200 | failure: 403
 
+```
+{
+  id: {Uuid}
+}
+```
+
 ### SIGN-UP
 
 #### /sign-up {POST}
