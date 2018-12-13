@@ -51,7 +51,7 @@ changer la route sign-up/create/sign-in
     dateCreation: {String},
     avatarUrl: {String},
     users: [Users],
-    contentList: [Contents]
+    contents: [Contents]
   }
   ```
 
@@ -63,7 +63,7 @@ changer la route sign-up/create/sign-in
   ```
 
   ```
-  contentList:
+  Contents:
   {
 
   }
