@@ -18,7 +18,7 @@ changer la route sign-up/create/sign-in
       password: {String},
       refreshToken:{String},
       dateCreation: {Date},
-      avatarUrl: {String}
+      avatarUrl: {String},
 
     ```
 
@@ -177,6 +177,7 @@ route to validate the user's token
 id: {Uuid},
 email: {String},
 name: {String},
+subscribedGroupIds: [Uuid],
 password: {String},
 refreshToken:{String},
 dateCreation: {Date},
@@ -246,9 +247,9 @@ avatarUrl: {String}
 
 #### avatarUrl {GET}
 
-`http://IP:PORT/users/:id/avatar/${SIZE}/image.extension`
+`http://IP:PORT/users/:id/avatar/image_${SIZE}.extension`
 
-\${SIZE} : small, medium, big (default: medium).
+\${SIZE} : small (50x50), medium(60x60), large (default: medium).
 
 ##### parameter:
 
@@ -337,9 +338,9 @@ contentList: [Contents]
 
 #### avatarUrl {GET}
 
-`http://IP:PORT/groups/:id/avatar/${SIZE}/image.extension`
+`http://IP:PORT/groups/:id/avatar/image_${SIZE}.extension`
 
-\${SIZE} : small, medium, big (default: medium).
+\${SIZE} : small(50x50), medium(60x60), large(default: medium).
 
 #### /groups/:groupId/:userId {GET} ~ JOIN :lock:
 
