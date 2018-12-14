@@ -101,7 +101,7 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 }
 ```
 
-#### /validate {POST}
+#### /validate {POST} :lock:
 
 route to validate the user's token
 
