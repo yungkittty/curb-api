@@ -6,15 +6,15 @@ changer la route sign-up/create/sign-in
 
 - [ ] **USER**
 
-  - [ ] **model user**: rajouter le champs `email`, rajouter le champs `subscribedGroupIds`, changer le champs `login` par `name`:
+  - [ x ] **model user**: rajouter le champs `email`, rajouter le champs `groups`, changer le champs `login` par `name`:
 
-  - [ ] **model user**: méthode de vérificationd d'email valide, reponse (i.e service de mailing).
+  - [ x ] **model user**: méthode de vérification d'email valide, reponse (i.e service de mailing).
 
     ```
       id: {Uuid},
       + email: {String}
       + name: {String}, // - anciement login: {String},
-      + subscribedGroupIds: {Array},
+      + groups: [String],
       password: {String},
       refreshToken:{String},
       dateCreation: {Date},
@@ -26,11 +26,11 @@ changer la route sign-up/create/sign-in
 
     - [ ] **microservice sign-up**: rajouter `l'email`, ainsi que changer le `login` par `name`.
 
-    - [ ] **microservice user**: rajouter le champ `avatarUrl` dans le model user.
+    - [ x ] **microservice user**: rajouter le champ `avatarUrl` dans le model user.
 
     - [ ] **microservice user**: OAUTH de twitter...
 
-  - [ ] **microservice user**: changer `create` pour accepter `l'email` et le `name` à la place du `login`.
+  - [ x ] **microservice user**: changer `create` pour accepter `l'email` et le `name` à la place du `login`.
 
   - [ ] **microservice user**: changer la logique pour `l'update` afin d'accepter n'importe quelle champs public de l'utilisateur pour en suite le modifier.
 
