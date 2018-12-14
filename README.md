@@ -75,7 +75,7 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 }
 ```
 
-#### /sign-out/:id {POST} :lock:
+#### /sign-out {POST} :lock:
 
 ##### response: success: 200 | failure: 400 | 401
 
