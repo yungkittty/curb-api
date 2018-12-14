@@ -28,7 +28,7 @@ async function verify(token, type) {
   // eslint-disable-next-line
   return decoded.payload.type === type &&
     decoded.payload.userId === _id.toString()
-    ? decoded
+    ? decoded.payload.userId
     : null;
 }
 

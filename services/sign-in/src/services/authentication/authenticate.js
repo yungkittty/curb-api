@@ -4,7 +4,7 @@ const { validatePassword } = require('./validate-password');
 
 async function authenticate(userInfo) {
   try {
-    const user = await User.findOne({ login: userInfo.login });
+    const user = await User.findOne({ email: userInfo.email });
     if (!user) return null;
     const trustUser = await validatePassword(userInfo.password, user.password);
     if (!trustUser) return null;
