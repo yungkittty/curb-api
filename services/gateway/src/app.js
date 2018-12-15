@@ -17,5 +17,6 @@ app.get('/', (req, res) => {
 
 app.use('/sign-in', proxy(process.env.CURB_SIGN_IN));
 app.use('/sign-up', proxy(process.env.CURB_SIGN_UP));
+app.use('/users', proxy(process.env.CURB_USERS));
 
 module.exports = app;
