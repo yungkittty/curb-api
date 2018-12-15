@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 mongoose.connect(
-  'mongodb://localhost/Curb',
+  'mongodb://db/Curb',
   { useNewUrlParser: true }
 );
 

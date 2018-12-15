@@ -1,5 +1,5 @@
 const tokens = require('../tokens');
-const User = require('../../../../../models/user');
+const User = require('../../models/user');
 const { validatePassword } = require('./validate-password');
 
 async function authenticate(userInfo) {
