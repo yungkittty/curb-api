@@ -1,20 +1,16 @@
 const mongoose = require('mongoose');
-require('mongoose-type-email');
 const bcrypt = require('bcrypt');
 
 mongoose.connect(
-  'mongodb://localhost/Curb',
+  'mongodb://db/Curb',
   { useNewUrlParser: true }
 );
 
 const userSchema = mongoose.Schema({
-  email: { type: mongoose.SchemaTypes.Email, unique: true, required: true },
-  name: { type: String, required: true },
-  groups: [String],
+  login: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   refreshToken: String,
-  dateCreation: Date,
-  avatarUrl: String
+  dateCreation: Date
 });
 
 userSchema.pre('save', async function(next) {
