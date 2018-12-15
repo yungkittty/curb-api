@@ -18,6 +18,6 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.put('/sign-up', controllers.signUp);
+app.put('/', controllers.signUp);
 
 module.exports = app;
