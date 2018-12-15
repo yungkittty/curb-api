@@ -1,4 +1,4 @@
-const User = require('../../../../models/user');
+const User = require('../models/user');
 
 function create(newUser) {
   const currentDate = new Date();
