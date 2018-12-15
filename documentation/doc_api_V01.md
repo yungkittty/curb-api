@@ -2,33 +2,38 @@
 
 ### TODO:
 
-changer la route sign-up/create/sign-in
+- [ ] **SIGN-UP**  --> à besoin d'être tester (bloquant **USER**).
+  
+    - [x] rajouter `l'email`, ainsi que changer le `login` par `name`.
+    
+    - [x] enlevé la dépendance sur le model user.
 
+    - [x] call inter-service sur `user` pour crée un utilisateur.
+    
+
+- [ ] **SIGN-IN** --> à besoin d'être tester (bloquant **USER**).
+
+    - [x] changer le `login` par `l'email` et dans le service `authenticate.
+    
+    - [x] passer le token dans le header de la requête HTTP.
+    
+    - [ ] **microservice user**: OAUTH de twitter...
+    
 - [ ] **USER**
 
-  - [x] **model user**: rajouter le champs `email`, rajouter le champs `groups`, changer le champs `login` par `name`:
+    - [x] rajouter le champs `email`, rajouter le champs `groups`, changer le champs `login` par `name`:
 
-  - [x] **model user**: méthode de vérification d'email valide, reponse (i.e service de mailing).
-
-    - [x] **microservice sign-in**: changer le `login` par `l'email` et dans le service `authenticate.
-    
-    - [x] **microservice sign-in**: passer le token dans le header de la requête HTTP.
+    - [x] méthode de vérification d'email valide, reponse (i.e service de mailing).
 
     - [x] **microservice user**: rajouter le champ `avatarUrl` dans le model user.
+    
+    - [x] **microservice user**: changer `create` pour accepter `l'email` et le `name` à la place du `login`.
 
+     - [ ] **microservice user**: changer la logique pour `l'update` afin d'accepter n'importe quelle champs public de l'utilisateur pour en suite le modifier.
 
-    - [ ] **microservice sign-up**: rajouter `l'email`, ainsi que changer le `login` par `name`.
+    - [ ] **microservice user**: faire des vérifications des paramètres des requêtes sur tous les contrôlleurs.
 
-
-    - [ ] **microservice user**: OAUTH de twitter...
-
-  - [x] **microservice user**: changer `create` pour accepter `l'email` et le `name` à la place du `login`.
-
-  - [ ] **microservice user**: changer la logique pour `l'update` afin d'accepter n'importe quelle champs public de l'utilisateur pour en suite le modifier.
-
-  - [ ] **microservice user**: faire des vérifications des paramètres des requêtes sur tous les contrôlleurs.
-
-  - [ ] **microservice user**: stocker la photo de profil (`avatar`) de l'utilisateur, sur un chemin spécial, il y aura trois formats small (50x50), medium (60x60), big (?). `avatarUrl` doit 'pointer' sur le chemin de la photo de la taille medium, c'est en changant l'url que l'on obtient les autres size. Route pour uploader la photo.
+    - [ ] **microservice user**: stocker la photo de profil (`avatar`) de l'utilisateur, sur un chemin spécial, il y aura trois formats small (50x50), medium (60x60), big (?). `avatarUrl` doit 'pointer' sur le chemin de la photo de la taille medium, c'est en changant l'url que l'on obtient les autres size. Route pour uploader la photo.
 
 - [ ] **GROUP**:
 
