@@ -19,7 +19,7 @@
     
     - [ ] **microservice user**: OAUTH de twitter...
     
-- [ ] **USER**
+- [ ] **USER** --> à besoin d'être testter (bloquant **ENVIRONNEMENT**).
 
     - [x] rajouter le champs `email`, rajouter le champs `groups`, changer le champs `login` par `name`:
 
@@ -51,7 +51,7 @@
 
 - [ ] **cross service**: faire des call intra-service. // pas fait partout !
 
-- [ ] **docker + déploiement**:
+- [x] **docker + déploiement**:
 
 ##### Further TODO:
 
