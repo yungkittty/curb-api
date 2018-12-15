@@ -6,27 +6,15 @@ changer la route sign-up/create/sign-in
 
 - [ ] **USER**
 
-  - [ x ] **model user**: rajouter le champs `email`, rajouter le champs `groups`, changer le champs `login` par `name`:
+  - [ X ] **model user**: rajouter le champs `email`, rajouter le champs `groups`, changer le champs `login` par `name`:
 
-  - [ x ] **model user**: méthode de vérification d'email valide, reponse (i.e service de mailing).
-
-    ```
-      id: {Uuid},
-      + email: {String}
-      + name: {String}, // - anciement login: {String},
-      + groups: [String],
-      password: {String},
-      refreshToken:{String},
-      dateCreation: {Date},
-      avatarUrl: {String},
-
-    ```
+  - [ X ] **model user**: méthode de vérification d'email valide, reponse (i.e service de mailing).
 
     - [ ] **microservice sign-in**: changer le `login` par `l'email` et dans le service `authenticate` aussi.
 
     - [ ] **microservice sign-up**: rajouter `l'email`, ainsi que changer le `login` par `name`.
 
-    - [ x ] **microservice user**: rajouter le champ `avatarUrl` dans le model user.
+    - [ x ] **microservice sign-in**: rajouter le champ `avatarUrl` dans le model user.
 
     - [ ] **microservice user**: OAUTH de twitter...
 
@@ -40,36 +28,9 @@ changer la route sign-up/create/sign-in
 
 - [ ] **GROUP**:
 
-  - [ ] créer le model du groupe :
+  - [ X ] créer le model du groupe.
 
-  ```
-  {
-    id: {Uuid},
-    name: {String},
-    public: {Bool},
-    creatorId: {String}
-    dateCreation: {String},
-    avatarUrl: {String},
-    users: [Users],
-    contents: [Contents]
-  }
-  ```
-
-  ```
-  Users:
-  {
-
-  }
-  ```
-
-  ```
-  Contents:
-  {
-
-  }
-  ```
-
-  [ ] faire le CRUD du group, ainsi qu'une route pour obtenir une list de groupe.
+  [ X ] faire le CRUD du group, ainsi qu'une route pour obtenir une list de groupe.
 
   [ ] faire une route join pour qu'un utilisateur puisse rejoindre un groupe.
 
@@ -86,3 +47,5 @@ changer la route sign-up/create/sign-in
 - [ ] faire un service de validation d'envois d'email.
 
 - [ ] refaire la documentation après toutes les tâches réaliser.
+
+- [ ] Table de jointure `UserGroups` qui représentera l'identité d'un user dans le groupe.
