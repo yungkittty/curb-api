@@ -138,7 +138,7 @@ route to validate the user's token
 id: {Uuid},
 email: {String},
 name: {String},
-subscribedGroupIds: [Uuid],
+groups: [Uuid],
 password: {String},
 refreshToken:{String},
 dateCreation: {Date},
