@@ -6,19 +6,23 @@ changer la route sign-up/create/sign-in
 
 - [ ] **USER**
 
-  - [ X ] **model user**: rajouter le champs `email`, rajouter le champs `groups`, changer le champs `login` par `name`:
+  - [x] **model user**: rajouter le champs `email`, rajouter le champs `groups`, changer le champs `login` par `name`:
 
-  - [ X ] **model user**: méthode de vérification d'email valide, reponse (i.e service de mailing).
+  - [x] **model user**: méthode de vérification d'email valide, reponse (i.e service de mailing).
 
-    - [ ] **microservice sign-in**: changer le `login` par `l'email` et dans le service `authenticate` aussi.
+    - [x] **microservice sign-in**: changer le `login` par `l'email` et dans le service `authenticate.
+    
+    - [x] **microservice sign-in**: passer le token dans le header de la requête HTTP.
+
+    - [x] **microservice user**: rajouter le champ `avatarUrl` dans le model user.
+
 
     - [ ] **microservice sign-up**: rajouter `l'email`, ainsi que changer le `login` par `name`.
 
-    - [ x ] **microservice sign-in**: rajouter le champ `avatarUrl` dans le model user.
 
     - [ ] **microservice user**: OAUTH de twitter...
 
-  - [ x ] **microservice user**: changer `create` pour accepter `l'email` et le `name` à la place du `login`.
+  - [x] **microservice user**: changer `create` pour accepter `l'email` et le `name` à la place du `login`.
 
   - [ ] **microservice user**: changer la logique pour `l'update` afin d'accepter n'importe quelle champs public de l'utilisateur pour en suite le modifier.
 
@@ -28,17 +32,19 @@ changer la route sign-up/create/sign-in
 
 - [ ] **GROUP**:
 
-  - [ X ] créer le model du groupe.
+  - [x] créer le model du groupe.
 
-  [ X ] faire le CRUD du group, ainsi qu'une route pour obtenir une list de groupe.
+  - [x] faire le CRUD du group, ainsi qu'une route pour obtenir une list de groupe.
+  
+  - [ ] faire une pagination pour la liste des group. (plus paramètre de recherche ?).
 
-  [ ] faire une route join pour qu'un utilisateur puisse rejoindre un groupe.
+  - [ ] faire une route join pour qu'un utilisateur puisse rejoindre un groupe.
 
-  [ ] chemin pour l'upload et la récupération de la photo.
+  - [ ] chemin pour l'upload et la récupération de la photo.
 
 ##### inter-service:
 
-- [ ] **cross service**: faire un call depuis `users ~ update` sur `sign-up validate`.
+- [ ] **cross service**: faire des call intra-service. // pas fait partout !
 
 - [ ] **docker + déploiement**:
 
@@ -46,6 +52,6 @@ changer la route sign-up/create/sign-in
 
 - [ ] faire un service de validation d'envois d'email.
 
-- [ ] refaire la documentation après toutes les tâches réaliser.
+- [x] refaire la documentation du readme.
 
 - [ ] Table de jointure `UserGroups` qui représentera l'identité d'un user dans le groupe.
