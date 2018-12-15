@@ -1,17 +1,22 @@
-const { register } = require('../services/');
+const axios = require('axios');
 
 async function signUp(req, res) {
-  if (!req.body) res.status(401).end();
-  if (!req.body.login || !req.body.password) res.status(401).end();
+  if (!req.body) res.status(400).end();
+  if (!req.body.name || !req.body.email || !req.body.password) res.status(400).end();
   try {
-    const response = await register({
-      login: req.body.login,
-      password: req.body.password
+    const response = await axios({
+      method: 'post',
+      url: 'http://localhost:3000/users',
+      validateStatus: undefined,
+      data: {
+        email: req.body.email,
+        password: req.body.password,
+        name: req.body.name
+      }
     });
-    if (!response) res.status(409).end();
-    res.status(200).end();
+    return res.status(response.status).end();
   } catch (error) {
-    res.status(409).end();
+    res.status(400).end();
   }
 }
 
