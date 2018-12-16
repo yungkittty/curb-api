@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('mongoose-type-email');
 const bcrypt = require('bcrypt');
 
 mongoose.connect(
@@ -7,10 +8,13 @@ mongoose.connect(
 );
 
 const userSchema = mongoose.Schema({
-  login: { type: String, unique: true, required: true },
+  email: { type: mongoose.SchemaTypes.Email, unique: true, required: true },
+  name: { type: String, required: true },
+  groups: [String],
   password: { type: String, required: true },
   refreshToken: String,
-  dateCreation: Date
+  dateCreation: Date,
+  avatarUrl: String
 });
 
 userSchema.pre('save', async function(next) {
