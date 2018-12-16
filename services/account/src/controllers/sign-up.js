@@ -6,9 +6,7 @@ async function signUp(req, res) {
   if (!req.body.name || !req.body.email || !req.body.password) {
     res.status(400).end();
   }
-  console.log('basic parse');
   if (!verifyEmail(req.body.email)) return res.status(400).end();
-  console.log('email parse');
   try {
     const account = await create({
       email: req.body.email,
@@ -18,7 +16,6 @@ async function signUp(req, res) {
     if (!account) return res.status(400).end();
     return res.status(200).end();
   } catch (error) {
-    console.log('ERROR=>', error);
     return res.status(400).end();
   }
 }

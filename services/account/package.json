@@ -1,5 +1,5 @@
 {
-  "name": "sign-in",
+  "name": "account",
   "version": "0.0.1",
   "private": true,
   "description": "Curb Microservice Authentication",

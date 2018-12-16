@@ -1,7 +1,7 @@
 const tokens = require('../services/tokens');
 const getTokenFromHeader = require('../utils/request/get-token-from-header');
 
-async function validate(req, res, next) {
+async function validate(req, res) {
   try {
     const token = getTokenFromHeader(req.headers.authorization);
     if (!token) return res.sendStatus(403).end();
@@ -9,9 +9,9 @@ async function validate(req, res, next) {
     if (!id) {
       return res.sendStatus(403).end();
     }
-    return next();
+    return res.sendStatus(200).end();
   } catch (error) {
-    return res.sendStatus(400).end();
+    return res.sendStatus(403).end();
   }
 }
 
