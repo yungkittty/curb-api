@@ -48,13 +48,36 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 
 :lock: : Routes where user need to be authenticate, request will need to pass the token in the request.
 
-### AUTH
+### ACCOUNT
 
 :warning: As for all the routes that need a authentificated user, a token need to be provided in the Authorization request header as follow :
 
 `Authorization: 'Bearer ' + userToken;`
 
-#### /sign-in {POST}
+#### Model
+
+```
+ {
+  id: {Uuid},
+  email: {String},
+  password: {String},
+  refreshToken: {String}
+ }
+```
+
+
+#### /account/sign-up {POST}
+
+```
+{
+  email: {String},
+  password: {String},
+  name: {String}
+}
+```
+##### response: success: 200 | failure: 400 | 500
+
+#### /account/sign-in {POST}
 
 ##### parameter:
 
@@ -75,11 +98,11 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 }
 ```
 
-#### /sign-out {POST} :lock:
+#### /account/sign-out {POST} :lock:
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /refresh {POST}
+#### /account/refresh {POST}
 
 #### header: Authorization: 'Bearer ' + token
 
@@ -91,7 +114,7 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 }
 ```
 
-##### response: success: 200 | failure: 400
+##### response: success: 200 | failure: 400 | 500
 
 ```
 {
@@ -101,7 +124,7 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 }
 ```
 
-#### /validate {POST} :lock:
+#### /account/validate {POST} :lock:
 
 route to validate the user's token
 
@@ -115,9 +138,9 @@ route to validate the user's token
 }
 ```
 
-### SIGN-UP
+#### /account/:id {PATCH} :lock:
 
-#### /sign-up {POST}
+update the account.
 
 ##### parameter:
 
@@ -127,8 +150,11 @@ route to validate the user's token
   password: {String}
 }
 ```
+##### response: success: 200 | failure: 400 | 403
 
-##### response: success: 200 | failure: 401 | 409
+#### /account/:id {DELETE} :lock:
+
+##### response: success: 200 | failure: 400 | 403
 
 ### USERS
 
