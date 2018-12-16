@@ -1,9 +1,10 @@
-const authService = require('../services/authentication');
+const authService = require('../services/account');
+const getTokenFromHeader = require('../utils/request/get-token-from-header');
 
 async function signOut(req, res) {
-  const { token } = req.body;
-  if (!token) return res.status(400).end();
   try {
+    const token = getTokenFromHeader(req.headers.authorization);
+    if (!token) return res.sendStatus(403).end();
     const response = await authService.logout(token);
     if (!response) return res.status(400).end();
     return res.status(200).end();

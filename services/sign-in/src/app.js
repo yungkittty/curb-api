@@ -17,7 +17,10 @@ app.get('/', (req, res) => {
 
 app.post('/sign-in', controllers.signIn);
 app.post('/sign-out', middlewares.validate, controllers.signOut);
+app.post('/sign-up', controllers.signUp);
 app.post('/refresh', controllers.refresh);
 app.post('/validate', controllers.validate);
+app.delete('/:id', middlewares.validate, controllers.accountDelete);
+app.patch('/:id', middlewares.validate, controllers.accountUpdate);
 
 module.exports = app;

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../../models/user');
+const Account = require('../../models/account');
 const jwtConfig = require('../../configurations/jwt');
 
 function generateToken(payload, expireTime) {
@@ -10,25 +10,24 @@ function generateToken(payload, expireTime) {
 
 function createToken(payload) {
   return generateToken(
-    { type: 'token', userId: payload },
+    { type: 'token', id: payload },
     jwtConfig.tokenExpiration
   );
 }
 
 function createRefreshToken(payload) {
   return generateToken(
-    { type: 'refreshToken', userId: payload },
+    { type: 'refreshToken', id: payload },
     jwtConfig.refreshTokenExpiration
   );
 }
 
 async function verify(token, type) {
   const decoded = jwt.verify(token, jwtConfig.secret);
-  const { _id } = await User.findById(decoded.payload.userId);
+  const { _id } = await Account.findById(decoded.payload.id);
   // eslint-disable-next-line
-  return decoded.payload.type === type &&
-    decoded.payload.userId === _id.toString()
-    ? decoded
+  return decoded.payload.type === type && decoded.payload.id === _id.toString()
+    ? decoded.payload.id
     : null;
 }
 
@@ -41,16 +40,16 @@ async function refreshTokens(token, refreshToken) {
       throw error;
     }
     const decoded = jwt.decode(token);
-    const user = await User.findById(decoded.payload.userId);
-    if (!user || refreshToken !== user.refreshToken) return null;
-    const newRefreshToken = createRefreshToken(user._id.toString());
-    const newToken = createToken(user._id.toString());
-    user.refreshToken = newRefreshToken;
-    user.save();
+    const account = await Account.findById(decoded.payload.id);
+    if (!account || refreshToken !== account.refreshToken) return null;
+    const newRefreshToken = createRefreshToken(account._id.toString());
+    const newToken = createToken(account._id.toString());
+    account.refreshToken = newRefreshToken;
+    account.save();
     return {
       token: newToken,
       refreshToken: newRefreshToken,
-      id: user._id
+      id: account._id
     };
   }
   return null;

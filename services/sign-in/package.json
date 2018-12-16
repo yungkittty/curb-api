@@ -12,6 +12,7 @@
     "lint": "./node_modules/.bin/eslint ."
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
