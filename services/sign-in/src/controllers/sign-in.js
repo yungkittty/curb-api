@@ -1,12 +1,12 @@
 const authService = require('../services/authentication');
 
 async function signIn(req, res) {
-  const { email, password } = req.body;
-  if (!email || !password) {
+  const { login, password } = req.body;
+  if (!login || !password) {
     return res.status(400).end();
   }
   try {
-    const signed = await authService.authenticate({ email, password });
+    const signed = await authService.authenticate({ login, password });
     if (!signed) {
       return res.status(400).end();
     }
