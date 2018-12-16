@@ -172,26 +172,6 @@ avatarUrl: {String}
 
 ```
 
-#### /users {POST} ~ create
-
-##### parameter:
-
-```
-{
-  email: {String},
-  name: {String},
-  password: {String},
-}
-```
-
-##### response: success: 200 | failure: 400
-
-```
-{
-  id: {Uuid}
-}
-```
-
 #### /users/:id {GET} ~ read
 
 ##### response: success: 200 | failure: 400
@@ -211,10 +191,6 @@ avatarUrl: {String}
  <any: userFields> // see model
 }
 ```
-
-##### response: success: 200 | failure: 400 | 401
-
-#### /users/:id {DELETE} ~ delete :lock:
 
 ##### response: success: 200 | failure: 400 | 401
 
