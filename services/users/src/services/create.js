@@ -6,7 +6,7 @@ function create(newUser) {
   try {
     const currentDate = new Date();
     const user = new User({
-      _id: mongoose.Types.ObjectId(newUser._id),
+      _id: mongoose.Types.ObjectId(newUser.id),
       name: newUser.name,
       dateCreation: currentDate
     });

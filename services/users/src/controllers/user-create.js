@@ -2,7 +2,7 @@ const create = require('../services/create');
 
 async function userCreate(req, res) {
   try {
-    if (!req.body._id || !req.body.name) {
+    if (!req.body.id || !req.body.name) {
       return res.status(400).end();
     }
     const doService = await create(req.body);
