@@ -2,7 +2,7 @@
 
 ### TODO:
 
-- [ ] **SIGN-UP**  --> à besoin d'être tester (bloquant **USER**).
+- [x] **SIGN-UP**  --> à besoin d'être tester (bloquant **USER**).
   
     - [x] rajouter `l'email`, ainsi que changer le `login` par `name`.
     
@@ -75,26 +75,14 @@ dateCreation: {Date}
 
 ```
 id: {Uuid},
-accountId: {Uuid},
 name: {String},
 groups: [Uuid],
 dateCreation: {Date},
-avatarUrl: {String}
+avatarUrl: {String},
+avatarSmall: {Buffer}, // micro service 'avatar' ?
+avatarMedium: {Buffer},
+avatarLarge: {Buffer},
 ```
-
-create -> req -> accountId + name + password. (route privé)
-res -> same.
-
-update -> req -> 
-res -> same (publicFields)
-
-read -> juste changer les publicFields (route privé)
-
-delete -> (route privé)
-
-+ account/delete (à réfléchir).
-+ account/update
-
 
 ### routes privées à modifier: 
 
