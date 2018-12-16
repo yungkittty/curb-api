@@ -42,6 +42,12 @@ Un dossier `.curb-ms-blank` est disponible contenant le minimum vital pour comme
 
 Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml` pour le lancer avec les autres.
 
+## UTILISER DOCKER
+
+**installer docker et docker-compose**
+
+`docker-compose up --build` pour build et `docker kill $(docker ps -q)` pour kill les containers.
+
 ## ROUTES
 
 ##### LEGEND
