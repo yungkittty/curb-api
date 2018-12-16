@@ -84,7 +84,7 @@ avatarMedium: {Buffer},
 avatarLarge: {Buffer},
 ```
 
-### routes privées à modifier: 
+### routes à passer en privée: 
 
 #### /users {POST} ~ create
 
