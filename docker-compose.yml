@@ -16,8 +16,7 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - curb-sign-in
-      - curb-sign-up
+      - curb-accounts
       - curb-users
 
   curb-users:
@@ -27,12 +26,9 @@ services:
     depends_on:
       - db
 
-  curb-sign-in:
-    build: ./services/sign-in
+  curb-accounts:
+    build: ./services/accounts
     ports:
       - 3001:3000
-
-  curb-sign-up:
-    build: ./services/sign-up
-    ports:
-      - 3002:3000
+    depends_on:
+      - db

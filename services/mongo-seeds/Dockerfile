@@ -1,3 +1,5 @@
 FROM mongo
 COPY users.json /users.json
-CMD mongoimport --host db --db Curb --collection users --type json --file /users.json --jsonArray 2> /dev/null
+COPY accounts.json /accounts.json
+CMD ls -1 *.json | sed 's/.json$//' | while read col; do mongoimport -d Curb -c $col < $col.json; done
+
