@@ -95,3 +95,33 @@ delete -> (route privé)
 + account/delete (à réfléchir).
 + account/update
 
+
+### routes privées à modifier: 
+
+#### /users {POST} ~ create
+
+##### parameter:
+
+```
+{
+  email: {String},
+  name: {String},
+  password: {String},
+}
+```
+
+##### response: success: 200 | failure: 400
+
+```
+{
+  id: {Uuid}
+}
+```
+
+#### /users/:id {DELETE} ~ delete :lock:
+
+##### response: success: 200 | failure: 400 | 401
+
+
+
+
