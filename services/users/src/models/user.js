@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  'mongodb://localhost/Curb',
+  'mongodb://db/Curb',
   { useNewUrlParser: true }
 );
 
