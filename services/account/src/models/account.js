@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('mongoose-type-email');
 const bcrypt = require('bcrypt');
 
 mongoose.connect(
@@ -11,7 +12,8 @@ const accountSchema = mongoose.Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   refreshToken: String,
-  dateCreation: Date
+  dateCreation: Date,
+  avatarUrl: String
 });
 
 // eslint-disable-next-line
