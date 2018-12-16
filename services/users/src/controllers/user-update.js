@@ -13,7 +13,7 @@ async function userUpdate(req, res) {
     }
     const doService = await update(req.params.id, req.body);
     return res.status(200).json({
-      updatedUser: doService
+      ...doService
     });
   } catch (error) {
     return res.status(500).end();
