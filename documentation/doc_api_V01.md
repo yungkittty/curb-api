@@ -60,3 +60,38 @@
 - [x] refaire la documentation du readme.
 
 - [ ] Table de jointure `UserGroups` qui représentera l'identité d'un user dans le groupe.
+
+**ACCOUNT MODEL**
+
+```
+id: {Uuid},
+email: {String}
+password: {String},
+refreshToken:{String},
+dateCreation: {Date}
+```
+
+**USER MODEL**
+
+```
+id: {Uuid},
+accountId: {Uuid},
+name: {String},
+groups: [Uuid],
+dateCreation: {Date},
+avatarUrl: {String}
+```
+
+create -> req -> accountId + name + password. (route privé)
+res -> same.
+
+update -> req -> 
+res -> same (publicFields)
+
+read -> juste changer les publicFields (route privé)
+
+delete -> (route privé)
+
++ account/delete (à réfléchir).
++ account/update
+
