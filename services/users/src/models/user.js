@@ -1,18 +1,23 @@
 const mongoose = require('mongoose');
+require('mongoose-type-email');
 const bcrypt = require('bcrypt');
 
 mongoose.connect(
-  'mongodb://db/Curb',
+  'mongodb://localhost/Curb',
   { useNewUrlParser: true }
 );
 
 const userSchema = mongoose.Schema({
-  login: { type: String, unique: true, required: true },
+  email: { type: mongoose.SchemaTypes.Email, unique: true, required: true },
+  name: { type: String, required: true },
+  groups: [String],
   password: { type: String, required: true },
   refreshToken: String,
-  dateCreation: Date
+  dateCreation: Date,
+  avatarUrl: String
 });
 
+// eslint-disable-next-line
 userSchema.pre('save', async function(next) {
   if (this.isModified('password') || this.isNew) {
     if (this.isNew) this.dateCreation = new Date();
@@ -26,7 +31,9 @@ userSchema.pre('save', async function(next) {
   }
 });
 
+// eslint-disable-next-line
 userSchema.methods.getPublicFields = function() {
+  // eslint-disable-next-line
   const { password, __v, _id, ...publicUser } = this.toObject();
   return { id: _id, ...publicUser };
 };

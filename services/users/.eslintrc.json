@@ -6,6 +6,7 @@
   },
   "rules": {
     "import/no-unresolved": "off",
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "no-underscore-dangle": "off"
   }
 }

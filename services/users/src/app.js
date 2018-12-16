@@ -17,9 +17,9 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.post('/users', controllers.userCreate);
-app.get('/users', controllers.userRead);
-app.patch('/users', controllers.userUpdate);
-app.delete('/users', controllers.userDelete);
+app.post('/', controllers.userCreate);
+app.get('/:id', controllers.userRead);
+app.patch('/:id', controllers.userUpdate);
+app.delete('/:id', controllers.userDelete);
 
 module.exports = app;
