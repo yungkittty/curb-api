@@ -46,7 +46,8 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 
 **installer docker et docker-compose**
 
-`docker-compose up --build` pour build et `docker kill $(docker ps -q)` pour kill les containers.
+`docker-compose up --build` pour build et en suite `docker-compose up ` pour run si vous arrêter les containes.
+`docker kill $(docker ps -q)` pour kill les containers.
 
 ## ROUTES
 
