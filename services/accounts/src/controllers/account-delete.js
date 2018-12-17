@@ -6,7 +6,7 @@ async function accountDelete(req, res) {
   try {
     const token = getTokenFromHeader(req.headers.authorization);
     if (!token) return res.sendStatus(403).end();
-    const account = await remove(req.params.id, token);
+    const account = await remove(req.ip.split(':')[3], req.params.id, token);
     if (!account) return res.status(400).end();
     return res.status(200).end();
   } catch (error) {

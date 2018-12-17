@@ -8,7 +8,7 @@ async function signUp(req, res) {
   }
   if (!verifyEmail(req.body.email)) return res.status(400).end();
   try {
-    const account = await create({
+    const account = await create(req.ip.split(':')[3], {
       email: req.body.email,
       name: req.body.name,
       password: req.body.password
