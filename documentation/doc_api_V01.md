@@ -11,7 +11,7 @@
     - [x] call inter-service sur `user` pour crée un utilisateur.
     
 
-- [ ] **SIGN-IN** --> à besoin d'être tester (bloquant **USER**).
+- [X] **SIGN-IN** --> à besoin d'être tester (bloquant **USER**).
 
     - [x] changer le `login` par `l'email` et dans le service `authenticate.
     
@@ -19,7 +19,7 @@
     
     - [ ] **microservice user**: OAUTH de twitter...
     
-- [ ] **USER** --> à besoin d'être testter (bloquant **ENVIRONNEMENT**).
+- [X] **USER** --> à besoin d'être testter (bloquant **ENVIRONNEMENT**).
 
     - [x] rajouter le champs `email`, rajouter le champs `groups`, changer le champs `login` par `name`:
 
@@ -29,9 +29,9 @@
     
     - [x] **microservice user**: changer `create` pour accepter `l'email` et le `name` à la place du `login`.
 
-     - [ ] **microservice user**: changer la logique pour `l'update` afin d'accepter n'importe quelle champs public de l'utilisateur pour en suite le modifier.
+    - [X] **microservice user**: changer la logique pour `l'update` afin d'accepter n'importe quelle champs public de l'utilisateur pour en suite le modifier.
 
-    - [ ] **microservice user**: faire des vérifications des paramètres des requêtes sur tous les contrôlleurs.
+    - [X] **microservice user**: faire des vérifications des paramètres des requêtes sur tous les contrôlleurs.
 
     - [ ] **microservice user**: stocker la photo de profil (`avatar`) de l'utilisateur, sur un chemin spécial, il y aura trois formats small (50x50), medium (60x60), big (?). `avatarUrl` doit 'pointer' sur le chemin de la photo de la taille medium, c'est en changant l'url que l'on obtient les autres size. Route pour uploader la photo.
 
@@ -49,7 +49,7 @@
 
 ##### inter-service:
 
-- [ ] **cross service**: faire des call intra-service. // pas fait partout !
+- [X] **cross service**: faire des call intra-service.
 
 - [x] **docker + déploiement**:
 
@@ -60,6 +60,45 @@
 - [x] refaire la documentation du readme.
 
 - [ ] Table de jointure `UserGroups` qui représentera l'identité d'un user dans le groupe.
+
+##### NEW:
+
+  - [ ] **MICRO SERVICE AVATAR**:
+      
+    - [ ] POST route /avatar/upload/groups/:groupId.
+      ```
+        {
+          name: {String} (filename + extension},
+          image: {Buffer} (choix de la personne qui fait le service)
+        }
+      ```
+    - [ ] POST route /avatar/upload/users/:userId.
+    
+      ```
+        {
+          name: {String} (filename + extension},
+          image: {Buffer} (choix de la personne qui fait le service)
+        }
+      ```
+     
+     Ces urls correspondront au champs avatarUrl respectivement dans Groups et Users.
+    - [ ] GET route /avatar/groups/:{size}/{filename}.{extension}.
+    - [ ] GET route /avatar/users/:{size}/{filename}.{extension}.
+      - retourne que l'image.
+      - {size}: large || medium || small.
+      - {filename}: groupId || userId.
+      - {extension}: Image standard format (.png, .jpeg...).
+
+
+**AVATAR MODEL**
+```
+  {
+    image: {Buffer},
+    dateCreation: {Date},
+    name: {String} // name i.e: groupId || userId
+    ... ?
+  }
+```
 
 **ACCOUNT MODEL**
 
@@ -79,12 +118,11 @@ name: {String},
 groups: [Uuid],
 dateCreation: {Date},
 avatarUrl: {String},
-avatarSmall: {Buffer}, // micro service 'avatar' ?
-avatarMedium: {Buffer},
-avatarLarge: {Buffer},
 ```
 
 ### routes à passer en privée: 
+
+#### les routes du microserivices avatar
 
 #### /users {POST} ~ create
 
