@@ -7,6 +7,15 @@ const { check, validationResult } = require('express-validator/check');
 const images = express();
 
 const upload = multer({
+  fileFilter: (req, file, callback) => {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      callback(new Error('Only image files are allowed'));
+    }
+    callback(null, true);
+  },
+  limits: {
+    fieldSize: process.env.IMAGE_LIMIT_SIZE * 1024 * 1024
+  },
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
       const path = `./uploads/${req.params.groupId}/images`;
@@ -14,7 +23,7 @@ const upload = multer({
       callback(null, path);
     },
     filename: (req, file, callback) => {
-      callback(null, `${uuidv4()}.${file.originalname.split('.')[1]}`);
+      callback(null, `${uuidv4()}.${file.originalname.split('.').reverse()[0]}`);
     }
   })
 });
