@@ -14,7 +14,7 @@ services:
   curb-gateway:
     build: ./services/gateway
     ports:
-      - 3000:3000
+      - 4000:4000
     depends_on:
       - curb-accounts
       - curb-users
@@ -22,13 +22,13 @@ services:
   curb-users:
     build: ./services/users
     ports:
-      - 3003:3000
+      - 4003:4000
     depends_on:
       - db
 
   curb-accounts:
     build: ./services/accounts
     ports:
-      - 3001:3000
+      - 4001:4000
     depends_on:
       - db

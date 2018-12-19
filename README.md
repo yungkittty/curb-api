@@ -22,7 +22,7 @@ yarn
 yarn dev
 ```
 
-Le service est alors disponible sur `http://localhost:3000`.
+Le service est alors disponible sur `http://localhost:4000`.
 
 # Architecture des microservices
 
