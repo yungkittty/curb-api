@@ -1,5 +1,7 @@
 const upload = (req, res) => (
-  res.status(200).end()
+  res.status(200).json({
+    file: req.file.filename,
+  })
 );
 
 module.exports = upload;
