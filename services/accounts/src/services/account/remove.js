@@ -6,7 +6,7 @@ async function remove(ip, id, token) {
   if (!account) throw new Error('Inexistent resource');
   const response = await axios({
     method: 'delete',
-    url: `http://${ip}:3000/users/${id}`,
+    url: `http://${ip}:4000/users/${id}`,
     headers: { Authorization: `Bearer ${token}` },
     validateStatus: undefined
   });
