@@ -1,7 +1,7 @@
 const axios = require('axios');
 const Account = require('../../models/account');
 
-async function create(ip, account) {
+async function create(account) {
   const newAccount = new Account({
     name: account.name,
     email: account.email,
@@ -9,7 +9,7 @@ async function create(ip, account) {
   });
   const response = await axios({
     method: 'post',
-    url: `http://${ip}:4000/users`,
+    url: `http://curb-users:4000/`,
     validateStatus: undefined,
     headers: { 'Content-Type': 'application/json' },
     data: {
