@@ -171,7 +171,6 @@ update the account.
 id: {Uuid},
 email: {String},
 name: {String},
-groups: [Uuid],
 password: {String},
 refreshToken:{String},
 dateCreation: {Date},
