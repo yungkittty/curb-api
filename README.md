@@ -284,10 +284,7 @@ contentList: [Contents]
 
 ```
 {
- "count": {Number},
- "maxId": [String],
  "groups": [String]
- 
 }
 ```
 
