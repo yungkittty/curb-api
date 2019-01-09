@@ -269,6 +269,28 @@ contentList: [Contents]
 }
 ```
 
+#### /groups/ {GET}
+
+##### params: 
+
+| Name | Required | Default | Description |
+|:---:|:---:|:---:|:---:|
+| maxId   | optional | | will get the id greater than the maxId |
+| count    | optional | 5 | number of groups |
+| creatorId    | optional |       | filter on creator |
+| userId    | optional | | filter on userId |
+
+##### response: success: 200 | failure: 400
+
+```
+{
+ "count": {Number},
+ "maxId": [String],
+ "groups": [String]
+ 
+}
+```
+
 #### /groups/:id {PATCH} :lock:
 
 :warning: (creatorId)
