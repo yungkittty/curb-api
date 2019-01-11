@@ -8,7 +8,6 @@ mongoose.connect(
 const userSchema = mongoose.Schema({
   _id: { type: mongoose.SchemaTypes.ObjectId, auto: false },
   name: { type: String, required: true, unique: true },
-  groups: [String],
   dateCreation: Date,
   avatarUrl: String
 });
