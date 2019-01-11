@@ -1,8 +1,6 @@
 const axios = require('axios');
 const invite = require('../services/invite');
 
-// /:groupId/:issuerId/:guestId
-
 async function groupInvite(req, res) {
   if (!req.params.groupId || !req.params.issuerId || !req.params.guestId) {
     return res.status(400).end();

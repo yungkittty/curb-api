@@ -13,8 +13,6 @@ async function groupPermissions(res, req) {
     console.log('ERROR', error);
     return res.status(500).end();
   }
-  // public -> peut acceder
-  // private -> que si son id est présent
 }
 
 module.exports = groupPermissions;
