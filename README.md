@@ -334,14 +334,22 @@ contentList: [Contents]
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /groups/:contentId
-
-:construction:
-
-##### parameter:
+#### /groups/media/:groupId/:mediaId {POST} ~ POST MEDIA :no_entry_sign:
 
 ##### response: success: 200 | failure: 400
 
-:construction:
+#### /groups/permissions/:groupId/:userId {GET} ~ GROUP PERMISSIONS :no_entry_sign:
+
+##### response: success: 200 | failure: 400 | 500
+
+```
+{
+  creator: Boolean,
+  write: Boolean,
+  read: Boolean
+}
+```
 
 ### MEDIA / CONTENTS
+
+:construction:
