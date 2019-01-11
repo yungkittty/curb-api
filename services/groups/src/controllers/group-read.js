@@ -44,7 +44,7 @@ async function groupRead(req, res) {
     if (!group) return res.status(400).end();
     return res
       .status(200)
-      .json({ ...group })
+      .json(group)
       .end();
   } catch (error) {
     console.log(error);

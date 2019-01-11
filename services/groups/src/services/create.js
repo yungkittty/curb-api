@@ -9,7 +9,7 @@ async function create(group) {
   });
   newGroup.users = [...newGroup.users, group.creatorId];
   await newGroup.save();
-  return newGroup._id;
+  return { id: newGroup._id };
 }
 
 module.exports = create;

@@ -49,9 +49,7 @@ async function groupCreate(req, res) {
     console.log('valite response', response.data);
     const groupId = await create({ creatorId: response.data.id, name, status });
     if (!groupId) return res.status(500).end();
-    return res.status(200).json({
-      id: groupId
-    });
+    return res.status(200).json(groupId);
   } catch (error) {
     console.log('ERROR', error);
     return res.status(500).end();
