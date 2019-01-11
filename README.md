@@ -362,7 +362,7 @@ Ne marchera pas pour les groupes privés.
 
 ##### response: success: 200 | failure: 400 | 403 | 50
 
-#### /groups/media/:groupId/:mediaId {POST} ~ POST MEDIA :no_entry_sign:
+#### /groups/medias/:groupId/:mediaId {POST} ~ POST MEDIA :no_entry_sign:
 
 ##### response: success: 200 | failure: 400
 
