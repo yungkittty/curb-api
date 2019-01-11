@@ -1,7 +1,6 @@
 const Group = require('../models/group');
 
 async function list({ maxId, count = 5, authId, ...filters }) {
-  console.log('PARAMS=>', maxId, count, filters);
   const queryList = Group.find();
   let isUser = false;
   let isCreator = false;

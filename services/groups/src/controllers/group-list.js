@@ -15,7 +15,6 @@ async function groupList(req, res) {
         return res.status(authResponse.status).end();
       }
     }
-    console.log(req.query);
     const authId =
       !authResponse || !authResponse.status ? undefined : authResponse.data.id;
     const response = await list({
@@ -24,7 +23,6 @@ async function groupList(req, res) {
       authId
     });
     if (!response) return res.status(400).end();
-    console.log('list=>', response);
     return res
       .status(200)
       .json(response)

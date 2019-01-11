@@ -37,9 +37,7 @@ async function groupJoin(req, res) {
       url: 'http://curb-accounts:4000/validate',
       validateStatus: undefined
     });
-    console.log('auth call=>', response.status);
     if (response.status !== 200) return res.status(response.status).end();
-    console.log('valite response', response.data);
     const done = await join(req.params.groupId, req.params.userId);
     if (!done) return res.status(500).end();
     return res.status(200).end();

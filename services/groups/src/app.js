@@ -19,8 +19,6 @@ app.post('/join/:groupId/:userId', controllers.groupJoin);
 app.post('/join', controllers.groupTokenJoin);
 app.get('/:groupId/:issuerId/:guestId', controllers.groupInvite);
 app.get('/permissions/:groupId/:userId', controllers.groupPermissions);
-
-// TODO doc media -> medias +S
 app.post('/medias/:groupId/:mediaId', controllers.groupPost);
 
 module.exports = app;

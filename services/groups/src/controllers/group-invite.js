@@ -21,9 +21,7 @@ async function groupInvite(req, res) {
       req.params.issuerId,
       req.params.guestId
     );
-    console.log('TOKEN=>', response);
     if (!response) return res.status(200).end();
-    console.log('DONE RESPONSE=>', response);
     return res
       .status(200)
       .json(response)

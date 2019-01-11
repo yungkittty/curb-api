@@ -32,7 +32,6 @@ const create = require('../services/create');
  *  - 500 in case of failed database operation.
  */
 async function groupCreate(req, res) {
-  console.log('creation');
   if (!req.body) return res.status(400).end();
   if (!req.headers.authorization) return res.status(400).end();
   const { name, status } = req.body;
@@ -44,9 +43,7 @@ async function groupCreate(req, res) {
       url: 'http://curb-accounts:4000/validate',
       validateStatus: undefined
     });
-    console.log(response.status);
     if (response.status !== 200) return res.status(response.status).end();
-    console.log('valite response', response.data);
     const groupId = await create({ creatorId: response.data.id, name, status });
     if (!groupId) return res.status(500).end();
     return res.status(200).json(groupId);

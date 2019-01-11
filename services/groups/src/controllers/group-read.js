@@ -6,9 +6,6 @@ const read = require('../services/read');
  * @param {Object} req DELETE http request
  * @param {Object} res response
  *
- * public group -> read only public group
- * private group -> need to be log and in the group
- *
  * Precondition:
  * - If the group is private the user need to be authenticated.
  *
@@ -39,7 +36,6 @@ async function groupRead(req, res) {
       if (response.status !== 200) return res.status(response.status).end();
     }
     const userId = !response.status ? undefined : response.data.id;
-    console.log(userId);
     const group = await read(req.params.id, userId);
     if (!group) return res.status(400).end();
     return res
