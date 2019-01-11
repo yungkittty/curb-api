@@ -54,6 +54,7 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 ##### LEGEND
 
 :lock: : Routes where user need to be authenticate, request will need to pass the token in the request.
+:no_entry_sign: Private API routes.
 
 ### ACCOUNT
 
