@@ -20,8 +20,8 @@ async function _tokenJoin(token) {
   return group;
 }
 
-async function join(groupId, userId, token) {
-  const done = !token ? await _tokenJoin(groupId, userId) : await _join(token);
+async function join({ groupId, userId, token }) {
+  const done = !token ? await _join(groupId, userId) : await _tokenJoin(token);
   return done;
 }
 

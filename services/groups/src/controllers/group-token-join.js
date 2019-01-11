@@ -38,7 +38,7 @@ async function groupJoin(req, res) {
       validateStatus: undefined
     });
     if (response.status !== 200) return res.status(response.status).end();
-    const done = await join(req.body.token);
+    const done = await join({ token: req.body.token });
     if (!done) return res.status(500).end();
     return res.status(200).end();
   } catch (error) {

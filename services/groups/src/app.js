@@ -17,8 +17,8 @@ app.patch('/:id', controllers.groupUpdate);
 app.delete('/:id', controllers.groupDelete);
 app.post('/join/:groupId/:userId', controllers.groupJoin);
 app.post('/join', controllers.groupTokenJoin);
-app.get('/:groupId/:issuerId/:guestId', controllers.groupInvite);
 app.get('/permissions/:groupId/:userId', controllers.groupPermissions);
 app.post('/medias/:groupId/:mediaId', controllers.groupPost);
+app.get('/:groupId/:issuerId/:guestId', controllers.groupInvite);
 
 module.exports = app;

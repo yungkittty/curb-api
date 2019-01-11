@@ -2,20 +2,12 @@ const Group = require('../models/group');
 
 async function list({ maxId, count = 5, authId, ...filters }) {
   const queryList = Group.find();
-  let isUser = false;
-  let isCreator = false;
+  const isUser = !authId ? false : authId === filters.userId;
+  const isCreator = !authId ? false : authId === filters.creatorId;
 
-  if (filters.creatorId) {
-    if (authId === filters.creatorId) isCreator = true;
-    queryList.where('creatorId').equals(filters.creatorId);
-  }
-  if (filters.userId) {
-    if (authId === filters.userId) isUser = true;
-    queryList.where('users').equals(filters.userId);
-  }
-  if (maxId) {
-    queryList.where('_id').gt(maxId);
-  }
+  if (filters.creatorId) queryList.where('creatorId').equals(filters.creatorId);
+  if (filters.userId) queryList.where('users').equals(filters.userId);
+  if (maxId) queryList.where('_id').gt(maxId);
 
   if (!isUser && !isCreator) queryList.where('status').equals('public');
   queryList.limit(count).sort('-dateCreation');

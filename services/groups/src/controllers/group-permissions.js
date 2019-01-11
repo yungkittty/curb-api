@@ -1,6 +1,6 @@
 const permissions = require('../services/permissions');
 
-async function groupPermissions(res, req) {
+async function groupPermissions(req, res) {
   if (!req.params.groupId || !req.params.userId) return res.status(400).end();
   try {
     const rights = await permissions(req.params.groupId, req.params.userId);

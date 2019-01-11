@@ -4,7 +4,7 @@ const tokenGenerate = require('./token-invatation/token-generate');
 
 async function invite(groupId, issuerId, guestId) {
   const group = await Group.findById(groupId);
-  if (!group) throw new Error('Inexistent resource');
+  if (!group) throw new Error('Inexistent ressource');
   if (!group.users.includes(issuerId)) return null;
   const userResponse = await axios({
     method: 'get',
