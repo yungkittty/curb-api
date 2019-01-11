@@ -332,9 +332,35 @@ contentList: [Contents]
 
 \${SIZE} : small(50x50), medium(60x60), large(default: medium).
 
-#### /groups/:groupId/:userId {GET} ~ JOIN :lock:
+#### /groups/:groupId/:issuerId/:guestId {GET} ~ Invitation  :lock:
 
-##### response: success: 200 | failure: 400 | 401
+:warning: Absence de 'hook' (server side event/websocket...) entre back/front => l'invitation peut être que physique (i.e QR code) :warning:
+
+#### response: success: 200 | failure: 400 | 403 | 500
+
+```
+ {
+  token: {String}
+ }
+```
+
+#### /groups/join/:groupId/:userId {POST} ~ JOIN :lock:
+
+Ne marchera pas pour les groupes privés.
+
+##### response: success: 200 | failure: 400 | 403 | 403 | 500
+
+#### /groups/join {POST} ~ JOIN :lock:
+
+##### parameter
+
+```
+ {
+  token: {String}
+ }
+```
+
+##### response: success: 200 | failure: 400 | 403 | 50
 
 #### /groups/media/:groupId/:mediaId {POST} ~ POST MEDIA :no_entry_sign:
 
