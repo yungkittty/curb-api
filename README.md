@@ -233,11 +233,11 @@ avatarUrl: {String}
 ```
 id: {Uuid},
 name: {String},
-public: {Bool},
+public: ['public', 'private'],
 dateCreation: {String},
 avatarUrl: {String},
-users: [Users],
-contentList: [Contents]
+users: [String],
+medias: [String]
 
 ```
 
