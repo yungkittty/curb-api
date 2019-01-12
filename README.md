@@ -249,7 +249,7 @@ medias: [String]
 {
   creatorId: {Uuid},
   name: {String},
-  public: {Bool}
+  public: {String}
 }
 ```
 
