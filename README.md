@@ -293,7 +293,7 @@ mediaTypes: ['localisation', 'text', 'image','video']
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /groups/:groupId/:issuerId/:guestId {GET} ~ Invitation  :lock:
+#### /groups/:groupId/:guestId {GET} ~ Invitation  :lock:
 
 :warning: Absence de 'hook' (server side event/websocket...) entre back/front => l'invitation peut être que physique (i.e QR code) :warning:
 
