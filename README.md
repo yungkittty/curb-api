@@ -202,29 +202,11 @@ avatarUrl: {String}
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /users/:id/avatar {POST} :lock:
+#### avatarUrl {GET} : To get the avatar of an user
 
-- Upload de l'avatar de l'utilisateur
+`{URL}/{name}_{size}.extension`
 
-##### parameter:
-
-```
-{
-  avatar: {}
-}
-```
-
-##### response: success: 200 | failure: 400 | 401
-
-#### avatarUrl {GET}
-
-`http://IP:PORT/users/:id/avatar/image_${SIZE}.extension`
-
-\${SIZE} : small (50x50), medium(60x60), large (default: medium).
-
-##### parameter:
-
-##### response: success: 200 | failure: 400
+\${SIZE} : small(50x50), medium(60x60), large (default: medium).
 
 ### GROUPS
 
@@ -311,28 +293,6 @@ mediaTypes: ['localisation', 'text', 'image','video']
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /groups/:id/avatar {POST} :lock:
-
-:warning: (creatorId)
-
-- Upload de l'avatar du group
-
-##### parameter:
-
-```
-{
-  avatar: {String}
-}
-```
-
-##### response: success: 200 | failure: 400 | 401
-
-#### avatarUrl {GET}
-
-`http://IP:PORT/groups/:id/avatar/image_${SIZE}.extension`
-
-\${SIZE} : small(50x50), medium(60x60), large(default: medium).
-
 #### /groups/:groupId/:issuerId/:guestId {GET} ~ Invitation  :lock:
 
 :warning: Absence de 'hook' (server side event/websocket...) entre back/front => l'invitation peut être que physique (i.e QR code) :warning:
@@ -379,6 +339,25 @@ Ne marchera pas pour les groupes privés.
 }
 ```
 
+#### avatarUrl {GET} : To get the avatar of a group
+
+`{URL}/{name}_{size}.extension`
+
+\${SIZE} : small(50x50), medium(60x60), large (default: medium).
+
+
 ### MEDIA / CONTENTS
+
+#### AVATAR
+
+#### /media/avatar/group/:groupId/ {POST} :lock: 
+
+:warning: (creatorId)
+
+##### response: success: 200 | failure: 400 | 403 | 500
+
+#### /media/avatar/user/:userId/ {POST} :lock:
+
+##### response: success: 200 | failure: 400 | 403 | 500
 
 :construction:
