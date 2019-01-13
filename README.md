@@ -233,11 +233,12 @@ avatarUrl: {String}
 ```
 id: {Uuid},
 name: {String},
-public: ['public', 'private'],
+public: oneOf('public', 'private'),
 dateCreation: {String},
 avatarUrl: {String},
 users: [String],
-medias: [String]
+medias: [String],
+mediaTypes: ['localisation', 'text', 'image','video']
 
 ```
 
