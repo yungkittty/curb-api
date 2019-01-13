@@ -305,7 +305,7 @@ mediaTypes: ['localisation', 'text', 'image','video']
  }
 ```
 
-#### /groups/join/:groupId/:userId {POST} ~ JOIN :lock:
+#### /groups/join/:groupId/ {POST} ~ JOIN :lock:
 
 Ne marchera pas pour les groupes privés.
 
