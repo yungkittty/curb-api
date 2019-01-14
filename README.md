@@ -206,7 +206,7 @@ avatarUrl: {String}
 
 `{URL}/{name}_{size}.extension`
 
-\${SIZE} : small(50x50), medium(60x60), large (default: medium).
+\${SIZE} : small(50x50), medium(60x60), large (320x320) (default: medium).
 
 ### GROUPS
 
@@ -343,7 +343,7 @@ Ne marchera pas pour les groupes privés.
 
 `{URL}/{name}_{size}.extension`
 
-\${SIZE} : small(50x50), medium(60x60), large (default: medium).
+\${SIZE} : small(50x50), medium(60x60), large (320x320) (default: medium).
 
 
 ### MEDIA / CONTENTS
