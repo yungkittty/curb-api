@@ -7,6 +7,7 @@ const list = require('./list');
 const permissions = require('./permissions');
 const post = require('./post');
 const invite = require('./invite');
+const avatar = require('./avatar');
 
 module.exports = {
   create,
@@ -17,5 +18,6 @@ module.exports = {
   list,
   permissions,
   post,
-  invite
+  invite,
+  avatar
 };

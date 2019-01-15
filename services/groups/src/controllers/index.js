@@ -8,6 +8,7 @@ const groupTokenJoin = require('./group-token-join');
 const groupPermissions = require('./group-permissions');
 const groupPost = require('./group-post');
 const groupInvite = require('./group-invite');
+const groupAvatar = require('./group-avatar');
 
 module.exports = {
   groupCreate,
@@ -19,5 +20,6 @@ module.exports = {
   groupPermissions,
   groupPost,
   groupInvite,
-  groupTokenJoin
+  groupTokenJoin,
+  groupAvatar
 };
