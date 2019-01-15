@@ -20,7 +20,8 @@ app.post('/avatar/:groupId', controllers.groupAvatar);
 app.post('/join/:groupId', middlewares.authentication, controllers.groupJoin);
 app.post('/join', middlewares.authentication, controllers.groupTokenJoin);
 app.get('/permissions/:groupId/:userId', controllers.groupPermissions);
-app.post('/medias/:groupId/:mediaId', controllers.groupPost);
+app.post('/medias/:groupId/:mediaId', controllers.groupAddPost);
+app.delete('/medias/:groupId/:mediaId', controllers.groupDeletePost);
 app.get(
   '/:groupId/:guestId',
   middlewares.authentication,

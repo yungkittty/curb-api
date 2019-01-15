@@ -1,9 +1,9 @@
-const post = require('../services/post');
+const addPost = require('../services/add-post');
 
 async function groupPost(req, res) {
   if (!req.params.groupId || !req.params.mediaId) return res.status(400).end();
   try {
-    const done = await post(req.params.groupId, req.params.mediaId);
+    const done = await addPost(req.params.groupId, req.params.mediaId);
     if (!done) res.status(400).end();
     return res.status(200).end();
   } catch (error) {

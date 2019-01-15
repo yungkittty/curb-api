@@ -5,7 +5,8 @@ const remove = require('./remove');
 const join = require('./join');
 const list = require('./list');
 const permissions = require('./permissions');
-const post = require('./post');
+const addPost = require('./add-post');
+const deletePost = require('./delete-post');
 const invite = require('./invite');
 const avatar = require('./avatar');
 
@@ -17,7 +18,8 @@ module.exports = {
   join,
   list,
   permissions,
-  post,
+  addPost,
+  deletePost,
   invite,
   avatar
 };
