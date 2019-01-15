@@ -260,8 +260,8 @@ mediaTypes: ['localisation', 'text', 'image','video']
 
 | Name | Required | Default | Description |
 |:---:|:---:|:---:|:---:|
-| maxId   | optional | | will get the id greater than the maxId |
-| count    | optional | 5 | number of groups |
+| page   | optional | 1 | will ask for the requested page |
+| count    | optional | 5 | number of elements for the page |
 | creatorId    | optional |       | filter on creator |
 | userId    | optional | | filter on userId |
 
@@ -344,6 +344,18 @@ Ne marchera pas pour les groupes privés.
 `{URL}/{name}_{size}.extension`
 
 \${SIZE} : small(50x50), medium(60x60), large (320x320) (default: medium).
+
+#### /avatar/:groupId {POST} : To update the avatarUrl for media :no_entry_sign:
+
+##### paramerter:
+
+```
+{
+ avatarUrl: {String] 
+}
+```
+
+##### response: success: 200 | failure: 400 | 500
 
 
 ### MEDIA / CONTENTS
