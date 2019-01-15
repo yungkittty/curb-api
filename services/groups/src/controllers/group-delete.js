@@ -1,4 +1,3 @@
-const axios = require('axios');
 const remove = require('../services/remove');
 
 /**
@@ -24,20 +23,11 @@ const remove = require('../services/remove');
  */
 async function groupDelete(req, res) {
   if (!req.params.id) return res.status(400).end();
-  if (!req.headers.authorization) return res.status(400).end();
   try {
-    const response = await axios({
-      method: 'post',
-      headers: { Authorization: req.headers.authorization },
-      url: 'http://curb-accounts:4000/validate',
-      validateStatus: undefined
-    });
-    if (response.status !== 200) return res.status(response.status).end();
-    const group = await remove(req.params.id, response.data.id);
+    const group = await remove(req.params.id, req.authId);
     if (!group) return res.status(400).end();
     return res.status(200).end();
   } catch (error) {
-    console.log(error);
     return res.status(500).end();
   }
 }

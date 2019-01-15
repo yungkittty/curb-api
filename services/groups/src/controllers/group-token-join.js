@@ -1,4 +1,3 @@
-const axios = require('axios');
 const join = require('../services/join');
 
 /**
@@ -27,24 +26,15 @@ const join = require('../services/join');
  *  - 401 in case of authentification failure.
  *  - 500 in case of failed database operation.
  */
-async function groupJoin(req, res) {
-  if (!req.headers.authorization) return res.status(400).end();
+async function groupTokenJoin(req, res) {
   if (!req.body.token) return res.status(400).end();
   try {
-    const response = await axios({
-      method: 'post',
-      headers: { Authorization: req.headers.authorization },
-      url: 'http://curb-accounts:4000/validate',
-      validateStatus: undefined
-    });
-    if (response.status !== 200) return res.status(response.status).end();
-    const done = await join({ token: req.body.token });
-    if (!done) return res.status(500).end();
+    const done = await join({ token: req.body.token, userId: req.authId });
+    if (!done) return res.status(400).end();
     return res.status(200).end();
   } catch (error) {
-    console.log('ERROR', error);
     return res.status(500).end();
   }
 }
 
-module.exports = groupJoin;
+module.exports = groupTokenJoin;

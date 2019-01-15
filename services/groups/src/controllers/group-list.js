@@ -28,7 +28,6 @@ async function groupList(req, res) {
       .json(response)
       .end();
   } catch (error) {
-    console.log('ERROR', error);
     return res.status(500).end();
   }
 }

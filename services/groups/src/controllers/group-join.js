@@ -1,4 +1,3 @@
-const axios = require('axios');
 const join = require('../services/join');
 
 /**
@@ -28,24 +27,15 @@ const join = require('../services/join');
  *  - 500 in case of failed database operation.
  */
 async function groupJoin(req, res) {
-  if (!req.params.groupId || !req.params.userId) return res.status(400).end();
-  if (!req.headers.authorization) return res.status(400).end();
+  if (!req.params.groupId) return res.status(400).end();
   try {
-    const response = await axios({
-      method: 'post',
-      headers: { Authorization: req.headers.authorization },
-      url: 'http://curb-accounts:4000/validate',
-      validateStatus: undefined
-    });
-    if (response.status !== 200) return res.status(response.status).end();
     const done = await join({
       groupId: req.params.groupId,
-      userId: req.params.userId
+      userId: req.authId
     });
     if (!done) return res.status(500).end();
     return res.status(200).end();
   } catch (error) {
-    console.log('ERROR', error);
     return res.status(500).end();
   }
 }

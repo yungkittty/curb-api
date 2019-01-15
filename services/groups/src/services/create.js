@@ -5,6 +5,8 @@ async function create(group) {
     creatorId: group.creatorId,
     name: group.name,
     status: group.status,
+    mediaTypes: group.mediaTypes,
+    theme: group.theme,
     dateCreation: new Date()
   });
   newGroup.users = [...newGroup.users, group.creatorId];

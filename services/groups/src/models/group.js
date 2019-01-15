@@ -12,7 +12,13 @@ const groupSchema = mongoose.Schema({
   avatarUrl: String,
   dateCreation: Date,
   users: { type: [String] },
-  medias: { type: [String] }
+  medias: { type: [String] },
+  mediaTypes: {
+    type: [String],
+    required: true,
+    enum: ['localisation', 'text', 'image', 'video']
+  },
+  theme: { type: String }
 });
 
 // eslint-disable-next-line

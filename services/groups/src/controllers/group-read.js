@@ -43,7 +43,6 @@ async function groupRead(req, res) {
       .json(group)
       .end();
   } catch (error) {
-    console.log(error);
     return res.status(500).end();
   }
 }

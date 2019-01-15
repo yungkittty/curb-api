@@ -1,4 +1,3 @@
-const axios = require('axios');
 const create = require('../services/create');
 
 /**
@@ -33,22 +32,19 @@ const create = require('../services/create');
  */
 async function groupCreate(req, res) {
   if (!req.body) return res.status(400).end();
-  if (!req.headers.authorization) return res.status(400).end();
-  const { name, status } = req.body;
-  if (!name || !status) return res.status(400).end();
+  const { name, status, mediaTypes, theme } = req.body;
+  if (!name || !status || !mediaTypes || !theme) return res.status(400).end();
   try {
-    const response = await axios({
-      method: 'post',
-      headers: { Authorization: req.headers.authorization },
-      url: 'http://curb-accounts:4000/validate',
-      validateStatus: undefined
+    const groupId = await create({
+      creatorId: req.authId,
+      name,
+      status,
+      mediaTypes,
+      theme
     });
-    if (response.status !== 200) return res.status(response.status).end();
-    const groupId = await create({ creatorId: response.data.id, name, status });
     if (!groupId) return res.status(500).end();
     return res.status(200).json(groupId);
   } catch (error) {
-    console.log('ERROR', error);
     return res.status(500).end();
   }
 }

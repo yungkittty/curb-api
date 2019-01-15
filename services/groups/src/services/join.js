@@ -1,27 +1,38 @@
 const Group = require('../models/group');
 const tokenGetPayload = require('./token-invatation/token-get-payload');
 
-async function _join(groupId, userId) {
+async function _getGroup(groupId) {
   const group = await Group.findById(groupId);
   if (!group) throw new Error('Inexistent ressource');
-  else if (group.status === 'private') throw new Error('Unauthorized join');
-  group.users = [...group.users, userId];
+  return group;
+}
+
+async function _join(userId, groupId) {
+  const group = await _getGroup(groupId);
+  if (group.status === 'private') throw new Error('Unauthorized join');
+  group.users = group.users.includes(userId)
+    ? group.users
+    : [...group.users, userId];
   await group.save();
   return group;
 }
 
-async function _tokenJoin(token) {
+async function _tokenJoin(userId, token) {
   const payload = tokenGetPayload(token);
   if (!payload) return null;
-  const group = await Group.findById(payload.groupId);
-  if (!group) throw new Error('Inexistent ressource');
-  group.users = [...group.users, payload.guestId];
+  const group = await _getGroup(payload.groupId);
+  if (payload.guestId !== userId) return null;
+  group.users = group.users.includes(userId)
+    ? group.users
+    : [...group.users, userId];
   await group.save();
   return group;
 }
 
 async function join({ groupId, userId, token }) {
-  const done = !token ? await _join(groupId, userId) : await _tokenJoin(token);
+  const done = !token
+    ? await _join(userId, groupId)
+    : await _tokenJoin(userId, token);
   return done;
 }
 
