@@ -351,9 +351,17 @@ Ne marchera pas pour les groupes privés.
 
 ```
 {
- avatarUrl: {String] 
+ avatarUrl: {String}
 }
 ```
+
+##### response: success: 200 | failure: 400 | 500
+
+#### /medias/:groupId/:mediaId {POST} : Adding a media in a group :no_entry_sign:
+
+##### response: success: 200 | failure: 400 | 500
+
+#### /medias/:groupId/:mediaId {DELETE} : Deleting a media in a group :no_entry_sign:
 
 ##### response: success: 200 | failure: 400 | 500
 
