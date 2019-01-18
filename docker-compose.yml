@@ -32,3 +32,10 @@ services:
       - 4001:4000
     depends_on:
       - db
+
+  curb-groups:
+    build: ./services/groups
+    ports:
+      - 4002:4000
+    depends_on:
+      - db
