@@ -10,6 +10,7 @@ const groupAddPost = require('./group-add-post');
 const groupDeletePost = require('./group-delete-post');
 const groupInvite = require('./group-invite');
 const groupAvatar = require('./group-avatar');
+const groupUnjoin = require('./group-unjoin');
 
 module.exports = {
   groupCreate,
@@ -23,5 +24,6 @@ module.exports = {
   groupDeletePost,
   groupInvite,
   groupTokenJoin,
-  groupAvatar
+  groupAvatar,
+  groupUnjoin
 };
