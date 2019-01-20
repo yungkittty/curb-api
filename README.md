@@ -323,6 +323,10 @@ Ne marchera pas pour les groupes privés.
 
 ##### response: success: 200 | failure: 400 | 403 | 50
 
+#### /groups/unjoin/:groupId {POST} ~ JOIN :lock:
+
+##### response: success: 200 | failure: 400 | 403 | 500
+
 #### /groups/medias/:groupId/:mediaId {POST} ~ POST MEDIA :no_entry_sign:
 
 ##### response: success: 200 | failure: 400
