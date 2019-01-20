@@ -204,7 +204,9 @@ avatarUrl: {String}
 
 #### avatarUrl {GET} : To get the avatar of an user
 
-`{URL}/{name}_{size}.extension`
+il faut rajouter l'ip du server à l'avatarUrl de l'utilisateur. Pour avoir une autre dimension changer la size en 'small'/'medium'/'large'.
+
+`/{path}/{size}.extension`
 
 \${SIZE} : small(50x50), medium(60x60), large (320x320) (default: medium).
 
@@ -345,7 +347,9 @@ Ne marchera pas pour les groupes privés.
 
 #### avatarUrl {GET} : To get the avatar of a group
 
-`{URL}/{name}_{size}.extension`
+il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre dimension changer la size en 'small'/'medium'/'large'.
+
+`/{path}/{size}.extension`
 
 \${SIZE} : small(50x50), medium(60x60), large (320x320) (default: medium).
 
