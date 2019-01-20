@@ -1,12 +1,12 @@
 const axios = require('axios');
 const Account = require('../../models/account');
 
-async function remove(ip, id, token) {
+async function remove(id, token) {
   const account = await Account.findById(id);
   if (!account) throw new Error('Inexistent resource');
   const response = await axios({
     method: 'delete',
-    url: `http://${ip}:3000/users/${id}`,
+    url: `http://curb-users:4000/${id}`,
     headers: { Authorization: `Bearer ${token}` },
     validateStatus: undefined
   });

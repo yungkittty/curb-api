@@ -8,5 +8,6 @@ serve.use((req, res, next) => {
 });
 
 serve.use(express.static('uploads'));
+serve.use(express.static('default'));
 
 module.exports = serve;

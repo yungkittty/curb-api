@@ -5,7 +5,8 @@ const proxy = require('express-http-proxy');
 
 const app = express();
 
-app.use(bodyParser.json());
+
+
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
@@ -14,8 +15,11 @@ if (process.env.NODE_ENV !== 'test') {
 app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
+app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT));
+app.use(bodyParser.json());
 
 app.use('/accounts', proxy(process.env.CURB_ACCOUNT));
 app.use('/users', proxy(process.env.CURB_USERS));
+app.use('/groups', proxy(process.env.CURB_GROUPS));
 
 module.exports = app;

@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/uploads', serve);
+app.use('/default', serve);
 app.use('/images', medias.images);
 app.use('/videos', medias.videos);
 app.use('/localisation', medias.localisation);
