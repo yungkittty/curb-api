@@ -2,4 +2,7 @@ node_modules/
 package-lock.json
 yarn.lock
 .vscode/
+<<<<<<< HEAD
 uploads/
+=======
+>>>>>>> 76d89126175ea271dfcc94eea9803905b92e4df3

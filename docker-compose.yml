@@ -39,6 +39,7 @@ services:
     build: ./services/groups
     ports:
       - 4002:4000
+<<<<<<< HEAD
     depends_on:
       - db
 
@@ -46,5 +47,7 @@ services:
     build: ./services/group-content
     ports:
       - 4004:4000
+=======
+>>>>>>> 76d89126175ea271dfcc94eea9803905b92e4df3
     depends_on:
       - db
