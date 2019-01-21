@@ -9,7 +9,10 @@ const userSchema = mongoose.Schema({
   _id: { type: mongoose.SchemaTypes.ObjectId, auto: false },
   name: { type: String, required: true, unique: true },
   dateCreation: Date,
-  avatarUrl: String
+  avatarUrl: {
+    type: String,
+    default: '/curb-content/default/avatars/users/medium.png'
+  }
 });
 
 // eslint-disable-next-line
