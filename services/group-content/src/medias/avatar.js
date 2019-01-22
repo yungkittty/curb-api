@@ -111,7 +111,6 @@ avatar.use('/users/:userId', async (req, res, next) => {
     console.log('Check right to upload user avatar here'); // eslint-disable-line
     return next();
   } catch (error) {
-    console.log(error);
     return res.status(400).end();
   }
 });
@@ -142,12 +141,12 @@ avatar.post(
         .toFile(`./uploads/avatars/groups/${req.params.groupId}/large${ext}`);
       const response = await axios({
         method: 'post',
-        body: {
+        data: {
           avatarUrl: `./uploads/avatars/groups/${
             req.params.groupId
           }/medium${ext}`
         },
-        url: `http://curb-groups/avatar/${req.params.groupId}`,
+        url: `http://curb-groups:4000/avatar/${req.params.groupId}`,
         validateStatus: undefined
       });
       if (response.status !== 200) return res.status(400).end();
@@ -160,7 +159,6 @@ avatar.post(
 );
 
 avatar.post('/users/:userId', userUpload.single('file'), async (req, res) => {
-  console.log(req.file);
   const ext = Path.extname(req.file.originalname);
   try {
     await sharp(req.file.path)
@@ -183,16 +181,15 @@ avatar.post('/users/:userId', userUpload.single('file'), async (req, res) => {
       .toFile(`./uploads/avatars/users/${req.params.userId}/large${ext}`);
     const response = await axios({
       method: 'post',
-      body: {
+      data: {
         avatarUrl: `./uploads/avatars/users/${req.params.userId}/medium${ext}`
       },
-      url: `http://curb-users/avatar/${req.params.userId}`,
+      url: `http://curb-users:4000/avatar/${req.params.userId}`,
       validateStatus: undefined
     });
     if (response.status !== 200) return res.status(400).end();
     return res.status(200).end();
   } catch (error) {
-    console.log(error);
     res.status(400).end();
   }
   return res.status(200).end();
