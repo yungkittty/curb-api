@@ -5,6 +5,7 @@ const fs = require('fs-extra');
 const uuidv4 = require('uuid/v4');
 const axios = require('axios');
 const Path = require('path');
+const directoryExists = require('directory-exists');
 
 const avatar = express();
 
@@ -65,7 +66,7 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
       return res.status(response.status).end();
     }
     const rep = await axios({
-      method: 'post',
+      method: 'get',
       headers: { Authorization: req.headers.authorization },
       url: `http://curb-groups:4000/permissions/${req.params.groupId}/${
         response.data.id
@@ -75,14 +76,19 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
     if (rep.status !== 200 || !rep.data.creator) {
       return res.status(rep.status).end();
     }
-    const files = await fs.readdir(
+    const result = await directoryExists(
       `./uploads/avatars/groups/${req.params.groupId}`
     );
-    files.forEach(file =>
-      fs.unlink(
-        Path.join(`./uploads/avatars/groups/${req.params.groupId}`, file)
-      )
-    );
+    if (result) {
+      const files = await fs.readdir(
+        `./uploads/avatars/groups/${req.params.groupId}`
+      );
+      files.forEach(file =>
+        fs.unlink(
+          Path.join(`./uploads/avatars/groups/${req.params.groupId}`, file)
+        )
+      );
+    }
     console.log('Check right to upload group avatar here'); // eslint-disable-line
     return next();
   } catch (error) {
@@ -102,12 +108,19 @@ avatar.use('/users/:userId', async (req, res, next) => {
     if (response.status !== 200 || response.data.id !== req.params.userId) {
       return res.status(response.status).end();
     }
-    const files = await fs.readdir(
+    const result = await directoryExists(
       `./uploads/avatars/users/${req.params.userId}`
     );
-    files.forEach(file =>
-      fs.unlink(Path.join(`./uploads/avatars/users/${req.params.userId}`, file))
-    );
+    if (result) {
+      const files = await fs.readdir(
+        `./uploads/avatars/users/${req.params.userId}`
+      );
+      files.forEach(file =>
+        fs.unlink(
+          Path.join(`./uploads/avatars/users/${req.params.userId}`, file)
+        )
+      );
+    }
     console.log('Check right to upload user avatar here'); // eslint-disable-line
     return next();
   } catch (error) {
