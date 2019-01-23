@@ -9,7 +9,10 @@ const groupSchema = mongoose.Schema({
   creatorId: { type: String, required: true },
   name: { type: String, unique: true, required: true },
   status: { type: String, required: true, enum: ['public', 'private'] },
-  avatarUrl: String,
+  avatarUrl: {
+    type: String,
+    default: '/curb-content/default/avatars/groups/medium.png'
+  },
   dateCreation: Date,
   users: { type: [String] },
   medias: { type: [String] },
