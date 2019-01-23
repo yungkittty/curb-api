@@ -89,7 +89,6 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
         )
       );
     }
-    console.log('Check right to upload group avatar here'); // eslint-disable-line
     return next();
   } catch (error) {
     return res.status(400).end();
