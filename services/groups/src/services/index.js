@@ -9,6 +9,7 @@ const addPost = require('./add-post');
 const deletePost = require('./delete-post');
 const invite = require('./invite');
 const avatar = require('./avatar');
+const unjoin = require('./unjoin');
 
 module.exports = {
   create,
@@ -21,5 +22,6 @@ module.exports = {
   addPost,
   deletePost,
   invite,
-  avatar
+  avatar,
+  unjoin
 };
