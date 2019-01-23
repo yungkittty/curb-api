@@ -49,10 +49,18 @@ images.use('/:groupId/:userId', async (req, res, next) => {
   next();
 });
 
-images.post('/:groupId/:userId', upload.single('file'), (req, res) => (
-  res.status(200).json({
+images.post('/:groupId/:userId', upload.single('file'), (req, res) => {
+  const response = await axios({
+    method: 'post',
+    headers: { Authorization: req.headers.authorization },
+    url: `http://curb-groups:4000/${groupId}/${req.file.filename}`,
+    validateStatus: undefined
+  });
+
+  if (response.status !== 200) return res.status(400).end();  
+  return res.status(200).json({
     file: `uploads/${req.params.groupId}/images/${req.file.filename}`,
-  })
-));
+  });
+});
 
 module.exports = images;
