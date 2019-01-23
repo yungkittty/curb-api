@@ -223,7 +223,7 @@ avatarUrl: {String},
 users: [String],
 medias: [String],
 mediaTypes: ['localisation', 'text', 'image','video']
-
+theme: {String}
 ```
 
 #### /groups {POST} :lock:
@@ -232,9 +232,10 @@ mediaTypes: ['localisation', 'text', 'image','video']
 
 ```
 {
-  creatorId: {Uuid},
   name: {String},
-  public: {String}
+  public: {String},
+  mediaTypes: [String],
+  theme: {String}
 }
 ```
 
