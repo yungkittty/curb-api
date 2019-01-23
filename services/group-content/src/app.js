@@ -1,12 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const proxy = require('express-http-proxy');
+const medias = require('./medias');
+const serve = require('./serve');
 
 const app = express();
 
-
-
+app.use(bodyParser.json());
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
@@ -15,11 +15,12 @@ if (process.env.NODE_ENV !== 'test') {
 app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
-app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT));
-app.use(bodyParser.json());
 
-app.use('/accounts', proxy(process.env.CURB_ACCOUNT));
-app.use('/users', proxy(process.env.CURB_USERS));
-app.use('/groups', proxy(process.env.CURB_GROUPS));
+app.use('/uploads', serve);
+app.use('/default', serve);
+app.use('/images', medias.images);
+app.use('/videos', medias.videos);
+app.use('/localisation', medias.localisation);
+app.use('/avatar', medias.avatar);
 
 module.exports = app;
