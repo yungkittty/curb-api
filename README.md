@@ -233,7 +233,7 @@ theme: {String}
 ```
 {
   name: {String},
-  public: {String},
+  status: {String},
   mediaTypes: [String],
   theme: {String}
 }
