@@ -35,7 +35,7 @@ async function groupRead(req, res) {
       });
       if (response.status !== 200) return res.status(response.status).end();
     }
-    const userId = !response.status ? undefined : response.data.id;
+    const userId = !response ? undefined : response.data.id;
     const group = await read(req.params.id, userId);
     if (!group) return res.status(400).end();
     return res
