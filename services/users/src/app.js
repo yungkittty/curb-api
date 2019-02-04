@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const controllers = require('./controllers');
 
@@ -9,6 +10,8 @@ const app = express();
 mongoose.set('debug', true);
 
 app.use(bodyParser.json());
+app.use(cors());
+
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
