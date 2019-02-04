@@ -49,7 +49,7 @@ videos.use('/:groupId/:userId', async (req, res) => {
   next();
 });
 
-videos.post('/:groupId/:userId', upload.single('file'), (req, res) => {
+videos.post('/:groupId/:userId', upload.single('file'), async (req, res) => {
   const response = await axios({
     method: 'post',
     headers: { Authorization: req.headers.authorization },
