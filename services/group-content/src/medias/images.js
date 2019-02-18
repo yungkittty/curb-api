@@ -49,7 +49,7 @@ images.use('/:groupId/:userId', async (req, res, next) => {
   next();
 });
 
-images.post('/:groupId/:userId', upload.single('file'), (req, res) => {
+images.post('/:groupId/:userId', upload.single('file'), async (req, res) => {
   const response = await axios({
     method: 'post',
     headers: { Authorization: req.headers.authorization },

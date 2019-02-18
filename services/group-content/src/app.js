@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const medias = require('./medias');
 const serve = require('./serve');
@@ -7,6 +8,7 @@ const serve = require('./serve');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
