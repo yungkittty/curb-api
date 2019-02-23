@@ -19,7 +19,7 @@ services:
       - curb-accounts
       - curb-users
       - curb-groups
-      - curb-content
+      - curb-contents
 
   curb-users:
     build: ./services/users
@@ -42,8 +42,8 @@ services:
     depends_on:
       - db
 
-  curb-content:
-    build: ./services/group-content
+  curb-contents:
+    build: ./services/contents
     ports:
       - 4004:4000
     depends_on:

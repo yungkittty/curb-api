@@ -184,7 +184,7 @@ avatar.post('/users/:userId', userUpload.single('file'), async (req, res) => {
         parseInt(process.env.AVATAR_SIZE_MEDIUM, 10),
         parseInt(process.env.AVATAR_SIZE_MEDIUM, 10)
       )
-      .toFile(`/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_USER_PATH}/${req.params.userId}/medium${ext}`);
+      .toFile(`./uploads/avatars/users/${req.params.userId}/medium${ext}`);
     await sharp(req.file.path)
       .resize(
         parseInt(process.env.AVATAR_SIZE_LARGE, 10),
