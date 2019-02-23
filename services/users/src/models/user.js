@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
   dateCreation: Date,
   avatarUrl: {
     type: String,
-    default: '/curb-content/default/avatars/users/medium.png'
+    default: '/contents/default/avatars/users/medium.png'
   }
 });
 
