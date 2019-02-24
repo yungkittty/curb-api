@@ -154,7 +154,7 @@ avatar.post(
       const response = await axios({
         method: 'post',
         data: {
-          avatarUrl: `./uploads/avatars/groups/${
+          avatarUrl: `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_GROUP_PATH}/${
             req.params.groupId
           }/medium${ext}`
         },
@@ -194,7 +194,7 @@ avatar.post('/users/:userId', userUpload.single('file'), async (req, res) => {
     const response = await axios({
       method: 'post',
       data: {
-        avatarUrl: `./uploads/avatars/users/${req.params.userId}/medium${ext}`
+        avatarUrl: `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_USER_PATH}/${req.params.userId}/medium${ext}`
       },
       url: `http://curb-users:4000/avatar/${req.params.userId}`,
       validateStatus: undefined

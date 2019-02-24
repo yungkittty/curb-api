@@ -5,10 +5,10 @@ async function userRead(req, res) {
     return res.status(400).end();
   }
   try {
-    const doService = await read(req.params.id);
-    if (!doService) return res.status(400).end();
+    const user = await read(req.params.id, req.headers.authorization);
+    if (!user) return res.status(400).end();
     return res.status(200).json({
-      ...doService
+      ...user
     });
   } catch (error) {
     return res.status(400).end();

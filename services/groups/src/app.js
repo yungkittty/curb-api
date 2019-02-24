@@ -21,7 +21,11 @@ app.patch('/:id', middlewares.authentication, controllers.groupUpdate);
 app.delete('/:id', middlewares.authentication, controllers.groupDelete);
 app.post('/avatar/:groupId', controllers.groupAvatar);
 app.post('/join/:groupId', middlewares.authentication, controllers.groupJoin);
-app.post('/unjoin/:groupId', middlewares.authentication, controllers.groupUnjoin);
+app.post(
+  '/unjoin/:groupId',
+  middlewares.authentication,
+  controllers.groupUnjoin
+);
 app.post('/join', middlewares.authentication, controllers.groupTokenJoin);
 app.get('/permissions/:groupId/:userId', controllers.groupPermissions);
 app.post('/medias/:groupId/:mediaId', controllers.groupAddPost);
