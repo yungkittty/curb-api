@@ -75,7 +75,7 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 ```
 
 
-#### /account/sign-up {POST}
+#### /account/sign-up {POST} |ACCOUNT CREATE|
 
 ```
 {
@@ -86,7 +86,7 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 ```
 ##### response: success: 200 | failure: 400 | 500
 
-#### /account/sign-in {POST}
+#### /account/sign-in {POST} |CONNEXION|
 
 ##### parameter:
 
@@ -107,11 +107,11 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 }
 ```
 
-#### /account/sign-out {POST} :lock:
+#### /account/sign-out {POST} :lock: |LOGOUT|
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /account/refresh {POST}
+#### /account/refresh {POST} |REFRESH|
 
 #### header: Authorization: 'Bearer ' + token
 
@@ -133,7 +133,7 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 }
 ```
 
-#### /account/validate {POST} :lock:
+#### /account/validate {POST} :lock: |VALIDATE|
 
 route to validate the user's token
 
@@ -147,7 +147,7 @@ route to validate the user's token
 }
 ```
 
-#### /account/:id {PATCH} :lock:
+#### /account/:id {PATCH} :lock: |ACCOUNT UPDATE|
 
 update the account.
 
@@ -161,7 +161,7 @@ update the account.
 ```
 ##### response: success: 200 | failure: 400 | 403
 
-#### /account/:id {DELETE} :lock:
+#### /account/:id {DELETE} :lock: |ACCOUNT DELETE|
 
 ##### response: success: 200 | failure: 400 | 403
 
@@ -180,7 +180,7 @@ avatarUrl: {String}
 
 ```
 
-#### /users/:id {GET} ~ read
+#### /users/:id {GET} ~ read |USERS READ|
 
 ##### response: success: 200 | failure: 400
 
@@ -190,7 +190,7 @@ avatarUrl: {String}
 }
 ```
 
-#### /users/:id {PATCH} ~ update :lock:
+#### /users/:id {PATCH} ~ update :lock: |USERS UPDATE|
 
 ##### parameter:
 
@@ -202,7 +202,7 @@ avatarUrl: {String}
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### avatarUrl {GET} : To get the avatar of an user
+#### avatarUrl {GET} : To get the avatar of an user |USERS AVATAR|
 
 il faut rajouter l'ip du server à l'avatarUrl de l'utilisateur. Pour avoir une autre dimension changer la size en 'small'/'medium'/'large'.
 
@@ -226,7 +226,7 @@ mediaTypes: ['localisation', 'text', 'image','video']
 theme: {String}
 ```
 
-#### /groups {POST} :lock:
+#### /groups {POST} :lock: |GROUPS CREATE|
 
 ##### parameter:
 
@@ -247,7 +247,7 @@ theme: {String}
 }
 ```
 
-#### /groups/:id {GET}
+#### /groups/:id {GET} |GROUPS READ|
 
 ##### response: success: 200 | failure: 400
 
@@ -257,7 +257,7 @@ theme: {String}
 }
 ```
 
-#### /groups/ {GET}
+#### /groups/ {GET} |GROUPS LIST|
 
 ##### params: 
 
@@ -276,7 +276,7 @@ theme: {String}
 }
 ```
 
-#### /groups/:id {PATCH} :lock:
+#### /groups/:id {PATCH} :lock: |GROUPS UPDATE|
 
 :warning: (creatorId)
 
@@ -290,15 +290,13 @@ theme: {String}
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /groups/:id {DELETE} :lock:
+#### /groups/:id {DELETE} :lock: |GROUPS DELETE|
 
 :warning: (creatorId)
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /groups/:groupId/:guestId {GET} ~ Invitation  :lock:
-
-:warning: Absence de 'hook' (server side event/websocket...) entre back/front => l'invitation peut être que physique (i.e QR code) :warning:
+#### /groups/:groupId/:guestId {GET} ~ Invitation  :lock: |GROUPS INVIVATION|
 
 #### response: success: 200 | failure: 400 | 403 | 500
 
@@ -308,13 +306,13 @@ theme: {String}
  }
 ```
 
-#### /groups/join/:groupId/ {POST} ~ JOIN :lock:
+#### /groups/join/:groupId/ {POST} ~ JOIN :lock: |GROUPS JOIN|
 
 Ne marchera pas pour les groupes privés.
 
 ##### response: success: 200 | failure: 400 | 403 | 403 | 500
 
-#### /groups/join {POST} ~ JOIN :lock:
+#### /groups/join {POST} ~ JOIN :lock: |GROUPS JOIN TOKEN|
 
 ##### parameter
 
@@ -326,15 +324,19 @@ Ne marchera pas pour les groupes privés.
 
 ##### response: success: 200 | failure: 400 | 403 | 50
 
-#### /groups/unjoin/:groupId {POST} ~ JOIN :lock:
+#### /groups/unjoin/:groupId {POST} ~ JOIN :lock: |GROUPS UNJOIN|
 
 ##### response: success: 200 | failure: 400 | 403 | 500
 
-#### /groups/medias/:groupId/:mediaId {POST} ~ POST MEDIA :no_entry_sign:
+#### /groups/medias/:groupId/:mediaId {POST} :no_entry_sign: |GROUPS MEDIAS ADD|
 
 ##### response: success: 200 | failure: 400
 
-#### /groups/permissions/:groupId/:userId {GET} ~ GROUP PERMISSIONS :no_entry_sign:
+#### /groups/medias/:groupId/:mediaId {POST} :no_entry_sign: |GROUPS MEDIAS DELETE|
+
+##### response: success: 200 | failure: 400
+
+#### /groups/permissions/:groupId/:userId {GET} ~ GROUP PERMISSIONS :no_entry_sign: |GROUPS PERMISSIONS|
 
 ##### response: success: 200 | failure: 400 | 500
 
@@ -346,7 +348,7 @@ Ne marchera pas pour les groupes privés.
 }
 ```
 
-#### avatarUrl {GET} : To get the avatar of a group
+#### avatarUrl {GET} : To get the avatar of a group |GROUPS AVATAR|
 
 il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre dimension changer la size en 'small'/'medium'/'large'.
 
@@ -354,7 +356,7 @@ il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre di
 
 \${SIZE} : small(50x50), medium(60x60), large (320x320) (default: medium).
 
-#### /avatar/:groupId {POST} : To update the avatarUrl for media :no_entry_sign:
+#### /avatar/:groupId {POST} : To update the avatarUrl for media :no_entry_sign: |GROUPS AVATAR UPDATE|
 
 ##### paramerter:
 
@@ -366,26 +368,18 @@ il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre di
 
 ##### response: success: 200 | failure: 400 | 500
 
-#### /medias/:groupId/:mediaId {POST} : Adding a media in a group :no_entry_sign:
 
-##### response: success: 200 | failure: 400 | 500
-
-#### /medias/:groupId/:mediaId {DELETE} : Deleting a media in a group :no_entry_sign:
-
-##### response: success: 200 | failure: 400 | 500
-
-
-### MEDIA / CONTENTS
+### CONTENTS
 
 #### AVATAR
 
-#### /media/avatar/group/:groupId/ {POST} :lock: 
+#### /media/avatar/group/:groupId/ {POST} :lock: |CONTENTS AVATAR UPLOAD GROUP|
 
 :warning: (creatorId)
 
 ##### response: success: 200 | failure: 400 | 403 | 500
 
-#### /media/avatar/user/:userId/ {POST} :lock:
+#### /media/avatar/user/:userId/ {POST} :lock: |CONTENTS AVATAR UPLOAD USER|
 
 ##### response: success: 200 | failure: 400 | 403 | 500
 
