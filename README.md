@@ -184,9 +184,12 @@ avatarUrl: {String}
 
 ##### response: success: 200 | failure: 400
 
+Dans le cas d'un READ sans authentification la liste des groupes ne comprendra pas les groups privées.
+
 ```
 {
-  ...user: {Object} // see model
+  ...user: {Object}, // see model
+  groups: [String]
 }
 ```
 
