@@ -135,6 +135,12 @@ avatar.post(
     try {
       await sharp(req.file.path)
         .resize(
+          parseInt(process.env.AVATAR_SIZE_EXTRA_SMALL, 10),
+          parseInt(process.env.AVATAR_SIZE_EXTRA_SMALL, 10)
+        )
+        .toFile(`./uploads/avatars/groups/${req.params.groupId}/extra_small${ext}`);
+      await sharp(req.file.path)
+        .resize(
           parseInt(process.env.AVATAR_SIZE_SMALL, 10),
           parseInt(process.env.AVATAR_SIZE_SMALL, 10)
         )
@@ -173,6 +179,12 @@ avatar.post(
 avatar.post('/users/:userId', userUpload.single('file'), async (req, res) => {
   const ext = Path.extname(req.file.originalname);
   try {
+    await sharp(req.file.path)
+      .resize(
+        parseInt(process.env.AVATAR_SIZE_EXTRA_SMALL, 10),
+        parseInt(process.env.AVATAR_SIZE_EXTRA_SMALL, 10)
+      )
+      .toFile(`./uploads/avatars/users/${req.params.userId}/extra_small${ext}`);
     await sharp(req.file.path)
       .resize(
         parseInt(process.env.AVATAR_SIZE_SMALL, 10),
