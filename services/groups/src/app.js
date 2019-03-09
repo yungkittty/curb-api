@@ -44,6 +44,7 @@ app.get(
 
 // eslint-disable-next-line
 app.use((err, req, res, next) => {
+  console.log('MIDDLEWARE ERROR:', err);
   switch (err.constructor) {
     case errors.ApiError:
       return res
@@ -54,13 +55,17 @@ app.use((err, req, res, next) => {
         .status(err.status)
         .json({ service: err.service, code: err.code, from: err.from });
     case MongoError:
-      return res
-        .status(errors.DATABASE_ERROR)
-        .json({ service: process.env.SERVICE_NAME, error: 'DATABASE_ERROR' });
+      return res.status(errors.DATABASE_ERROR).json({
+        service: process.env.SERVICE_NAME,
+        error: 'DATABASE_ERROR',
+        info: err.message ? err.message : undefined
+      });
     default:
-      return res
-        .status(500)
-        .json({ service: process.env.SERVICE_NAME, error: 'UNDEFINED' });
+      return res.status(500).json({
+        service: process.env.SERVICE_NAME,
+        error: 'UNDEFINED',
+        info: err.message ? err.message : undefined
+      });
   }
 });
 
