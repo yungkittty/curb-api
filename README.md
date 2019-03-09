@@ -61,8 +61,8 @@ Additional error tag will be found in the body response as it:
   info: "..."
  }
 ```
-*from* attribute is added when the error is coming from another service than the initial one.
-*info* attribute is added when the Tag correspond to DATABASE_ERROR or UNDEFINED, as an additional information.
+*from* attribute is added when the error is coming from another service than the initial one.  
+*info* attribute is added when the Tag correspond to DATABASE_ERROR or UNDEFINED, as an additional information.  
 
 ### DEFAULT TAG
 
@@ -72,37 +72,37 @@ Additional error tag will be found in the body response as it:
 
 ### ACCOUNT
 
-  BAD_EMAIL_FORMAT: 400,
-  ACCOUNT_NOT_FOUND: 400,
-  ACCOUNT_ALREADY_EXIST: 400,
-  TOKEN_AHEAD_OF_TIME: 400,
-  BAD_REFRESH_TOKEN: 400,
-  INVALID_PASSWORD: 400,
-  INVALID_TOKEN: 403,
-  TOKEN_NOT_EXPIRED: 403, (on route /account/refresh when the token is still available)
-  TOKEN_EXPIRED: 403,
+  BAD_EMAIL_FORMAT: 400,  
+  ACCOUNT_NOT_FOUND: 400,  
+  ACCOUNT_ALREADY_EXIST: 400,  
+  TOKEN_AHEAD_OF_TIME: 400,  
+  BAD_REFRESH_TOKEN: 400,  
+  INVALID_PASSWORD: 400,  
+  INVALID_TOKEN: 403,  
+  TOKEN_NOT_EXPIRED: 403, (on route /account/refresh when the token is still available)  
+  TOKEN_EXPIRED: 403, 
 
 ### USER 
 
-  USER_NOT_FOUND: 400,
-  MISSING_NAME: 400,
-  USER_ALREADY_EXIST: 400,
+  USER_NOT_FOUND: 400,  
+  MISSING_NAME: 400,  
+  USER_ALREADY_EXIST: 400,  
   
 ### GROUP
 
-  BAD_STATUS: 400,
-  BAD_MEDIATYPES: 400,
-  BAD_TOKEN: 400, (for groups/invite)
-  MISSING_CREATOR_ID: 400,
-  MISSING_GROUP_NAME: 400,
-  MISSING_STATUS: 400,
-  GROUP_ALREADY_EXIST: 400,
-  GROUP_NOT_FOUND: 400,
-  USER_NOT_CREATOR: 403,
-  USER_NOT_IN_GROUP: 403,
-  FORBIDEN_JOIN: 403,
-  FORBIDEN_READ: 403,
-  FORBIDEN_UNJOIN: 403,
+  BAD_STATUS: 400,  
+  BAD_MEDIATYPES: 400,  
+  BAD_TOKEN: 400, (for groups/invite)  
+  MISSING_CREATOR_ID: 400,  
+  MISSING_GROUP_NAME: 400,  
+  MISSING_STATUS: 400,  
+  GROUP_ALREADY_EXIST: 400,  
+  GROUP_NOT_FOUND: 400,  
+  USER_NOT_CREATOR: 403,  
+  USER_NOT_IN_GROUP: 403,  
+  FORBIDEN_JOIN: 403,  
+  FORBIDEN_READ: 403,  
+  FORBIDEN_UNJOIN: 403,  
 
 ### CONTENT
 
