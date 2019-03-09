@@ -69,9 +69,9 @@ Additional error tag will be found in the body response when the request failed 
   
   *TAG: HTTP STATUS*
   
-  BAD_PARAMETER: 400,
-  DATABASE_ERROR: 500,
-  UNDEFINED: 500
+  BAD_PARAMETER: 400,  
+  DATABASE_ERROR: 500,  
+  UNDEFINED: 500  
 
 ### ACCOUNT
 
