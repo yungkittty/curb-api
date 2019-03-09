@@ -1,4 +1,5 @@
 const join = require('../services/join');
+const { ApiError } = require('../configurations/error');
 
 /**
  *
@@ -26,17 +27,19 @@ const join = require('../services/join');
  *  - 401 in case of authentification failure.
  *  - 500 in case of failed database operation.
  */
-async function groupJoin(req, res) {
-  if (!req.params.groupId) return res.status(400).end();
+async function groupJoin(req, res, next) {
+  if (!req.params.groupId) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
-    const done = await join({
+    await join({
       groupId: req.params.groupId,
       userId: req.authId
     });
-    if (!done) return res.status(500).end();
+
     return res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

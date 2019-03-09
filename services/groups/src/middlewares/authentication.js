@@ -1,7 +1,7 @@
 const axios = require('axios');
+const { OtherServiceError } = require('../configurations/error');
 
 async function authentication(req, res, next) {
-  if (!req.headers.authorization) return res.status(400).end();
   try {
     const response = await axios({
       method: 'post',
@@ -9,11 +9,17 @@ async function authentication(req, res, next) {
       url: 'http://curb-accounts:4000/validate',
       validateStatus: undefined
     });
-    if (response.status !== 200) return res.status(response.status).end();
+    if (response.status !== 200) {
+      throw new OtherServiceError(
+        response.data.service,
+        response.data.code,
+        response.status
+      );
+    }
     req.authId = response.data.id;
     return next();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

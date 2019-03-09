@@ -1,16 +1,18 @@
 const permissions = require('../services/permissions');
+const { ApiError } = require('../configurations/error');
 
-async function groupPermissions(req, res) {
-  if (!req.params.groupId || !req.params.userId) return res.status(400).end();
+async function groupPermissions(req, res, next) {
+  if (!req.params.groupId || !req.params.userId) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
     const rights = await permissions(req.params.groupId, req.params.userId);
-    if (!rights) res.status(400).end();
     return res
       .status(200)
       .json(rights)
       .end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

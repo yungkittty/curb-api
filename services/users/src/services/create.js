@@ -9,8 +9,14 @@ async function create(newUser) {
     name: newUser.name,
     dateCreation: currentDate
   });
-  const saved = await user.save();
-  if (!saved) return null;
+  try {
+    await user.save();
+  } catch (error) {
+    if (error.name === 'MongoError' && error.code === 11000) {
+      throw new Error('USER_ALREADY_EXIST');
+    }
+    throw error;
+  }
   return user.getPublicFields();
 }
 

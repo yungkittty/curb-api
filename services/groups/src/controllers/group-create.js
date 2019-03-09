@@ -1,4 +1,5 @@
 const create = require('../services/create');
+const { ApiError } = require('../configurations/error');
 
 /**
  *
@@ -30,10 +31,12 @@ const create = require('../services/create');
  *  - 403 in case of authentification failure.
  *  - 500 in case of failed database operation.
  */
-async function groupCreate(req, res) {
+async function groupCreate(req, res, next) {
   if (!req.body) return res.status(400).end();
   const { name, status, mediaTypes, theme } = req.body;
-  if (!name || !status || !mediaTypes || !theme) return res.status(400).end();
+  if (!name || !status || !mediaTypes || !theme) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
     const groupId = await create({
       creatorId: req.authId,
@@ -42,10 +45,9 @@ async function groupCreate(req, res) {
       mediaTypes,
       theme
     });
-    if (!groupId) return res.status(500).end();
     return res.status(200).json(groupId);
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

@@ -1,13 +1,14 @@
 const avatar = require('../services/avatar');
 
-async function userAvatar(req, res) {
-  if (!req.body.avatarUrl || !req.params.userId) return res.status(400).end();
+async function userAvatar(req, res, next) {
+  if (!req.body.avatarUrl || !req.params.userId) {
+    return next(new Error('BAD_PARAMETER'));
+  }
   try {
-    const response = await avatar(req.params.userId, req.body.avatarUrl);
-    if (!response) return res.status(400).end();
+    await avatar(req.params.userId, req.body.avatarUrl);
     return res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

@@ -1,0 +1,6 @@
+module.exports = {
+  BAD_PARAMETER: 400,
+  USER_NOT_FOUND: 400,
+  USER_ALREADY_EXIST: 400,
+  DATABASE_ERROR: 500
+};

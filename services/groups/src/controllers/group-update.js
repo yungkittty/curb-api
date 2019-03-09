@@ -1,14 +1,18 @@
 const update = require('../services/update');
+const { ApiError } = require('../configurations/error');
 
-async function groupUpdate(req, res) {
-  if (!req.body) res.status(400).end();
-  if (!req.params.id) return res.status(400).end();
+async function groupUpdate(req, res, next) {
+  if (!req.body) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
+  if (!req.params.id) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
-    const done = await update(req.body, req.authId);
-    if (!done) return res.status(400).end();
+    await update(req.body, req.authId);
     return res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

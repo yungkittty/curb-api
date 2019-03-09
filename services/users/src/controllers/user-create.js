@@ -1,19 +1,16 @@
 const create = require('../services/create');
 
-async function userCreate(req, res) {
+async function userCreate(req, res, next) {
   try {
     if (!req.body.id || !req.body.name) {
-      return res.status(400).end();
+      return next('BAD_PARAMETER');
     }
     const doService = await create(req.body);
-    if (doService === null) {
-      return res.status(400).end();
-    }
     return res.status(200).json({
       id: doService.id
     });
   } catch (error) {
-    return res.status(400).end();
+    return next(error);
   }
 }
 
