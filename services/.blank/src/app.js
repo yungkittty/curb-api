@@ -15,27 +15,22 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-// Ajouter les routes du microservices ici
-
-// middleware des erreurs 
-// Les erreurs de mongoose doivent être gerer dans les services
-// Dans les services et controlleurs -> throw new Error("ERROR_TAG");
+// eslint-disable-next-line
 app.use((err, req, res, next) => {
-  if (errors[err.message]) {
-    return res
-      .status(errors[err.message])
-      .json({ service: process.env.SERVICE_NAME, code: err.message });
-  }
-  if (err.message === 'OTHER_SERVICE') {
-    return res
-      .status(500)
-      .json({ service: process.env.SERVICE_NAME, code: 'OTHER_SERVICE' });
-  }
+  console.log('MIDDLEWARE ERROR:', err);
   switch (err.constructor) {
-    // case MongoError:
-    //   return res
-    //     .status(500)
-    //     .json({ service: process.env.SERVICE_NAME, error: 'DATABASE_ERROR' });
+    case errors.ApiError:
+      return res
+        .status(err.status)
+        .json({ service: err.service, code: err.code });
+    case errors.OtherServiceError:
+      return res
+        .status(err.status)
+        .json({ service: err.service, code: err.code, from: err.from });
+    case MongoError:
+      return res
+        .status(errors.DATABASE_ERROR)
+        .json({ service: process.env.SERVICE_NAME, error: 'DATABASE_ERROR' });
     default:
       return res
         .status(500)
