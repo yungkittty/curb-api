@@ -51,7 +51,8 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 
 ## ADDITIONAL ERROR TAG
 
-Additional error tag will be found in the body response as it:
+Additional error tag will be found in the body response when the request failed as it:
+
 
 ```
  {
@@ -62,10 +63,12 @@ Additional error tag will be found in the body response as it:
  }
 ```
 *from* attribute is added when the error is coming from another service than the initial one.  
-*info* attribute is added when the Tag correspond to DATABASE_ERROR or UNDEFINED, as an additional information.  
+*info* attribute is added when the Tag correspond to DATABASE_ERROR or UNDEFINED as an additional information.  
 
 ### DEFAULT TAG
-
+  
+  *TAG: HTTP STATUS*
+  
   BAD_PARAMETER: 400,
   DATABASE_ERROR: 500,
   UNDEFINED: 500
