@@ -1,4 +1,5 @@
 const remove = require('../services/remove');
+const { ApiError } = require('../configurations/error');
 
 /**
  *
@@ -21,14 +22,13 @@ const remove = require('../services/remove');
  *  - 401 in case of authentification failure.
  *  - 500 in case of failed database operation.
  */
-async function groupDelete(req, res) {
-  if (!req.params.id) return res.status(400).end();
+async function groupDelete(req, res, next) {
+  if (!req.params.id) return next(new ApiError('BAD_PARAMETER'));
   try {
-    const group = await remove(req.params.id, req.authId);
-    if (!group) return res.status(400).end();
+    await remove(req.params.id, req.authId);
     return res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

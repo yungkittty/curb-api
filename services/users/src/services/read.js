@@ -8,7 +8,7 @@ async function read(id, token = undefined) {
     : { 'Content-Type': 'application/json' };
   const response = await axios({
     method: 'get',
-    url: `http://curb-groups:4000/`,
+    url: 'http://curb-groups:4000/',
     headers,
     validateStatus: undefined,
     params: {
@@ -16,7 +16,13 @@ async function read(id, token = undefined) {
       userId: id
     }
   });
-  if (response.status !== 200) return null;
+  if (response.status !== 200) {
+    throw new OtherServiceError(
+      response.data.service,
+      response.data.code,
+      response.status
+    );
+  }
   return { ...user.getPublicFields(), groups: response.data.groups };
 }
 

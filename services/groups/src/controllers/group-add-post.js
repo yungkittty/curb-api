@@ -1,13 +1,15 @@
 const addPost = require('../services/add-post');
+const { ApiError } = require('../configurations/error');
 
-async function groupPost(req, res) {
-  if (!req.params.groupId || !req.params.mediaId) return res.status(400).end();
+async function groupPost(req, res, next) {
+  if (!req.params.groupId || !req.params.mediaId) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
-    const done = await addPost(req.params.groupId, req.params.mediaId);
-    if (!done) res.status(400).end();
+    await addPost(req.params.groupId, req.params.mediaId);
     return res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

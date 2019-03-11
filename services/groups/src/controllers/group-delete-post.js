@@ -1,13 +1,15 @@
 const deletePost = require('../services/delete-post');
+const { ApiError } = require('../configurations/error');
 
-async function groupAddPost(req, res) {
-  if (!req.params.groupId || !req.params.mediaId) return res.status(400).end();
+async function groupAddPost(req, res, next) {
+  if (!req.params.groupId || !req.params.mediaId) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
-    const done = await deletePost(req.params.groupId, req.params.mediaId);
-    if (!done) res.status(400).end();
+    await deletePost(req.params.groupId, req.params.mediaId);
     return res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

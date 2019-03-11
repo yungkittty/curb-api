@@ -1,6 +1,6 @@
 const update = require('../services/update');
 
-async function userUpdate(req, res) {
+async function userUpdate(req, res, next) {
   try {
     if (
       req.body.id ||
@@ -9,14 +9,14 @@ async function userUpdate(req, res) {
       req.body.avatarUrl ||
       req.body.dateCreation
     ) {
-      return res.status(400).end();
+      return next('BAD_PARAMETER');
     }
     const doService = await update(req.params.id, req.body);
     return res.status(200).json({
       ...doService
     });
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

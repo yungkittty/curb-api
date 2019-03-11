@@ -1,5 +1,6 @@
 const axios = require('axios');
 const Account = require('../../models/account');
+const { OtherServiceError } = require('../../configurations/error');
 
 async function create(account) {
   const newAccount = new Account({
@@ -7,9 +8,10 @@ async function create(account) {
     email: account.email,
     password: account.password
   });
+  await newAccount.save();
   const response = await axios({
     method: 'post',
-    url: `http://curb-users:4000/`,
+    url: 'http://curb-users:4000/',
     validateStatus: undefined,
     headers: { 'Content-Type': 'application/json' },
     data: {
@@ -17,9 +19,13 @@ async function create(account) {
       id: newAccount._id.toString()
     }
   });
-  if (response.status !== 200) return null;
-  const saved = await newAccount.save();
-  if (!saved) return null;
+  if (response.status !== 200) {
+    throw new OtherServiceError(
+      response.data.service,
+      response.data.code,
+      response.status
+    );
+  }
   return response.data.id;
 }
 

@@ -1,17 +1,14 @@
 const Account = require('../../models/account');
 const tokens = require('../tokens/');
+const { ApiError } = require('../../configurations/error');
 
 async function logout(token) {
-  try {
-    const id = await tokens.verify(token, 'token');
-    const account = await Account.findById(id);
-    if (!account) return null;
-    account.refreshToken = null;
-    account.save();
-    return account;
-  } catch (error) {
-    return null;
-  }
+  const id = await tokens.verify(token, 'token');
+  const account = await Account.findById(id);
+  if (!account) throw new ApiError('ACCOUNT_NOT_FOUND');
+  account.refreshToken = null;
+  await account.save();
+  return account;
 }
 
 module.exports = logout;

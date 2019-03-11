@@ -1,5 +1,6 @@
 const axios = require('axios');
 const read = require('../services/read');
+const { ApiError, OtherServiceError } = require('../configurations/error');
 
 /**
  *
@@ -22,8 +23,10 @@ const read = require('../services/read');
  *  - 500 in case of failed database operation.
  */
 
-async function groupRead(req, res) {
-  if (!req.params.id) return res.status(400).end();
+async function groupRead(req, res, next) {
+  if (!req.params.id) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
     let response;
     if (req.headers.authorization) {
@@ -33,17 +36,24 @@ async function groupRead(req, res) {
         url: 'http://curb-accounts:4000/validate',
         validateStatus: undefined
       });
-      if (response.status !== 200) return res.status(response.status).end();
+      if (response.status !== 200) {
+        return next(
+          new OtherServiceError(
+            response.data.service,
+            response.data.code,
+            response.status
+          )
+        );
+      }
     }
     const userId = !response ? undefined : response.data.id;
     const group = await read(req.params.id, userId);
-    if (!group) return res.status(400).end();
     return res
       .status(200)
       .json(group)
       .end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

@@ -1,20 +1,21 @@
 const tokens = require('../services/tokens');
 const getTokenFromHeader = require('../utils/request/get-token-from-header');
+const { ApiError } = require('../configurations/error');
 
-async function validate(req, res) {
+async function validate(req, res, next) {
   try {
     const token = getTokenFromHeader(req.headers.authorization);
-    if (!token) return res.status(403).end();
+    if (!token) return next(new ApiError('INVALID_TOKEN'));
     const id = await tokens.verify(token, 'token');
     if (!id) {
-      return res.status(403).end();
+      return next(new ApiError('INVALID_TOKEN'));
     }
     return res
       .status(200)
       .json({ id })
       .end();
   } catch (error) {
-    return res.status(403).end();
+    return next(error);
   }
 }
 

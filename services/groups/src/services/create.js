@@ -10,7 +10,11 @@ async function create(group) {
     dateCreation: new Date()
   });
   newGroup.users = [...newGroup.users, group.creatorId];
-  await newGroup.save();
+  try {
+    await newGroup.save();
+  } catch (error) {
+    throw error;
+  }
   return { id: newGroup._id };
 }
 

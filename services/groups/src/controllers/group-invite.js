@@ -1,8 +1,9 @@
 const invite = require('../services/invite');
+const { ApiError } = require('../configurations/error');
 
-async function groupInvite(req, res) {
+async function groupInvite(req, res, next) {
   if (!req.params.groupId || !req.params.guestId) {
-    return res.status(400).end();
+    return next(new ApiError('BAD_PARAMETER'));
   }
   try {
     const response = await invite(
@@ -10,13 +11,12 @@ async function groupInvite(req, res) {
       req.authId,
       req.params.guestId
     );
-    if (!response) return res.status(200).end();
     return res
       .status(200)
       .json(response)
       .end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 
