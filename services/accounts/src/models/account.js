@@ -1,17 +1,15 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-mongoose.connect(
-  'mongodb://db/Curb',
-  { useNewUrlParser: true }
-);
+mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const accountSchema = mongoose.Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   refreshToken: String,
   dateCreation: Date,
-  avatarUrl: String
+  avatarUrl: String,
+  active: { type: Boolean, default: false }
 });
 
 // eslint-disable-next-line

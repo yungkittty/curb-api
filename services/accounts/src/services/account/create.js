@@ -9,7 +9,7 @@ async function create(account) {
   });
   const response = await axios({
     method: 'post',
-    url: `http://curb-users:4000/`,
+    url: 'http://curb-users:4000/',
     validateStatus: undefined,
     headers: { 'Content-Type': 'application/json' },
     data: {
@@ -18,6 +18,18 @@ async function create(account) {
     }
   });
   if (response.status !== 200) return null;
+  const verification = await axios({
+    method: 'post',
+    url: 'http://curb-emailing:4000/verification',
+    validateStatus: undefined,
+    headers: { 'Content-Type': 'application/json' },
+    data: {
+      name: account.name,
+      id: newAccount._id.toString(),
+      email: account.email
+    }
+  });
+  if (verification.status !== 200) return null;
   const saved = await newAccount.save();
   if (!saved) return null;
   return response.data.id;

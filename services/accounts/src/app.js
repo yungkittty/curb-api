@@ -23,6 +23,11 @@ app.post('/sign-out', middlewares.validate, controllers.signOut);
 app.post('/sign-up', controllers.signUp);
 app.post('/refresh', controllers.refresh);
 app.post('/validate', controllers.validate);
+
+// TODO
+app.post('/code-verification', controllers.codeVerification);
+app.get('/validate-account', controllers.validateAccount);
+
 app.delete('/:id', middlewares.validate, controllers.accountDelete);
 app.patch('/:id', middlewares.validate, controllers.accountUpdate);
 
