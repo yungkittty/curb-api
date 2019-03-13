@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 
 // TODO + TOTEST (passer les call emails en async (prise de temps
 // sur la rq de create ~~ ))
+// enlever l'id de l'user dans les call
 app.post('/verification', controllers.verification);
 app.post('/reset', controllers.reset);
 

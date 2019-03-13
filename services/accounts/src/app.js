@@ -21,6 +21,8 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
+// TODO middleware de vérif de l'activation du code !
+
 app.delete('/:id', middlewares.validate, controllers.accountDelete);
 app.patch('/:id', middlewares.validate, controllers.accountUpdate);
 app.post('/sign-in', controllers.signIn);
@@ -33,6 +35,7 @@ app.post('/validate', controllers.validate);
 // TO DELETE => /code/:id (remplacer par un retour du code dans la rq);
 app.post('/code/:id', controllers.accountCode);
 app.get('/activate/:id', controllers.accountActivate);
+// app.get('/reset-password/:id', )
 
 app.delete('/:id', middlewares.validate, controllers.accountDelete);
 app.patch('/:id', middlewares.validate, controllers.accountUpdate);
