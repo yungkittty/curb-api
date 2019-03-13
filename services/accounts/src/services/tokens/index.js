@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Account = require('../../models/account');
 const jwtConfig = require('../../configurations/jwt');
+const { ApiError } = require('../../configurations/error');
 
 function generateToken(payload, expireTime) {
   return jwt.sign({ payload }, jwtConfig.secret, {
@@ -23,36 +24,60 @@ function createRefreshToken(payload) {
 }
 
 async function verify(token, type) {
-  const decoded = jwt.verify(token, jwtConfig.secret);
-  const { _id } = await Account.findById(decoded.payload.id);
-  // eslint-disable-next-line
-  return decoded.payload.type === type && decoded.payload.id === _id.toString()
-    ? decoded.payload.id
-    : null;
+  try {
+    const decoded = jwt.verify(token, jwtConfig.secret);
+    const { _id } = await Account.findById(decoded.payload.id);
+    if (!_id) throw new ApiError('INVALID_TOKEN');
+    // eslint-disable-next-line
+    return decoded.payload.type === type &&
+      decoded.payload.id === _id.toString()
+      ? decoded.payload.id
+      : null;
+  } catch (error) {
+    switch (error.constructor) {
+      case jwt.TokenExpiredError:
+        throw new ApiError('TOKEN_EXPIRED');
+      case jwt.JsonWebTokenError:
+        throw new ApiError('INVALID_TOKEN');
+      case jwt.NotBeforeError:
+        throw new ApiError('TOKEN_AHEAD_OF_TIME');
+      default:
+        throw error;
+    }
+  }
 }
 
 async function refreshTokens(token, refreshToken) {
   try {
     const decoded = await verify(token, 'token');
-    if (!decoded) return null;
+    if (!decoded) throw new ApiError('INVALIDE_TOKEN');
   } catch (error) {
     if (error.name !== 'TokenExpiredError') {
-      throw error;
+      switch (error.constructor) {
+        case jwt.JsonWebTokenError:
+          throw new ApiError('INVALID_TOKEN');
+        case jwt.NotBeforeError:
+          throw new ApiError('TOKEN_AHEAD_OF_TIME');
+        default:
+          throw error;
+      }
     }
     const decoded = jwt.decode(token);
     const account = await Account.findById(decoded.payload.id);
-    if (!account || refreshToken !== account.refreshToken) return null;
+    if (!account || refreshToken !== account.refreshToken) {
+      throw new ApiError('BAD_REFRESH_TOKEN');
+    }
     const newRefreshToken = createRefreshToken(account._id.toString());
     const newToken = createToken(account._id.toString());
     account.refreshToken = newRefreshToken;
-    account.save();
+    await account.save();
     return {
       token: newToken,
       refreshToken: newRefreshToken,
       id: account._id
     };
   }
-  return null;
+  throw new ApiError('TOKEN_NOT_EXPIRED');
 }
 
 module.exports = {

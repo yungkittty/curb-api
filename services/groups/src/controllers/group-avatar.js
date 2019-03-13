@@ -1,13 +1,15 @@
 const avatar = require('../services/avatar');
+const { ApiError } = require('../configurations/error');
 
-async function groupAvatar(req, res) {
-  if (!req.body.avatarUrl || !req.params.groupId) return res.status(400).end();
+async function groupAvatar(req, res, next) {
+  if (!req.body.avatarUrl || !req.params.groupId) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
-    const response = await avatar(req.params.groupId, req.body.avatarUrl);
-    if (!response) return res.status(200).end();
+    await avatar(req.params.groupId, req.body.avatarUrl);
     return res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

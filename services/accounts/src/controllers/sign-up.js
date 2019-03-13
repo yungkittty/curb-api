@@ -1,22 +1,27 @@
 const verifyEmail = require('../utils/email/verify-email');
 const create = require('../services/account/create');
+const { ApiError } = require('../configurations/error');
 
-async function signUp(req, res) {
+async function signUp(req, res, next) {
   if (!req.body) res.status(400).end();
   if (!req.body.name || !req.body.email || !req.body.password) {
-    res.status(400).end();
+    return next(new ApiError('BAD_PARAMETER'));
   }
-  if (!verifyEmail(req.body.email)) return res.status(400).end();
+  if (!verifyEmail(req.body.email)) {
+    return next(new ApiError('BAD_EMAIL_FORMAT'));
+  }
   try {
-    const account = await create({
+    const id = await create({
       email: req.body.email,
       name: req.body.name,
       password: req.body.password
     });
-    if (!account) return res.status(400).end();
-    return res.status(200).end();
+    return res
+      .status(200)
+      .json({ id })
+      .end();
   } catch (error) {
-    return res.status(400).end();
+    return next(error);
   }
 }
 

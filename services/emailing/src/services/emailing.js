@@ -20,23 +20,30 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-async function sendMail(name, email, options) {
-  const code = randtoken.generator(generatorConfig).generate(10);
+async function sendMail(email, options) {
   const mailOptions = {
     from: process.env.CURB_EMAIL,
-    to: process.env.CURB_EMAIL,
+    to: email,
     ...options
   };
   await transporter.sendMail(mailOptions);
+}
+
+async function generateCode() {
+  const code = await randtoken.generator(generatorConfig).generate(10);
   return code;
 }
 
 async function mailVerification(name, email) {
-  return sendMail(name, email, verificationOptions(name, email));
+  const code = await generateCode();
+  await sendMail(email, verificationOptions(name, code));
+  return code;
 }
 
 async function mailResetPassword(name, email) {
-  return sendMail(name, email, resetPasswordOptions(name, email));
+  const code = await generateCode();
+  sendMail(email, resetPasswordOptions(name, code));
+  return code;
 }
 
 module.exports = {

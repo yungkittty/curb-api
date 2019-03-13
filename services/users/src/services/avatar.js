@@ -2,10 +2,9 @@ const User = require('../models/user');
 
 async function avatar(userId, avatarUrl) {
   const updatedUser = await User.findById({ _id: userId });
-  if (!updatedUser) return null;
+  if (!updatedUser) throw new Error('USER_NOT_FOUND');
   updatedUser.avatarUrl = avatarUrl || updatedUser.avatarUrl;
-  const saved = await updatedUser.save();
-  if (!saved) return null;
+  await updatedUser.save();
   return updatedUser;
 }
 

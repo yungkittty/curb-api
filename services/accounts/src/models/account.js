@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const { ApiError } = require('../configurations/error');
 
 mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const accountSchema = mongoose.Schema({
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
+  email: { type: String, unique: true, required: [true, 'MISSING_EMAIL'] },
+  password: { type: String, required: [true, 'MISSING_PASSWORD'] },
   refreshToken: String,
   dateCreation: Date,
   avatarUrl: String,
-  active: { type: Boolean, default: false }
+  active: { type: Boolean, default: false },
+  code: { type: String }
 });
 
 // eslint-disable-next-line
@@ -37,5 +39,18 @@ accountSchema.methods.getPublicFields = function() {
   } = this.toObject();
   return { id: _id, ...publicAccount };
 };
+
+accountSchema.post('save', async (error, doc, next) => {
+  console.log('MONGO ERROR:', error);
+  if (error.name === 'MongoError' && error.code === 11000) {
+    return next(new ApiError('ACCOUNT_ALREADY_EXIST'));
+  }
+  if (error.errors[Object.keys(error.errors)[0]]) {
+    return next(
+      new ApiError(error.errors[Object.keys(error.errors)[0]].message)
+    );
+  }
+  return next(error);
+});
 
 module.exports = mongoose.model('account', accountSchema);

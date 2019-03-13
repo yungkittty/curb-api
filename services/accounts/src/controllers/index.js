@@ -5,6 +5,8 @@ const refresh = require('./refresh');
 const validate = require('./validate');
 const accountDelete = require('./account-delete');
 const accountUpdate = require('./account-update');
+const accountCode = require('./account-code');
+const accountActivate = require('./account-activate');
 
 module.exports = {
   signIn,
@@ -13,5 +15,7 @@ module.exports = {
   refresh,
   validate,
   accountDelete,
-  accountUpdate
+  accountUpdate,
+  accountCode,
+  accountActivate
 };
