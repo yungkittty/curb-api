@@ -68,31 +68,39 @@ Additional error tag will be found in the body response when the request failed 
 ### DEFAULT TAG
   
   *TAG: HTTP STATUS*
-  
+ ```
   BAD_PARAMETER: 400,  
   DATABASE_ERROR: 500,  
   UNDEFINED: 500  
-
+ ```
 ### ACCOUNT
 
+ ```
+  BAD_PARAMETER: 400,  
   BAD_EMAIL_FORMAT: 400,  
-  ACCOUNT_NOT_FOUND: 400,  
-  ACCOUNT_ALREADY_EXIST: 400,  
-  TOKEN_AHEAD_OF_TIME: 400,  
-  BAD_REFRESH_TOKEN: 400,  
-  INVALID_PASSWORD: 400,  
-  INVALID_TOKEN: 403,  
+  ACCOUNT_NOT_FOUND: 400,
+  ACCOUNT_ALREADY_EXIST: 400,
+  TOKEN_AHEAD_OF_TIME: 400,
+  BAD_REFRESH_TOKEN: 400,
+  INVALID_PASSWORD: 400,
+  ACCOUNT_CODE_DIFFERENT: 400,
+  INVALID_TOKEN: 403,
   TOKEN_NOT_EXPIRED: 403, (on route /account/refresh when the token is still available)  
-  TOKEN_EXPIRED: 403, 
+  TOKEN_EXPIRED: 403,
+  ACCOUNT_ALREADY_ACTIVE: 500,
+  DATABASE_ERROR: 500
+ ```
 
 ### USER 
 
+ ```
   USER_NOT_FOUND: 400,  
   MISSING_NAME: 400,  
   USER_ALREADY_EXIST: 400,  
-  
+ ```  
 ### GROUP
 
+ ```
   BAD_STATUS: 400,  
   BAD_MEDIATYPES: 400,  
   BAD_TOKEN: 400, (for groups/invite)  
@@ -106,9 +114,16 @@ Additional error tag will be found in the body response when the request failed 
   FORBIDEN_JOIN: 403,  
   FORBIDEN_READ: 403,  
   FORBIDEN_UNJOIN: 403,  
-
+ ```
+ 
 ### CONTENT
 
+### EMAILING
+
+ ```
+  BAD_PARAMETER: 400,
+  DATABASE_ERROR: 500
+ ```
 ## ROUTES
 
 ##### LEGEND
