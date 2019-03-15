@@ -36,6 +36,8 @@ accountSchema.methods.getPublicFields = function() {
     __v,
     _id,
     refreshToken,
+    codePassword,
+    codeVerification,
     ...publicAccount
   } = this.toObject();
   return { id: _id, ...publicAccount };
