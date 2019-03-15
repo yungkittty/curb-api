@@ -130,7 +130,8 @@ Additional error tag will be found in the body response when the request failed 
   id: {Uuid},
   email: {String},
   password: {String},
-  refreshToken: {String}
+  refreshToken: {String},
+  active: {Boolean}
  }
 ```
 
@@ -224,6 +225,50 @@ update the account.
 #### /account/:id {DELETE} :lock: |ACCOUNT DELETE|
 
 ##### response: success: 200 | failure: 400 | 403
+
+#### /account/code-verification/:id {POST}  :no_entry_sign:
+
+##### params: 
+ body:
+ ```
+ {
+  code: {String}
+ }
+ ```
+
+##### response: sucess: 200 | failure: 400 | 500
+
+#### /account/code-password/:id {POST}  :no_entry_sign:
+
+##### params: 
+ body:
+ ```
+ {
+  code: {String}
+ }
+ ```
+
+##### response: sucess: 200 | failure: 400 | 500
+
+#### /account/activate/:id {GET}
+
+##### params: 
+ query :
+ `code: {String}`
+
+##### response: sucess: 200 | failure: 400 | 500
+
+#### /account/reset-password/:id {GET}
+
+##### params: 
+ query :
+ `code: {String}`
+ `password: {String}`
+
+##### response: sucess: 200 | failure: 400 | 500
+
+
+#### /account/:id {POST}
 
 ### USERS
 
@@ -457,3 +502,38 @@ file: {String} [file path]
 ##### response: success: 200 | failure: 400 | 403 | 500
 
 :construction:
+
+### EMAILING
+
+#### /emailing/verification {POST}
+
+Will send an email on the user's email with a code.
+(Already called on /accounts/sign-up)
+
+##### params: 
+ body:
+ ```
+ {
+  name: {String},
+  email: {String},
+  id: {Uuid}
+ }
+ ```
+
+##### response: sucess: 200 | failure: 400 | 500
+
+#### /emailing/reset {POST}
+
+Will send an email on the user's email with a code.
+
+##### params: 
+ body:
+ ```
+ {
+  name: {String},
+  email: {String},
+  id: {Uuid}
+ }
+ ```
+
+##### response: sucess: 200 | failure: 400 | 500
