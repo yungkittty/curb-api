@@ -33,9 +33,13 @@ app.post('/validate', controllers.validate);
 
 // TODO
 // TO DELETE => /code/:id (remplacer par un retour du code dans la rq);
-app.post('/code/:id', controllers.accountCode);
+// private route:
+app.post('/code-verification/:id', controllers.accountCodeVerification);
+// private route:
+app.post('/code-password/:id', controllers.accountCodePassword);
+
 app.get('/activate/:id', controllers.accountActivate);
-// app.get('/reset-password/:id', )
+app.get('/reset-password/:id', controllers.accountResetPassword);
 
 app.delete('/:id', middlewares.validate, controllers.accountDelete);
 app.patch('/:id', middlewares.validate, controllers.accountUpdate);

@@ -11,7 +11,8 @@ const accountSchema = mongoose.Schema({
   dateCreation: Date,
   avatarUrl: String,
   active: { type: Boolean, default: false },
-  code: { type: String }
+  codeVerification: { type: String },
+  codePassword: { type: String }
 });
 
 // eslint-disable-next-line

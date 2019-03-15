@@ -1,14 +1,15 @@
 const Account = require('../../models/account');
 const { ApiError } = require('../../configurations/error');
 
-async function updateCode(id, newCode) {
+async function resetPassword(id, newCode, newPassword) {
   const account = await Account.findById({ _id: id });
   if (!account) throw new ApiError('ACCOUNT_NOT_FOUND');
-  if (account.active) {
-    throw new ApiError('ACCOUNT_ALREADY_ACTIVE');
+  if (newCode !== account.codePassword) {
+    throw new ApiError('ACCOUNT_CODE_DIFFERENT');
   }
-  if (newCode) account.code = newCode;
+  account.codePassword = null;
+  account.password = newPassword;
   await account.save();
 }
 
-module.exports = updateCode;
+module.exports = resetPassword;

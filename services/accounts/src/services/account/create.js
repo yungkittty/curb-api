@@ -41,7 +41,6 @@ async function callEmailVerification(name, id, email) {
       response.status
     );
   }
-  return response.data.code;
 }
 
 // TODO a retester
@@ -53,13 +52,11 @@ async function create(account) {
   });
   await callUserCreate(account.name, newAccount._id.toString());
   await newAccount.save();
-  const code = await callEmailVerification(
+  await callEmailVerification(
     account.name,
     newAccount._id.toString(),
     account.email
   );
-  newAccount.code = code;
-  await newAccount.save();
   return newAccount._id.toString();
 }
 

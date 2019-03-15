@@ -42,7 +42,7 @@ async function mailVerification(name, email) {
 
 async function mailResetPassword(name, email) {
   const code = await generateCode();
-  sendMail(email, resetPasswordOptions(name, code));
+  await sendMail(email, resetPasswordOptions(name, code));
   return code;
 }
 

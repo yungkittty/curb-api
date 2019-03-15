@@ -4,8 +4,10 @@ const validatePassword = require('./validate-password');
 const create = require('./create');
 const remove = require('./remove');
 const update = require('./update');
-const updateCode = require('./update-code');
+const updateCodeVerification = require('./update-code-verification');
+const updateCodePassword = require('./update-code-password');
 const activate = require('./activate');
+const resetPassword = require('./reset-password');
 
 module.exports = {
   authenticate,
@@ -14,6 +16,8 @@ module.exports = {
   create,
   remove,
   update,
-  updateCode,
-  activate
+  updateCodeVerification,
+  updateCodePassword,
+  activate,
+  resetPassword
 };
