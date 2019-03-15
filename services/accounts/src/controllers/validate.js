@@ -11,7 +11,7 @@ async function validate(req, res, next) {
     if (!id) {
       return next(new ApiError('INVALID_TOKEN'));
     }
-    if (req.body && req.body.validate) {
+    if (req.body && req.body.active) {
       const isValid = await isAccountValid(id);
       if (!isValid) return next(new ApiError('ACCOUNT_NOT_ACTIVATE'));
     }
