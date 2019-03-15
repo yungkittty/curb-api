@@ -1,6 +1,7 @@
 const tokens = require('../services/tokens');
 const getTokenFromHeader = require('../utils/request/get-token-from-header');
 const { ApiError } = require('../configurations/error');
+const isAccountValid = require('../services/account/is-account-valid');
 
 async function validate(req, res, next) {
   try {
@@ -9,6 +10,10 @@ async function validate(req, res, next) {
     const id = await tokens.verify(token, 'token');
     if (!id) {
       return next(new ApiError('INVALID_TOKEN'));
+    }
+    if (req.body && req.body.validate) {
+      const isValid = await isAccountValid(id);
+      if (!isValid) return next(new ApiError('ACCOUNT_NOT_ACTIVATE'));
     }
     return res
       .status(200)

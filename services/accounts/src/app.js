@@ -41,9 +41,6 @@ app.post('/code-password/:id', controllers.accountCodePassword);
 app.get('/activate/:id', controllers.accountActivate);
 app.get('/reset-password/:id', controllers.accountResetPassword);
 
-app.delete('/:id', middlewares.validate, controllers.accountDelete);
-app.patch('/:id', middlewares.validate, controllers.accountUpdate);
-
 // eslint-disable-next-line
 app.use((err, req, res, next) => {
   console.log('MIDDLEWARE ERROR:', err);

@@ -8,6 +8,7 @@ const updateCodeVerification = require('./update-code-verification');
 const updateCodePassword = require('./update-code-password');
 const activate = require('./activate');
 const resetPassword = require('./reset-password');
+const isAccountValid = require('./is-account-valid');
 
 module.exports = {
   authenticate,
@@ -19,5 +20,6 @@ module.exports = {
   updateCodeVerification,
   updateCodePassword,
   activate,
-  resetPassword
+  resetPassword,
+  isAccountValid
 };
