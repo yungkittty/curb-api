@@ -1,8 +1,9 @@
 const activate = require('../services/account/activate');
+const { ApiError } = require('../configurations/error');
 
 async function accountActivate(req, res, next) {
   if (!req.params.id || !req.query.code) {
-    return next(new Error('BAD_PARAMETER'));
+    return next(new ApiError('BAD_PARAMETER'));
   }
   try {
     await activate(req.params.id, req.query.code);
