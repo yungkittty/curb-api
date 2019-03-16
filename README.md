@@ -327,11 +327,11 @@ Dans le cas d'un READ sans authentification la liste des groupes ne comprendra p
 
 #### avatarUrl {GET} : To get the avatar of an user |USERS AVATAR|
 
-il faut rajouter l'ip du server à l'avatarUrl de l'utilisateur. Pour avoir une autre dimension changer la size en 'small'/'medium'/'large'.
+il faut rajouter l'ip du server à l'avatarUrl de l'utilisateur. Pour avoir une autre dimension changer la size en 'extra_small'/'small'/'medium'/'large'.
 
 `/{path}/{size}.extension`
 
-\${SIZE} : small(50x50), medium(60x60), large (320x320) (default: medium).
+\${SIZE} : extra_small(50x50), small(60x60), medium(100x100), large (320x320) (default: medium).
 
 ### GROUPS
 
@@ -473,15 +473,15 @@ Ne marchera pas pour les groupes privés.
 
 #### avatarUrl {GET} : To get the avatar of a group |GROUPS AVATAR|
 
-il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre dimension changer la size en 'small'/'medium'/'large'.
+il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre dimension changer la size en 'extra_small'/'small'/'medium'/'large'.
 
 `/{path}/{size}.extension`
 
-\${SIZE} : small(50x50), medium(60x60), large (320x320) (default: medium).
+\${SIZE} : extra_small(50x50), small(60x60), medium(100x100), large (320x320) (default: medium).
 
 #### /avatar/:groupId {POST} : To update the avatarUrl for media :no_entry_sign: |GROUPS AVATAR UPDATE|
 
-##### paramerter:
+##### parameter:
 
 ```
 {
@@ -503,6 +503,53 @@ type: {String} [Unique, 'localisation', 'text', 'image','video']
 dateCreation: {Date},
 file: {String} [file path]
 ```
+
+#### /contents/:groupId/:userId {POST} :lock:
+
+##### parameter:
+
+```
+{
+type: {String}
+}
+```
+
+##### response: success: 200 | failure: 400
+
+```
+{
+id: {Uuid}
+}
+```
+
+#### /contents/:contentId {GET}
+
+##### response: success: 200 | failure: 400
+
+```
+{
+ creatorId: {Uuid},
+ type: {String},
+ dateCreation: {Date},
+ file: {String}
+}
+```
+
+#### /contents/:contentId {PATCH}
+
+##### parameter:
+
+```
+{
+ <any: contentField> // see model
+}
+```
+
+##### response: success: 200 | failure: 400
+
+#### /contents/:contentId {DELETE}
+
+##### response: success: 200 | failure: 400
 
 #### AVATAR
 
