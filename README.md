@@ -535,7 +535,7 @@ id: {Uuid}
 }
 ```
 
-#### /contents/:contentId {PATCH}
+#### /contents/:contentId {PATCH} :lock:
 
 ##### parameter:
 
@@ -547,7 +547,7 @@ id: {Uuid}
 
 ##### response: success: 200 | failure: 400
 
-#### /contents/:contentId {DELETE}
+#### /contents/:contentId {DELETE} :lock:
 
 ##### response: success: 200 | failure: 400
 
