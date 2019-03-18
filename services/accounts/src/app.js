@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const MongoError = require('mongoose').Error;
+const cookieParser = require('cookie-parser');
 
 const controllers = require('./controllers');
 const middlewares = require('./middlewares');
@@ -11,7 +12,23 @@ const errors = require('./configurations/error');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cookieParser());
+
+// TODO
+const corsOptions = {
+  origin: function(origin, callback) {
+    console.log('origin=>', origin);
+    callback(null, true);
+  },
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  maxAge: 86400,
+  methods: ['GET', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
+  optionsSuccessStatus: 204
+};
+// app.options('*', cors(corsOptions));
+
+app.use(cors(corsOptions));
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));

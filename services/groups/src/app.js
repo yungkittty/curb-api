@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const MongoError = require('mongoose').Error;
-
+const cookieParser = require('cookie-parser');
 const controllers = require('./controllers');
 const middlewares = require('./middlewares');
 const errors = require('./configurations/error');
@@ -14,7 +14,18 @@ const app = express();
 mongoose.set('debug', true);
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cookieParser());
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+  allowedHeaders: '*',
+  maxAge: 86400
+};
+app.options('*', (req, res) => {
+  res.status(200);
+});
+
+app.use(cors(corsOptions));
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));

@@ -27,6 +27,8 @@ async function groupRead(req, res, next) {
   if (!req.params.id) {
     return next(new ApiError('BAD_PARAMETER'));
   }
+  console.log('coookies=>', req.cookies);
+
   try {
     let response;
     if (req.headers.authorization) {
