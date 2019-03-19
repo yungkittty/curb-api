@@ -502,12 +502,12 @@ creatorId: {Uuid}, [Unique]
 groupId: {Uuid}, [Unique]
 type: {String} [Unique, 'localisation', 'text', 'image','video']
 dateCreation: {Date},
-file: {String} [file path]
+data: {String} [file path]
 ```
 
 #### /contents/$(mediaType)/:groupId/:userId {POST} :lock:
 
-mediaType: images / videos/ locations / texts
+$mediaType: images / videos / ocations / texts.
 
 
 ##### response: success: 200 | failure: 400
@@ -515,9 +515,10 @@ mediaType: images / videos/ locations / texts
 ```
 {
 id: {Uuid},
-file: {String} [file path]
+data: {String} [file path]
 }
 ```
+
 
 #### /contents/:contentId {GET}
 
