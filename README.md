@@ -479,7 +479,7 @@ il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre di
 
 \${SIZE} : extra_small(50x50), small(60x60), medium(100x100), large (320x320) (default: medium).
 
-#### /avatar/:groupId {POST} : To update the avatarUrl for media :no_entry_sign: |GROUPS AVATAR UPDATE|
+#### /avatars/:groupId {POST} : To update the avatarUrl for media :no_entry_sign: |GROUPS AVATAR UPDATE|
 
 ##### parameter:
 
@@ -499,26 +499,23 @@ il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre di
 ```
 id: {Uuid}, [Unique]
 creatorId: {Uuid}, [Unique]
+groupId: {Uuid}, [Unique]
 type: {String} [Unique, 'localisation', 'text', 'image','video']
 dateCreation: {Date},
 file: {String} [file path]
 ```
 
-#### /contents/:groupId/:userId {POST} :lock:
+#### /contents/$(mediaType)/:groupId/:userId {POST} :lock:
 
-##### parameter:
+mediaType: images / videos/ locations / texts
 
-```
-{
-type: {String}
-}
-```
 
 ##### response: success: 200 | failure: 400
 
 ```
 {
-id: {Uuid}
+id: {Uuid},
+file: {String} [file path]
 }
 ```
 
@@ -528,10 +525,7 @@ id: {Uuid}
 
 ```
 {
- creatorId: {Uuid},
- type: {String},
- dateCreation: {Date},
- file: {String}
+ ...contents: {Object} // see model
 }
 ```
 
@@ -553,13 +547,13 @@ id: {Uuid}
 
 #### AVATAR
 
-#### /media/avatar/group/:groupId/ {POST} :lock: |CONTENTS AVATAR UPLOAD GROUP|
+#### /contents/avatars/group/:groupId/ {POST} :lock: |CONTENTS AVATAR UPLOAD GROUP|
 
 :warning: (creatorId)
 
 ##### response: success: 200 | failure: 400 | 403 | 500
 
-#### /media/avatar/user/:userId/ {POST} :lock: |CONTENTS AVATAR UPLOAD USER|
+#### /contents/avatars/user/:userId/ {POST} :lock: |CONTENTS AVATAR UPLOAD USER|
 
 ##### response: success: 200 | failure: 400 | 403 | 500
 
