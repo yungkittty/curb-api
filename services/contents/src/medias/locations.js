@@ -7,7 +7,7 @@ localisation.use('/:groupId/:userId', async (req, res, next) => {
   const response = await axios.get(`http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`);
   if (response.status !== 200) return res.status(400).end();
   if (!response.data.write) return res.status(400).end();
-  next();
+  return next();
 });
 
 localisation.get('/', (req, res) => (

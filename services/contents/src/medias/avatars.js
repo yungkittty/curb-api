@@ -83,11 +83,9 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
       const files = await fs.readdir(
         `./uploads/avatars/groups/${req.params.groupId}`
       );
-      files.forEach(file =>
-        fs.unlink(
-          Path.join(`./uploads/avatars/groups/${req.params.groupId}`, file)
-        )
-      );
+      files.forEach(file => fs.unlink(
+        Path.join(`./uploads/avatars/groups/${req.params.groupId}`, file)
+      ));
     }
     return next();
   } catch (error) {
@@ -114,11 +112,9 @@ avatar.use('/users/:userId', async (req, res, next) => {
       const files = await fs.readdir(
         `./uploads/avatars/users/${req.params.userId}`
       );
-      files.forEach(file =>
-        fs.unlink(
-          Path.join(`./uploads/avatars/users/${req.params.userId}`, file)
-        )
-      );
+      files.forEach(file => fs.unlink(
+        Path.join(`./uploads/avatars/users/${req.params.userId}`, file)
+      ));
     }
     console.log('Check right to upload user avatar here'); // eslint-disable-line
     return next();
@@ -212,7 +208,7 @@ avatar.post('/users/:userId', userUpload.single('file'), async (req, res) => {
       validateStatus: undefined
     });
     if (response.status !== 200) return res.status(400).end();
-    return res.status(200).end();
+    return res.status(200).json({ avatarUrl: `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_USER_PATH}/${req.params.userId}/medium${ext}` });
   } catch (error) {
     res.status(400).end();
   }

@@ -9,7 +9,7 @@ const groupPermissions = require('./group-permissions');
 const groupAddPost = require('./group-add-post');
 const groupDeletePost = require('./group-delete-post');
 const groupInvite = require('./group-invite');
-const groupAvatar = require('./group-avatar');
+const groupAvatar = require('./group-avatars');
 const groupUnjoin = require('./group-unjoin');
 
 module.exports = {
