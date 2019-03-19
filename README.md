@@ -265,18 +265,18 @@ update the account.
 
 ##### response: sucess: 200 | failure: 400 | 500
 
-#### /account/activate/:id {GET}
+#### /account/activate/:id {POST}
 
 ##### params: 
- query :
+ body :
  `code: {String}`
 
 ##### response: sucess: 200 | failure: 400 | 500
 
-#### /account/reset-password/:id {GET}
+#### /account/reset-password/:id {POST}
 
 ##### params: 
- query :
+ body :
  `code: {String}`
  `password: {String}`
 
