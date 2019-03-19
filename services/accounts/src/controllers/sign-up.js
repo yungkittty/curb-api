@@ -3,7 +3,7 @@ const create = require('../services/account/create');
 const { ApiError } = require('../configurations/error');
 
 async function signUp(req, res, next) {
-  if (!req.body) res.status(400).end();
+  if (!req.body) return next(new ApiError('BAD_PARAMETER'));
   if (!req.body.name || !req.body.email || !req.body.password) {
     return next(new ApiError('BAD_PARAMETER'));
   }

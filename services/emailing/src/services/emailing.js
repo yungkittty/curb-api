@@ -8,8 +8,8 @@ const verificationOptions = (name, code) => ({
 });
 
 const resetPasswordOptions = (name, code) => ({
-  subject: `Reset ${name}`,
-  text: `Reset Code: ${code}`
+  subject: `Curb: [RESET-PASSWORD] ${name}`,
+  text: `Reset Password Code: ${code}`
 });
 
 const transporter = nodemailer.createTransport({

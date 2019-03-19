@@ -2,11 +2,11 @@ const emailResetPassword = require('../services/email-reset-password');
 const { ApiError } = require('../configurations/error');
 
 async function reset(req, res, next) {
-  if (!req.body.name || !req.body.email || !req.body.id) {
+  if (!req.body.email) {
     return next(new ApiError('BAD_PARAMETER'));
   }
   try {
-    await emailResetPassword(req.body);
+    await emailResetPassword(req.body.email);
     return res.status(200).end();
   } catch (error) {
     return next(error);

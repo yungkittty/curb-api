@@ -7,9 +7,12 @@ async function userRead(req, res, next) {
   }
   try {
     const user = await read(req.params.id, req.headers.authorization);
-    return res.status(200).json({
-      ...user
-    });
+    return res
+      .status(200)
+      .json({
+        ...user
+      })
+      .end();
   } catch (error) {
     return next(error);
   }

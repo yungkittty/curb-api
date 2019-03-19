@@ -3,7 +3,7 @@ const getTokenFromHeader = require('../utils/request/get-token-from-header');
 const { ApiError } = require('../configurations/error');
 
 async function accountUpdate(req, res, next) {
-  if (!req.body) res.status(400).end();
+  if (!req.body) return next(new ApiError('BAD_PARAMETER'));
   if (!req.params.id) return next(new ApiError('BAD_PARAMETER'));
   if (!req.body.email && !req.body.password) {
     return next(new ApiError('BAD_PARAMETER'));

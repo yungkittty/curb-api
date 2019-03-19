@@ -1,4 +1,5 @@
 module.exports = {
   BAD_PARAMETER: 400,
+  ACCOUNT_ALREADY_ACTIVE: 400,
   DATABASE_ERROR: 500
 };

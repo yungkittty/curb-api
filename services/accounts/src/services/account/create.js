@@ -22,16 +22,14 @@ async function callUserCreate(name, id) {
   }
 }
 
-async function callEmailVerification(name, id, email) {
+async function callEmailVerification(id) {
   const response = await axios({
     method: 'post',
     url: 'http://curb-emailing:4000/verification',
     validateStatus: undefined,
     headers: { 'Content-Type': 'application/json' },
     data: {
-      name,
-      id,
-      email
+      id
     }
   });
   if (response.status !== 200) {
@@ -43,7 +41,6 @@ async function callEmailVerification(name, id, email) {
   }
 }
 
-// TODO a retester
 async function create(account) {
   const newAccount = new Account({
     name: account.name,
@@ -52,11 +49,7 @@ async function create(account) {
   });
   await callUserCreate(account.name, newAccount._id.toString());
   await newAccount.save();
-  await callEmailVerification(
-    account.name,
-    newAccount._id.toString(),
-    account.email
-  );
+  await callEmailVerification(newAccount._id.toString());
   return newAccount._id.toString();
 }
 

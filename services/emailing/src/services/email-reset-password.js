@@ -1,12 +1,14 @@
 const axios = require('axios');
 const { OtherServiceError } = require('../configurations/error');
 const { mailResetPassword } = require('./emailing');
+const { getAccountByEmail } = require('../utils/getAccount');
 
-async function emailResetPassword({ name, email, id }) {
-  const code = await mailResetPassword(name, email);
+async function emailResetPassword(email) {
+  const user = await getAccountByEmail(email);
+  const code = await mailResetPassword(user.name, user.email);
   const response = await axios({
     method: 'post',
-    url: `http://curb-accounts:4000/code-password/${id}`,
+    url: `http://curb-accounts:4000/code-password/${user.id}`,
     validateStatus: undefined,
     headers: { 'Content-Type': 'application/json' },
     data: {

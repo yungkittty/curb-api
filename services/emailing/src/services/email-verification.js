@@ -1,9 +1,12 @@
 const axios = require('axios');
-const { OtherServiceError } = require('../configurations/error');
+const { ApiError, OtherServiceError } = require('../configurations/error');
 const { mailVerification } = require('./emailing');
+const { getAccountById } = require('../utils/getAccount');
 
-async function emailVerification({ name, email, id }) {
-  const code = await mailVerification(name, email);
+async function emailVerification(id) {
+  const user = await getAccountById(id);
+  if (user.active) throw new ApiError('ACCOUNT_ALREADY_ACTIVE');
+  const code = await mailVerification(user.name, user.email);
   const response = await axios({
     method: 'post',
     url: `http://curb-accounts:4000/code-verification/${id}`,

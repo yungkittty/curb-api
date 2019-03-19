@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const uniqueValidator = require('mongoose-unique-validator');
 const { ApiError } = require('../configurations/error');
 
 mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
@@ -9,11 +10,12 @@ const accountSchema = mongoose.Schema({
   password: { type: String, required: [true, 'MISSING_PASSWORD'] },
   refreshToken: String,
   dateCreation: Date,
-  avatarUrl: String,
   active: { type: Boolean, default: false },
   codeVerification: { type: String },
   codePassword: { type: String }
 });
+
+accountSchema.plugin(uniqueValidator, { message: 'DUPLICATE_{PATH}' });
 
 // eslint-disable-next-line
 accountSchema.pre('save', async function(next) {
@@ -50,7 +52,9 @@ accountSchema.post('save', async (error, doc, next) => {
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
     return next(
-      new ApiError(error.errors[Object.keys(error.errors)[0]].message)
+      new ApiError(
+        error.errors[Object.keys(error.errors)[0]].message.toUpperCase()
+      )
     );
   }
   return next(error);
