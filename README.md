@@ -76,8 +76,9 @@ Additional error tag will be found in the body response when the request failed 
 ### ACCOUNT
 
  ```
-  BAD_PARAMETER: 400,  
-  BAD_EMAIL_FORMAT: 400,  
+  BAD_PARAMETER: 400,
+  BAD_EMAIL_FORMAT: 400,
+  DUPLICATE_EMAIL: 400,
   ACCOUNT_NOT_FOUND: 400,
   ACCOUNT_ALREADY_EXIST: 400,
   TOKEN_AHEAD_OF_TIME: 400,
@@ -85,8 +86,9 @@ Additional error tag will be found in the body response when the request failed 
   INVALID_PASSWORD: 400,
   ACCOUNT_CODE_DIFFERENT: 400,
   INVALID_TOKEN: 403,
-  TOKEN_NOT_EXPIRED: 403, (on route /account/refresh when the token is still available)  
+  TOKEN_NOT_EXPIRED: 403,(on route /account/refresh when the token is still available)  
   TOKEN_EXPIRED: 403,
+  ACCOUNT_NOT_ACTIVATE: 403,
   ACCOUNT_ALREADY_ACTIVE: 500,
   DATABASE_ERROR: 500
  ```
@@ -94,26 +96,32 @@ Additional error tag will be found in the body response when the request failed 
 ### USER 
 
  ```
-  USER_NOT_FOUND: 400,  
-  MISSING_NAME: 400,  
-  USER_ALREADY_EXIST: 400,  
+  BAD_PARAMETER: 400,
+  DUPLICATE_NAME: 400,
+  USER_NOT_FOUND: 400,
+  MISSING_NAME: 400,
+  USER_ALREADY_EXIST: 400,
+  DATABASE_ERROR: 500
  ```  
 ### GROUP
 
  ```
-  BAD_STATUS: 400,  
-  BAD_MEDIATYPES: 400,  
-  BAD_TOKEN: 400, (for groups/invite)  
-  MISSING_CREATOR_ID: 400,  
-  MISSING_GROUP_NAME: 400,  
-  MISSING_STATUS: 400,  
-  GROUP_ALREADY_EXIST: 400,  
-  GROUP_NOT_FOUND: 400,  
-  USER_NOT_CREATOR: 403,  
-  USER_NOT_IN_GROUP: 403,  
-  FORBIDEN_JOIN: 403,  
-  FORBIDEN_READ: 403,  
-  FORBIDEN_UNJOIN: 403,  
+  BAD_PARAMETER: 400,
+  BAD_STATUS: 400,
+  BAD_MEDIATYPES: 400,
+  BAD_TOKEN: 400,
+  DUPLICATE_NAME: 400,
+  MISSING_CREATOR_ID: 400,
+  MISSING_GROUP_NAME: 400,
+  MISSING_STATUS: 400,
+  GROUP_ALREADY_EXIST: 400,
+  GROUP_NOT_FOUND: 400,
+  USER_NOT_CREATOR: 403,
+  USER_NOT_IN_GROUP: 403,
+  FORBIDEN_JOIN: 403,
+  FORBIDEN_READ: 403,
+  FORBIDEN_UNJOIN: 403,
+  DATABASE_ERROR: 500
  ```
  
 ### CONTENT
@@ -122,6 +130,7 @@ Additional error tag will be found in the body response when the request failed 
 
  ```
   BAD_PARAMETER: 400,
+  ACCOUNT_ALREADY_ACTIVE: 400,
   DATABASE_ERROR: 500
  ```
 ## ROUTES
@@ -236,6 +245,28 @@ update the account.
 }
 ```
 ##### response: success: 200 | failure: 400 | 403
+
+#### /account/:id {GET} :lock: |ACCOUNT READ|
+
+##### response: success: 200 | failure: 400
+
+#### /account/email {POST} :lock: |ACCOUNT READ BY EMAIL|
+
+##### parameters: 
+body
+```
+ {
+  email: {String}
+ {
+```
+
+##### response: success: 200 | failure: 400
+
+```
+ {
+  ...accounts (PublicFields)
+ {
+```
 
 #### /account/:id {DELETE} :lock: |ACCOUNT DELETE|
 
@@ -587,9 +618,7 @@ Will send an email on the user's email with a code.
  body:
  ```
  {
-  name: {String},
-  email: {String},
-  id: {Uuid}
+  email: {String}
  }
  ```
 
