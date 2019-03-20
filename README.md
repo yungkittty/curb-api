@@ -602,8 +602,6 @@ Will send an email on the user's email with a code.
  body:
  ```
  {
-  name: {String},
-  email: {String},
   id: {Uuid}
  }
  ```
