@@ -32,7 +32,9 @@ const upload = multer({
 images.use('/:groupId/:userId', async (req, res, next) => {
   if (!req.params.groupId || !req.params.userId) return res.status(400).end();
   try {
-    const response = await axios.get(`http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`);
+    const response = await axios.get(
+      `http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`
+    );
     if (response.status !== 200) return res.status(400).end();
     if (!response.data.write) return res.status(400).end();
     return next();
@@ -43,7 +45,14 @@ images.use('/:groupId/:userId', async (req, res, next) => {
 
 images.post('/:groupId/:userId', upload.single('file'), async (req, res) => {
   try {
-    const check = await create('image', req.params.groupId, req.params.userId, `/contents/uploads/groups/${req.params.groupId}/images/${req.params.userId}/${req.file.filename}`);
+    const check = await create(
+      'image',
+      req.params.groupId,
+      req.params.userId,
+      `/contents/uploads/groups/${req.params.groupId}/images/${req.params.userId}/${
+        req.file.filename
+      }`
+    );
     if (!check) return res.status(400).end();
     const response = await axios({
       method: 'post',
@@ -54,7 +63,7 @@ images.post('/:groupId/:userId', upload.single('file'), async (req, res) => {
     if (response.status !== 200) return res.status(400).end();
     return res.status(200).json({
       id: check.id,
-      file: `/contents/uploads/groups/${req.params.groupId}/images/${req.params.userId}/${req.file.filename}`
+      file: check.data
     });
   } catch (error) {
     return res.status(400).end();
