@@ -43,7 +43,7 @@ images.use('/:groupId/:userId', async (req, res, next) => {
 
 images.post('/:groupId/:userId', upload.single('file'), async (req, res) => {
   try {
-    const check = await create('image', req);
+    const check = await create('image', req.params.groupId, req.params.userId, `/contents/uploads/groups/${req.params.groupId}/images/${req.params.userId}/${req.file.filename}`);
     if (!check) return res.status(400).end();
     const response = await axios({
       method: 'post',

@@ -7,7 +7,7 @@ const contentSchema = mongoose.Schema({
   groupId: { type: String, required: true },
   dateCreation: Date,
   type: { type: [String], required: true, enum: ['localisation', 'text', 'image', 'video'] },
-  file: String
+  data: String
 });
 
 // eslint-disable-next-line

@@ -43,7 +43,7 @@ videos.use('/:groupId/:userId', async (req, res, next) => {
 
 videos.post('/:groupId/:userId', upload.single('file'), async (req, res) => {
   try {
-    const check = await create('video', req);
+    const check = await create('video', req.params.groupId, req.params.userId, `/contents/uploads/groups/${req.params.groupId}/videos/${req.params.userId}/${req.file.filename}`);
     if (!check) return res.status(400).end();
     const response = await axios({
       method: 'post',
@@ -54,7 +54,7 @@ videos.post('/:groupId/:userId', upload.single('file'), async (req, res) => {
     if (response.status !== 200) return res.status(400).end();
     return res.status(200).json({
       id: check.id,
-      file: `/contents/uploads/groups/${req.params.groupId}/videos/${req.params.userId}/${req.file.filename}`
+      file: check.data
     });
   } catch (error) {
     return res.status(400).end();
