@@ -591,7 +591,7 @@ data: {String} [file path]
 
 #### AVATAR
 
-#### /contents/avatars/group/:groupId/ {POST} :lock: |CONTENTS AVATAR UPLOAD GROUP|
+#### /contents/avatars/groups/:groupId/ {POST} :lock: |CONTENTS AVATAR UPLOAD GROUP|
 
 :warning: (creatorId)
 
@@ -601,7 +601,7 @@ form-data: file: {File}
 
 ##### response: success: 200 | failure: 400 | 403 | 500
 
-#### /contents/avatars/user/:userId/ {POST} :lock: |CONTENTS AVATAR UPLOAD USER|
+#### /contents/avatars/users/:userId/ {POST} :lock: |CONTENTS AVATAR UPLOAD USER|
 
 ##### parameters: 
 
