@@ -123,8 +123,6 @@ Additional error tag will be found in the body response when the request failed 
   FORBIDEN_UNJOIN: 403,
   DATABASE_ERROR: 500
  ```
- 
-### CONTENT
 
 ### EMAILING
 
