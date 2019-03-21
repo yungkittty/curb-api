@@ -5,7 +5,7 @@ async function authentication(req, res, next) {
   try {
     const response = await axios({
       method: 'post',
-      headers: { Authorization: req.headers.authorization },
+      headers: { Authorization: `Bearer ${req.cookies.token}` },
       url: 'http://curb-accounts:4000/validate',
       validateStatus: undefined
     });
