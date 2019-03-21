@@ -538,8 +538,20 @@ data: {String} [file path]
 
 #### /contents/$(mediaType)/:groupId/:userId {POST} :lock:
 
-$mediaType: images / videos / ocations / texts.
+$mediaType: images / videos / locations / texts.
 
+
+##### parameters: 
+
+form-data: file: {File} ($mediaType=images || videos)
+
+body:
+
+```
+ {
+  data: {String} ($mediaType= locations || texts)
+ }
+```
 
 ##### response: success: 200 | failure: 400
 
@@ -583,9 +595,17 @@ data: {String} [file path]
 
 :warning: (creatorId)
 
+##### parameters: 
+
+form-data: file: {File}
+
 ##### response: success: 200 | failure: 400 | 403 | 500
 
 #### /contents/avatars/user/:userId/ {POST} :lock: |CONTENTS AVATAR UPLOAD USER|
+
+##### parameters: 
+
+form-data: file: {File}
 
 ##### response: success: 200 | failure: 400 | 403 | 500
 
