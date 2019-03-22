@@ -109,13 +109,15 @@ Additional error tag will be found in the body response when the request failed 
   BAD_PARAMETER: 400,
   BAD_STATUS: 400,
   BAD_MEDIATYPES: 400,
-  INVALID_TOKEN: 400,
+  TOKEN_AHEAD_OF_TIME: 400,
   DUPLICATE_NAME: 400,
   MISSING_CREATOR_ID: 400,
   MISSING_GROUP_NAME: 400,
   MISSING_STATUS: 400,
   GROUP_ALREADY_EXIST: 400,
   GROUP_NOT_FOUND: 400,
+  INVALID_TOKEN: 403,
+  TOKEN_EXPIRED: 403,
   USER_ALREADY_JOIN: 403,
   USER_NOT_CREATOR: 403,
   USER_NOT_IN_GROUP: 403,
@@ -449,7 +451,7 @@ theme: {String}
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /groups/:groupId/:guestId {GET} ~ Invitation  :lock: |GROUPS INVIVATION|
+#### /groups/invite/:groupId/ {GET} ~ Invitation  :lock: |GROUPS INVIVATION|
 
 #### response: success: 200 | failure: 400 | 403 | 500
 
@@ -482,6 +484,15 @@ Ne marchera pas pour les groupes privés.
 ##### response: success: 200 | failure: 400 | 403 | 500
 
 #### /groups/medias/:groupId/:mediaId {POST} :no_entry_sign: |GROUPS MEDIAS ADD|
+
+##### parameters:
+
+body:
+```
+ {
+  type: {String}
+ }
+```
 
 ##### response: success: 200 | failure: 400
 
