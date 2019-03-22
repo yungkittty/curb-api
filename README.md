@@ -305,7 +305,7 @@ body
 
 ##### response: sucess: 200 | failure: 400 | 500
 
-#### /account/reset-password/:id {POST}
+#### /account/reset-password/ {POST}
 
 ##### params: 
  body :
