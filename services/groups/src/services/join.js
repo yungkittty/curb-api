@@ -19,7 +19,6 @@ async function _join(userId, groupId) {
 
 async function _tokenJoin(userId, token) {
   const payload = tokenGetPayload(token);
-  console.log('payload=>', payload);
   if (!payload) throw new ApiError('INVALID_TOKEN');
   const group = await _getGroup(payload.groupId);
   if (!group.users.includes(payload.issuerId)) {
