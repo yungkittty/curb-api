@@ -85,6 +85,7 @@ Additional error tag will be found in the body response when the request failed 
   BAD_REFRESH_TOKEN: 400,
   INVALID_PASSWORD: 400,
   ACCOUNT_CODE_DIFFERENT: 400,
+  INVALID_CODE: 403,
   INVALID_TOKEN: 403,
   TOKEN_NOT_EXPIRED: 403,(on route /account/refresh when the token is still available)  
   TOKEN_EXPIRED: 403,
