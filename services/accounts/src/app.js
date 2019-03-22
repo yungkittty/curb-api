@@ -20,7 +20,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:id', controllers.accountRead);
-// route privée, get by email
 app.post('/email', controllers.accountReadByEmail);
 app.delete('/:id', middlewares.validate, controllers.accountDelete);
 app.patch('/:id', middlewares.validate, controllers.accountUpdate);
@@ -34,10 +33,6 @@ app.post('/validate', controllers.validate);
 app.post('/code-verification/:id', controllers.accountCodeVerification);
 // private route:
 app.post('/code-password/:id', controllers.accountCodePassword);
-// private route:
-// app.get('/code-verification/:id', controllers);
-// private route:
-// app.get('/code-password/:id', controllers);
 
 app.post('/activate/:id', controllers.accountActivate);
 app.post('/reset-password/:id', controllers.accountResetPassword);

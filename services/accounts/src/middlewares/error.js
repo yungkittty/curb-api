@@ -3,7 +3,6 @@ const errors = require('../configurations/error');
 
 // eslint-disable-next-line
 function error(err, req, res, next) {
-  console.log('MIDDLEWARE ERROR:', err);
   switch (err.constructor) {
     case errors.ApiError:
       return res
@@ -16,11 +15,20 @@ function error(err, req, res, next) {
         .json({ service: err.service, code: err.code, from: err.from })
         .end();
     case MongoError:
+      if (err.name === 'CastError' && err.path === '_id') {
+        return res
+          .status(errors.INVALID_ID)
+          .json({
+            service: process.env.SERVICE_NAME,
+            code: 'INVALID_ID'
+          })
+          .end();
+      }
       return res
         .status(errors.DATABASE_ERROR)
         .json({
           service: process.env.SERVICE_NAME,
-          error: 'DATABASE_ERROR',
+          code: 'DATABASE_ERROR',
           info: err.message ? err.message : undefined
         })
         .end();
@@ -29,7 +37,7 @@ function error(err, req, res, next) {
         .status(500)
         .json({
           service: process.env.SERVICE_NAME,
-          error: 'UNDEFINED',
+          code: 'UNDEFINED',
           info: err.message ? err.message : undefined
         })
         .end();

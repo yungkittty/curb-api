@@ -46,7 +46,6 @@ accountSchema.methods.getPublicFields = function() {
 };
 
 accountSchema.post('save', async (error, doc, next) => {
-  console.log('MONGO ERROR:', error);
   if (error.name === 'MongoError' && error.code === 11000) {
     return next(new ApiError('ACCOUNT_ALREADY_EXIST'));
   }

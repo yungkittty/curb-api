@@ -16,6 +16,15 @@ function error(err, req, res, next) {
         .json({ service: err.service, code: err.code, from: err.from })
         .end();
     // case MongoError:
+    // if (err.name === 'CastError' && err.path === '_id') {
+    //   return res
+    //     .status(errors.INVALID_ID)
+    //     .json({
+    //       service: process.env.SERVICE_NAME,
+    //       code: 'INVALID_ID'
+    //     })
+    //     .end();
+    // }
     //   return res
     //     .status(errors.DATABASE_ERROR)
     //     .json({ service: process.env.SERVICE_NAME, error: 'DATABASE_ERROR' })

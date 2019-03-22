@@ -17,7 +17,6 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-// TODO (voir si les call emails en async sont mieux)
 app.post('/verification', controllers.verification);
 app.post('/reset', controllers.reset);
 
