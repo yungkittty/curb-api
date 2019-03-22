@@ -57,6 +57,7 @@ images.post('/:groupId/:userId', upload.single('file'), async (req, res) => {
     const response = await axios({
       method: 'post',
       headers: { Authorization: req.headers.authorization },
+      data: { type: 'image' },
       url: `http://curb-groups:4000/medias/${req.params.groupId}/${check.id}`,
       validateStatus: undefined
     });

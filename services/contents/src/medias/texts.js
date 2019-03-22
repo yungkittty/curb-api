@@ -6,7 +6,9 @@ const text = express();
 
 text.use('/:groupId/:userId', async (req, res, next) => {
   if (!req.params.groupId || !req.params.userId || !req.body.data) return res.status(400).end();
-  const response = await axios.get(`http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`);
+  const response = await axios.get(
+    `http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`
+  );
   if (response.status !== 200) return res.status(400).end();
   if (!response.data.write) return res.status(400).end();
   return next();
@@ -19,6 +21,7 @@ text.post('/:groupId/:userId', async (req, res) => {
     const response = await axios({
       method: 'post',
       headers: { Authorization: req.headers.authorization },
+      data: { type: 'text' },
       url: `http://curb-groups:4000/medias/${req.params.groupId}/${check.id}`,
       validateStatus: undefined
     });

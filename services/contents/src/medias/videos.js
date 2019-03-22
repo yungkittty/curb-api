@@ -32,7 +32,9 @@ const upload = multer({
 videos.use('/:groupId/:userId', async (req, res, next) => {
   if (!req.params.groupId || !req.params.userId) return res.status(400).end();
   try {
-    const response = await axios.get(`http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`);
+    const response = await axios.get(
+      `http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`
+    );
     if (response.status !== 200) return res.status(400).end();
     if (!response.data.write) return res.status(400).end();
     return next();
@@ -43,11 +45,19 @@ videos.use('/:groupId/:userId', async (req, res, next) => {
 
 videos.post('/:groupId/:userId', upload.single('file'), async (req, res) => {
   try {
-    const check = await create('video', req.params.groupId, req.params.userId, `/contents/uploads/groups/${req.params.groupId}/videos/${req.params.userId}/${req.file.filename}`);
+    const check = await create(
+      'video',
+      req.params.groupId,
+      req.params.userId,
+      `/contents/uploads/groups/${req.params.groupId}/videos/${req.params.userId}/${
+        req.file.filename
+      }`
+    );
     if (!check) return res.status(400).end();
     const response = await axios({
       method: 'post',
       headers: { Authorization: req.headers.authorization },
+      data: { type: 'video' },
       url: `http://curb-groups:4000/medias/${req.params.groupId}/${check.id}`,
       validateStatus: undefined
     });
