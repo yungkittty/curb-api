@@ -35,7 +35,7 @@ app.post('/code-verification/:id', controllers.accountCodeVerification);
 app.post('/code-password/:id', controllers.accountCodePassword);
 
 app.post('/activate/:id', controllers.accountActivate);
-app.post('/reset-password/:id', controllers.accountResetPassword);
+app.post('/reset-password/', controllers.accountResetPassword);
 
 app.use(middlewares.error);
 
