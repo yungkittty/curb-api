@@ -1,6 +1,6 @@
 const avatar = require('../services/avatar');
 
-async function groupAvatar(req, res) {
+async function groupAvatars(req, res) {
   if (!req.body.avatarUrl || !req.params.groupId) return res.status(400).end();
   try {
     const response = await avatar(req.params.groupId, req.body.avatarUrl);
@@ -11,4 +11,4 @@ async function groupAvatar(req, res) {
   }
 }
 
-module.exports = groupAvatar;
+module.exports = groupAvatars;
