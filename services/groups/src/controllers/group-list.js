@@ -1,7 +1,8 @@
 const axios = require('axios');
 const list = require('../services/list');
+const { OtherServiceError } = require('../configurations/error');
 
-async function groupList(req, res) {
+async function groupList(req, res, next) {
   try {
     let authResponse;
     if (req.headers.authorization) {
@@ -12,7 +13,13 @@ async function groupList(req, res) {
         validateStatus: undefined
       });
       if (authResponse.status !== 200) {
-        return res.status(authResponse.status).end();
+        return next(
+          new OtherServiceError(
+            authResponse.data.service,
+            authResponse.data.code,
+            authResponse.status
+          )
+        );
       }
     }
     const authId =
@@ -22,13 +29,12 @@ async function groupList(req, res) {
       count: req.query.count ? parseInt(req.query.count, 10) : undefined,
       authId
     });
-    if (!response) return res.status(400).end();
     return res
       .status(200)
       .json(response)
       .end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 

@@ -1,4 +1,5 @@
 const join = require('../services/join');
+const { ApiError } = require('../configurations/error');
 
 /**
  *
@@ -26,14 +27,15 @@ const join = require('../services/join');
  *  - 401 in case of authentification failure.
  *  - 500 in case of failed database operation.
  */
-async function groupTokenJoin(req, res) {
-  if (!req.body.token) return res.status(400).end();
+async function groupTokenJoin(req, res, next) {
+  if (!req.body.token) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
-    const done = await join({ token: req.body.token, userId: req.authId });
-    if (!done) return res.status(400).end();
+    await join({ token: req.body.token, userId: req.authId });
     return res.status(200).end();
   } catch (error) {
-    return res.status(500).end();
+    return next(error);
   }
 }
 
