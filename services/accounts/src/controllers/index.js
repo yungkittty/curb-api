@@ -11,6 +11,7 @@ const accountCodePassword = require('./account-code-password');
 const accountActivate = require('./account-activate');
 const accountResetPassword = require('./account-reset-password');
 const accountReadByEmail = require('./account-read-by-email');
+const accountValideCodePassword = require('./account-validate-code-password');
 
 module.exports = {
   signIn,
@@ -25,5 +26,6 @@ module.exports = {
   accountCodePassword,
   accountActivate,
   accountResetPassword,
-  accountReadByEmail
+  accountReadByEmail,
+  accountValideCodePassword
 };
