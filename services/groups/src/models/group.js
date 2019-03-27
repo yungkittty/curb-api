@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const { ApiError } = require('../configurations/error');
 
 mongoose.connect(
@@ -32,6 +33,8 @@ const groupSchema = mongoose.Schema({
   theme: { type: String }
 });
 
+groupSchema.plugin(uniqueValidator, { message: 'DUPLICATE_{PATH}' });
+
 // eslint-disable-next-line
 groupSchema.methods.getPublicFields = function() {
   const { __v, _id, ...publicGroup } = this.toObject();
@@ -39,12 +42,15 @@ groupSchema.methods.getPublicFields = function() {
 };
 
 groupSchema.post('save', async (error, doc, next) => {
+  console.log('MONGO ERROR:', error);
   if (error.name === 'MongoError' && error.code === 11000) {
-    return next(new ApiError('GROUP_ALREADY_EXIST'));
+    return next(new ApiError('ACCOUNT_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
     return next(
-      new ApiError(error.errors[Object.keys(error.errors)[0]].message)
+      new ApiError(
+        error.errors[Object.keys(error.errors)[0]].message.toUpperCase()
+      )
     );
   }
   return next(error);

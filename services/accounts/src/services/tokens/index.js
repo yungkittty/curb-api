@@ -42,7 +42,7 @@ async function verify(token, type) {
       case jwt.NotBeforeError:
         throw new ApiError('TOKEN_AHEAD_OF_TIME');
       default:
-        throw error;
+        throw new ApiError('INVALID_TOKEN');
     }
   }
 }

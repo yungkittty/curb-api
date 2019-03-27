@@ -23,5 +23,6 @@ app.use(bodyParser.json());
 app.use('/accounts', proxy(process.env.CURB_ACCOUNT));
 app.use('/users', proxy(process.env.CURB_USERS));
 app.use('/groups', proxy(process.env.CURB_GROUPS));
+app.use('/emailing', proxy(process.env.CURB_EMAILING));
 
 module.exports = app;

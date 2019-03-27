@@ -1,8 +1,10 @@
 const axios = require('axios');
 const User = require('../models/user');
+const { ApiError, OtherServiceError } = require('../configurations/error');
 
 async function read(id, token = undefined) {
   const user = await User.findById(id);
+  if (!user) throw new ApiError('USER_NOT_FOUND');
   const headers = token
     ? { Authorization: token, 'Content-Type': 'application/json' }
     : { 'Content-Type': 'application/json' };
