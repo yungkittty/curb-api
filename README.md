@@ -73,7 +73,7 @@ Additional error tag will be found in the body response when the request failed 
   DATABASE_ERROR: 500,  
   UNDEFINED: 500  
  ```
-### ACCOUNT
+### ACCOUNTS
 
  ```
   BAD_PARAMETER: 400,
@@ -85,6 +85,7 @@ Additional error tag will be found in the body response when the request failed 
   BAD_REFRESH_TOKEN: 400,
   INVALID_PASSWORD: 400,
   ACCOUNT_CODE_DIFFERENT: 400,
+  CODE_UNAVAILABLE: 400,
   INVALID_CODE: 403,
   INVALID_TOKEN: 403,
   TOKEN_NOT_EXPIRED: 403,(on route /account/refresh when the token is still available)  
@@ -94,7 +95,7 @@ Additional error tag will be found in the body response when the request failed 
   DATABASE_ERROR: 500
  ```
 
-### USER 
+### USERS
 
  ```
   BAD_PARAMETER: 400,
@@ -104,7 +105,7 @@ Additional error tag will be found in the body response when the request failed 
   USER_ALREADY_EXIST: 400,
   DATABASE_ERROR: 500
  ```  
-### GROUP
+### GROUPS
 
  ```
   BAD_PARAMETER: 400,
@@ -162,7 +163,7 @@ Additional error tag will be found in the body response when the request failed 
 ```
 
 
-#### /account/sign-up {POST} |ACCOUNT CREATE|
+#### /accounts/sign-up {POST} |ACCOUNT CREATE|
 
 ```
 {
@@ -173,7 +174,7 @@ Additional error tag will be found in the body response when the request failed 
 ```
 ##### response: success: 200 | failure: 400 | 500
 
-#### /account/sign-in {POST} |CONNEXION|
+#### /accounts/sign-in {POST} |CONNEXION|
 
 ##### parameter:
 
@@ -194,11 +195,11 @@ Additional error tag will be found in the body response when the request failed 
 }
 ```
 
-#### /account/sign-out {POST} :lock: |LOGOUT|
+#### /accounts/sign-out {POST} :lock: |LOGOUT|
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /account/refresh {POST} |REFRESH|
+#### /accounts/refresh {POST} |REFRESH|
 
 #### header: Authorization: 'Bearer ' + token
 
@@ -220,7 +221,7 @@ Additional error tag will be found in the body response when the request failed 
 }
 ```
 
-#### /account/validate {POST} :lock: |VALIDATE|
+#### /accounts/validate {POST} :lock: |VALIDATE|
 
 route to validate the user's token
 
@@ -234,7 +235,7 @@ route to validate the user's token
 }
 ```
 
-#### /account/:id {PATCH} :lock: |ACCOUNT UPDATE|
+#### /accounts/:id {PATCH} :lock: |ACCOUNT UPDATE|
 
 update the account.
 
@@ -248,11 +249,11 @@ update the account.
 ```
 ##### response: success: 200 | failure: 400 | 403
 
-#### /account/:id {GET} :lock: |ACCOUNT READ|
+#### /accounts/:id {GET} :lock: |ACCOUNT READ|
 
 ##### response: success: 200 | failure: 400
 
-#### /account/email {POST} :lock: |ACCOUNT READ BY EMAIL|
+#### /accounts/email {POST} :lock: |ACCOUNT READ BY EMAIL|
 
 ##### parameters: 
 body
@@ -270,11 +271,11 @@ body
  {
 ```
 
-#### /account/:id {DELETE} :lock: |ACCOUNT DELETE|
+#### /accounts/:id {DELETE} :lock: |ACCOUNT DELETE|
 
 ##### response: success: 200 | failure: 400 | 403
 
-#### /account/code-verification/:id {POST}  :no_entry_sign:
+#### /accounts/code-verification/:id {POST}  :no_entry_sign:
 
 ##### params: 
  body:
@@ -286,7 +287,7 @@ body
 
 ##### response: sucess: 200 | failure: 400 | 500
 
-#### /account/code-password/:id {POST}  :no_entry_sign:
+#### /accounts/code-password/:id {POST}  :no_entry_sign:
 
 ##### params: 
  body:
@@ -298,7 +299,7 @@ body
 
 ##### response: sucess: 200 | failure: 400 | 500
 
-#### /account/activate/:id {POST}
+#### /accounts/activate/:id {POST}
 
 ##### params: 
  body :
@@ -306,15 +307,33 @@ body
 
 ##### response: sucess: 200 | failure: 400 | 500
 
-#### /account/reset-password/ {POST}
+#### /accounts/reset-password/ {POST}
 
 ##### params: 
  body :
- `code: {String}`
- `password: {String}`
+ 
+ ```
+ {
+  code: {String},
+  password: {String},
+  email: {String}
+ }
+ ```  
 
 ##### response: sucess: 200 | failure: 400 | 500
 
+##### /accounts/validate-code-password/ {POST}
+
+##### params: 
+ body :
+ 
+ ```
+ {
+  code: {String},
+  email: {String}
+ }
+ ```  
+##### response: sucess: 200 | failure: 400 | 500
 
 #### /account/:id {POST}
 
