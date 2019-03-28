@@ -5,7 +5,7 @@ const { ApiError } = require('../configurations/error');
  *
  * @api {GET} /groups/:id USERS READ BY ID
  * @apiName USERS3
- * @apiGroup GROUPS
+ * @apiGroup USERS
  * @apiVersion  0.1.0
  *
  *

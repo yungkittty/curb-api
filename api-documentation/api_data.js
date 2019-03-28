@@ -667,12 +667,6 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
             "field": "OTHER_SERVICE_ERROR",
             "description": ""
           },
@@ -1267,9 +1261,9 @@ define({ "api": [
   },
   {
     "type": "POST",
-    "url": "/emailing/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
+    "url": "/emailing/verification",
+    "title": "EMAILING VALIDATION",
+    "name": "EMAILING1",
     "group": "EMAILING",
     "version": "0.1.0",
     "parameter": {
@@ -1281,27 +1275,13 @@ define({ "api": [
             "optional": false,
             "field": "email",
             "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
+          "content": "{\n    email: 'email.email@email.com'\n}",
           "type": "json"
         }
       ]
@@ -1313,18 +1293,11 @@ define({ "api": [
             "group": "200",
             "type": "String",
             "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
+            "field": "OK",
+            "description": ""
           }
         ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
+      }
     },
     "error": {
       "fields": {
@@ -1338,14 +1311,14 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
           }
         ]
       }
@@ -1355,9 +1328,9 @@ define({ "api": [
   },
   {
     "type": "POST",
-    "url": "/emailing/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
+    "url": "/emailing/reset",
+    "title": "EMAILING RESET PASSWORD",
+    "name": "EMAILING2",
     "group": "EMAILING",
     "version": "0.1.0",
     "parameter": {
@@ -1389,7 +1362,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
+          "content": "{\n    id: 'uuid'\n}",
           "type": "json"
         }
       ]
@@ -1402,17 +1375,10 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>id of the created account</p>"
+            "description": "<p>account id</p>"
           }
         ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
+      }
     },
     "error": {
       "fields": {
@@ -1426,14 +1392,14 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
           }
         ]
       }
@@ -1443,9 +1409,9 @@ define({ "api": [
   },
   {
     "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
+    "url": "/groups/",
+    "title": "GROUPS CREATE",
+    "name": "GROUPS1",
     "group": "GROUPS",
     "version": "0.1.0",
     "parameter": {
@@ -1477,7 +1443,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
+          "content": "{\n    name: 'toto',\n    status: 'private',\n    mediaTypes: '['localisation', 'text'],\n    theme: 'red'\n}",
           "type": "json"
         }
       ]
@@ -1487,17 +1453,17 @@ define({ "api": [
         "200": [
           {
             "group": "200",
-            "type": "String",
+            "type": "Object",
             "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
+            "field": "Group",
+            "description": "<p>Public field of the group</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
+          "content": "{\n    ...group: {Object}\n}",
           "type": "json"
         }
       ]
@@ -1514,454 +1480,8 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/groups/src/controllers/group-join.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/users/src/controllers/user-delete.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/users/src/controllers/user-update.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/groups/src/controllers/group-add-post.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/groups/src/controllers/group-avatar.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
           }
         ]
       }
@@ -1970,10 +1490,10 @@ define({ "api": [
     "groupTitle": "GROUPS"
   },
   {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
+    "type": "GET",
+    "url": "/groups/",
+    "title": "GROUPS DISCOVERY",
+    "name": "GROUPS10",
     "group": "GROUPS",
     "version": "0.1.0",
     "parameter": {
@@ -1982,30 +1502,39 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
+            "optional": true,
+            "field": "userId",
+            "description": "<p>QueryParam</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
+            "optional": true,
+            "field": "creatorId",
+            "description": "<p>QueryParam</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
+            "optional": true,
+            "field": "page",
+            "defaultValue": "5",
+            "description": "<p>QueryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "5",
+            "description": "<p>QueryParam</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
+          "content": "http://localhost:4000/groups/?creatorId=5c38bfd8550c200020b1aa2a&userId=5c38bfd8550c200020b1aa2a&count=5&page=10",
           "type": "json"
         }
       ]
@@ -2015,17 +1544,16 @@ define({ "api": [
         "200": [
           {
             "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
+            "optional": true,
+            "field": "String",
+            "description": "<p>groups list of groupId</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
+          "content": "{\n    groups: [String]\n}",
           "type": "json"
         }
       ]
@@ -2042,366 +1570,14 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
+            "field": "OTHER_SERVICE",
+            "description": "<p>XXX</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/groups/src/controllers/group-delete-post.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/groups/src/controllers/group-delete.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/groups/src/controllers/group-invite.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/users/src/controllers/user-create.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
           }
         ]
       }
@@ -2411,9 +1587,9 @@ define({ "api": [
   },
   {
     "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
+    "url": "/medias/:groupId/:mediaId",
+    "title": "GROUPS PRIVATE ADD MEDIA",
+    "name": "GROUPS11",
     "group": "GROUPS",
     "version": "0.1.0",
     "parameter": {
@@ -2423,29 +1599,29 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "email",
+            "field": "groupId",
             "description": "<p>//</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "password",
+            "field": "mediaId",
             "description": "<p>//</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
+            "field": "type",
+            "description": "<p>mediaType</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
+          "content": "{\n    type: 'localsation',\n}",
           "type": "json"
         }
       ]
@@ -2457,51 +1633,56 @@ define({ "api": [
             "group": "200",
             "type": "String",
             "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
+            "field": "OK",
             "description": ""
           }
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-permissions.js",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "GROUP_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_MEDIATYPES",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "MEDIA_ALREADY_PRESENT",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/groups/src/controllers/group-add-post.js",
     "groupTitle": "GROUPS"
   },
   {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
+    "type": "DELETE",
+    "url": "/medias/:groupId/:mediaId",
+    "title": "GROUPS PRIVATE DELETE MEDIA",
+    "name": "GROUPS12",
     "group": "GROUPS",
     "version": "0.1.0",
     "parameter": {
@@ -2511,32 +1692,18 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "email",
+            "field": "groupId",
             "description": "<p>//</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
+            "field": "mediaId",
             "description": "<p>//</p>"
           }
         ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
+      }
     },
     "success": {
       "fields": {
@@ -2545,8 +1712,8 @@ define({ "api": [
             "group": "200",
             "type": "String",
             "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
+            "field": "OK",
+            "description": ""
           }
         ]
       },
@@ -2570,14 +1737,215 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
+            "field": "GROUP_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "MEDIA_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/groups/src/controllers/group-delete-post.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "POST",
+    "url": "/avatar/:groupId",
+    "title": "ACCOUNT PRIVATE UPDATE AVATAR URL",
+    "name": "GROUPS13",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "avatarUrl",
+            "description": "<p>//</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    avatarUrl: '/contents/default/avatars/groups/medium.png'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
             "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/groups/src/controllers/group-avatar.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "DELETE",
+    "url": "/groups/:id",
+    "title": "GROUPS DELETE",
+    "name": "GROUPS2",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "GROUP_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "USER_NOT_CREATOR",
+            "description": "<p>403</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/groups/src/controllers/group-delete.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "POST",
+    "url": "/groups/:id",
+    "title": "GROUPS READ BY ID",
+    "name": "GROUPS3",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "group",
+            "description": "<p>public field of the group</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    ...group: {Object}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "GROUP_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FORBIDEN_READ",
+            "description": "<p>403</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
             "field": "OTHER_SERVICE_ERROR",
-            "description": ""
+            "description": "<p>XXX</p>"
           }
         ]
       }
@@ -2586,10 +1954,10 @@ define({ "api": [
     "groupTitle": "GROUPS"
   },
   {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
+    "type": "PATCH",
+    "url": "/groups/:id",
+    "title": "GROUPS UPDATE",
+    "name": "GROUPS4",
     "group": "GROUPS",
     "version": "0.1.0",
     "parameter": {
@@ -2621,7 +1989,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
+          "content": "{\n  \"mediaTypes\": [\n      \"text\",\n     \"image\"\n ],\n \"name\": \"TOkkTO\",\n  \"status\": \"public\",\n   \"theme\": \"blue\"\n }",
           "type": "json"
         }
       ]
@@ -2634,95 +2002,34 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
+            "description": "<p>queryParam</p>"
           },
           {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/groups/src/controllers/group-token-join.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
+            "group": "200",
             "type": "String",
             "optional": false,
             "field": "name",
             "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
+          },
           {
             "group": "200",
             "type": "String",
             "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
+            "field": "status",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "200",
+            "optional": true,
+            "field": "String",
+            "description": "<p>mediaTypes //</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>//</p>"
           }
         ]
       },
@@ -2746,102 +2053,14 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "filename": "../services/groups/src/controllers/group-unjoin.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
+            "field": "GROUP_NOT_FOUND",
             "description": "<p>400</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": ""
+            "field": "USER_NOT_CREATOR",
+            "description": "<p>403</p>"
           }
         ]
       }
@@ -2851,9 +2070,9 @@ define({ "api": [
   },
   {
     "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
+    "url": "/groups/invite/:groupId",
+    "title": "GROUPS INVITATION",
+    "name": "GROUPS5",
     "group": "GROUPS",
     "version": "0.1.0",
     "parameter": {
@@ -2863,32 +2082,18 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "email",
+            "field": "groupId",
             "description": "<p>//</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
+            "field": "userId",
+            "description": "<p>from token header</p>"
           }
         ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
-          "type": "json"
-        }
-      ]
+      }
     },
     "success": {
       "fields": {
@@ -2897,15 +2102,15 @@ define({ "api": [
             "group": "200",
             "type": "String",
             "optional": false,
-            "field": "id",
-            "description": "<p>id of the created account</p>"
+            "field": "token",
+            "description": ""
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    id: 'uuuid'\n}",
+          "content": "{\n    token: '{String}'\n}",
           "type": "json"
         }
       ]
@@ -2922,26 +2127,105 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
-            "description": ""
+            "field": "GROUP_NOT_FOUND",
+            "description": "<p>400</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
+            "field": "USER_NOT_IN_GROUP",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/groups/src/controllers/group-invite.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "POST",
+    "url": "/groups/join",
+    "title": "GROUPS JOIN",
+    "name": "GROUPS6",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>from token header</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
             "description": ""
           }
         ]
       }
     },
-    "filename": "../services/users/src/controllers/user-avatar.js",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FORBIDEN_JOIN",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "USER_ALREADY_JOIN",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/groups/src/controllers/group-join.js",
     "groupTitle": "GROUPS"
   },
   {
     "type": "POST",
-    "url": "/groups/sign-out",
-    "title": "ACCOUNT CREATE",
-    "name": "TOTO",
+    "url": "/groups/join",
+    "title": "GROUPS TOKEN JOIN",
+    "name": "GROUPS7",
     "group": "GROUPS",
     "version": "0.1.0",
     "parameter": {
@@ -2951,14 +2235,227 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "email",
+            "field": "token",
             "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "TOKEN_EXPIRED",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "TOKEN_AHEAD_OF_TIME",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "INVALID_TOKEN",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FORBIDEN_JOIN",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "USER_ALREADY_JOIN",
+            "description": "<p>403</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/groups/src/controllers/group-token-join.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "POST",
+    "url": "/groups/unjoin/:groupId",
+    "title": "GROUPS UNJOIN",
+    "name": "GROUPS8",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "GROUP_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNAUTHORIZED_UNJOIN",
+            "description": "<p>403</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/groups/src/controllers/group-unjoin.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "POST",
+    "url": "/groups/permissions/:groupId/:userId",
+    "title": "GROUPS PERMISSION",
+    "name": "GROUPS9",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>QueryParam</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "password",
+            "field": "groupId",
+            "description": "<p>QueryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "creator",
+            "description": "<p>is the creator of the group</p>"
+          },
+          {
+            "group": "200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "write",
+            "description": "<p>can read in the group</p>"
+          },
+          {
+            "group": "200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "read",
+            "description": "<p>can write in the group</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    creator: Boolean,\n    write: Boolean,\n    read: Boolean\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "GROUP_NOT_FOUND",
+            "description": "<p>400</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/groups/src/controllers/group-permissions.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "POST",
+    "url": "/users/",
+    "title": "USER PRIVATE CREATE",
+    "name": "USERS1",
+    "group": "USERS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
             "description": "<p>//</p>"
           },
           {
@@ -2973,7 +2470,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    email: 'email.email@email.com',\n    password: 'password',\n    name: 'userName',\n}",
+          "content": "{\n    id: 'uuid',\n    name: 'toto'\n}",
           "type": "json"
         }
       ]
@@ -2986,7 +2483,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>id of the created account</p>"
+            "description": "<p>id of the created user</p>"
           }
         ]
       },
@@ -3010,19 +2507,308 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "BAD_EMAIL_FORMAT",
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/users/src/controllers/user-create.js",
+    "groupTitle": "USERS"
+  },
+  {
+    "type": "DELETE",
+    "url": "/users/:id",
+    "title": "USERS PRIVATE DELETE",
+    "name": "USERS2",
+    "group": "USERS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
             "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "USER_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/users/src/controllers/user-delete.js",
+    "groupTitle": "USERS"
+  },
+  {
+    "type": "GET",
+    "url": "/groups/:id",
+    "title": "USERS READ BY ID",
+    "name": "USERS3",
+    "group": "USERS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "User",
+            "description": "<p>user public Fields</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    ...user: {Object}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "USER_NOT_FOUND",
+            "description": "<p>400</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
             "field": "OTHER_SERVICE_ERROR",
-            "description": ""
+            "description": "<p>XXX</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
           }
         ]
       }
     },
     "filename": "../services/users/src/controllers/user-read.js",
-    "groupTitle": "GROUPS"
+    "groupTitle": "USERS"
+  },
+  {
+    "type": "PATCH",
+    "url": "/users/:id",
+    "title": "USERS UPDATE",
+    "name": "USERS4",
+    "group": "USERS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>//</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    <any>: publicfield\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "User",
+            "description": "<p>user public field</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    ...user: {Object}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "USER_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/users/src/controllers/user-update.js",
+    "groupTitle": "USERS"
+  },
+  {
+    "type": "POST",
+    "url": "/users/avatar/:id",
+    "title": "USER PRIVATE UPDATE AVATAR URL PATH",
+    "name": "USERS5",
+    "group": "USERS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "avatarUrl",
+            "description": "<p>path file from /contents</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    avatarUrl: '/contents/default/avatars/users/medium.png',\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "USER_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/users/src/controllers/user-avatar.js",
+    "groupTitle": "USERS"
   }
 ] });

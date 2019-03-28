@@ -5,7 +5,7 @@ const { ApiError } = require('../configurations/error');
  *
  * @api {POST} /users/avatar/:id USER PRIVATE UPDATE AVATAR URL PATH
  * @apiName USERS5
- * @apiGroup GROUPS
+ * @apiGroup USERS
  * @apiVersion  0.1.0
  *
  *

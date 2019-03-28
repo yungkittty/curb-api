@@ -5,7 +5,7 @@ const { ApiError } = require('../configurations/error');
  *
  * @api {DELETE} /users/:id USERS PRIVATE DELETE
  * @apiName USERS2
- * @apiGroup GROUPS
+ * @apiGroup USERS
  * @apiVersion  0.1.0
  *
  *

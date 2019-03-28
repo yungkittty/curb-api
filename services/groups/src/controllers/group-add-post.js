@@ -3,36 +3,29 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {POST} /groups/sign-out ACCOUNT CREATE
- * @apiName TOTO
+ * @api {POST} /medias/:groupId/:mediaId GROUPS PRIVATE ADD MEDIA
+ * @apiName GROUPS11
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  *
  *
- * @apiParam  {String} email //
- * @apiParam  {String} password //
- * @apiParam  {String} name //
+ * @apiParam  {String} groupId //
+ * @apiParam  {String} mediaId //
+ * @apiParam  {String} type mediaType
  *
  *
- * @apiSuccess (200) {String} id id of the created account
+ * @apiSuccess (200) {String} OK
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     email: 'email.email@email.com',
- *     password: 'password',
- *     name: 'userName',
- * }
- *
- *
- * @apiSuccessExample {json} Success-Response:
- * {
- *     id: 'uuuid'
+ *     type: 'localsation',
  * }
  *
  * @apiError BAD_PARAMETER 400
- * @apiError BAD_EMAIL_FORMAT
- * @apiError OTHER_SERVICE_ERROR
- *
+ * @apiError GROUP_NOT_FOUND 400
+ * @apiError BAD_MEDIATYPES 400
+ * @apiError MEDIA_ALREADY_PRESENT 403
+ * @apiError UNDEFINED 500
  */
 
 async function groupPost(req, res, next) {

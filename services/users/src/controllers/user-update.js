@@ -5,7 +5,7 @@ const { ApiError } = require('../configurations/error');
  *
  * @api {PATCH} /users/:id USERS UPDATE
  * @apiName USERS4
- * @apiGroup GROUPS
+ * @apiGroup USERS
  * @apiVersion  0.1.0
  *
  *

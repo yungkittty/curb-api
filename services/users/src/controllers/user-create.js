@@ -5,7 +5,7 @@ const { ApiError } = require('../configurations/error');
  *
  * @api {POST} /users/ USER PRIVATE CREATE
  * @apiName USERS1
- * @apiGroup GROUPS
+ * @apiGroup USERS
  * @apiVersion  0.1.0
  *
  *

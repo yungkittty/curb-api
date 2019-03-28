@@ -4,35 +4,31 @@ const { OtherServiceError } = require('../configurations/error');
 
 /**
  *
- * @api {POST} /groups/sign-out ACCOUNT CREATE
- * @apiName TOTO
+ * @api {GET} /groups/ GROUPS DISCOVERY
+ * @apiName GROUPS10
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  *
  *
- * @apiParam  {String} email //
- * @apiParam  {String} password //
- * @apiParam  {String} name //
+ * @apiParam  {String} [userId] QueryParam
+ * @apiParam  {String} [creatorId] QueryParam
+ * @apiParam  {String} [page=5] QueryParam
+ * @apiParam  {String} [count=5] QueryParam
  *
- *
- * @apiSuccess (200) {String} id id of the created account
+ * @apiSuccess (200) [String] groups list of groupId
  *
  * @apiParamExample  {json} Request-Example:
- * {
- *     email: 'email.email@email.com',
- *     password: 'password',
- *     name: 'userName',
- * }
+ *  http://localhost:4000/groups/?creatorId=5c38bfd8550c200020b1aa2a&userId=5c38bfd8550c200020b1aa2a&count=5&page=10
  *
  *
  * @apiSuccessExample {json} Success-Response:
  * {
- *     id: 'uuuid'
+ *     groups: [String]
  * }
  *
  * @apiError BAD_PARAMETER 400
- * @apiError BAD_EMAIL_FORMAT
- * @apiError OTHER_SERVICE_ERROR
+ * @apiError OTHER_SERVICE XXX
+ * @apiError UNDEFINED 500
  *
  */
 

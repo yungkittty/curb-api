@@ -3,8 +3,8 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {POST} /groups/sign-out ACCOUNT CREATE
- * @apiName TOTO
+ * @api {POST} /groups/ GROUPS CREATE
+ * @apiName GROUPS1
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  *
@@ -14,24 +14,24 @@ const { ApiError } = require('../configurations/error');
  * @apiParam  {String} name //
  *
  *
- * @apiSuccess (200) {String} id id of the created account
+ * @apiSuccess (200) {Object} Group Public field of the group
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     email: 'email.email@email.com',
- *     password: 'password',
- *     name: 'userName',
+ *     name: 'toto',
+ *     status: 'private',
+ *     mediaTypes: '['localisation', 'text'],
+ *     theme: 'red'
  * }
  *
  *
  * @apiSuccessExample {json} Success-Response:
  * {
- *     id: 'uuuid'
+ *     ...group: {Object}
  * }
  *
  * @apiError BAD_PARAMETER 400
- * @apiError BAD_EMAIL_FORMAT
- * @apiError OTHER_SERVICE_ERROR
+ * @apiError UNDEFINED 500
  *
  */
 

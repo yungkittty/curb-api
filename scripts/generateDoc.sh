@@ -1,10 +1,12 @@
-#controllersDirectories='../services/services/accounts/'
+servicesDirectories='../services'
+controllersDirectories='src/controllers'
+destDocumentationDirectoryPath='../api-documentation/'
 
 apidoc \
--i ../services/accounts/src/controllers/  \
--i ../services/users/src/controllers/ \
--i ../services/groups/src/controllers/ \
--i ../services/contents/src/medias/ \
--i ../services/emailing/src/controllers/ \
--o ../api-documentations/ \
+-i "$servicesDirectories/accounts/$controllersDirectories/"  \
+-i "$servicesDirectories/users/$controllersDirectories/"  \
+-i "$servicesDirectories/groups/$controllersDirectories/"  \
+-i "$servicesDirectories/contents/src/medias/" \
+-i "$servicesDirectories/emailing/$controllersDirectories/"  \
+-o $destDocumentationDirectoryPath \
 -f .js
