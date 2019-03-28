@@ -3,30 +3,38 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @param {Object} req /
- * @param {Object} res /
- *
- * POST **groups/:groupId/:userId**
- *
- * Precondition:
- * - The user need to be authenticated (including userId is valid).
- * - Group need to be public.
- *
- * /
- *
- * - Adding userId in the users field.
+ * @api {POST} /groups/sign-out ACCOUNT CREATE
+ * @apiName TOTO
+ * @apiGroup GROUPS
+ * @apiVersion  0.1.0
  *
  *
- * http header:
- *  - Authorization: 'Bearer ' + token
- * parameter: empty.
- * success: 200.
+ * @apiParam  {String} email //
+ * @apiParam  {String} password //
+ * @apiParam  {String} name //
  *
- * failure:
- *  - 400 in case of bad request.
- *  - 401 in case of authentification failure.
- *  - 500 in case of failed database operation.
+ *
+ * @apiSuccess (200) {String} id id of the created account
+ *
+ * @apiParamExample  {json} Request-Example:
+ * {
+ *     email: 'email.email@email.com',
+ *     password: 'password',
+ *     name: 'userName',
+ * }
+ *
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     id: 'uuuid'
+ * }
+ *
+ * @apiError BAD_PARAMETER 400
+ * @apiError BAD_EMAIL_FORMAT
+ * @apiError OTHER_SERVICE_ERROR
+ *
  */
+
 async function groupJoin(req, res, next) {
   if (!req.params.groupId) {
     return next(new ApiError('BAD_PARAMETER'));

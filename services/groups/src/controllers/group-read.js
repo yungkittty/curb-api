@@ -4,23 +4,36 @@ const { ApiError, OtherServiceError } = require('../configurations/error');
 
 /**
  *
- * @param {Object} req DELETE http request
- * @param {Object} res response
+ * @api {POST} /groups/sign-out ACCOUNT CREATE
+ * @apiName TOTO
+ * @apiGroup GROUPS
+ * @apiVersion  0.1.0
  *
- * Precondition:
- * - If the group is private the user need to be authenticated.
+ *
+ * @apiParam  {String} email //
+ * @apiParam  {String} password //
+ * @apiParam  {String} name //
  *
  *
- * http header:
- *  - Authorization: 'Bearer ' + token will need to be provided when
- * requesting on a private group.
- * parameter:
- * success: 200.
+ * @apiSuccess (200) {String} id id of the created account
  *
- * failure:
- *  - 400 in case of bad request.
- *  - 401 in case of authentification failure.
- *  - 500 in case of failed database operation.
+ * @apiParamExample  {json} Request-Example:
+ * {
+ *     email: 'email.email@email.com',
+ *     password: 'password',
+ *     name: 'userName',
+ * }
+ *
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     id: 'uuuid'
+ * }
+ *
+ * @apiError BAD_PARAMETER 400
+ * @apiError BAD_EMAIL_FORMAT
+ * @apiError OTHER_SERVICE_ERROR
+ *
  */
 
 async function groupRead(req, res, next) {
