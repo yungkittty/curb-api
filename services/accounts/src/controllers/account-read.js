@@ -27,7 +27,6 @@ const { ApiError } = require('../configurations/error');
  * }
  *
  * @apiError BAD_PARAMETER 400
- * @apiError BAD_EMAIL_FORMAT 400
  * @apiError OTHER_SERVICE_ERROR
  * @apiError DATABASE_ERROR 500
  * @apiError UNDEFINED 500

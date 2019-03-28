@@ -3,35 +3,27 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {POST} /groups/sign-out ACCOUNT CREATE
- * @apiName TOTO
+ * @api {GET} /groups/:id USERS READ BY ID
+ * @apiName USERS3
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  *
  *
- * @apiParam  {String} email //
- * @apiParam  {String} password //
- * @apiParam  {String} name //
+ * @apiParam  {String} id //
  *
  *
- * @apiSuccess (200) {String} id id of the created account
- *
- * @apiParamExample  {json} Request-Example:
- * {
- *     email: 'email.email@email.com',
- *     password: 'password',
- *     name: 'userName',
- * }
+ * @apiSuccess (200) {Object} User user public Fields
  *
  *
  * @apiSuccessExample {json} Success-Response:
  * {
- *     id: 'uuuid'
+ *     ...user: {Object}
  * }
  *
  * @apiError BAD_PARAMETER 400
- * @apiError BAD_EMAIL_FORMAT
- * @apiError OTHER_SERVICE_ERROR
+ * @apiError USER_NOT_FOUND 400
+ * @apiError OTHER_SERVICE_ERROR XXX
+ * @apiError UNDEFINED 500
  *
  */
 

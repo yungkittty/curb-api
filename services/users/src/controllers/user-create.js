@@ -3,24 +3,22 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {POST} /groups/sign-out ACCOUNT CREATE
- * @apiName TOTO
+ * @api {POST} /users/ USER PRIVATE CREATE
+ * @apiName USERS1
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  *
  *
- * @apiParam  {String} email //
- * @apiParam  {String} password //
+ * @apiParam  {String} id //
  * @apiParam  {String} name //
  *
  *
- * @apiSuccess (200) {String} id id of the created account
+ * @apiSuccess (200) {String} id id of the created user
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     email: 'email.email@email.com',
- *     password: 'password',
- *     name: 'userName',
+ *     id: 'uuid',
+ *     name: 'toto'
  * }
  *
  *
@@ -30,9 +28,7 @@ const { ApiError } = require('../configurations/error');
  * }
  *
  * @apiError BAD_PARAMETER 400
- * @apiError BAD_EMAIL_FORMAT
- * @apiError OTHER_SERVICE_ERROR
- *
+ * @apiError UNDEFINED 500
  */
 
 async function userCreate(req, res, next) {

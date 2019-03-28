@@ -3,35 +3,26 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {POST} /emailing/sign-out ACCOUNT CREATE
- * @apiName TOTO
+ * @api {POST} /emailing/reset EMAILING RESET PASSWORD
+ * @apiName EMAILING2
  * @apiGroup EMAILING
  * @apiVersion  0.1.0
- *
  *
  * @apiParam  {String} email //
  * @apiParam  {String} password //
  * @apiParam  {String} name //
  *
  *
- * @apiSuccess (200) {String} id id of the created account
+ * @apiSuccess (200) {String} id account id
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     email: 'email.email@email.com',
- *     password: 'password',
- *     name: 'userName',
- * }
- *
- *
- * @apiSuccessExample {json} Success-Response:
- * {
- *     id: 'uuuid'
+ *     id: 'uuid'
  * }
  *
  * @apiError BAD_PARAMETER 400
- * @apiError BAD_EMAIL_FORMAT
- * @apiError OTHER_SERVICE_ERROR
+ * @apiError OTHER_SERVICE_ERROR XXX
+ * @apiError UNDEFINED 500
  *
  */
 
