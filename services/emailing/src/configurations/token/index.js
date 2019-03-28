@@ -1,1 +1,1 @@
-module.exports = { chars: 'base32' };
+module.exports = { chars: 'numeric' };

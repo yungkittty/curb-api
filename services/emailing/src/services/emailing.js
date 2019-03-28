@@ -30,7 +30,7 @@ async function sendMail(email, options) {
 }
 
 async function generateCode() {
-  const code = await randtoken.generator(generatorConfig).generate(10);
+  const code = await randtoken.generator(generatorConfig).generate(6);
   return code;
 }
 
