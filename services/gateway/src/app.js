@@ -12,11 +12,22 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 // TODO test si besoin de cors sur la gateway
-
+const whiteList = [
+  'http://localhost:3000',
+  'https://localhost:3000',
+  'http://curb-app.com',
+  'https://curb-app.com'
+];
 const corsOptions = {
-  origin: function (origin, callback) {
-    console.log("origin=>", origin)
-    callback(null, true);
+  origin: function(origin, callback) {
+    console.log('origin=>', origin);
+    if (origin === undefined || whiteList.indexOf(origin) !== -1) {
+      console.log('get there');
+      callback(null, true);
+    } else {
+      console.log('throw');
+      callback(new Error('BAD_CORS'));
+    }
   },
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -43,5 +54,6 @@ app.use(cookieParser());
 app.use('/accounts', proxy(process.env.CURB_ACCOUNT));
 app.use('/users', proxy(process.env.CURB_USERS));
 app.use('/groups', proxy(process.env.CURB_GROUPS));
+app.use('/emailing', proxy(process.env.CURB_EMAILING));
 
 module.exports = app;

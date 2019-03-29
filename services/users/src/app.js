@@ -1,11 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const MongoError = require('mongoose').Error;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const controllers = require('./controllers');
-const errors = require('./configurations/error');
+const middlewares = require('./middlewares');
 
 const app = express();
 
@@ -38,31 +37,6 @@ app.get('/:id', controllers.userRead);
 app.patch('/:id', controllers.userUpdate);
 app.delete('/:id', controllers.userDelete);
 
-// eslint-disable-next-line
-app.use((err, req, res, next) => {
-  console.log('MIDDLEWARE ERROR:', err);
-  switch (err.constructor) {
-    case errors.ApiError:
-      return res
-        .status(err.status)
-        .json({ service: err.service, code: err.code });
-    case errors.OtherServiceError:
-      return res
-        .status(err.status)
-        .json({ service: err.service, code: err.code, from: err.from });
-    case MongoError:
-      return res.status(errors.DATABASE_ERROR).json({
-        service: process.env.SERVICE_NAME,
-        error: 'DATABASE_ERROR',
-        info: err.message ? err.message : undefined
-      });
-    default:
-      return res.status(500).json({
-        service: process.env.SERVICE_NAME,
-        error: 'UNDEFINED',
-        info: err.message ? err.message : undefined
-      });
-  }
-});
+app.use(middlewares.error);
 
 module.exports = app;

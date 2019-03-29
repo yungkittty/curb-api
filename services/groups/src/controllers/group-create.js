@@ -32,7 +32,7 @@ const { ApiError } = require('../configurations/error');
  *  - 500 in case of failed database operation.
  */
 async function groupCreate(req, res, next) {
-  if (!req.body) return res.status(400).end();
+  if (!req.body) return next(new ApiError('BAD_PARAMETER'));
   const { name, status, mediaTypes, theme } = req.body;
   if (!name || !status || !mediaTypes || !theme) {
     return next(new ApiError('BAD_PARAMETER'));
@@ -46,7 +46,10 @@ async function groupCreate(req, res, next) {
       mediaTypes,
       theme
     });
-    return res.status(200).json(groupId);
+    return res
+      .status(200)
+      .json(groupId)
+      .end();
   } catch (error) {
     return next(error);
   }

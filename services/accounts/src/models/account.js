@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const uniqueValidator = require('mongoose-unique-validator');
 const { ApiError } = require('../configurations/error');
 
 mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
@@ -8,8 +9,13 @@ const accountSchema = mongoose.Schema({
   email: { type: String, unique: true, required: [true, 'MISSING_EMAIL'] },
   password: { type: String, required: [true, 'MISSING_PASSWORD'] },
   refreshToken: String,
-  dateCreation: Date
+  dateCreation: Date,
+  active: { type: Boolean, default: false },
+  codeVerification: { type: String },
+  codePassword: { type: String }
 });
+
+accountSchema.plugin(uniqueValidator, { message: 'DUPLICATE_{PATH}' });
 
 // eslint-disable-next-line
 accountSchema.pre('save', async function(next) {
@@ -32,19 +38,22 @@ accountSchema.methods.getPublicFields = function() {
     __v,
     _id,
     refreshToken,
+    codePassword,
+    codeVerification,
     ...publicAccount
   } = this.toObject();
   return { id: _id, ...publicAccount };
 };
 
 accountSchema.post('save', async (error, doc, next) => {
-  console.log('MONGO ERROR:', error);
   if (error.name === 'MongoError' && error.code === 11000) {
     return next(new ApiError('ACCOUNT_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
     return next(
-      new ApiError(error.errors[Object.keys(error.errors)[0]].message)
+      new ApiError(
+        error.errors[Object.keys(error.errors)[0]].message.toUpperCase()
+      )
     );
   }
   return next(error);

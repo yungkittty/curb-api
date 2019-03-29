@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
 const User = require('../models/user');
+const { ApiError } = require('../configurations/error');
 
 async function create(newUser) {
   const currentDate = new Date();
@@ -13,7 +13,7 @@ async function create(newUser) {
     await user.save();
   } catch (error) {
     if (error.name === 'MongoError' && error.code === 11000) {
-      throw new Error('USER_ALREADY_EXIST');
+      throw new ApiError('USER_ALREADY_EXIST');
     }
     throw error;
   }

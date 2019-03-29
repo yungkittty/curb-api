@@ -1,4 +1,5 @@
 const update = require('../services/update');
+const { ApiError } = require('../configurations/error');
 
 async function userUpdate(req, res, next) {
   try {
@@ -9,12 +10,15 @@ async function userUpdate(req, res, next) {
       req.body.avatarUrl ||
       req.body.dateCreation
     ) {
-      return next('BAD_PARAMETER');
+      return next(new ApiError('BAD_PARAMETER'));
     }
     const doService = await update(req.params.id, req.body);
-    return res.status(200).json({
-      ...doService
-    });
+    return res
+      .status(200)
+      .json({
+        ...doService
+      })
+      .end();
   } catch (error) {
     return next(error);
   }

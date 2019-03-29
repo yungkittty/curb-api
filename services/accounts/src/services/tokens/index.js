@@ -26,7 +26,9 @@ function createRefreshToken(payload) {
 async function verify(token, type) {
   try {
     const decoded = jwt.verify(token, jwtConfig.secret);
+    console.log(decoded);
     const { _id } = await Account.findById(decoded.payload.id);
+    console.log('found accounts=>', _id);
     if (!_id) throw new ApiError('INVALID_TOKEN');
     // eslint-disable-next-line
     return decoded.payload.type === type &&
@@ -34,6 +36,7 @@ async function verify(token, type) {
       ? decoded.payload.id
       : null;
   } catch (error) {
+    console.log('error=>', error);
     switch (error.constructor) {
       case jwt.TokenExpiredError:
         throw new ApiError('TOKEN_EXPIRED');
@@ -42,7 +45,7 @@ async function verify(token, type) {
       case jwt.NotBeforeError:
         throw new ApiError('TOKEN_AHEAD_OF_TIME');
       default:
-        throw error;
+        throw new ApiError('INVALID_TOKEN');
     }
   }
 }

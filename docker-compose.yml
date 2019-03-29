@@ -20,6 +20,7 @@ services:
       - curb-users
       - curb-groups
       - curb-contents
+      - curb-emailing
 
   curb-users:
     build: ./services/users
@@ -46,5 +47,11 @@ services:
     build: ./services/contents
     ports:
       - 4004:4000
+    depends_on:
+      - db
+  curb-emailing:
+    build: ./services/emailing
+    ports:
+      - 4005:4000
     depends_on:
       - db
