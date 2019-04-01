@@ -1,7 +1,10 @@
 const avatar = require('../services/avatar');
+const { ApiError } = require('../configurations/error');
 
-async function userAvatars(req, res) {
-  if (!req.body.avatarUrl || !req.params.userId) return res.status(400).end();
+async function userAvatars(req, res, next) {
+  if (!req.body.avatarUrl || !req.params.userId) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
   try {
     await avatar(req.params.userId, req.body.avatarUrl);
     return res.status(200).end();

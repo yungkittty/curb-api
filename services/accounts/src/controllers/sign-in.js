@@ -10,11 +10,14 @@ async function signIn(req, res, next) {
   if (!verifyEmail(email)) return next(new ApiError('BAD_EMAIL_FORMAT'));
   try {
     const signed = await authService.authenticate({ email, password });
-    return res.status(200).json({
-      token: signed.token,
-      refreshToken: signed.refreshToken,
-      id: signed.id
-    });
+    return res
+      .status(200)
+      .json({
+        token: signed.token,
+        refreshToken: signed.refreshToken,
+        id: signed.id
+      })
+      .end();
   } catch (error) {
     return next(error);
   }

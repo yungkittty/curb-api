@@ -143,7 +143,6 @@ avatar.put('/groups/:groupId', groupUpload.single('file'), async (req, res) => {
     if (response.status !== 200) return res.status(400).end();
     return res.status(200).end();
   } catch (error) {
-    console.log(error);
     res.status(400).end();
   }
   return res.status(200).end();
@@ -193,7 +192,6 @@ avatar.put('/users/:userId', userUpload.single('file'), async (req, res) => {
       }/medium${ext}`
     });
   } catch (error) {
-    console.log(error);
     res.status(400).end();
   }
   return res.status(200).end();
