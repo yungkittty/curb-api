@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const create = require('../services/content-create');
+const Content = require('../models/content');
 
 const text = express();
 
@@ -25,7 +26,10 @@ text.post('/:groupId/:userId', async (req, res) => {
       url: `http://curb-groups:4000/medias/${req.params.groupId}/${check.id}`,
       validateStatus: undefined
     });
-    if (response.status !== 200) return res.status(400).end();
+    if (response.status !== 200) {
+      await Content.findByIdAndRemove(check.id);
+      return res.status(400).end();
+    }
     return res.status(200).json({
       id: check.id,
       data: check.data
