@@ -7,6 +7,9 @@ async function accountUpdate(req, res, next) {
   if (!req.body.email && !req.body.password) {
     return next(new ApiError('BAD_PARAMETER'));
   }
+  if (req.authId !== req.params.id) {
+    return next(new ApiError('FORBIDEN_OPERATION'));
+  }
   try {
     const account = await update(
       req.params.id,

@@ -36,14 +36,16 @@ const corsOptions = {
   optionsSuccessStatus: 204
 };
 
-// app.options('*', (req, res) => {
-//   res.status(200);
-// });
-
 app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
+});
+
+app.get('*', async (req, res, next) => {
+  console.log('gateway///');
+  req.toto = 'toto';
+  return next();
 });
 
 app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT));

@@ -3,9 +3,6 @@ const verifyEmail = require('../utils/email/verify-email');
 const { ApiError } = require('../configurations/error');
 
 async function signIn(req, res, next) {
-  console.log(req.get('host'));
-  console.log(req.get('origin'));
-  console.log(req.socket.remoteAddress);
   const { email, password } = req.body;
   if (!email || !password) {
     return next(new ApiError('BAD_PARAMETER'));
@@ -17,8 +14,6 @@ async function signIn(req, res, next) {
       .status(200)
       .cookie('token', signed.token, { httpOnly: true })
       .json({
-        token: signed.token,
-        refreshToken: signed.refreshToken,
         id: signed.id
       })
       .end();

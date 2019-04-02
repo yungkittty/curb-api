@@ -8,6 +8,7 @@ async function callUserCreate(name, id) {
     url: 'http://curb-users:4000/',
     validateStatus: undefined,
     headers: { 'Content-Type': 'application/json' },
+    withCredentials: true,
     data: {
       name,
       id

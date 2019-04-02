@@ -1,7 +1,6 @@
 const signIn = require('./sign-in');
 const signOut = require('./sign-out');
 const signUp = require('./sign-up');
-const refresh = require('./refresh');
 const validate = require('./validate');
 const accountRead = require('./account-read');
 const accountDelete = require('./account-delete');
@@ -17,7 +16,6 @@ module.exports = {
   signIn,
   signOut,
   signUp,
-  refresh,
   validate,
   accountRead,
   accountDelete,

@@ -2,14 +2,15 @@ const tokens = require('../services/tokens');
 const getTokenFromHeader = require('../utils/request/get-token-from-header');
 const { ApiError } = require('../configurations/error');
 const isAccountValid = require('../services/account/is-account-valid');
+const { refresh } = require('../services/tokens');
 
 async function validate(req, res, next) {
+  if (req.authId || req.token) {
+    return next(new ApiError('BAD_PARAMETER'));
+  }
+  const token = getTokenFromHeader(req.headers.authorization);
+  if (!token) return next(new ApiError('DISCONNECTED'));
   try {
-    // const token = getTokenFromHeader(req.headers.authorization);
-    // if (!token) return next(new ApiError('INVALID_TOKEN'));
-    const { token } = req.cookies;
-    if (!token) return next(new ApiError('NOT_CONNECTED'));
-    console.log('token=>', token);
     const id = await tokens.verify(token, 'token');
     if (!id) {
       return next(new ApiError('INVALID_TOKEN'));
@@ -23,6 +24,20 @@ async function validate(req, res, next) {
       .json({ id })
       .end();
   } catch (error) {
+    if (error.code === 'TOKEN_EXPIRED') {
+      try {
+        const payload = await refresh(token);
+        req.authId = payload.id;
+        req.token = payload.token;
+        return res
+          .status(200)
+          .cookie('token', payload.token, { httpOnly: true })
+          .json({ id: req.authId })
+          .end();
+      } catch (refreshError) {
+        return next(refreshError);
+      }
+    }
     return next(error);
   }
 }

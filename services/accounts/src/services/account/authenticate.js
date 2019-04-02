@@ -12,10 +12,8 @@ async function authenticate(accountInfo) {
   );
   if (!trustAccount) throw new ApiError('INVALID_PASSWORD');
   const token = tokens.createToken(account._id.toString());
-  const refreshToken = tokens.createRefreshToken(account._id.toString());
-  account.refreshToken = refreshToken;
   await account.save();
-  return { id: account._id.toString(), token, refreshToken };
+  return { id: account._id.toString(), token };
 }
 
 module.exports = authenticate;

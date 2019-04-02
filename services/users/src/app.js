@@ -1,8 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const controllers = require('./controllers');
 const middlewares = require('./middlewares');
 
@@ -11,15 +12,23 @@ const app = express();
 mongoose.set('debug', true);
 
 app.use(bodyParser.json());
+app.use(cookieParser());
+
 const corsOptions = {
-  origin: '*',
+  origin: function(origin, callback) {
+    // console.log('origin=>', origin);
+    // if (origin === undefined || whiteList.indexOf(origin) !== -1) {
+    callback(null, true);
+    // } else {
+    //   callback(new Error('BAD_CORS'));
+    // }
+  },
   credentials: true,
-  allowedHeaders: '*',
-  maxAge: 86400
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  maxAge: 86400,
+  methods: ['GET', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
+  optionsSuccessStatus: 204
 };
-app.options('*', (req, res) => {
-  res.status(200);
-});
 
 app.use(cors(corsOptions));
 

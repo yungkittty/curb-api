@@ -37,7 +37,6 @@ async function groupCreate(req, res, next) {
   if (!name || !status || !mediaTypes || !theme) {
     return next(new ApiError('BAD_PARAMETER'));
   }
-  console.log('coookies=>', req.cookies);
   try {
     const groupId = await create({
       creatorId: req.authId,

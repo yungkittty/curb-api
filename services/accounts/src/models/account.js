@@ -8,7 +8,6 @@ mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 const accountSchema = mongoose.Schema({
   email: { type: String, unique: true, required: [true, 'MISSING_EMAIL'] },
   password: { type: String, required: [true, 'MISSING_PASSWORD'] },
-  refreshToken: String,
   dateCreation: Date,
   active: { type: Boolean, default: false },
   codeVerification: { type: String },
@@ -37,7 +36,6 @@ accountSchema.methods.getPublicFields = function() {
     password,
     __v,
     _id,
-    refreshToken,
     codePassword,
     codeVerification,
     ...publicAccount

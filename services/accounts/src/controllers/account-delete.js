@@ -3,6 +3,9 @@ const { ApiError } = require('../configurations/error');
 
 async function accountDelete(req, res, next) {
   if (!req.params.id) return next(new ApiError('BAD_PARAMETER'));
+  if (req.params.id !== req.authId) {
+    return next(new ApiError('FORBIDEN_OPERATION'));
+  }
   try {
     await remove(req.params.id, req.cookies.token);
     return res.status(200).end();

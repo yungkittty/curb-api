@@ -6,7 +6,6 @@ async function logout(token) {
   const id = await tokens.verify(token, 'token');
   const account = await Account.findById(id);
   if (!account) throw new ApiError('ACCOUNT_NOT_FOUND');
-  account.refreshToken = null;
   await account.save();
   return account;
 }
