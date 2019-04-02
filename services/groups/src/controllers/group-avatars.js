@@ -25,7 +25,7 @@ const { ApiError } = require('../configurations/error');
  *
  */
 
-async function groupAvatar(req, res, next) {
+async function groupAvatars(req, res, next) {
   if (!req.body.avatarUrl || !req.params.groupId) {
     return next(new ApiError('BAD_PARAMETER'));
   }
@@ -37,4 +37,4 @@ async function groupAvatar(req, res, next) {
   }
 }
 
-module.exports = groupAvatar;
+module.exports = groupAvatars;

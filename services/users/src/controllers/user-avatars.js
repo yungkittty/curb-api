@@ -25,7 +25,7 @@ const { ApiError } = require('../configurations/error');
  *
  */
 
-async function userAvatar(req, res, next) {
+async function userAvatars(req, res, next) {
   if (!req.body.avatarUrl || !req.params.userId) {
     return next(new ApiError('BAD_PARAMETER'));
   }
@@ -37,4 +37,4 @@ async function userAvatar(req, res, next) {
   }
 }
 
-module.exports = userAvatar;
+module.exports = userAvatars;
