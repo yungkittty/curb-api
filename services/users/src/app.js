@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', controllers.userCreate);
-app.post('/avatar/:userId', controllers.userAvatar);
+app.post('/avatars/:userId', controllers.userAvatars);
 app.get('/:id', controllers.userRead);
 app.patch('/:id', controllers.userUpdate);
 app.delete('/:id', controllers.userDelete);
