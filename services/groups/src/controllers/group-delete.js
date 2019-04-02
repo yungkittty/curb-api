@@ -3,25 +3,22 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @param {Object} req DELETE http request
- * @param {Object} res response
+ * @api {DELETE} /groups/:id GROUPS DELETE
+ * @apiName GROUPS2
+ * @apiGroup GROUPS
+ * @apiVersion  0.1.0
  *
- * Precondition:
- * - The user need to be authenticated.
  *
+ * @apiParam {String} groupId //
  *
- * - User id provided will need to match the group's creatorId field.
+ * @apiSuccess (200) {String} OK
  *
- * http header:
- *  - Authorization: 'Bearer ' + token
- * parameter: empty.
- * success: 200.
+ * @apiError BAD_PARAMETER 400
+ * @apiError GROUP_NOT_FOUND 400
+ * @apiError USER_NOT_CREATOR 403
  *
- * failure:
- *  - 400 in case of bad request.
- *  - 401 in case of authentification failure.
- *  - 500 in case of failed database operation.
  */
+
 async function groupDelete(req, res, next) {
   if (!req.params.id) return next(new ApiError('BAD_PARAMETER'));
   try {
