@@ -4,7 +4,6 @@ const { refresh } = require('../services/tokens');
 
 async function validate(req, res, next) {
   try {
-    console.log('middleware validate');
     if (req.authId || req.token) {
       return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
     }
