@@ -46,13 +46,12 @@ Il ne faut pas oublier d'ajouter le service dans le fichier `docker-compose.yml`
 
 **installer docker et docker-compose**
 
-`docker-compose up --build` pour build et en suite `docker-compose up ` pour run si vous arrêter les containes.
+`docker-compose up --build` pour build et en suite `docker-compose up` pour run si vous arrêter les containes.
 `docker kill $(docker ps -q)` pour kill les containers.
 
 ## ADDITIONAL ERROR TAG
 
 Additional error tag will be found in the body response when the request failed as it:
-
 
 ```
  {
@@ -62,80 +61,85 @@ Additional error tag will be found in the body response when the request failed 
   info: "..."
  }
 ```
-*from* attribute is added when the error is coming from another service than the initial one.  
-*info* attribute is added when the Tag correspond to DATABASE_ERROR or UNDEFINED as an additional information.  
+
+_from_ attribute is added when the error is coming from another service than the initial one.  
+_info_ attribute is added when the Tag correspond to DATABASE_ERROR or UNDEFINED as an additional information.
 
 ### DEFAULT TAG
-  
-  *TAG: HTTP STATUS*
- ```
-  BAD_PARAMETER: 400,  
-  DATABASE_ERROR: 500,  
-  UNDEFINED: 500  
- ```
+
+_TAG: HTTP STATUS_
+
+```
+ BAD_PARAMETER: 400,
+ DATABASE_ERROR: 500,
+ UNDEFINED: 500
+```
+
 ### ACCOUNTS
 
- ```
-  BAD_PARAMETER: 400,
-  BAD_EMAIL_FORMAT: 400,
-  DUPLICATE_EMAIL: 400,
-  ACCOUNT_NOT_FOUND: 400,
-  ACCOUNT_ALREADY_EXIST: 400,
-  TOKEN_AHEAD_OF_TIME: 400,
-  BAD_REFRESH_TOKEN: 400,
-  INVALID_PASSWORD: 400,
-  ACCOUNT_CODE_DIFFERENT: 400,
-  CODE_UNAVAILABLE: 400,
-  INVALID_CODE: 403,
-  INVALID_TOKEN: 403,
-  TOKEN_NOT_EXPIRED: 403,(on route /account/refresh when the token is still available)  
-  TOKEN_EXPIRED: 403,
-  ACCOUNT_NOT_ACTIVATE: 403,
-  ACCOUNT_ALREADY_ACTIVE: 500,
-  DATABASE_ERROR: 500
- ```
+```
+ ACCOUNTS_BAD_PARAMETER: 400,
+ ACCOUNTS_BAD_EMAIL_FORMAT: 400,
+ ACCOUNTS_DUPLICATE_EMAIL: 400,
+ ACCOUNTS_NOT_FOUND: 400,
+ ACCOUNTS_ALREADY_EXIST: 400,
+ ACCOUNTS_TOKEN_AHEAD_OF_TIME: 400,
+ ACCOUNTS_BAD_REFRESH_TOKEN: 400,
+ ACCOUNTS_INVALID_PASSWORD: 400,
+ ACCOUNTS_CODE_DIFFERENT: 400,
+ ACCOUNTS_CODE_UNAVAILABLE: 400,
+ ACCOUNTS_INVALID_CODE: 403,
+ ACCOUNTS_INVALID_TOKEN: 403,
+ ACCOUNTS_TOKEN_NOT_EXPIRED: 403,(on route /account/refresh when the token is still available)
+ ACCOUNTS_TOKEN_EXPIRED: 403,
+ ACCOUNTS_NOT_ACTIVATE: 403,
+ ACCOUNTS_ALREADY_ACTIVE: 500,
+ ACCOUNTS_DATABASE_ERROR: 500
+```
 
 ### USERS
 
- ```
-  BAD_PARAMETER: 400,
-  DUPLICATE_NAME: 400,
-  USER_NOT_FOUND: 400,
-  MISSING_NAME: 400,
-  USER_ALREADY_EXIST: 400,
-  DATABASE_ERROR: 500
- ```  
+```
+ USERS_BAD_PARAMETER: 400,
+ USERS_DUPLICATE_NAME: 400,
+ USERS_NOT_FOUND: 400,
+ USERS_MISSING_NAME: 400,
+ USERS_ALREADY_EXIST: 400,
+ USERS_DATABASE_ERROR: 500
+```
+
 ### GROUPS
 
- ```
-  BAD_PARAMETER: 400,
-  BAD_STATUS: 400,
-  BAD_MEDIATYPES: 400,
-  TOKEN_AHEAD_OF_TIME: 400,
-  DUPLICATE_NAME: 400,
-  MISSING_CREATOR_ID: 400,
-  MISSING_GROUP_NAME: 400,
-  MISSING_STATUS: 400,
-  GROUP_ALREADY_EXIST: 400,
-  GROUP_NOT_FOUND: 400,
-  INVALID_TOKEN: 403,
-  TOKEN_EXPIRED: 403,
-  USER_ALREADY_JOIN: 403,
-  USER_NOT_CREATOR: 403,
-  USER_NOT_IN_GROUP: 403,
-  FORBIDEN_JOIN: 403,
-  FORBIDEN_READ: 403,
-  FORBIDEN_UNJOIN: 403,
-  DATABASE_ERROR: 500
- ```
+```
+ GROUPS_BAD_PARAMETER: 400,
+ GROUPS_BAD_STATUS: 400,
+ GROUPS_BAD_MEDIATYPES: 400,
+ GROUPS_TOKEN_AHEAD_OF_TIME: 400,
+ GROUPS_DUPLICATE_NAME: 400,
+ GROUPS_MISSING_CREATOR_ID: 400,
+ GROUPS_MISSING_GROUP_NAME: 400,
+ GROUPS_MISSING_STATUS: 400,
+ GROUPS_ALREADY_EXIST: 400,
+ GROUPS_NOT_FOUND: 400,
+ GROUPS_INVALID_TOKEN: 403,
+ GROUPS_TOKEN_EXPIRED: 403,
+ GROUPS_USER_ALREADY_JOIN: 403,
+ GROUPS_USER_NOT_CREATOR: 403,
+ GROUPS_USER_NOT_IN_GROUP: 403,
+ GROUPS_FORBIDEN_JOIN: 403,
+ GROUPS_FORBIDEN_READ: 403,
+ GROUPS_FORBIDEN_UNJOIN: 403,
+ GROUPS_DATABASE_ERROR: 500
+```
 
 ### EMAILING
 
- ```
-  BAD_PARAMETER: 400,
-  ACCOUNT_ALREADY_ACTIVE: 400,
-  DATABASE_ERROR: 500
- ```
+```
+ EMAILING_BAD_PARAMETER: 400,
+ EMAILING_ALREADY_ACTIVE: 400,
+ EMAILING_DATABASE_ERROR: 500
+```
+
 ## ROUTES
 
 ##### LEGEND
@@ -162,7 +166,6 @@ Additional error tag will be found in the body response when the request failed 
  }
 ```
 
-
 #### /accounts/sign-up {POST} |ACCOUNT CREATE|
 
 ```
@@ -172,7 +175,14 @@ Additional error tag will be found in the body response when the request failed 
   name: {String}
 }
 ```
+
 ##### response: success: 200 | failure: 400 | 500
+
+```
+  {
+    id: {String}
+  }
+```
 
 #### /accounts/sign-in {POST} |CONNEXION|
 
@@ -189,9 +199,17 @@ Additional error tag will be found in the body response when the request failed 
 
 ```
 {
-  id: {Uuid},
-  token: {String},
-  refreshToken: {String}
+  id: {Uuid}
+}
+```
+
+#### /accounts/me {GET}
+
+##### response: success: 200 | failure: 400
+
+```
+{
+  id: {Uuid}
 }
 ```
 
@@ -247,6 +265,7 @@ update the account.
   password: {String}
 }
 ```
+
 ##### response: success: 200 | failure: 400 | 403
 
 #### /accounts/:id {GET} :lock: |ACCOUNT READ|
@@ -255,8 +274,10 @@ update the account.
 
 #### /accounts/email {POST} :lock: |ACCOUNT READ BY EMAIL|
 
-##### parameters: 
+##### parameters:
+
 body
+
 ```
  {
   email: {String}
@@ -275,64 +296,72 @@ body
 
 ##### response: success: 200 | failure: 400 | 403
 
-#### /accounts/code-verification/:id {POST}  :no_entry_sign:
+#### /accounts/code-verification/:id {POST} :no_entry_sign:
 
-##### params: 
- body:
- ```
- {
-  code: {String}
- }
- ```
+##### params:
+
+body:
+
+```
+{
+ code: {String}
+}
+```
 
 ##### response: sucess: 200 | failure: 400 | 500
 
-#### /accounts/code-password/:id {POST}  :no_entry_sign:
+#### /accounts/code-password/:id {POST} :no_entry_sign:
 
-##### params: 
- body:
- ```
- {
-  code: {String}
- }
- ```
+##### params:
+
+body:
+
+```
+{
+ code: {String}
+}
+```
 
 ##### response: sucess: 200 | failure: 400 | 500
 
 #### /accounts/activate/:id {POST}
 
-##### params: 
- body :
- `code: {String}`
+##### params:
+
+body :
+`code: {String}`
 
 ##### response: sucess: 200 | failure: 400 | 500
 
 #### /accounts/reset-password/ {POST}
 
-##### params: 
- body :
- 
- ```
- {
-  code: {String},
-  password: {String},
-  email: {String}
- }
- ```  
+##### params:
+
+body :
+
+```
+{
+ code: {String},
+ password: {String},
+ email: {String}
+}
+```
 
 ##### response: sucess: 200 | failure: 400 | 500
 
 ##### /accounts/validate-code-password/ {POST}
 
-##### params: 
- body :
- 
- ```
- {
-  code: {String},
-  email: {String}
- }
- ```  
+##### params:
+
+body :
+
+```
+{
+ code: {String},
+ email: {String}
+}
+```
+
 ##### response: sucess: 200 | failure: 400 | 500
 
 #### /account/:id {POST}
@@ -434,14 +463,14 @@ theme: {String}
 
 #### /groups/ {GET} |GROUPS LIST|
 
-##### params: 
+##### params:
 
-| Name | Required | Default | Description |
-|:---:|:---:|:---:|:---:|
-| page   | optional | 1 | will ask for the requested page |
-| count    | optional | 5 | number of elements for the page |
-| creatorId    | optional |       | filter on creator |
-| userId    | optional | | filter on userId |
+|   Name    | Required | Default |           Description           |
+| :-------: | :------: | :-----: | :-----------------------------: |
+|   page    | optional |    1    | will ask for the requested page |
+|   count   | optional |    5    | number of elements for the page |
+| creatorId | optional |         |        filter on creator        |
+|  userId   | optional |         |        filter on userId         |
 
 ##### response: success: 200 | failure: 400
 
@@ -471,7 +500,7 @@ theme: {String}
 
 ##### response: success: 200 | failure: 400 | 401
 
-#### /groups/invite/:groupId/ {GET} ~ Invitation  :lock: |GROUPS INVIVATION|
+#### /groups/invite/:groupId/ {GET} ~ Invitation :lock: |GROUPS INVIVATION|
 
 #### response: success: 200 | failure: 400 | 403 | 500
 
@@ -508,6 +537,7 @@ Ne marchera pas pour les groupes privés.
 ##### parameters:
 
 body:
+
 ```
  {
   type: {String}
@@ -552,7 +582,6 @@ il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre di
 
 ##### response: success: 200 | failure: 400 | 500
 
-
 ### CONTENTS
 
 #### Model
@@ -566,14 +595,13 @@ dateCreation: {Date},
 data: {String} [file path]
 ```
 
-#### /contents/$(mediaType)/:groupId/:userId {POST} :lock:
+#### /contents/\$(mediaType)/:groupId/:userId {POST} :lock:
 
-$mediaType: images / videos / locations / texts.
+\$mediaType: images / videos / locations / texts.
 
+##### parameters:
 
-##### parameters: 
-
-form-data: file: {File} ($mediaType=images || videos)
+form-data: file: {File} (\$mediaType=images || videos)
 
 body:
 
@@ -591,7 +619,6 @@ id: {Uuid},
 data: {String} [file path]
 }
 ```
-
 
 #### /contents/:contentId {GET}
 
@@ -625,7 +652,7 @@ data: {String} [file path]
 
 :warning: (creatorId)
 
-##### parameters: 
+##### parameters:
 
 form-data: file: {File}
 
@@ -633,7 +660,7 @@ form-data: file: {File}
 
 #### /contents/avatars/users/:userId/ {POST} :lock: |CONTENTS AVATAR UPLOAD USER|
 
-##### parameters: 
+##### parameters:
 
 form-data: file: {File}
 
@@ -648,13 +675,15 @@ form-data: file: {File}
 Will send an email on the user's email with a code.
 (Already called on /accounts/sign-up)
 
-##### params: 
- body:
- ```
- {
-  id: {Uuid}
- }
- ```
+##### params:
+
+body:
+
+```
+{
+ id: {Uuid}
+}
+```
 
 ##### response: sucess: 200 | failure: 400 | 500
 
@@ -662,12 +691,14 @@ Will send an email on the user's email with a code.
 
 Will send an email on the user's email with a code.
 
-##### params: 
- body:
- ```
- {
-  email: {String}
- }
- ```
+##### params:
+
+body:
+
+```
+{
+ email: {String}
+}
+```
 
 ##### response: sucess: 200 | failure: 400 | 500
