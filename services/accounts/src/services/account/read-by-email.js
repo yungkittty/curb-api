@@ -3,7 +3,7 @@ const { ApiError } = require('../../configurations/error');
 
 async function readByEmail(email) {
   const account = await Account.findOne({ email });
-  if (!account) throw new ApiError('ACCOUNT_NOT_FOUND');
+  if (!account) throw new ApiError('ACCOUNTS_NOT_FOUND');
   return { ...account.getPublicFields() };
 }
 

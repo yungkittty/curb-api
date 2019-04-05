@@ -12,12 +12,12 @@ function getToken(headers) {
 async function authentication(req, res, next) {
   try {
     if (req.authId || req.token) {
-      return next(new ApiError('BAD_PARAMETER'));
+      return next(new ApiError('USERS_BAD_PARAMETER'));
     }
     const response = await axios({
       method: 'post',
       withCredentials: true,
-      headers: { Authorization: `Bearer ${req.cookies.token}` },
+      headers: { Cookie: `token=${req.cookies.token}` },
       url: 'http://curb-accounts:4000/validate',
       validateStatus: undefined
     });
@@ -29,12 +29,11 @@ async function authentication(req, res, next) {
       );
     }
     if (response.headers['set-cookie']) {
-      console.log('UPDATED COOKIE');
       res.cookie('token', getToken(response.headers['set-cookie']), {
-        httpOnly: true
+        httpOnly: true,
+        secure: true
       });
     }
-    console.log('STILL SAME COOKIE');
     req.authId = response.data.id;
     return next();
   } catch (error) {

@@ -3,7 +3,7 @@ const { ApiError } = require('../configurations/error');
 
 async function reset(req, res, next) {
   if (!req.body.email) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('EMAILING_BAD_PARAMETER'));
   }
   try {
     await emailResetPassword(req.body.email);

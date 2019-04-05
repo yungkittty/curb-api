@@ -5,10 +5,12 @@ const { OtherServiceError } = require('../../configurations/error');
 async function callUserCreate(name, id) {
   const response = await axios({
     method: 'post',
+    withCredentials: true,
     url: 'http://curb-users:4000/',
     validateStatus: undefined,
-    headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json'
+    },
     data: {
       name,
       id

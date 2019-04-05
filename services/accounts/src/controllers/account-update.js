@@ -2,13 +2,13 @@ const update = require('../services/account/update');
 const { ApiError } = require('../configurations/error');
 
 async function accountUpdate(req, res, next) {
-  if (!req.body) return next(new ApiError('BAD_PARAMETER'));
-  if (!req.params.id) return next(new ApiError('BAD_PARAMETER'));
+  if (!req.body) return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
+  if (!req.params.id) return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   if (!req.body.email && !req.body.password) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   }
   if (req.authId !== req.params.id) {
-    return next(new ApiError('FORBIDEN_OPERATION'));
+    return next(new ApiError('ACCOUNTS_FORBIDEN_OPERATION'));
   }
   try {
     const account = await update(

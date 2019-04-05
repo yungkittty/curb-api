@@ -3,7 +3,7 @@ const { ApiError } = require('../configurations/error');
 
 async function verification(req, res, next) {
   if (!req.body.id) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('EMAILING_BAD_PARAMETER'));
   }
   try {
     await emailVerification(req.body.id);

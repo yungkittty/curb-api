@@ -3,12 +3,12 @@ const { ApiError } = require('../../configurations/error');
 
 async function activate(id, newCode) {
   const account = await Account.findById({ _id: id });
-  if (!account) throw new ApiError('ACCOUNT_NOT_FOUND');
+  if (!account) throw new ApiError('ACCOUNTS_NOT_FOUND');
   if (account.active) {
-    throw new ApiError('ACCOUNT_ALREADY_ACTIVE');
+    throw new ApiError('ACCOUNTS_ALREADY_ACTIVE');
   }
   if (newCode !== account.codeVerification) {
-    throw new ApiError('ACCOUNT_CODE_DIFFERENT');
+    throw new ApiError('ACCOUNTS_CODE_DIFFERENT');
   }
   account.codeVerification = null;
   account.active = true;

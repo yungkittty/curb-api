@@ -25,14 +25,15 @@ const { ApiError, OtherServiceError } = require('../configurations/error');
 
 async function groupRead(req, res, next) {
   if (!req.params.id) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
     let response;
-    if (req.headers.authorization) {
+    if (req.cookies.token) {
       response = await axios({
         method: 'post',
-        headers: { Authorization: req.headers.authorization },
+        withCredentials: true,
+        headers: { Cookie: `token=${req.cookies.token}` },
         url: 'http://curb-accounts:4000/validate',
         validateStatus: undefined
       });

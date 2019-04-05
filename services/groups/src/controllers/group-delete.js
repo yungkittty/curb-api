@@ -23,7 +23,7 @@ const { ApiError } = require('../configurations/error');
  *  - 500 in case of failed database operation.
  */
 async function groupDelete(req, res, next) {
-  if (!req.params.id) return next(new ApiError('BAD_PARAMETER'));
+  if (!req.params.id) return next(new ApiError('GROUPS_BAD_PARAMETER'));
   try {
     await remove(req.params.id, req.authId);
     return res.status(200).end();

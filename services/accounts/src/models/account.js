@@ -14,7 +14,7 @@ const accountSchema = mongoose.Schema({
   codePassword: { type: String }
 });
 
-accountSchema.plugin(uniqueValidator, { message: 'DUPLICATE_{PATH}' });
+accountSchema.plugin(uniqueValidator, { message: 'ACCOUNTS_DUPLICATE_{PATH}' });
 
 // eslint-disable-next-line
 accountSchema.pre('save', async function(next) {
@@ -45,7 +45,7 @@ accountSchema.methods.getPublicFields = function() {
 
 accountSchema.post('save', async (error, doc, next) => {
   if (error.name === 'MongoError' && error.code === 11000) {
-    return next(new ApiError('ACCOUNT_ALREADY_EXIST'));
+    return next(new ApiError('ACCOUNTS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
     return next(

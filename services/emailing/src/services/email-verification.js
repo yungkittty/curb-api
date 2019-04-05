@@ -5,7 +5,7 @@ const { getAccountById } = require('../utils/getAccount');
 
 async function emailVerification(id) {
   const user = await getAccountById(id);
-  if (user.active) throw new ApiError('ACCOUNT_ALREADY_ACTIVE');
+  if (user.active) throw new ApiError('EMAILING_ALREADY_ACTIVE');
   const code = await mailVerification(user.name, user.email);
   const response = await axios({
     method: 'post',

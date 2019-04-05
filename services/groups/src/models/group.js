@@ -8,12 +8,16 @@ mongoose.connect(
 );
 
 const groupSchema = mongoose.Schema({
-  creatorId: { type: String, required: [true, 'MISSING_CREATOR_ID'] },
-  name: { type: String, unique: true, required: [true, 'MISSING_GROUP_NAME'] },
+  creatorId: { type: String, required: [true, 'GROUPS_MISSING_CREATOR_ID'] },
+  name: {
+    type: String,
+    unique: true,
+    required: [true, 'GROUPS_MISSING_GROUP_NAME']
+  },
   status: {
     type: String,
-    required: [true, 'MISSING_STATUS'],
-    enum: { values: ['public', 'private'], message: 'BAD_STATUS' }
+    required: [true, 'GROUPS_MISSING_STATUS'],
+    enum: { values: ['public', 'private'], message: 'GROUPS_BAD_STATUS' }
   },
   avatarUrl: {
     type: String,
@@ -27,13 +31,13 @@ const groupSchema = mongoose.Schema({
     required: true,
     enum: {
       values: ['localisation', 'text', 'image', 'video'],
-      message: 'BAD_MEDIATYPES'
+      message: 'GROUPS_BAD_MEDIATYPES'
     }
   },
   theme: { type: String }
 });
 
-groupSchema.plugin(uniqueValidator, { message: 'DUPLICATE_{PATH}' });
+groupSchema.plugin(uniqueValidator, { message: 'GROUPS_DUPLICATE_{PATH}' });
 
 // eslint-disable-next-line
 groupSchema.methods.getPublicFields = function() {
@@ -44,7 +48,7 @@ groupSchema.methods.getPublicFields = function() {
 groupSchema.post('save', async (error, doc, next) => {
   console.log('MONGO ERROR:', error);
   if (error.name === 'MongoError' && error.code === 11000) {
-    return next(new ApiError('ACCOUNT_ALREADY_EXIST'));
+    return next(new ApiError('GROUPS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
     return next(

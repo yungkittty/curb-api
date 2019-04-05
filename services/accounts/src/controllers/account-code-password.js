@@ -3,7 +3,7 @@ const { ApiError } = require('../configurations/error');
 
 async function accountCode(req, res, next) {
   if (!req.params.id || !req.body.code) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   }
   try {
     await updateCodePassword(req.params.id, req.body.code);

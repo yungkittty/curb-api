@@ -3,12 +3,12 @@ const { ApiError } = require('../configurations/error');
 
 async function addPost(groupId, mediaId, type) {
   const group = await Group.findById(groupId);
-  if (!group) throw new ApiError('GROUP_NOT_FOUND');
+  if (!group) throw new ApiError('GROUPS_NOT_FOUND');
   if (!group.mediaTypes.includes(type)) {
-    throw new ApiError('BAD_MEDIATYPES');
+    throw new ApiError('GROUPS_BAD_MEDIATYPES');
   }
   if (group.medias.includes(mediaId)) {
-    throw new ApiError('MEDIA_ALREADY_PRESENT');
+    throw new ApiError('GROUPS_MEDIA_ALREADY_PRESENT');
   }
   group.medias = [...group.medias, mediaId];
   await group.save();

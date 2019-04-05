@@ -3,7 +3,7 @@ const { ApiError } = require('../configurations/error');
 
 async function groupPost(req, res, next) {
   if (!req.params.groupId || !req.params.mediaId || !req.body.type) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
     await addPost(req.params.groupId, req.params.mediaId, req.body.type);

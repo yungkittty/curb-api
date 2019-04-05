@@ -4,15 +4,15 @@ const { ApiError } = require('../configurations/error');
 const authService = require('../services/account');
 
 async function signUp(req, res, next) {
-  if (!req.body) return next(new ApiError('BAD_PARAMETER'));
+  if (!req.body) return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   if (!req.body.name || !req.body.email || !req.body.password) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   }
   // TODO add validate email(renew regex)
   // TODO add validate password
   // TODO add validate name in /users
   if (!verifyEmail(req.body.email)) {
-    return next(new ApiError('BAD_EMAIL_FORMAT'));
+    return next(new ApiError('ACCOUNTS_EMAIL_FORMAT'));
   }
   try {
     const id = await create({
@@ -26,7 +26,7 @@ async function signUp(req, res, next) {
     });
     return res
       .status(200)
-      .cookie('token', signed.token, { httpOnly: true })
+      .cookie('token', signed.token, { httpOnly: true, secure: true })
       .json({ id })
       .end();
   } catch (error) {

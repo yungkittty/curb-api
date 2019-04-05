@@ -12,6 +12,7 @@ const activate = require('./activate');
 const resetPassword = require('./reset-password');
 const isAccountValid = require('./is-account-valid');
 const validateCodePassword = require('./validate-code-password');
+const me = require('./me');
 
 module.exports = {
   authenticate,
@@ -27,5 +28,6 @@ module.exports = {
   activate,
   resetPassword,
   isAccountValid,
-  validateCodePassword
+  validateCodePassword,
+  me
 };

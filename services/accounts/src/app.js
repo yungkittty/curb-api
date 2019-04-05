@@ -44,6 +44,8 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
+// who-am-i
+app.get('/me', middlewares.validate, controllers.accountMe);
 app.get('/:id', controllers.accountRead);
 app.post('/email', controllers.accountReadByEmail);
 app.delete('/:id', middlewares.validate, controllers.accountDelete);
@@ -52,7 +54,6 @@ app.post('/sign-in', controllers.signIn);
 app.post('/sign-out', middlewares.validate, controllers.signOut);
 app.post('/sign-up', controllers.signUp);
 app.post('/validate', controllers.validate);
-
 // private route
 app.post('/code-verification/:id', controllers.accountCodeVerification);
 // private route:
@@ -61,11 +62,6 @@ app.post('/code-password/:id', controllers.accountCodePassword);
 app.post('/activate/:id', controllers.accountActivate);
 app.post('/reset-password/', controllers.accountResetPassword);
 app.post('/validate-code-password/', controllers.accountValideCodePassword);
-
-app.get('/auth', middlewares.validate, async (req, res) => {
-  console.log('/auth', req.cookies);
-  return res.status(200).end();
-});
 
 app.use(middlewares.error);
 

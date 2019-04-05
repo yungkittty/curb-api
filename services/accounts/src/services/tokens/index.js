@@ -20,7 +20,7 @@ async function verify(token, type) {
   try {
     const decoded = jwt.verify(token, jwtConfig.secret);
     const { _id } = await Account.findById(decoded.payload.id);
-    if (!_id) throw new ApiError('INVALID_TOKEN');
+    if (!_id) throw new ApiError('ACCOUNTS_INVALID_TOKEN');
     // eslint-disable-next-line
     return decoded.payload.type === type &&
       decoded.payload.id === _id.toString()
@@ -29,13 +29,13 @@ async function verify(token, type) {
   } catch (error) {
     switch (error.constructor) {
       case jwt.TokenExpiredError:
-        throw new ApiError('TOKEN_EXPIRED');
+        throw new ApiError('ACCOUNTS_TOKEN_EXPIRED');
       case jwt.JsonWebTokenError:
-        throw new ApiError('INVALID_TOKEN');
+        throw new ApiError('ACCOUNTS_INVALID_TOKEN');
       case jwt.NotBeforeError:
-        throw new ApiError('TOKEN_AHEAD_OF_TIME');
+        throw new ApiError('ACCOUNTS_TOKEN_AHEAD_OF_TIME');
       default:
-        throw new ApiError('INVALID_TOKEN');
+        throw new ApiError('ACCOUNTS_INVALID_TOKEN');
     }
   }
 }
@@ -43,13 +43,14 @@ async function verify(token, type) {
 async function refresh(token) {
   try {
     const decoded = await verify(token, 'token');
-    if (!decoded) throw new ApiError('INVALID_TOKEN');
+    if (!decoded) throw new ApiError('ACCOUNTS_INVALID_TOKEN');
+    return decoded;
   } catch (error) {
-    if (error.code === 'TOKEN_EXPIRED') {
+    if (error.code === 'ACCOUNTS_TOKEN_EXPIRED') {
       const decoded = jwt.decode(token);
       const account = await Account.findById(decoded.payload.id);
       if (!account) {
-        throw new ApiError('INVALID_TOKEN');
+        throw new ApiError('ACCOUNTS_INVALID_TOKEN');
       }
       const newToken = createToken(account._id.toString());
       return {
@@ -59,7 +60,6 @@ async function refresh(token) {
     }
     throw error;
   }
-  throw new ApiError('TOKEN_NOT_EXPIRED');
 }
 
 module.exports = {

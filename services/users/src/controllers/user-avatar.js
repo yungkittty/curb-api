@@ -3,7 +3,7 @@ const { ApiError } = require('../configurations/error');
 
 async function userAvatar(req, res, next) {
   if (!req.body.avatarUrl || !req.params.userId) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('USERS_BAD_PARAMETER'));
   }
   try {
     await avatar(req.params.userId, req.body.avatarUrl);

@@ -3,10 +3,10 @@ const { ApiError } = require('../configurations/error');
 
 async function userRead(req, res, next) {
   if (!req.params.id) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('USERS_BAD_PARAMETER'));
   }
   try {
-    const user = await read(req.params.id, req.headers.authorization);
+    const user = await read(req.params.id, req.cookies.token);
     return res
       .status(200)
       .json({

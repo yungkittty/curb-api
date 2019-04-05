@@ -11,18 +11,15 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-// TODO test si besoin de cors sur la gateway
 const whiteList = [
   'http://localhost:3000',
   'https://localhost:3000',
-  'http://curb-app.com',
   'https://curb-app.com'
 ];
 const corsOptions = {
   origin: function(origin, callback) {
     console.log('origin=>', origin);
     if (origin === undefined || whiteList.indexOf(origin) !== -1) {
-      console.log('get there');
       callback(null, true);
     } else {
       console.log('throw');
@@ -40,12 +37,6 @@ app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
-});
-
-app.get('*', async (req, res, next) => {
-  console.log('gateway///');
-  req.toto = 'toto';
-  return next();
 });
 
 app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT));

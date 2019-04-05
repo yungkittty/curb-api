@@ -6,7 +6,7 @@ mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const userSchema = mongoose.Schema({
   _id: { type: mongoose.SchemaTypes.ObjectId, auto: false },
-  name: { type: String, required: [true, 'MISSING_NAME'], unique: true },
+  name: { type: String, required: [true, 'USERS_MISSING_NAME'], unique: true },
   dateCreation: Date,
   avatarUrl: {
     type: String,
@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema({
   }
 });
 
-userSchema.plugin(uniqueValidator, { message: 'DUPLICATE_{PATH}' });
+userSchema.plugin(uniqueValidator, { message: 'USERS_DUPLICATE_{PATH}' });
 
 // eslint-disable-next-line
 userSchema.methods.getPublicFields = function() {
@@ -26,7 +26,7 @@ userSchema.methods.getPublicFields = function() {
 userSchema.post('save', async (error, doc, next) => {
   console.log('MONGO ERROR:', error);
   if (error.name === 'MongoError' && error.code === 11000) {
-    return next(new ApiError('ACCOUNT_ALREADY_EXIST'));
+    return next(new ApiError('USERS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
     return next(
