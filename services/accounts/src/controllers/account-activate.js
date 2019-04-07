@@ -9,14 +9,14 @@ const { ApiError } = require('../configurations/error');
  * @apiVersion  0.1.0
  *
  *
- * @apiParam  {String} code code from the mail
+ * @apiParam  {String} token token from the mail
  *
  *
- * @apiSuccess (200) {String} OK
+ * @apiSuccess (200) {String} userId the userId
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     code: '586753'
+ *     token: '586753'
  * }
  *
  * @apiError BAD_PARAMETER 400
@@ -29,12 +29,15 @@ const { ApiError } = require('../configurations/error');
  */
 
 async function accountActivate(req, res, next) {
-  if (!req.params.id || !req.body.code) {
+  if (!req.body.token) {
     return next(new ApiError('BAD_PARAMETER'));
   }
   try {
-    await activate(req.params.id, req.body.code);
-    return res.status(200).end();
+    const response = await activate(req.body.token);
+    return res
+      .status(200)
+      .json(response)
+      .end();
   } catch (error) {
     return next(error);
   }

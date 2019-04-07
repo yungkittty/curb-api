@@ -32,8 +32,11 @@ async function accountCode(req, res, next) {
     return next(new ApiError('BAD_PARAMETER'));
   }
   try {
-    await updateCodeVerification(req.params.id, req.body.code);
-    return res.status(200).end();
+    const response = await updateCodeVerification(req.params.id, req.body.code);
+    return res
+      .status(200)
+      .json(response)
+      .end();
   } catch (error) {
     return next(error);
   }

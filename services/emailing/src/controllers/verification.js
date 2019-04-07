@@ -31,7 +31,7 @@ async function verification(req, res, next) {
     return next(new ApiError('BAD_PARAMETER'));
   }
   try {
-    await emailVerification(req.body.id);
+    await emailVerification(req.body.id, req.body.url);
     return res.status(200).end();
   } catch (error) {
     return next(error);

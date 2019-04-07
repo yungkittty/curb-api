@@ -6,7 +6,7 @@ const remove = require('./remove');
 const update = require('./update');
 const read = require('./read');
 const readByEmail = require('./read-by-email');
-const updateCodeVerification = require('./update-code-verification');
+const generateTokenVerification = require('./generate-token-verification');
 const updateCodePassword = require('./update-code-password');
 const activate = require('./activate');
 const resetPassword = require('./reset-password');
@@ -22,7 +22,7 @@ module.exports = {
   update,
   read,
   readByEmail,
-  updateCodeVerification,
+  generateTokenVerification,
   updateCodePassword,
   activate,
   resetPassword,

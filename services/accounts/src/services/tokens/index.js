@@ -84,5 +84,6 @@ module.exports = {
   createToken,
   createRefreshToken,
   verify,
-  refreshTokens
+  refreshTokens,
+  generateToken
 };

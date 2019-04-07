@@ -7,12 +7,15 @@ async function activate(id, newCode) {
   if (account.active) {
     throw new ApiError('ACCOUNT_ALREADY_ACTIVE');
   }
+  // decode token
+  // check le code
   if (newCode !== account.codeVerification) {
     throw new ApiError('ACCOUNT_CODE_DIFFERENT');
   }
   account.codeVerification = null;
   account.active = true;
   await account.save();
+  return { id: account._id.toString() };
 }
 
 module.exports = activate;
