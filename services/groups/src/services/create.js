@@ -15,7 +15,7 @@ async function create(group) {
   } catch (error) {
     throw error;
   }
-  return { id: newGroup._id };
+  return { id: newGroup._id.toString() };
 }
 
 module.exports = create;

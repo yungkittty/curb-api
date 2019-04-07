@@ -29,7 +29,7 @@ async function validate(req, res, next) {
         return res
           .status(200)
           .cookie('token', payload.token, { httpOnly: true, secure: true })
-          .json({ id: req.authId })
+          .json({ id: payload.id })
           .end();
       } catch (refreshError) {
         return next(refreshError);
