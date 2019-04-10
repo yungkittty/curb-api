@@ -681,7 +681,8 @@ body:
 
 ```
 {
- id: {Uuid}
+ id: {Uuid},
+ url: {String} (https://url?=)
 }
 ```
 
