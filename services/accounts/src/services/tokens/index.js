@@ -3,6 +3,11 @@ const Account = require('../../models/account');
 const jwtConfig = require('../../configurations/jwt');
 const { ApiError } = require('../../configurations/error');
 
+async function verifyToken(token) {
+  const decoded = jwt.verify(token, jwtConfig.secret);
+  return decoded;
+}
+
 function generateToken(payload, expireTime) {
   return jwt.sign({ payload }, jwtConfig.secret, {
     expiresIn: expireTime
@@ -65,5 +70,7 @@ async function refresh(token) {
 module.exports = {
   createToken,
   verify,
-  refresh
+  refresh,
+  generateToken,
+  verifyToken
 };

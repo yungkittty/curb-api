@@ -1,13 +1,13 @@
 const images = require('./images');
 const videos = require('./videos');
-const localisation = require('./localisation');
-const text = require('./text');
-const avatar = require('./avatar');
+const locations = require('./locations');
+const texts = require('./texts');
+const avatars = require('./avatars');
 
 module.exports = {
   images,
   videos,
-  localisation,
-  text,
-  avatar,
+  locations,
+  texts,
+  avatars,
 };

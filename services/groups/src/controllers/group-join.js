@@ -3,30 +3,25 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @param {Object} req /
- * @param {Object} res /
- *
- * POST **groups/:groupId/:userId**
- *
- * Precondition:
- * - The user need to be authenticated (including userId is valid).
- * - Group need to be public.
- *
- * /
- *
- * - Adding userId in the users field.
+ * @api {POST} /groups/join GROUPS JOIN
+ * @apiName GROUPS6
+ * @apiGroup GROUPS
+ * @apiVersion  0.1.0
  *
  *
- * http header:
- *  - Authorization: 'Bearer ' + token
- * parameter: empty.
- * success: 200.
+ * @apiParam  {String} userId from token header
+ * @apiParam  {String} groupId //
  *
- * failure:
- *  - 400 in case of bad request.
- *  - 401 in case of authentification failure.
- *  - 500 in case of failed database operation.
+ *
+ * @apiSuccess (200) {String} OK
+ *
+ * @apiError BAD_PARAMETER 400
+ * @apiError FORBIDEN_JOIN 403
+ * @apiError USER_ALREADY_JOIN 403
+ * @apiError UNDEFINED 500
+ *
  */
+
 async function groupJoin(req, res, next) {
   if (!req.params.groupId) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));

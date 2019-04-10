@@ -2,9 +2,9 @@ const nodemailer = require('nodemailer');
 const randtoken = require('rand-token');
 const generatorConfig = require('../configurations/token');
 
-const verificationOptions = (name, code) => ({
+const verificationOptions = (name, redirectLink) => ({
   subject: `Please ${name} verify your email account for Curb`,
-  text: `Verification Code: ${code}`
+  html: `<h1>Redirect link to activate your account:</h1> <a href="${redirectLink}">click here to activate your account</a>`
 });
 
 const resetPasswordOptions = (name, code) => ({
@@ -34,10 +34,8 @@ async function generateCode() {
   return code;
 }
 
-async function mailVerification(name, email) {
-  const code = await generateCode();
-  await sendMail(email, verificationOptions(name, code));
-  return code;
+async function mailVerification(name, email, redirectLink) {
+  await sendMail(email, verificationOptions(name, redirectLink));
 }
 
 async function mailResetPassword(name, email) {
@@ -48,5 +46,6 @@ async function mailResetPassword(name, email) {
 
 module.exports = {
   mailVerification,
-  mailResetPassword
+  mailResetPassword,
+  generateCode
 };

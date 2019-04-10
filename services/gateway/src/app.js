@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT));
+app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT, {limit: '100mb'}));
 
 app.use(bodyParser.json());
 app.use(cookieParser());

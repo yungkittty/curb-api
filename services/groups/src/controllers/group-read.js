@@ -4,23 +4,27 @@ const { ApiError, OtherServiceError } = require('../configurations/error');
 
 /**
  *
- * @param {Object} req DELETE http request
- * @param {Object} res response
+ * @api {POST} /groups/:id GROUPS READ BY ID
+ * @apiName GROUPS3
+ * @apiGroup GROUPS
+ * @apiVersion  0.1.0
  *
- * Precondition:
- * - If the group is private the user need to be authenticated.
+ *
+ * @apiParam  {String} id queryParam
  *
  *
- * http header:
- *  - Authorization: 'Bearer ' + token will need to be provided when
- * requesting on a private group.
- * parameter:
- * success: 200.
+ * @apiSuccess (200) {Object} group public field of the group
  *
- * failure:
- *  - 400 in case of bad request.
- *  - 401 in case of authentification failure.
- *  - 500 in case of failed database operation.
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     ...group: {Object}
+ * }
+ *
+ * @apiError BAD_PARAMETER 400
+ * @apiError GROUP_NOT_FOUND 400
+ * @apiError FORBIDEN_READ 403
+ * @apiError OTHER_SERVICE_ERROR XXX
+ *
  */
 
 async function groupRead(req, res, next) {

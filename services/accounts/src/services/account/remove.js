@@ -12,7 +12,13 @@ async function remove(id, token) {
     headers: { Cookie: `token=${token}` },
     validateStatus: undefined
   });
-  if (response.status !== 200) throw new OtherServiceError('OTHER_SERVICE');
+  if (response.status !== 200) {
+    throw new OtherServiceError(
+      response.data.service,
+      response.data.code,
+      response.status
+    );
+  }
   await Account.deleteOne({ _id: id });
   return account;
 }

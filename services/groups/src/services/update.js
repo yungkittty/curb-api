@@ -1,8 +1,8 @@
 const Group = require('../models/group');
 const { ApiError } = require('../configurations/error');
 
-async function update(group, userId) {
-  const updatedGroup = await Group.findById({ _id: group.id });
+async function update(group, groupId, userId) {
+  const updatedGroup = await Group.findById({ _id: groupId });
   if (!updatedGroup) throw new ApiError('GROUPS_NOT_FOUND');
   if (!(updatedGroup.creatorId === userId)) {
     throw new ApiError('GROUPS_USER_NOT_CREATOR');

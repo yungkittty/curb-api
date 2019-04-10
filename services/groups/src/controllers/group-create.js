@@ -3,34 +3,38 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @param {Object} req /
- * @param {Object} res /
+ * @api {POST} /groups/ GROUPS CREATE
+ * @apiName GROUPS1
+ * @apiGroup GROUPS
+ * @apiVersion  0.1.0
  *
- * Precondition:
- * - The user need to be authenticated.
  *
- * - creatordId will be filled by the userId provided by sign-in 'validate'.
- * - creatorId will be also put in the group's users field.
+ * @apiParam  {String} email //
+ * @apiParam  {String} password //
+ * @apiParam  {String} name //
  *
- * http header:
- *  - Authorization: 'Bearer ' + token
- * parameter:
- *  {
- *    name: {String},
- *    status: {String}
- *  }
  *
- * success: 200.
+ * @apiSuccess (200) {Object} Group Public field of the group
+ *
+ * @apiParamExample  {json} Request-Example:
  * {
- *   id: {Uuid}
+ *     name: 'toto',
+ *     status: 'private',
+ *     mediaTypes: '['localisation', 'text'],
+ *     theme: 'red'
  * }
  *
- * failure:
  *
- *  - 400 in case of bad request.
- *  - 403 in case of authentification failure.
- *  - 500 in case of failed database operation.
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     ...group: {Object}
+ * }
+ *
+ * @apiError BAD_PARAMETER 400
+ * @apiError UNDEFINED 500
+ *
  */
+
 async function groupCreate(req, res, next) {
   if (!req.body) return next(new ApiError('GROUPS_BAD_PARAMETER'));
   const { name, status, mediaTypes, theme } = req.body;

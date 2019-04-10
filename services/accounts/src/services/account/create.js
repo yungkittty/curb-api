@@ -32,7 +32,8 @@ async function callEmailVerification(id) {
     validateStatus: undefined,
     headers: { 'Content-Type': 'application/json' },
     data: {
-      id
+      id,
+      url: 'test='
     }
   });
   if (response.status !== 200) {
@@ -52,7 +53,7 @@ async function create(account) {
   });
   await callUserCreate(account.name, newAccount._id.toString());
   await newAccount.save();
-  await callEmailVerification(newAccount._id.toString());
+  // await callEmailVerification(newAccount._id.toString());
   return newAccount._id.toString();
 }
 
