@@ -34,7 +34,7 @@ app.post('/code-verification/:id', controllers.accountCodeVerification);
 // private route:
 app.post('/code-password/:id', controllers.accountCodePassword);
 
-app.post('/activate/:id', controllers.accountActivate);
+app.post('/activate/', controllers.accountActivate);
 app.post('/reset-password/', controllers.accountResetPassword);
 app.post('/validate-code-password/', controllers.accountValideCodePassword);
 
