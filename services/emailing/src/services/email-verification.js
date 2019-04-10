@@ -10,10 +10,10 @@ function generateRedirectLink(url, token) {
 async function emailVerification(id, url) {
   const user = await getAccountById(id);
   if (user.active) throw new ApiError('ACCOUNT_ALREADY_ACTIVE');
-  const code = generateCode();
+  const code = await generateCode();
   const response = await axios({
     method: 'post',
-    url: `http://curb-accounts:4000/token-verification/${id}`,
+    url: `http://curb-accounts:4000/code-verification/${id}`,
     validateStatus: undefined,
     headers: { 'Content-Type': 'application/json' },
     data: {

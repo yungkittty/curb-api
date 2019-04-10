@@ -9,8 +9,7 @@ const userSchema = mongoose.Schema({
   name: { type: String, required: [true, 'MISSING_NAME'], unique: true },
   dateCreation: Date,
   avatarUrl: {
-    type: String,
-    default: '/contents/default/avatars/users/medium.png'
+    type: String
   }
 });
 

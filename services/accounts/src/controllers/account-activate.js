@@ -16,7 +16,7 @@ const { ApiError } = require('../configurations/error');
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     token: '586753'
+ *     token: '{String}'
  * }
  *
  * @apiError BAD_PARAMETER 400
@@ -34,6 +34,7 @@ async function accountActivate(req, res, next) {
   }
   try {
     const response = await activate(req.body.token);
+    // TODO log in user
     return res
       .status(200)
       .json(response)

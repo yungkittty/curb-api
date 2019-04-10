@@ -16,8 +16,7 @@ const groupSchema = mongoose.Schema({
     enum: { values: ['public', 'private'], message: 'BAD_STATUS' }
   },
   avatarUrl: {
-    type: String,
-    default: '/contents/default/avatars/groups/medium.png'
+    type: String
   },
   dateCreation: Date,
   users: { type: [String] },

@@ -4,7 +4,7 @@ const generatorConfig = require('../configurations/token');
 
 const verificationOptions = (name, redirectLink) => ({
   subject: `Please ${name} verify your email account for Curb`,
-  html: `<h1>Redirect link to activate your account:</h1><br><br><a href="${redirectLink}">${redirectLink}</a>`
+  html: `<h1>Redirect link to activate your account:</h1> <a href="${redirectLink}">click here to activate your account</a>`
 });
 
 const resetPasswordOptions = (name, code) => ({
@@ -35,7 +35,6 @@ async function generateCode() {
 }
 
 async function mailVerification(name, email, redirectLink) {
-  console.log('REdirect link=>', redirectLink);
   await sendMail(email, verificationOptions(name, redirectLink));
 }
 

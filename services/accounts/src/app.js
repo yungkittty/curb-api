@@ -30,7 +30,7 @@ app.post('/refresh', controllers.refresh);
 app.post('/validate', controllers.validate);
 
 // private route
-app.post('/token-verification/:id', controllers.accountCodeVerification);
+app.post('/code-verification/:id', controllers.accountCodeVerification);
 // private route:
 app.post('/code-password/:id', controllers.accountCodePassword);
 
