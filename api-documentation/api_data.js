@@ -1261,6 +1261,618 @@ define({ "api": [
   },
   {
     "type": "POST",
+    "url": "/texts/:groupId/:userId",
+    "title": "CONTENT ADD TEXT",
+    "name": "CONTENTS1",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>text</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    data: '${textInput}',\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the created content</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>text of the created content</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: '${textInput}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/contents/src/controllers/texts.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/images/:groupId/:userId",
+    "title": "CONTENT ADD IMAGE",
+    "name": "CONTENTS2",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "file",
+            "description": "<p>file path</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    file: '${imagePath}',\n}",
+          "type": "form-data"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the created content</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "file",
+            "description": "<p>file path of the created content</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    file: '/contents/uploads/groups/${groupId}/images/${userId}/${filename}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/contents/src/controllers/images.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/texts/:groupId/:userId",
+    "title": "CONTENT ADD VIDEO",
+    "name": "CONTENTS3",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "file",
+            "description": "<p>file path</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    file: '${videoPath}',\n}",
+          "type": "form-data"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the created content</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "file",
+            "description": "<p>file path of the created content</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    file: '/contents/uploads/groups/${groupId}/videos/${userId}/${filename}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/contents/src/controllers/videos.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/locations/:groupId/:userId",
+    "title": "CONTENT ADD LOCATIONS",
+    "name": "CONTENTS4",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>locations data</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    data: '${locationsInput}',\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the created content</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>locations data of the created content</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: '${locationsInput}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/contents/src/controllers/locations.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "DELETE",
+    "url": "/:id",
+    "title": "CONTENT DELETE",
+    "name": "CONTENTS6",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/contents/src/controllers/content-delete.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "GET",
+    "url": "/:id",
+    "title": "CONTENT READ BY ID",
+    "name": "CONTENTS7",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    ...content: {Object}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/contents/src/controllers/content-read.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "PUT",
+    "url": "/avatars/${groups/users}/:id",
+    "title": "AVATARS FOR GROUPS/USERS",
+    "name": "USERS5",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>GROUP/USER id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "file",
+            "description": "<p>avatar file path from user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    file: ${avatarPath}\n}",
+          "type": "form-data"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "avatarUrl",
+            "description": "<p>//</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    avatarUrl: '/contents/uploads/avatars/${groupId/userId}/medium.${extension}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_NOT_GROUP_CREATOR",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../services/contents/src/controllers/avatars.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
     "url": "/emailing/verification",
     "title": "EMAILING VALIDATION",
     "name": "EMAILING1",
@@ -1817,7 +2429,7 @@ define({ "api": [
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-avatar.js",
+    "filename": "../services/groups/src/controllers/group-avatars.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2808,7 +3420,7 @@ define({ "api": [
         ]
       }
     },
-    "filename": "../services/users/src/controllers/user-avatar.js",
+    "filename": "../services/users/src/controllers/user-avatars.js",
     "groupTitle": "USERS"
   }
 ] });

@@ -26,16 +26,13 @@ contentSchema.methods.getPublicFields = function() {
 };
 
 contentSchema.post('save', async (error, doc, next) => {
+  // eslint-disable-next-line
   console.log('MONGO ERROR:', error);
   if (error.name === 'MongoError' && error.code === 11000) {
-    return next(new ApiError('CONTENT_ALREADY_EXIST'));
+    return next(new ApiError('CONTENTS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
-    return next(
-      new ApiError(
-        error.errors[Object.keys(error.errors)[0]].message.toUpperCase()
-      )
-    );
+    return next(new ApiError(error.errors[Object.keys(error.errors)[0]].message.toUpperCase()));
   }
   return next(error);
 });

@@ -18,7 +18,7 @@ function error(err, req, res, next) {
     case MongoError:
       if (err.name === 'CastError' && err.path === '_id') {
         return res
-          .status(errors.INVALID_ID)
+          .status(errors.CONTENTS_INVALID_ID)
           .json({
             service: process.env.SERVICE_NAME,
             code: 'INVALID_ID'
@@ -26,7 +26,7 @@ function error(err, req, res, next) {
           .end();
       }
       return res
-        .status(errors.DATABASE_ERROR)
+        .status(errors.CONTENTS_DATABASE_ERROR)
         .json({ service: process.env.SERVICE_NAME, error: 'DATABASE_ERROR' })
         .end();
     default:
