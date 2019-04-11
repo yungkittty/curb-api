@@ -1,7 +1,7 @@
 const Content = require('../models/content');
 
 async function contentUpdate(req, res) {
-  // if (!req.params.contentId || !req.headers.authorization || req.body.dateCreation
+  // if (!req.params.contentId || req.body.dateCreation
   //   || req.body.id) res.status(400).end();
   // try {
   //   const content = await Content.findById(req.params.contentId);

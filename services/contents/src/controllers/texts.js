@@ -44,6 +44,9 @@ const texts = express();
 texts.use('/:groupId/:userId', async (req, res, next) => {
   if (!req.params.groupId || !req.params.userId || !req.body.data) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   try {
+    if (req.authId !== req.params.userId) {
+      return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+    }
     const response = await axios.get(
       `http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`
     );
@@ -63,7 +66,7 @@ texts.post('/:groupId/:userId', async (req, res, next) => {
     if (!check) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
     const response = await axios({
       method: 'post',
-      headers: { Authorization: req.headers.authorization },
+      headers: { Cookie: `token=${req.cookies.token}` },
       data: { type: 'text' },
       url: `http://curb-groups:4000/medias/${req.params.groupId}/${check.id}`,
       validateStatus: undefined

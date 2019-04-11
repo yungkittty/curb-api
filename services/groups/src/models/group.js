@@ -29,7 +29,7 @@ const groupSchema = mongoose.Schema({
     type: [String],
     required: true,
     enum: {
-      values: ['localisation', 'text', 'image', 'video'],
+      values: ['location', 'text', 'image', 'video'],
       message: 'GROUPS_BAD_MEDIATYPES'
     }
   },
@@ -50,11 +50,7 @@ groupSchema.post('save', async (error, doc, next) => {
     return next(new ApiError('GROUPS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
-    return next(
-      new ApiError(
-        error.errors[Object.keys(error.errors)[0]].message.toUpperCase()
-      )
-    );
+    return next(new ApiError(error.errors[Object.keys(error.errors)[0]].message.toUpperCase()));
   }
   return next(error);
 });
