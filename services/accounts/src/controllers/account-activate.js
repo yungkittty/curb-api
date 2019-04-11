@@ -30,7 +30,7 @@ const { ApiError } = require('../configurations/error');
 
 async function accountActivate(req, res, next) {
   if (!req.body.token) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   }
   try {
     const response = await activate(req.body.token);

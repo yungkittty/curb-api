@@ -1,10 +1,10 @@
 const Account = require('../../models/account');
 const { ApiError } = require('../../configurations/error');
 
-async function read(id) {
+async function me(id) {
   const account = await Account.findById(id);
   if (!account) throw new ApiError('ACCOUNTS_NOT_FOUND');
-  return { ...account.getPublicFields() };
+  return { id: account._id.toString() };
 }
 
-module.exports = read;
+module.exports = me;

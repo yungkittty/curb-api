@@ -8,14 +8,13 @@ mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 const accountSchema = mongoose.Schema({
   email: { type: String, unique: true, required: [true, 'MISSING_EMAIL'] },
   password: { type: String, required: [true, 'MISSING_PASSWORD'] },
-  refreshToken: String,
   dateCreation: Date,
   active: { type: Boolean, default: false },
   codeVerification: { type: String },
   codePassword: { type: String }
 });
 
-accountSchema.plugin(uniqueValidator, { message: 'DUPLICATE_{PATH}' });
+accountSchema.plugin(uniqueValidator, { message: 'ACCOUNTS_DUPLICATE_{PATH}' });
 
 // eslint-disable-next-line
 accountSchema.pre('save', async function(next) {
@@ -37,7 +36,6 @@ accountSchema.methods.getPublicFields = function() {
     password,
     __v,
     _id,
-    refreshToken,
     codePassword,
     codeVerification,
     ...publicAccount
@@ -47,7 +45,7 @@ accountSchema.methods.getPublicFields = function() {
 
 accountSchema.post('save', async (error, doc, next) => {
   if (error.name === 'MongoError' && error.code === 11000) {
-    return next(new ApiError('ACCOUNT_ALREADY_EXIST'));
+    return next(new ApiError('ACCOUNTS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
     return next(

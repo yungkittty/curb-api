@@ -4,11 +4,12 @@ const { ApiError, OtherServiceError } = require('../../configurations/error');
 
 async function remove(id, token) {
   const account = await Account.findById(id);
-  if (!account) throw new ApiError('ACCOUNT_NOT_FOUND');
+  if (!account) throw new ApiError('ACCOUNTS_NOT_FOUND');
   const response = await axios({
     method: 'delete',
     url: `http://curb-users:4000/${id}`,
-    headers: { Authorization: `Bearer ${token}` },
+    withCredentials: true,
+    headers: { Cookie: `token=${token}` },
     validateStatus: undefined
   });
   if (response.status !== 200) {

@@ -24,7 +24,7 @@ const { ApiError } = require('../configurations/error');
 
 async function groupTokenJoin(req, res, next) {
   if (!req.body.token) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
     await join({ token: req.body.token, userId: req.authId });

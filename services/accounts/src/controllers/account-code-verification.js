@@ -29,7 +29,7 @@ const { ApiError } = require('../configurations/error');
 
 async function accountCodeVerification(req, res, next) {
   if (!req.params.id || !req.body.code) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   }
   try {
     const response = await updateCodeVerification(req.params.id, req.body.code);

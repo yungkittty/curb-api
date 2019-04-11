@@ -15,14 +15,14 @@ const { ApiError } = require('../configurations/error');
  * @apiSuccess (200) {String} OK
  *
  * @apiError BAD_PARAMETER 400
- * @apiError GROUP_NOT_FOUND 400
- * @apiError UNAUTHORIZED_UNJOIN 403
+ * @apiError GROUPS_NOT_FOUND 400
+ * @apiError GROUPS_FORBIDEN_UNJOIN 403
  *
  */
 
 async function groupUnjoin(req, res, next) {
   if (!req.params.groupId) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
     await unjoin({

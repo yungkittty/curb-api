@@ -34,7 +34,7 @@ const { ApiError } = require('../configurations/error');
 async function userCreate(req, res, next) {
   try {
     if (!req.body.id || !req.body.name) {
-      return next(new ApiError('BAD_PARAMETER'));
+      return next(new ApiError('USERS_BAD_PARAMETER'));
     }
     const doService = await create(req.body);
     return res

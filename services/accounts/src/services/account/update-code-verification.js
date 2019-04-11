@@ -4,9 +4,9 @@ const tokens = require('../tokens');
 
 async function updateCodeVerification(id, code) {
   const account = await Account.findById(id);
-  if (!account) throw new ApiError('ACCOUNT_NOT_FOUND');
+  if (!account) throw new ApiError('ACCOUNTS_NOT_FOUND');
   if (account.active) {
-    throw new ApiError('ACCOUNT_ALREADY_ACTIVE');
+    throw new ApiError('ACCOUNTS_ALREADY_ACTIVE');
   }
   // GENERER UN TOKEN AVEC ID + CODE
   if (code) account.codeVerification = code;

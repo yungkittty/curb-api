@@ -1,7 +1,6 @@
 const signIn = require('./sign-in');
 const signOut = require('./sign-out');
 const signUp = require('./sign-up');
-const refresh = require('./refresh');
 const validate = require('./validate');
 const accountRead = require('./account-read');
 const accountDelete = require('./account-delete');
@@ -12,12 +11,12 @@ const accountActivate = require('./account-activate');
 const accountResetPassword = require('./account-reset-password');
 const accountReadByEmail = require('./account-read-by-email');
 const accountValideCodePassword = require('./account-validate-code-password');
+const accountMe = require('./account-me');
 
 module.exports = {
   signIn,
   signOut,
   signUp,
-  refresh,
   validate,
   accountRead,
   accountDelete,
@@ -27,5 +26,6 @@ module.exports = {
   accountActivate,
   accountResetPassword,
   accountReadByEmail,
-  accountValideCodePassword
+  accountValideCodePassword,
+  accountMe
 };

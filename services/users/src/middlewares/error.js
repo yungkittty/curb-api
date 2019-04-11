@@ -26,10 +26,10 @@ function error(err, req, res, next) {
           .end();
       }
       return res
-        .status(errors.DATABASE_ERROR)
+        .status(errors.USERS_DATABASE_ERROR)
         .json({
           service: process.env.SERVICE_NAME,
-          error: 'DATABASE_ERROR',
+          error: 'USERS_DATABASE_ERROR',
           info: err.message ? err.message : undefined
         })
         .end();

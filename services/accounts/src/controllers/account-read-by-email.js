@@ -33,7 +33,7 @@ const { ApiError } = require('../configurations/error');
  */
 
 async function accountReadByEmail(req, res, next) {
-  if (!req.body.email) return next(new ApiError('BAD_PARAMETER'));
+  if (!req.body.email) return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   try {
     const account = await readByEmail(req.body.email);
     return res

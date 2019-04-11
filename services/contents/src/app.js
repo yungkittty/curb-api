@@ -9,7 +9,18 @@ const middlewares = require('./middleswares');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+  allowedHeaders: '*',
+  maxAge: 86400
+};
+app.options('*', (req, res) => {
+  res.status(200);
+});
+
+app.use(cors(corsOptions));
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));

@@ -25,12 +25,12 @@ async function verify(token) {
 async function activate(token) {
   const { payload } = await verify(token);
   const account = await Account.findById(payload.id);
-  if (!account) throw new ApiError('ACCOUNT_NOT_FOUND');
+  if (!account) throw new ApiError('ACCOUNTS_NOT_FOUND');
   if (account.active) {
-    throw new ApiError('ACCOUNT_ALREADY_ACTIVE');
+    throw new ApiError('ACCOUNTS_ALREADY_ACTIVE');
   }
   if (payload.code !== account.codeVerification) {
-    throw new ApiError('ACCOUNT_CODE_DIFFERENT');
+    throw new ApiError('ACCOUNTS_CODE_DIFFERENT');
   }
   account.codeVerification = null;
   account.active = true;

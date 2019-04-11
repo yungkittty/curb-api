@@ -13,7 +13,7 @@ async function create(newUser) {
     await user.save();
   } catch (error) {
     if (error.name === 'MongoError' && error.code === 11000) {
-      throw new ApiError('USER_ALREADY_EXIST');
+      throw new ApiError('USERS_ALREADY_EXIST');
     }
     throw error;
   }

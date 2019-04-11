@@ -4,13 +4,14 @@ const { ApiError, OtherServiceError } = require('../configurations/error');
 
 async function read(id, token = undefined) {
   const user = await User.findById(id);
-  if (!user) throw new ApiError('USER_NOT_FOUND');
+  if (!user) throw new ApiError('USERS_NOT_FOUND');
   const headers = token
-    ? { Authorization: token, 'Content-Type': 'application/json' }
+    ? { Cookie: `token=${token}`, 'Content-Type': 'application/json' }
     : { 'Content-Type': 'application/json' };
   const response = await axios({
     method: 'get',
     url: 'http://curb-groups:4000/',
+    withCredentials: true,
     headers,
     validateStatus: undefined,
     params: {

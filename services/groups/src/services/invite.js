@@ -5,7 +5,7 @@ const { ApiError, OtherServiceError } = require('../configurations/error');
 
 async function invite(groupId, issuerId) {
   const group = await Group.findById(groupId);
-  if (!group) throw new ApiError('GROUP_NOT_FOUND');
+  if (!group) throw new ApiError('GROUPS_NOT_FOUND');
   const userResponse = await axios({
     method: 'get',
     url: 'http://curb-users:4000/',
@@ -19,7 +19,7 @@ async function invite(groupId, issuerId) {
     );
   }
   if (!group.users.includes(issuerId)) {
-    throw new ApiError('USER_NOT_IN_GROUP');
+    throw new ApiError('GROUPS_USER_NOT_IN_GROUP');
   }
   return { token: tokenGenerate(groupId, issuerId) };
 }

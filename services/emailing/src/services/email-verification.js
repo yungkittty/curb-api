@@ -9,7 +9,7 @@ function generateRedirectLink(url, token) {
 
 async function emailVerification(id, url) {
   const user = await getAccountById(id);
-  if (user.active) throw new ApiError('ACCOUNT_ALREADY_ACTIVE');
+  if (user.active) throw new ApiError('EMAILING_ALREADY_ACTIVE');
   const code = await generateCode();
   const response = await axios({
     method: 'post',

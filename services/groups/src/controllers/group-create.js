@@ -36,10 +36,10 @@ const { ApiError } = require('../configurations/error');
  */
 
 async function groupCreate(req, res, next) {
-  if (!req.body) return next(new ApiError('BAD_PARAMETER'));
+  if (!req.body) return next(new ApiError('GROUPS_BAD_PARAMETER'));
   const { name, status, mediaTypes, theme } = req.body;
   if (!name || !status || !mediaTypes || !theme) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
     const groupId = await create({
