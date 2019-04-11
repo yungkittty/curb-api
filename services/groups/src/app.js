@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 // const whiteList = ['http://localhost:3000', 'https://localhost:3000'];
 const corsOptions = {
-  origin: function(origin, callback) {
+  origin(origin, callback) {
     // console.log('origin=>', origin);
     // if (origin === undefined || whiteList.indexOf(origin) !== -1) {
     callback(null, true);
@@ -44,20 +44,12 @@ app.patch('/:id', middlewares.authentication, controllers.groupUpdate);
 app.delete('/:id', middlewares.authentication, controllers.groupDelete);
 app.post('/avatars/:groupId', controllers.groupAvatars);
 app.post('/join/:groupId', middlewares.authentication, controllers.groupJoin);
-app.post(
-  '/unjoin/:groupId',
-  middlewares.authentication,
-  controllers.groupUnjoin
-);
+app.post('/unjoin/:groupId', middlewares.authentication, controllers.groupUnjoin);
 app.post('/join', middlewares.authentication, controllers.groupTokenJoin);
 app.get('/permissions/:groupId/:userId', controllers.groupPermissions);
 app.post('/medias/:groupId/:mediaId', controllers.groupAddPost);
 app.delete('/medias/:groupId/:mediaId', controllers.groupDeletePost);
-app.get(
-  '/invite/:groupId',
-  middlewares.authentication,
-  controllers.groupInvite
-);
+app.get('/invite/:groupId', middlewares.authentication, controllers.groupInvite);
 
 app.use(middlewares.error);
 
