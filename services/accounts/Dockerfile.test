@@ -1,0 +1,8 @@
+FROM node:latest
+COPY . /src
+WORKDIR /src
+RUN yarn
+EXPOSE 4000
+CMD yarn start
+RUN sleep 240
+CMD yarn test

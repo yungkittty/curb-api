@@ -47,7 +47,7 @@ const videos = express();
 const upload = multer({
   fileFilter: (req, file, callback) => {
     if (!file.originalname.match(/\.(mp4|MP4|avi|AVI)$/)) {
-      callback(new ApiError('Only video files are allowed'));
+      callback(new ApiError('CONTENTS_INVALID_TYPE'));
     }
     callback(null, true);
   },

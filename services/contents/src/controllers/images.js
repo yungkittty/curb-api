@@ -47,7 +47,7 @@ const images = express();
 const upload = multer({
   fileFilter: (req, file, callback) => {
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      callback(new Error('Only image files are allowed'));
+      callback(new ApiError('CONTENTS_INVALID_TYPE'));
     }
     callback(null, true);
   },
