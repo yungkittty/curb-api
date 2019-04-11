@@ -2,9 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const medias = require('./medias');
 const serve = require('./serve');
 const controllers = require('./controllers');
+const middlewares = require('./middleswares');
 
 const app = express();
 
@@ -23,13 +23,13 @@ app.get('/:contentId', controllers.contentRead);
 app.patch('/:contentId', controllers.contentUpdate);
 app.delete('/:contentId', controllers.contentDelete);
 
-
 app.use('/uploads', serve);
-app.use('/default', serve);
-app.use('/images', medias.images);
-app.use('/videos', medias.videos);
-app.use('/locations', medias.locations);
-app.use('/avatars', medias.avatars);
-app.use('/texts', medias.texts);
+app.use('/images', controllers.images);
+app.use('/videos', controllers.videos);
+app.use('/locations', controllers.locations);
+app.use('/avatars', controllers.avatars);
+app.use('/texts', controllers.texts);
+
+app.use(middlewares.error);
 
 module.exports = app;

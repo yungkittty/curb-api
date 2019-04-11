@@ -6,8 +6,39 @@ const uuidv4 = require('uuid/v4');
 const axios = require('axios');
 const Path = require('path');
 const directoryExists = require('directory-exists');
+const { ApiError } = require('../configurations/error');
+const { OtherServiceError } = require('../configurations/error');
 
 const avatar = express();
+
+/**
+ *
+ * @api {PUT} /avatars/${groups/users}/:id  AVATARS FOR GROUPS/USERS
+ * @apiName USERS5
+ * @apiGroup CONTENTS
+ * @apiVersion  0.1.0
+ *
+ *
+ * @apiParam  {String} id GROUP/USER id
+ * @apiParam  {String} file avatar file path from user
+ *
+ * @apiParamExample  {form-data} Request-Example:
+ * {
+ *     file: ${avatarPath}
+ * }
+ *
+ * @apiSuccess (200) {String} avatarUrl //
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     avatarUrl: '/contents/uploads/avatars/${groupId/userId}/medium.${extension}'
+ * }
+ *
+ * @apiError CONTENTS_BAD_PARAMETER 400
+ * @apiError CONTENTS_NOT_GROUP_CREATOR 403
+ * @apiError UNDEFINED 500
+ *
+ */
 
 const userUpload = multer({
   fileFilter: (req, file, callback) => {
@@ -48,7 +79,7 @@ const groupUpload = multer({
 });
 
 avatar.use('/groups/:groupId', async (req, res, next) => {
-  if (!req.params.groupId || !req.headers.authorization) res.status(400).end();
+  if (!req.params.groupId || !req.headers.authorization) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   try {
     const response = await axios({
       method: 'post',
@@ -57,7 +88,7 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
       validateStatus: undefined
     });
     if (response.status !== 200) {
-      return res.status(response.status).end();
+      throw new OtherServiceError(response.data.service, response.data.code, response.status);
     }
     const rep = await axios({
       method: 'get',
@@ -65,8 +96,11 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
       url: `http://curb-groups:4000/permissions/${req.params.groupId}/${response.data.id}`,
       validateStatus: undefined
     });
-    if (rep.status !== 200 || !rep.data.creator) {
-      return res.status(rep.status).end();
+    if (rep.status !== 200) {
+      throw new OtherServiceError(rep.data.service, rep.data.code, rep.data.status);
+    }
+    if (!rep.data.creator) {
+      return next(new ApiError('CONTENTS_NOT_GROUP_CREATOR'));
     }
     const result = await directoryExists(`./uploads/avatars/groups/${req.params.groupId}`);
     if (result) {
@@ -75,12 +109,12 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
     }
     return next();
   } catch (error) {
-    return res.status(400).end();
+    return next(error);
   }
 });
 
 avatar.use('/users/:userId', async (req, res, next) => {
-  if (!req.params.userId || !req.headers.authorization) res.status(400).end();
+  if (!req.params.userId || !req.headers.authorization) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   try {
     const response = await axios({
       method: 'post',
@@ -89,21 +123,20 @@ avatar.use('/users/:userId', async (req, res, next) => {
       validateStatus: undefined
     });
     if (response.status !== 200 || response.data.id !== req.params.userId) {
-      return res.status(response.status).end();
+      throw new OtherServiceError(response.data.service, response.data.code, response.status);
     }
     const result = await directoryExists(`./uploads/avatars/users/${req.params.userId}`);
     if (result) {
       const files = await fs.readdir(`./uploads/avatars/users/${req.params.userId}`);
       files.forEach(file => fs.unlink(Path.join(`./uploads/avatars/users/${req.params.userId}`, file)));
     }
-    console.log('Check right to upload user avatar here'); // eslint-disable-line
     return next();
   } catch (error) {
-    return res.status(400).end();
+    return next(error);
   }
 });
 
-avatar.put('/groups/:groupId', groupUpload.single('file'), async (req, res) => {
+avatar.put('/groups/:groupId', groupUpload.single('file'), async (req, res, next) => {
   const ext = Path.extname(req.file.originalname);
   try {
     await sharp(req.file.path)
@@ -140,15 +173,20 @@ avatar.put('/groups/:groupId', groupUpload.single('file'), async (req, res) => {
       url: `http://curb-groups:4000/avatars/${req.params.groupId}`,
       validateStatus: undefined
     });
-    if (response.status !== 200) return res.status(400).end();
-    return res.status(200).end();
+    if (response.status !== 200) {
+      throw new OtherServiceError(response.data.service, response.data.code, response.status);
+    }
+    return res.status(200).json({
+      avatarUrl: `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_GROUP_PATH}/${
+        req.params.groupId
+      }/medium${ext}`
+    });
   } catch (error) {
-    res.status(400).end();
+    return next(error);
   }
-  return res.status(200).end();
 });
 
-avatar.put('/users/:userId', userUpload.single('file'), async (req, res) => {
+avatar.put('/users/:userId', userUpload.single('file'), async (req, res, next) => {
   const ext = Path.extname(req.file.originalname);
   try {
     await sharp(req.file.path)
@@ -185,16 +223,17 @@ avatar.put('/users/:userId', userUpload.single('file'), async (req, res) => {
       url: `http://curb-users:4000/avatars/${req.params.userId}`,
       validateStatus: undefined
     });
-    if (response.status !== 200) return res.status(400).end();
+    if (response.status !== 200) {
+      throw new OtherServiceError(response.data.service, response.data.code, response.status);
+    }
     return res.status(200).json({
       avatarUrl: `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_USER_PATH}/${
         req.params.userId
       }/medium${ext}`
     });
   } catch (error) {
-    res.status(400).end();
+    return next(error);
   }
-  return res.status(200).end();
 });
 
 module.exports = avatar;
