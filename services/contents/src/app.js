@@ -40,8 +40,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:contentId', controllers.contentRead);
-app.patch('/:contentId', controllers.contentUpdate);
-app.delete('/:contentId', controllers.contentDelete);
+app.patch('/:contentId', middlewares.authentication, controllers.contentUpdate);
+app.delete('/:contentId/:groupId', middlewares.authentication, controllers.contentDelete);
 
 app.use('/uploads', serve);
 app.use('/images', middlewares.authentication, controllers.images);
