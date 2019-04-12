@@ -105,23 +105,10 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
 });
 
 avatar.use('/users/:userId', async (req, res, next) => {
-<<<<<<< HEAD:services/contents/src/controllers/avatars.js
-  if (!req.params.userId || !req.headers.authorization) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
-  try {
-    const response = await axios({
-      method: 'post',
-      headers: { Authorization: req.headers.authorization },
-      url: 'http://curb-accounts:4000/validate',
-      validateStatus: undefined
-    });
-    if (response.status !== 200 || response.data.id !== req.params.userId) {
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
-=======
   if (!req.params.userId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   try {
     if (req.params.userId !== req.authId) {
       throw new ApiError('CONTENTS_FORBIDEN_OPERATION');
->>>>>>> 17c58713c13c09640a4c81bfa2feccb1cc89edee:services/contents/src/controllers/avatars.js
     }
     // if (response.status !== 200 || response.data.id !== req.params.userId) {
     //   throw new OtherServiceError(response.data.service, response.data.code, response.status);

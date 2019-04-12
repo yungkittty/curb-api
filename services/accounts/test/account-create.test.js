@@ -12,32 +12,85 @@ describe('managing accounts', () => {
         const response = await chai
           .request(app)
           .post('/sign-up')
-          // .type('json')
           .set('content-type', 'application/json')
-          .send({ email: 'test111@gmail.com', password: 'AA', name: 'Test11' })
-          .end((error, res) => {
-            console.log(error);
-            expect(res).to.have.status(200);
-            // done();
-          });
+          .send({ email: 'test@gmail.com', password: 'AA', name: 'Test' });
+        expect(response).to.have.status(200);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+
+  describe('create an account with same email as a registered user', async () => {
+    it('should responds with status 400', async () => {
+      try {
+        const response = await chai
+          .request(app)
+          .post('/sign-up')
+          .set('content-type', 'application/json')
+          .send({ email: 'test111@gmail.com', password: 'AA', name: 'Test11' });
+        expect(response).to.have.status(400);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+
+  describe('create another new account', () => {
+    it('should responds with status 200', async () => {
+      try {
+        const response = await chai
+          .request(app)
+          .post('/sign-up')
+          .set('content-type', 'application/json')
+          .send({ email: 'secondAccount@gmail.com', password: 'AA', name: 'SecondAccount' });
+        expect(response).to.have.status(200);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+
+  describe('create an account without email provided', async () => {
+    it('should responds with status 400', async () => {
+      try {
+        const response = await chai
+          .request(app)
+          .post('/sign-up')
+          .set('content-type', 'application/json')
+          .send({ password: 'AA', name: 'Test' });
+        expect(response).to.have.status(400);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+  describe('create an account without password provided', async () => {
+    it('should responds with status 400', async () => {
+      try {
+        const response = await chai
+          .request(app)
+          .post('/sign-up')
+          .set('content-type', 'application/json')
+          .send({ email: 'test@gmail.com', name: 'Test' });
+        expect(response).to.have.status(400);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+  describe('create an account without name provided', async () => {
+    it('should responds with status 400', async () => {
+      try {
+        const response = await chai
+          .request(app)
+          .post('/sign-up')
+          .set('content-type', 'application/json')
+          .send({ email: 'test@gmail.com', password: 'AA' });
+        expect(response).to.have.status(400);
       } catch (error) {
         console.log(error);
       }
     });
   });
 });
-
-// describe('create an account with same email as a registered user', () => {
-//   it('should responds with status 400', (done) => {
-//     chai
-//       .request(app)
-//       .post('/sign-up')
-//       .set('content-type', 'application/json')
-//       .send({ email: 'test111@gmail.com', password: 'AA', name: 'Test11' })
-//       .end((error, res) => {
-//         console.log(error);
-//         expect(res).to.have.status(400);
-//         done();
-//       });
-//   });
-// });
