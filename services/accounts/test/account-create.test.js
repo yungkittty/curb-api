@@ -11,7 +11,7 @@ describe('managing accounts', () => {
       chai
         .request(app)
         .post('/sign-up')
-        .type('json')
+        // .type('json')
         .set('content-type', 'application/json')
         .send({ email: 'test111@gmail.com', password: 'AA', name: 'Test11' })
         .end((error, res) => {
@@ -29,6 +29,7 @@ describe('managing accounts', () => {
         .set('content-type', 'application/json')
         .send({ email: 'test111@gmail.com', password: 'AA', name: 'Test11' })
         .end((error, res) => {
+          console.log(error);
           expect(res).to.have.status(400);
           done();
         });
