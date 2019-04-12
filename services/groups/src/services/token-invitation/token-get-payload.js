@@ -7,11 +7,11 @@ function tokenGetPayload(token) {
   } catch (error) {
     switch (error.constructor) {
       case jwt.TokenExpiredError:
-        throw new ApiError('TOKEN_EXPIRED');
+        throw new ApiError('GROUPS_TOKEN_EXPIRED');
       case jwt.NotBeforeError:
-        throw new ApiError('TOKEN_AHEAD_OF_TIME');
+        throw new ApiError('GROUPS_TOKEN_AHEAD_OF_TIME');
       default:
-        throw new ApiError('INVALID_TOKEN');
+        throw new ApiError('GROUPS_INVALID_TOKEN');
     }
   }
 }

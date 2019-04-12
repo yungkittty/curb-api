@@ -44,8 +44,11 @@ const locations = express();
 locations.use('/:groupId/:userId', async (req, res, next) => {
   if (!req.params.groupId || !req.params.userId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   try {
+    if (req.authId !== req.params.userId) {
+      return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+    }
     const response = await axios.get(
-      `http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`
+      `http://curb-groups:4000/permissions/${req.params.groupId}/${req.authId}`
     );
     if (response.status !== 200) {
       throw new OtherServiceError(response.data.service, response.data.code, response.status);
@@ -63,7 +66,7 @@ locations.post('/:groupId/:userId', async (req, res, next) => {
     if (!check) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
     const response = await axios({
       method: 'post',
-      headers: { Authorization: req.headers.authorization },
+      headers: { Cookie: `token=${req.cookies.token}` },
       data: { type: 'location' },
       url: `http://curb-groups:4000/medias/${req.params.groupId}/${check.id}`,
       validateStatus: undefined

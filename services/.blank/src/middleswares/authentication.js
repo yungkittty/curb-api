@@ -12,7 +12,7 @@ function getToken(headers) {
 async function authentication(req, res, next) {
   try {
     if (req.authId || req.token) {
-      return next(new ApiError('GROUPS_BAD_PARAMETER'));
+      return next(new ApiError('ACCOUNT_BAD_PARAMETER'));
     }
     const response = await axios({
       method: 'post',

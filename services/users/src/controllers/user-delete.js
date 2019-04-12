@@ -22,7 +22,7 @@ const { ApiError } = require('../configurations/error');
 
 async function userDelete(req, res, next) {
   if (!req.params.id) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('USERS_BAD_PARAMETER'));
   }
   try {
     await remove(req.params.id);

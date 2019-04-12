@@ -4,15 +4,15 @@ const { ApiError } = require('../configurations/error');
 mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const contentSchema = mongoose.Schema({
-  creatorId: { type: String, required: [true, 'MISSING_CREATOR_ID'] },
-  groupId: { type: String, required: [true, 'MISSING_GROUP_ID'] },
+  creatorId: { type: String, required: [true, 'CONTENTS_MISSING_CREATOR_ID'] },
+  groupId: { type: String, required: [true, 'CONTENTS_MISSING_GROUP_ID'] },
   dateCreation: Date,
   type: {
     type: String,
-    required: [true, 'MISSING_TYPE'],
+    required: [true, 'CONTENTS_MISSING_TYPE'],
     enum: {
-      values: ['localisation', 'text', 'image', 'video'],
-      message: 'BAD_TYPE'
+      values: ['location', 'text', 'image', 'video'],
+      message: 'CONTENTS_BAD_TYPE'
     }
   },
   data: String

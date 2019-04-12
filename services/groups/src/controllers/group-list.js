@@ -35,10 +35,11 @@ const { OtherServiceError } = require('../configurations/error');
 async function groupList(req, res, next) {
   try {
     let authResponse;
-    if (req.headers.authorization) {
+    if (req.cookies.token) {
       authResponse = await axios({
         method: 'post',
-        headers: { Authorization: req.headers.authorization },
+        withCredentials: true,
+        headers: { Cookie: `token=${req.cookies.token}` },
         url: 'http://curb-accounts:4000/validate',
         validateStatus: undefined
       });

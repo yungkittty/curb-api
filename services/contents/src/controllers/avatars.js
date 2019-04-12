@@ -79,21 +79,12 @@ const groupUpload = multer({
 });
 
 avatar.use('/groups/:groupId', async (req, res, next) => {
-  if (!req.params.groupId || !req.headers.authorization) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
+  if (!req.params.groupId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   try {
-    const response = await axios({
-      method: 'post',
-      headers: { Authorization: req.headers.authorization },
-      url: 'http://curb-accounts:4000/validate',
-      validateStatus: undefined
-    });
-    if (response.status !== 200) {
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
-    }
     const rep = await axios({
       method: 'get',
-      headers: { Authorization: req.headers.authorization },
-      url: `http://curb-groups:4000/permissions/${req.params.groupId}/${response.data.id}`,
+      headers: { Cookie: `token=${req.cookies.token}` },
+      url: `http://curb-groups:4000/permissions/${req.params.groupId}/${req.authId}`,
       validateStatus: undefined
     });
     if (rep.status !== 200) {
@@ -114,6 +105,7 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
 });
 
 avatar.use('/users/:userId', async (req, res, next) => {
+<<<<<<< HEAD:services/contents/src/controllers/avatars.js
   if (!req.params.userId || !req.headers.authorization) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   try {
     const response = await axios({
@@ -124,11 +116,20 @@ avatar.use('/users/:userId', async (req, res, next) => {
     });
     if (response.status !== 200 || response.data.id !== req.params.userId) {
       throw new OtherServiceError(response.data.service, response.data.code, response.status);
+=======
+  if (!req.params.userId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
+  try {
+    if (req.params.userId !== req.authId) {
+      throw new ApiError('CONTENTS_FORBIDEN_OPERATION');
+>>>>>>> 17c58713c13c09640a4c81bfa2feccb1cc89edee:services/contents/src/controllers/avatars.js
     }
-    const result = await directoryExists(`./uploads/avatars/users/${req.params.userId}`);
+    // if (response.status !== 200 || response.data.id !== req.params.userId) {
+    //   throw new OtherServiceError(response.data.service, response.data.code, response.status);
+    // }
+    const result = await directoryExists(`./uploads/avatars/users/${req.authId}`);
     if (result) {
-      const files = await fs.readdir(`./uploads/avatars/users/${req.params.userId}`);
-      files.forEach(file => fs.unlink(Path.join(`./uploads/avatars/users/${req.params.userId}`, file)));
+      const files = await fs.readdir(`./uploads/avatars/users/${req.authId}`);
+      files.forEach(file => fs.unlink(Path.join(`./uploads/avatars/users/${req.authId}`, file)));
     }
     return next();
   } catch (error) {

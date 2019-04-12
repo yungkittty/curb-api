@@ -47,7 +47,7 @@ const videos = express();
 const upload = multer({
   fileFilter: (req, file, callback) => {
     if (!file.originalname.match(/\.(mp4|MP4|avi|AVI)$/)) {
-      callback(new ApiError('CONTENTS_INVALID_TYPE'));
+      callback(new ApiError('Only video files are allowed'));
     }
     callback(null, true);
   },
@@ -69,6 +69,9 @@ const upload = multer({
 videos.use('/:groupId/:userId', async (req, res, next) => {
   if (!req.params.groupId || !req.params.userId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   try {
+    if (req.authId !== req.params.userId) {
+      return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+    }
     const response = await axios.get(
       `http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`
     );
@@ -95,7 +98,7 @@ videos.post('/:groupId/:userId', upload.single('file'), async (req, res, next) =
     if (!check) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
     const response = await axios({
       method: 'post',
-      headers: { Authorization: req.headers.authorization },
+      headers: { Cookie: `token=${req.cookies.token}` },
       data: { type: 'video' },
       url: `http://curb-groups:4000/medias/${req.params.groupId}/${check.id}`,
       validateStatus: undefined

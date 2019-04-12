@@ -17,18 +17,18 @@ function error(err, req, res, next) {
     case MongoError:
       if (err.name === 'CastError' && err.path === '_id') {
         return res
-          .status(errors.INVALID_ID)
+          .status(errors.ACCOUNTS_INVALID_ID)
           .json({
             service: process.env.SERVICE_NAME,
-            code: 'INVALID_ID'
+            code: 'ACCOUNTS_INVALID_ID'
           })
           .end();
       }
       return res
-        .status(errors.DATABASE_ERROR)
+        .status(errors.ACCOUNTS_DATABASE_ERROR)
         .json({
           service: process.env.SERVICE_NAME,
-          code: 'DATABASE_ERROR',
+          code: 'ACCOUNTS_DATABASE_ERROR',
           info: err.message ? err.message : undefined
         })
         .end();

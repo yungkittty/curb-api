@@ -42,7 +42,7 @@ async function userUpdate(req, res, next) {
       req.body.avatarUrl ||
       req.body.dateCreation
     ) {
-      return next(new ApiError('BAD_PARAMETER'));
+      return next(new ApiError('USERS_BAD_PARAMETER'));
     }
     const doService = await update(req.params.id, req.body);
     return res

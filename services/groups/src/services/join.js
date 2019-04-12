@@ -4,14 +4,15 @@ const { ApiError } = require('../configurations/error');
 
 async function _getGroup(groupId) {
   const group = await Group.findById(groupId);
-  if (!group) throw new ApiError('GROUP_NOT_FOUND');
+  if (!group) throw new ApiError('GROUPS_NOT_FOUND');
   return group;
 }
 
 async function _join(userId, groupId) {
   const group = await _getGroup(groupId);
-  if (group.status === 'private') throw new ApiError('FORBIDEN_JOIN');
-  if (group.users.includes(userId)) throw new ApiError('USER_ALREADY_JOIN');
+  if (group.status === 'private') throw new ApiError('GROUPS_FORBIDEN_JOIN');
+  if (group.users.includes(userId))
+    throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
   await group.save();
   return group;
@@ -19,12 +20,13 @@ async function _join(userId, groupId) {
 
 async function _tokenJoin(userId, token) {
   const payload = tokenGetPayload(token);
-  if (!payload) throw new ApiError('INVALID_TOKEN');
+  if (!payload) throw new ApiError('GROUPS_INVALID_TOKEN');
   const group = await _getGroup(payload.groupId);
   if (!group.users.includes(payload.issuerId)) {
-    throw new ApiError('FORBIDEN_JOIN');
+    throw new ApiError('GROUPS_FORBIDEN_JOIN');
   }
-  if (group.users.includes(userId)) throw new ApiError('USER_ALREADY_JOIN');
+  if (group.users.includes(userId))
+    throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
   await group.save();
   return group;

@@ -27,16 +27,19 @@ const { ApiError } = require('../configurations/error');
  * @apiError UNDEFINED 500
  */
 
-async function accountCode(req, res, next) {
+async function accountCodeVerification(req, res, next) {
   if (!req.params.id || !req.body.code) {
-    return next(new ApiError('BAD_PARAMETER'));
+    return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   }
   try {
-    await updateCodeVerification(req.params.id, req.body.code);
-    return res.status(200).end();
+    const response = await updateCodeVerification(req.params.id, req.body.code);
+    return res
+      .status(200)
+      .json(response)
+      .end();
   } catch (error) {
     return next(error);
   }
 }
 
-module.exports = accountCode;
+module.exports = accountCodeVerification;

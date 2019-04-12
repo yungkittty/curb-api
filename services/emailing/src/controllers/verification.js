@@ -8,16 +8,16 @@ const { ApiError } = require('../configurations/error');
  * @apiGroup EMAILING
  * @apiVersion  0.1.0
  *
- * @apiParam  {String} email //
- * @apiParam  {String} password //
- * @apiParam  {String} name //
+ * @apiParam {String} id userId
+ * @apiParam {String} url https://curb-api.com?validateEmail=
  *
  *
  * @apiSuccess (200) {String} id account id
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     id: 'uuid'
+ *     id: 'uuid',
+ *     url: {String}
  * }
  *
  * @apiError BAD_PARAMETER 400
@@ -27,11 +27,11 @@ const { ApiError } = require('../configurations/error');
  */
 
 async function verification(req, res, next) {
-  if (!req.body.id) {
-    return next(new ApiError('BAD_PARAMETER'));
+  if (!req.body.id || !req.body.url) {
+    return next(new ApiError('EMAILING_BAD_PARAMETER'));
   }
   try {
-    await emailVerification(req.body.id);
+    await emailVerification(req.body.id, req.body.url);
     return res.status(200).end();
   } catch (error) {
     return next(error);
