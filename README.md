@@ -426,7 +426,7 @@ dateCreation: {String},
 avatarUrl: {String},
 users: [String],
 medias: [String],
-mediaTypes: ['localisation', 'text', 'image','video']
+mediaTypes: ['location', 'text', 'image','video']
 theme: {String}
 ```
 
@@ -590,7 +590,7 @@ il faut rajouter l'ip du server à l'avatarUrl du group. Pour avoir une autre di
 id: {Uuid}, [Unique]
 creatorId: {Uuid}, [Unique]
 groupId: {Uuid}, [Unique]
-type: {String} [Unique, 'localisation', 'text', 'image','video']
+type: {String} [Unique, 'location', 'text', 'image','video']
 dateCreation: {Date},
 data: {String} [file path]
 ```
@@ -648,7 +648,7 @@ data: {String} [file path]
 
 #### AVATAR
 
-#### /contents/avatars/groups/:groupId/ {POST} :lock: |CONTENTS AVATAR UPLOAD GROUP|
+#### /contents/avatars/groups/:groupId {POST} :lock: |CONTENTS AVATAR UPLOAD GROUP|
 
 :warning: (creatorId)
 
@@ -658,7 +658,7 @@ form-data: file: {File}
 
 ##### response: success: 200 | failure: 400 | 403 | 500
 
-#### /contents/avatars/users/:userId/ {POST} :lock: |CONTENTS AVATAR UPLOAD USER|
+#### /contents/avatars/users/:userId {POST} :lock: |CONTENTS AVATAR UPLOAD USER|
 
 ##### parameters:
 
