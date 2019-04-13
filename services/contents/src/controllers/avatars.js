@@ -13,7 +13,7 @@ const avatar = express();
 
 /**
  *
- * @api {PUT} /avatars/${groups/users}/:id  AVATARS FOR GROUPS/USERS
+ * @api {POST} /avatars/${groups/users}/:id  AVATARS FOR GROUPS/USERS
  * @apiName USERS5
  * @apiGroup CONTENTS
  * @apiVersion  0.1.0
@@ -124,7 +124,7 @@ avatar.use('/users/:userId', async (req, res, next) => {
   }
 });
 
-avatar.put('/groups/:groupId', groupUpload.single('file'), async (req, res, next) => {
+avatar.post('/groups/:groupId', groupUpload.single('file'), async (req, res, next) => {
   const ext = Path.extname(req.file.originalname);
   try {
     await sharp(req.file.path)
@@ -174,7 +174,7 @@ avatar.put('/groups/:groupId', groupUpload.single('file'), async (req, res, next
   }
 });
 
-avatar.put('/users/:userId', userUpload.single('file'), async (req, res, next) => {
+avatar.post('/users/:userId', userUpload.single('file'), async (req, res, next) => {
   const ext = Path.extname(req.file.originalname);
   try {
     await sharp(req.file.path)
