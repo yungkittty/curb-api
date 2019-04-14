@@ -14,10 +14,10 @@ mongoose.set('debug', true);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// const whiteList = ['http://localhost:3000', 'https://localhost:3000'];
+const whiteList = process.env.DOMAIN_WHITELIST.split(';');
+
 const corsOptions = {
-  origin(origin, callback) {
-    // console.log('origin=>', origin);
+  origin: function(origin, callback) {
     // if (origin === undefined || whiteList.indexOf(origin) !== -1) {
     callback(null, true);
     // } else {
