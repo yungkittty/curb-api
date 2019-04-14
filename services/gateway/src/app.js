@@ -11,18 +11,14 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-const whiteList = [
-  'http://localhost:3000',
-  'https://localhost:3000',
-  'https://curb-app.com'
-];
+const whiteList = process.env.DOMAIN_WHITELIST.split(';');
+
 const corsOptions = {
   origin: function(origin, callback) {
-    console.log('origin=>', origin);
+    console.log('Allow: ', origin);
     if (origin === undefined || whiteList.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      console.log('throw');
       callback(new Error('BAD_CORS'));
     }
   },
