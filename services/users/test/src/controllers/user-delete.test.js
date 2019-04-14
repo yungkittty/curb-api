@@ -7,7 +7,7 @@ const app = require('../../../src/app');
 const { expect } = chai;
 chai.use(chaiHttp);
 
-describe('Testing delete user', () => {
+describe('Testing DELETE user', () => {
   before(async () => {
     const newUser = new User({
       _id: mongoose.Types.ObjectId('5cb1a7acc7cec6001e0d236c'),

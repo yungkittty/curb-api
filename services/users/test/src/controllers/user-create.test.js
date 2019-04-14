@@ -6,7 +6,7 @@ const app = require('../../../src/app');
 const { expect } = chai;
 chai.use(chaiHttp);
 
-describe('Testing create users', () => {
+describe('Testing POST users', () => {
   before((done) => {
     mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true }, () => {
       mongoose.connection.db.dropDatabase();

@@ -1,22 +1,23 @@
 const chai = require('chai');
 const mongoose = require('mongoose');
-const Create = require('../../../src/services/create');
+const User = require('../../../src/models/user');
+const Remove = require('../../../src/services/remove');
 
-const validUser = { id: '5cb1a7acc7cec6001e0d236c', name: 'TEST_Service_Create' };
-// const userWithoutName = { id: '5cb198cec0c026001e784472' };
 const { expect } = chai;
 
-describe('Test service create', () => {
-  before((done) => {
-    mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true }, () => {
-      mongoose.connection.db.dropDatabase();
-      done();
+describe('Test service remove', () => {
+  before(async () => {
+    const newUser = new User({
+      _id: mongoose.Types.ObjectId('5cb198cec0c026001e784472'),
+      name: 'TestRemove',
+      dateCreation: new Date()
     });
+    await newUser.save();
   });
 
-  describe('Create new user with valid parameters', () => {
+  describe('Remove an existing user', () => {
     it('should respond with an object', async () => {
-      const response = await Create(validUser);
+      const response = await Remove('5cb198cec0c026001e784472');
       expect(response).to.be.an('object');
     });
   });
