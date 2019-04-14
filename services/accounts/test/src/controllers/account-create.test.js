@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 describe('Testing to create accounts', () => {
   before((done) => {
-    mongoose.connect('mongodb://db/Curb', () => {
+    mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true }, () => {
       mongoose.connection.db.dropDatabase();
       done();
     });
