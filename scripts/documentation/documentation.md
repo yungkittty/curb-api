@@ -7,8 +7,10 @@
   id: {Uuid},
   email: {String},
   password: {String},
-  refreshToken: {String},
-  active: {Boolean}
+  dateCreation: {Date},
+  active: {Boolean},
+  codeVerification: {String},
+  codePassword: {String}
  }
 ```
 
@@ -19,10 +21,7 @@
 ```
 {
   id: {Uuid},
-  email: {String},
   name: {String},
-  password: {String},
-  refreshToken:{String},
   dateCreation: {Date},
   avatarUrl: {String}
 }
@@ -35,10 +34,11 @@
 ```
 {
   id: {Uuid},
+  creatorId: {Uuid},
   name: {String},
-  public: oneOf('public', 'private'),
-  dateCreation: {String},
+  status: oneOf('public', 'private'),
   avatarUrl: {String},
+  dateCreation: {String},
   users: [String],
   medias: [String],
   mediaTypes: ['location', 'text', 'image','video']
@@ -57,7 +57,7 @@
   groupId: {Uuid}, [Unique]
   type: {String} [Unique, 'location', 'text', 'image','video']
   dateCreation: {Date},
-  data: {String} [file path]
+  data: {String} [image;video:file_path,location;text: raw_string]
 }
 ```
 
