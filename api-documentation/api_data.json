@@ -1778,8 +1778,8 @@
   },
   {
     "type": "POST",
-    "url": "/emailing/verification",
-    "title": "EMAILING VALIDATION",
+    "url": "/emailing/reset",
+    "title": "EMAILING RESET PASSWORD",
     "name": "EMAILING1",
     "group": "EMAILING",
     "version": "0.1.0",
@@ -1845,8 +1845,8 @@
   },
   {
     "type": "POST",
-    "url": "/emailing/reset",
-    "title": "EMAILING RESET PASSWORD",
+    "url": "/emailing/verification",
+    "title": "EMAILING VERIFICATION/VALIDATION",
     "name": "EMAILING2",
     "group": "EMAILING",
     "version": "0.1.0",
