@@ -41,7 +41,7 @@
   dateCreation: {String},
   users: [String],
   medias: [String],
-  mediaTypes: ['location', 'text', 'image','video']
+  mediaTypes: oneOf('location', 'text', 'image','video')
   theme: {String}
 }
 ```
@@ -55,7 +55,7 @@
   id: {Uuid}, [Unique]
   creatorId: {Uuid}, [Unique]
   groupId: {Uuid}, [Unique]
-  type: {String} [Unique, 'location', 'text', 'image','video']
+  type: oneOf('location', 'text', 'image','video')
   dateCreation: {Date},
   data: {String} [image;video:file_path,location;text: raw_string]
 }

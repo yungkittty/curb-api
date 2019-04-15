@@ -1953,7 +1953,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    name: 'toto',\n    status: 'private',\n    mediaTypes: '['localisation', 'text'],\n    theme: 'red'\n}",
+          "content": "{\n    name: 'toto',\n    status: 'private',\n    mediaTypes: '['location', 'text'],\n    theme: 'red'\n}",
           "type": "json"
         }
       ]
