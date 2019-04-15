@@ -44,9 +44,11 @@ async function validate(req, res, next) {
   if (req.authId || req.token) {
     return next(new ApiError('ACCOUNTS_BAD_PARAMETER'));
   }
-  const { token } = req.cookies;
-  if (!token) return next(new ApiError('ACCOUNTS_TOKEN_DISCONNECTED'));
   try {
+    const { token } = req.cookies;
+    if (token === 'undefined' || token === null || token === 'null') {
+      return next(new ApiError('ACCOUNTS_TOKEN_DISCONNECTED'));
+    }
     const id = await tokens.verify(token, 'token');
     if (!id) {
       return next(new ApiError('ACCOUNTS_INVALID_TOKEN'));
@@ -62,7 +64,7 @@ async function validate(req, res, next) {
   } catch (error) {
     if (error.code === 'ACCOUNTS_TOKEN_EXPIRED') {
       try {
-        const payload = await refresh(token);
+        const payload = await refresh(req.cookies.token);
         return res
           .status(200)
           .cookie('token', payload.token, { httpOnly: true, secure: true })

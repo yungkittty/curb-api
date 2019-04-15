@@ -2331,6 +2331,79 @@ define({ "api": [
     "groupTitle": "GROUPS"
   },
   {
+    "type": "POST",
+    "url": "/groups/rending",
+    "title": "GROUPS TRENDING",
+    "name": "GROUPS14",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "group",
+            "description": "<p>public field of the group</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    ...group: {Object}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "GROUP_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FORBIDEN_READ",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-trending.js",
+    "groupTitle": "GROUPS"
+  },
+  {
     "type": "DELETE",
     "url": "/groups/:id",
     "title": "GROUPS DELETE",
