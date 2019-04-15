@@ -1,6 +1,6 @@
-servicesDirectories='../services'
+destDocumentationDirectoryPath='../../api-documentation/'
+servicesDirectories='../../services'
 controllersDirectories='src/controllers'
-destDocumentationDirectoryPath='../api-documentation/'
 
 apidoc \
 -i "$servicesDirectories/accounts/$controllersDirectories/"  \

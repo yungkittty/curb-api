@@ -90,7 +90,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/sign-up.js",
+    "filename": "../../services/accounts/src/controllers/sign-up.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -183,7 +183,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/account-reset-password.js",
+    "filename": "../../services/accounts/src/controllers/account-reset-password.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -255,7 +255,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/account-code-password.js",
+    "filename": "../../services/accounts/src/controllers/account-code-password.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -333,7 +333,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/account-code-verification.js",
+    "filename": "../../services/accounts/src/controllers/account-code-verification.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -386,7 +386,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/account-delete.js",
+    "filename": "../../services/accounts/src/controllers/account-delete.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -485,7 +485,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/account-validate-code-password.js",
+    "filename": "../../services/accounts/src/controllers/account-validate-code-password.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -605,7 +605,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/sign-in.js",
+    "filename": "../../services/accounts/src/controllers/sign-in.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -685,7 +685,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/account-read.js",
+    "filename": "../../services/accounts/src/controllers/account-read.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -771,7 +771,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/account-read-by-email.js",
+    "filename": "../../services/accounts/src/controllers/account-read-by-email.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -865,7 +865,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/account-update.js",
+    "filename": "../../services/accounts/src/controllers/account-update.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -957,7 +957,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/sign-out.js",
+    "filename": "../../services/accounts/src/controllers/sign-out.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -1069,109 +1069,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/validate.js",
-    "groupTitle": "ACCOUNTS"
-  },
-  {
-    "type": "POST",
-    "url": "/accounts/sign-out",
-    "title": "ACCOUNT REFRESH TOKEN",
-    "name": "ACCOUNTS8",
-    "group": "ACCOUNTS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    refreshToken: 'uuid',\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "token",
-            "description": "<p>token</p>"
-          },
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "refreshToken",
-            "description": "<p>refreshToken</p>"
-          },
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>id</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    token: 'uuid',\n    refreshToken: 'uuid',\n    id: 'uuid'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "DATABASE_ERROR",
-            "description": "<p>500</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "UNDEFINED",
-            "description": "<p>500</p>"
-          }
-        ]
-      }
-    },
-    "filename": "../services/accounts/src/controllers/refresh.js",
+    "filename": "../../services/accounts/src/controllers/validate.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -1188,15 +1086,15 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "code",
-            "description": "<p>code from the mail</p>"
+            "field": "token",
+            "description": "<p>token from the mail</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    code: '586753'\n}",
+          "content": "{\n    token: '{String}'\n}",
           "type": "json"
         }
       ]
@@ -1208,8 +1106,8 @@
             "group": "200",
             "type": "String",
             "optional": false,
-            "field": "OK",
-            "description": ""
+            "field": "userId",
+            "description": "<p>the userId</p>"
           }
         ]
       }
@@ -1256,7 +1154,7 @@
         ]
       }
     },
-    "filename": "../services/accounts/src/controllers/account-activate.js",
+    "filename": "../../services/accounts/src/controllers/account-activate.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -1357,7 +1255,7 @@
         ]
       }
     },
-    "filename": "../services/contents/src/controllers/texts.js",
+    "filename": "../../services/contents/src/controllers/texts.js",
     "groupTitle": "CONTENTS"
   },
   {
@@ -1458,7 +1356,7 @@
         ]
       }
     },
-    "filename": "../services/contents/src/controllers/images.js",
+    "filename": "../../services/contents/src/controllers/images.js",
     "groupTitle": "CONTENTS"
   },
   {
@@ -1559,7 +1457,7 @@
         ]
       }
     },
-    "filename": "../services/contents/src/controllers/videos.js",
+    "filename": "../../services/contents/src/controllers/videos.js",
     "groupTitle": "CONTENTS"
   },
   {
@@ -1660,7 +1558,7 @@
         ]
       }
     },
-    "filename": "../services/contents/src/controllers/locations.js",
+    "filename": "../../services/contents/src/controllers/locations.js",
     "groupTitle": "CONTENTS"
   },
   {
@@ -1677,7 +1575,14 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "id",
+            "field": "contentid",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
             "description": "<p>//</p>"
           }
         ]
@@ -1720,7 +1625,7 @@
         ]
       }
     },
-    "filename": "../services/contents/src/controllers/content-delete.js",
+    "filename": "../../services/contents/src/controllers/content-delete.js",
     "groupTitle": "CONTENTS"
   },
   {
@@ -1787,11 +1692,11 @@
         ]
       }
     },
-    "filename": "../services/contents/src/controllers/content-read.js",
+    "filename": "../../services/contents/src/controllers/content-read.js",
     "groupTitle": "CONTENTS"
   },
   {
-    "type": "PUT",
+    "type": "POST",
     "url": "/avatars/${groups/users}/:id",
     "title": "AVATARS FOR GROUPS/USERS",
     "name": "USERS5",
@@ -1868,7 +1773,7 @@
         ]
       }
     },
-    "filename": "../services/contents/src/controllers/avatars.js",
+    "filename": "../../services/contents/src/controllers/avatars.js",
     "groupTitle": "CONTENTS"
   },
   {
@@ -1935,7 +1840,7 @@
         ]
       }
     },
-    "filename": "../services/emailing/src/controllers/reset.js",
+    "filename": "../../services/emailing/src/controllers/reset.js",
     "groupTitle": "EMAILING"
   },
   {
@@ -1952,29 +1857,22 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
+            "field": "id",
+            "description": "<p>userId</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
+            "field": "url",
+            "description": "<p>https://curb-api.com?validateEmail=</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    id: 'uuid'\n}",
+          "content": "{\n    id: 'uuid',\n    url: {String}\n}",
           "type": "json"
         }
       ]
@@ -2016,7 +1914,7 @@
         ]
       }
     },
-    "filename": "../services/emailing/src/controllers/verification.js",
+    "filename": "../../services/emailing/src/controllers/verification.js",
     "groupTitle": "EMAILING"
   },
   {
@@ -2098,7 +1996,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-create.js",
+    "filename": "../../services/groups/src/controllers/group-create.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2194,7 +2092,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-list.js",
+    "filename": "../../services/groups/src/controllers/group-list.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2287,7 +2185,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-add-post.js",
+    "filename": "../../services/groups/src/controllers/group-add-post.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2367,7 +2265,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-delete-post.js",
+    "filename": "../../services/groups/src/controllers/group-delete-post.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2429,7 +2327,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-avatars.js",
+    "filename": "../../services/groups/src/controllers/group-avatars.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2489,7 +2387,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-delete.js",
+    "filename": "../../services/groups/src/controllers/group-delete.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2562,7 +2460,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-read.js",
+    "filename": "../../services/groups/src/controllers/group-read.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2677,7 +2575,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-update.js",
+    "filename": "../../services/groups/src/controllers/group-update.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2757,7 +2655,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-invite.js",
+    "filename": "../../services/groups/src/controllers/group-invite.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2830,7 +2728,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-join.js",
+    "filename": "../../services/groups/src/controllers/group-join.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2908,7 +2806,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-token-join.js",
+    "filename": "../../services/groups/src/controllers/group-token-join.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2956,19 +2854,19 @@
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "GROUP_NOT_FOUND",
+            "field": "GROUPS_NOT_FOUND",
             "description": "<p>400</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "UNAUTHORIZED_UNJOIN",
+            "field": "GROUPS_FORBIDEN_UNJOIN",
             "description": "<p>403</p>"
           }
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-unjoin.js",
+    "filename": "../../services/groups/src/controllers/group-unjoin.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -3050,7 +2948,7 @@
         ]
       }
     },
-    "filename": "../services/groups/src/controllers/group-permissions.js",
+    "filename": "../../services/groups/src/controllers/group-permissions.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -3125,7 +3023,7 @@
         ]
       }
     },
-    "filename": "../services/users/src/controllers/user-create.js",
+    "filename": "../../services/users/src/controllers/user-create.js",
     "groupTitle": "USERS"
   },
   {
@@ -3185,7 +3083,7 @@
         ]
       }
     },
-    "filename": "../services/users/src/controllers/user-delete.js",
+    "filename": "../../services/users/src/controllers/user-delete.js",
     "groupTitle": "USERS"
   },
   {
@@ -3258,7 +3156,7 @@
         ]
       }
     },
-    "filename": "../services/users/src/controllers/user-read.js",
+    "filename": "../../services/users/src/controllers/user-read.js",
     "groupTitle": "USERS"
   },
   {
@@ -3346,7 +3244,7 @@
         ]
       }
     },
-    "filename": "../services/users/src/controllers/user-update.js",
+    "filename": "../../services/users/src/controllers/user-update.js",
     "groupTitle": "USERS"
   },
   {
@@ -3420,7 +3318,7 @@
         ]
       }
     },
-    "filename": "../services/users/src/controllers/user-avatars.js",
+    "filename": "../../services/users/src/controllers/user-avatars.js",
     "groupTitle": "USERS"
   }
 ]
