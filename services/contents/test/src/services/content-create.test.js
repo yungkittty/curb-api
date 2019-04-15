@@ -1,10 +1,7 @@
 const chai = require('chai');
 const mongoose = require('mongoose');
-const Create = require('../../../src/services/create');
+const contentCreate = require('../../../src/services/content-create');
 
-const validUser = { id: '5cb1a7acc7cec6001e0d236c', name: 'TEST_SERVICE_CREATE' };
-const sameIdNotName = { id: '5cb1a7acc7cec6001e0d236c', name: 'ANOTHER_NAME' };
-const userWithoutName = { id: '5cb198cec0c026001e784472' };
 const { expect } = chai;
 
 describe('Test service create', () => {
@@ -15,17 +12,22 @@ describe('Test service create', () => {
     });
   });
 
-  describe('Create new user with valid parameters', () => {
+  describe('Create new content with valid parameters', () => {
     it('should respond with an object', async () => {
-      const response = await Create(validUser);
+      const response = await contentCreate(
+        'image',
+        '5cb1a7acc7cec6001e0d236c',
+        '5cb198cec0c026001e784472',
+        'test'
+      );
       expect(response).to.be.an('object');
     });
   });
 
-  describe('Create new user with existing id new name', () => {
+  describe('Create new content without parameters', () => {
     it('should throw an error', async () => {
       try {
-        await Create(sameIdNotName);
+        await contentCreate();
         expect.fail();
       } catch (error) {
         expect(error).to.be.instanceOf(Error);
@@ -33,10 +35,10 @@ describe('Test service create', () => {
     });
   });
 
-  describe('Create new user without name provided', () => {
+  describe('Create new content without data provided', () => {
     it('should throw an error', async () => {
       try {
-        await Create(userWithoutName);
+        await contentCreate('image', '5cb1a7acc7cec6001e0d236c', '5cb198cec0c026001e784472');
         expect.fail();
       } catch (error) {
         expect(error).to.be.instanceOf(Error);

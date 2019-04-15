@@ -3,7 +3,7 @@ const errors = require('../configurations/error');
 
 // eslint-disable-next-line
 function error(err, req, res, next) {
-  console.log('MIDDLEWARE ERROR:', err);
+  // console.log('MIDDLEWARE ERROR:', err);
   switch (err.constructor) {
     case errors.ApiError:
       return res
