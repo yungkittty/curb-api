@@ -1,4 +1,8 @@
 {
+  "header": {
+    "title": "Informations",
+    "filename": "documentation.md"
+  },
   "name": "curb-api",
   "version": "0.1.0",
   "description": "[WIP]",
