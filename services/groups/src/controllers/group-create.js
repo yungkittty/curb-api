@@ -20,7 +20,7 @@ const { ApiError } = require('../configurations/error');
  * {
  *     name: 'toto',
  *     status: 'private',
- *     mediaTypes: '['localisation', 'text'],
+ *     mediaTypes: '['location', 'text'],
  *     theme: 'red'
  * }
  *

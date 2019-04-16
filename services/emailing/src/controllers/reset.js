@@ -3,7 +3,7 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {POST} /emailing/verification EMAILING VALIDATION
+ * @api {POST} /emailing/reset EMAILING RESET PASSWORD
  * @apiName EMAILING1
  * @apiGroup EMAILING
  * @apiVersion  0.1.0
