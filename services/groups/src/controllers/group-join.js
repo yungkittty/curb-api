@@ -3,14 +3,13 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {POST} /groups/join GROUPS JOIN
+ * @api {POST} /groups/join/:id GROUPS JOIN
  * @apiName GROUPS6
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  *
  *
- * @apiParam  {String} userId from token header
- * @apiParam  {String} groupId //
+ * @apiParam  {String} groupId
  *
  *
  * @apiSuccess (200) {String} groupId
