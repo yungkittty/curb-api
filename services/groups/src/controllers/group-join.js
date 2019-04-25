@@ -3,17 +3,16 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {POST} /groups/join GROUPS JOIN
+ * @api {POST} /groups/join/:id GROUPS JOIN
  * @apiName GROUPS6
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  *
  *
- * @apiParam  {String} userId from token header
- * @apiParam  {String} groupId //
+ * @apiParam  {String} groupId
  *
  *
- * @apiSuccess (200) {String} OK
+ * @apiSuccess (200) {String} groupId
  *
  * @apiError BAD_PARAMETER 400
  * @apiError FORBIDEN_JOIN 403
@@ -27,12 +26,15 @@ async function groupJoin(req, res, next) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
-    await join({
+    const response = await join({
       groupId: req.params.groupId,
       userId: req.authId
     });
 
-    return res.status(200).end();
+    return res
+      .status(200)
+      .json(response)
+      .end();
   } catch (error) {
     return next(error);
   }

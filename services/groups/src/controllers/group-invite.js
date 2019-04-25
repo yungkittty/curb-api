@@ -10,7 +10,6 @@ const { ApiError } = require('../configurations/error');
  *
  *
  * @apiParam  {String} groupId //
- * @apiParam  {String} userId from token header
  *
  *
  * @apiSuccess (200) {String} token
