@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const { ApiError } = require('../configurations/error');
 
-mongoose.connect(
-  'mongodb://db/Curb',
-  { useNewUrlParser: true }
-);
+mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const groupSchema = mongoose.Schema({
   creatorId: { type: String, required: [true, 'GROUPS_MISSING_CREATOR_ID'] },
@@ -23,6 +20,8 @@ const groupSchema = mongoose.Schema({
     type: String
   },
   dateCreation: Date,
+  lastUserAdded: Date,
+  lastMediaAdded: Date,
   users: { type: [String] },
   medias: { type: [String] },
   mediaTypes: {
@@ -33,14 +32,27 @@ const groupSchema = mongoose.Schema({
       message: 'GROUPS_BAD_MEDIATYPES'
     }
   },
-  theme: { type: String }
+  theme: { type: String },
+  rank: { type: Number, default: 0 }
 });
+
+/* eslint-disable no-param-reassign */
+function transform(doc, ret) {
+  ret.id = ret._id;
+  delete ret._id;
+  return ret;
+}
+/* eslint-enable no-param-reassign */
+mongoose.set('toJSON', { versionKey: false, transform });
+mongoose.set('toObject', { versionKey: false, transform });
 
 groupSchema.plugin(uniqueValidator, { message: 'GROUPS_DUPLICATE_{PATH}' });
 
 // eslint-disable-next-line
 groupSchema.methods.getPublicFields = function() {
-  const { __v, _id, ...publicGroup } = this.toObject();
+  const {
+    __v, _id, rank, ...publicGroup
+  } = this.toObject();
   return { id: _id, ...publicGroup };
 };
 

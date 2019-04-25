@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const controllers = require('./controllers');
 const middlewares = require('./middlewares');
+const groups = require('./controllers/groups');
 
 const app = express();
 
@@ -42,6 +43,13 @@ app.get('/', controllers.groupList);
 app.get('/:id', controllers.groupRead);
 app.patch('/:id', middlewares.authentication, controllers.groupUpdate);
 app.delete('/:id', middlewares.authentication, controllers.groupDelete);
+
+// private:
+app.get('/aggregate/groups', (req, res, next) => {
+  console.log('###');
+  groups(req, res, next);
+}); // TODO rename
+
 app.post('/avatars/:groupId', controllers.groupAvatars);
 app.post('/join/:groupId', middlewares.authentication, controllers.groupJoin);
 app.post('/unjoin/:groupId', middlewares.authentication, controllers.groupUnjoin);
@@ -51,6 +59,7 @@ app.post('/medias/:groupId/:mediaId', controllers.groupAddPost);
 app.delete('/medias/:groupId/:mediaId', controllers.groupDeletePost);
 app.get('/invite/:groupId', middlewares.authentication, controllers.groupInvite);
 app.post('/trend', controllers.groupTrending);
+
 app.use(middlewares.error);
 
 module.exports = app;

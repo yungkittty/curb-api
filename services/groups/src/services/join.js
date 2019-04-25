@@ -1,5 +1,6 @@
 const Group = require('../models/group');
 const tokenGetPayload = require('./token-invitation/token-get-payload');
+const ranking = require('./ranking');
 const { ApiError } = require('../configurations/error');
 
 async function _getGroup(groupId) {
@@ -11,9 +12,9 @@ async function _getGroup(groupId) {
 async function _join(userId, groupId) {
   const group = await _getGroup(groupId);
   if (group.status === 'private') throw new ApiError('GROUPS_FORBIDEN_JOIN');
-  if (group.users.includes(userId))
-    throw new ApiError('GROUPS_USER_ALREADY_JOIN');
+  if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
+  group.lastUserAdded = new Date();
   await group.save();
   return group;
 }
@@ -25,17 +26,16 @@ async function _tokenJoin(userId, token) {
   if (!group.users.includes(payload.issuerId)) {
     throw new ApiError('GROUPS_FORBIDEN_JOIN');
   }
-  if (group.users.includes(userId))
-    throw new ApiError('GROUPS_USER_ALREADY_JOIN');
+  if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
+  group.lastUserAdded = new Date();
   await group.save();
   return group;
 }
 
 async function join({ groupId, userId, token }) {
-  const done = !token
-    ? await _join(userId, groupId)
-    : await _tokenJoin(userId, token);
+  const done = !token ? await _join(userId, groupId) : await _tokenJoin(userId, token);
+  ranking(groupId);
   return done;
 }
 
