@@ -23,6 +23,9 @@ async function accountDelete(req, res, next) {
     return next(new ApiError('ACCOUNTS_FORBIDEN_OPERATION'));
   }
   try {
+    if (req.cookies.token) {
+      res.clearCookie('token', { httpOnly: true, secure: true, path: '/' });
+    }
     await remove(req.params.id, req.cookies.token);
     return res.status(200).end();
   } catch (error) {

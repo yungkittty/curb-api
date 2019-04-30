@@ -14,10 +14,10 @@ mongoose.set('debug', true);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// const whiteList = ['http://localhost:3000', 'https://localhost:3000'];
+const whiteList = process.env.DOMAIN_WHITELIST.split(';');
+
 const corsOptions = {
   origin(origin, callback) {
-    // console.log('origin=>', origin);
     // if (origin === undefined || whiteList.indexOf(origin) !== -1) {
     callback(null, true);
     // } else {
@@ -50,7 +50,7 @@ app.get('/permissions/:groupId/:userId', controllers.groupPermissions);
 app.post('/medias/:groupId/:mediaId', controllers.groupAddPost);
 app.delete('/medias/:groupId/:mediaId', controllers.groupDeletePost);
 app.get('/invite/:groupId', middlewares.authentication, controllers.groupInvite);
-
+app.post('/trend', controllers.groupTrending);
 app.use(middlewares.error);
 
 module.exports = app;

@@ -11,11 +11,10 @@ async function _getGroup(groupId) {
 async function _join(userId, groupId) {
   const group = await _getGroup(groupId);
   if (group.status === 'private') throw new ApiError('GROUPS_FORBIDEN_JOIN');
-  if (group.users.includes(userId))
-    throw new ApiError('GROUPS_USER_ALREADY_JOIN');
+  if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
   await group.save();
-  return group;
+  return group._id.toString();
 }
 
 async function _tokenJoin(userId, token) {
@@ -25,18 +24,15 @@ async function _tokenJoin(userId, token) {
   if (!group.users.includes(payload.issuerId)) {
     throw new ApiError('GROUPS_FORBIDEN_JOIN');
   }
-  if (group.users.includes(userId))
-    throw new ApiError('GROUPS_USER_ALREADY_JOIN');
+  if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
   await group.save();
-  return group;
+  return group._id.toString();
 }
 
 async function join({ groupId, userId, token }) {
-  const done = !token
-    ? await _join(userId, groupId)
-    : await _tokenJoin(userId, token);
-  return done;
+  const id = !token ? await _join(userId, groupId) : await _tokenJoin(userId, token);
+  return { id };
 }
 
 module.exports = join;
