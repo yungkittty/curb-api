@@ -45,7 +45,6 @@ app.delete('/:id', middlewares.authentication, controllers.groupDelete);
 app.post('/avatars/:groupId', controllers.groupAvatars);
 app.post('/join/:groupId', middlewares.authentication, controllers.groupJoin);
 app.post('/unjoin/:groupId', middlewares.authentication, controllers.groupUnjoin);
-app.post('/join', middlewares.authentication, controllers.groupTokenJoin);
 app.get('/permissions/:groupId/:userId', controllers.groupPermissions);
 app.post('/medias/:groupId/:mediaId', controllers.groupAddPost);
 app.delete('/medias/:groupId/:mediaId', controllers.groupDeletePost);
