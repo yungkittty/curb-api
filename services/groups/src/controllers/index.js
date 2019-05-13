@@ -4,7 +4,6 @@ const groupUpdate = require('./group-update');
 const groupDelete = require('./group-delete');
 const groupList = require('./group-list');
 const groupJoin = require('./group-join');
-const groupTokenJoin = require('./group-token-join');
 const groupPermissions = require('./group-permissions');
 const groupAddPost = require('./group-add-post');
 const groupDeletePost = require('./group-delete-post');
@@ -24,7 +23,6 @@ module.exports = {
   groupAddPost,
   groupDeletePost,
   groupInvite,
-  groupTokenJoin,
   groupAvatars,
   groupUnjoin,
   groupTrending

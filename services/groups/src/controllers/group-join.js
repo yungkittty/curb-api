@@ -7,10 +7,17 @@ const { ApiError } = require('../configurations/error');
  * @apiName GROUPS6
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
- *
- *
- * @apiParam  {String} groupId
- *
+ * @apiDescription
+ * <h4>Public Group: specify groupId</h4>
+ * <h4>Private Group: add the token from invite response in the body </h4><br>
+ 
+ * @apiParam {String} groupId
+ * @apiParam {String} [token] field to allow user to join private group
+ * 
+ * @apiParamExample  {json} Request-Example:
+ * {
+ *     token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dWVySWQiOiI1Y2I3NTM1NzlkNGIx"
+ * }
  *
  * @apiSuccess (200) {String} groupId
  *
@@ -27,6 +34,7 @@ async function groupJoin(req, res, next) {
   }
   try {
     const response = await join({
+      token: req.body.token ? req.body.token : undefined,
       groupId: req.params.groupId,
       userId: req.authId
     });
