@@ -4,12 +4,13 @@ const { ApiError } = require('../configurations/error');
 async function read(groupId, userId = undefined) {
   const group = await Group.findById(groupId);
   if (!group) throw new ApiError('GROUPS_NOT_FOUND');
-  if (group.status === 'private' && !userId && !group.users.includes(userId)) {
+  if (group.status === 'private' && (!group.users.includes(userId) || !userId)) {
     // TODO Change after DELIVERY @(private / 'ghost' / public) :
     const {
-      name, avatarUrl, theme, status
+      id, name, avatarUrl, theme, status
     } = group.getPublicFields();
     return {
+      id,
       name,
       avatarUrl,
       theme,
