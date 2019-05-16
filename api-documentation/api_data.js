@@ -2331,20 +2331,29 @@ define({ "api": [
     "groupTitle": "GROUPS"
   },
   {
-    "type": "POST",
-    "url": "/groups/rending",
+    "type": "GET",
+    "url": "/groups/trending",
     "title": "GROUPS TRENDING",
     "name": "GROUPS14",
     "group": "GROUPS",
     "version": "0.1.0",
+    "description": "<h4>GlobalTrending: if no parameter are given it will return the global trending.</h4> <h4>CustomizeTrending: if you give userId return the global trending and the custom trending.</h4><br>",
     "parameter": {
       "fields": {
         "Parameter": [
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
-            "field": "id",
+            "optional": true,
+            "field": "userId",
+            "description": "<p>queryParam, customizeTrending</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "100",
             "description": "<p>queryParam</p>"
           }
         ]
@@ -2365,7 +2374,12 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    ...group: {Object}\n}",
+          "content": "[\n {\n   category: 'global',\n   data: [String]\n },\n {\n   category: '${mediaType}', // image, video, location, text\n   data: [String]\n }\n // if userId\n {\n   category: 'custom',\n   data: [String]\n }\n]",
+          "type": "json"
+        },
+        {
+          "title": "Success-Response:",
+          "content": "[\n    {\n        \"category\": \"global\",\n        \"groups\": [\n            \"5cd59912f3e3eb001d77fb06\",\n            \"5cd7f182fda0fb001c92cd56\",\n            \"5cb7533c2db80f001d431464\"\n        ]\n    },\n    {\n        \"category\": \"location\",\n        \"groups\": [\n            \"5cd59912f3e3eb001d77fb06\",\n            \"5cb7533c2db80f001d431464\"\n        ]\n    },\n    {\n        \"category\": \"image\",\n        \"groups\": [\n            \"5cd7f182fda0fb001c92cd56\"\n        ]\n    },\n    {\n        \"category\": \"text\",\n        \"groups\": [\n            \"5cd59912f3e3eb001d77fb06\",\n            \"5cd7f182fda0fb001c92cd56\",\n            \"5cb7533c2db80f001d431464\"\n        ]\n    },\n    {\n        \"category\": \"video\",\n        \"groups\": []\n    }\n]",
           "type": "json"
         }
       ]
@@ -2378,18 +2392,6 @@ define({ "api": [
             "optional": false,
             "field": "BAD_PARAMETER",
             "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "GROUP_NOT_FOUND",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "FORBIDEN_READ",
-            "description": "<p>403</p>"
           },
           {
             "group": "Error 4xx",
@@ -2819,10 +2821,17 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "token",
-            "description": "<p>//</p>"
+            "description": "<p>body</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    token: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dWVySWQiOiI1Y2I3NTM1NzlkNGIx\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "success": {
       "fields": {

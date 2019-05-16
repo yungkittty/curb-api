@@ -11,8 +11,7 @@ async function addPost(groupId, mediaId, type) {
   if (group.medias.includes(mediaId)) {
     throw new ApiError('GROUPS_MEDIA_ALREADY_PRESENT');
   }
-  group.medias = [...group.medias, mediaId];
-  group.lastMediaAdded = new Date();
+  group.medias = [mediaId, ...group.medias];
   ranking(group._id);
   await group.save();
   return group;

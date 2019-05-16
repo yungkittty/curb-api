@@ -14,7 +14,6 @@ async function _join(userId, groupId) {
   if (group.status === 'private') throw new ApiError('GROUPS_FORBIDEN_JOIN');
   if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
-  group.lastUserAdded = new Date();
   await group.save();
   return group;
 }
@@ -28,7 +27,6 @@ async function _tokenJoin(userId, token) {
   }
   if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
-  group.lastUserAdded = new Date();
   await group.save();
   return group;
 }
