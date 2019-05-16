@@ -12,7 +12,7 @@ const { ApiError } = require('../configurations/error');
  * @apiParam  {String} token //
  *
  *
- * @apiSuccess (200) {String} OK
+ * @apiSuccess (200) {String} groupId
  *
  * @apiError BAD_PARAMETER 400
  * @apiError TOKEN_EXPIRED 403
@@ -27,8 +27,11 @@ async function groupTokenJoin(req, res, next) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
-    await join({ token: req.body.token, userId: req.authId });
-    return res.status(200).end();
+    const response = await join({ token: req.body.token, userId: req.authId });
+    return res
+      .status(200)
+      .json(response)
+      .end();
   } catch (error) {
     return next(error);
   }

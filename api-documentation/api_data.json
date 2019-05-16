@@ -1078,6 +1078,91 @@
     "title": "ACCOUNT ACTIVATE",
     "name": "ACCOUNTS9",
     "group": "ACCOUNTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "ttoken",
+            "description": "<p>token from the mail</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    token: '{String}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>the userId</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ACCOUNT_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ACCOUNT_ALREADY_ACTIVE",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ACCOUNT_CODE_DIFFERENT",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "DATABASE_ERROR",
+            "description": "<p>500</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/accounts/src/controllers/account-activate.js",
+    "groupTitle": "ACCOUNTS"
+  },
+  {
+    "type": "POST",
+    "url": "/accounts/activate/:id",
+    "title": "ACCOUNT ACTIVATE",
+    "name": "ACCOUNTS9",
+    "group": "ACCOUNTS",
     "version": "0.1.0",
     "parameter": {
       "fields": {
@@ -1154,7 +1239,7 @@
         ]
       }
     },
-    "filename": "../../services/accounts/src/controllers/account-activate.js",
+    "filename": "../../services/accounts/src/controllers/_apidoc.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -2739,7 +2824,7 @@
     "title": "GROUPS JOIN",
     "name": "GROUPS6",
     "group": "GROUPS",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -2804,6 +2889,79 @@
       }
     },
     "filename": "../../services/groups/src/controllers/group-join.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "POST",
+    "url": "/groups/join",
+    "title": "GROUPS JOIN",
+    "name": "GROUPS6",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>from token header</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FORBIDEN_JOIN",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "USER_ALREADY_JOIN",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/_apidoc.js",
     "groupTitle": "GROUPS"
   },
   {

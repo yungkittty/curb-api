@@ -15,7 +15,7 @@ async function _join(userId, groupId) {
   if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
   await group.save();
-  return group;
+  return group._id.toString();
 }
 
 async function _tokenJoin(userId, token) {
@@ -28,13 +28,13 @@ async function _tokenJoin(userId, token) {
   if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   group.users = [...group.users, userId];
   await group.save();
-  return group;
+  return group._id.toString();
 }
 
 async function join({ groupId, userId, token }) {
-  const done = !token ? await _join(userId, groupId) : await _tokenJoin(userId, token);
+  const id = !token ? await _join(userId, groupId) : await _tokenJoin(userId, token);
   ranking(groupId);
-  return done;
+  return { id };
 }
 
 module.exports = join;
