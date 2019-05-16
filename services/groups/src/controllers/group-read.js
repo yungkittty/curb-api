@@ -43,11 +43,7 @@ async function groupRead(req, res, next) {
       });
       if (response.status !== 200) {
         return next(
-          new OtherServiceError(
-            response.data.service,
-            response.data.code,
-            response.status
-          )
+          new OtherServiceError(response.data.service, response.data.code, response.status)
         );
       }
     }

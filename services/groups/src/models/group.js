@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const { ApiError } = require('../configurations/error');
 
-mongoose.connect(
-  'mongodb://db/Curb',
-  { useNewUrlParser: true }
-);
+mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const groupSchema = mongoose.Schema({
   creatorId: { type: String, required: [true, 'GROUPS_MISSING_CREATOR_ID'] },
@@ -45,7 +42,7 @@ groupSchema.methods.getPublicFields = function() {
 };
 
 groupSchema.post('save', async (error, doc, next) => {
-  console.log('MONGO ERROR:', error);
+  // console.log('MONGO ERROR:', error);
   if (error.name === 'MongoError' && error.code === 11000) {
     return next(new ApiError('GROUPS_ALREADY_EXIST'));
   }
