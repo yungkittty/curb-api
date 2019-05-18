@@ -10,7 +10,9 @@ const deletePost = require('./delete-post');
 const invite = require('./invite');
 const avatar = require('./avatar');
 const unjoin = require('./unjoin');
-const trending = require('./trending');
+const ranking = require('./ranking');
+const globalTrending = require('./global-trending');
+const customizeTrending = require('./customize-trending');
 
 module.exports = {
   create,
@@ -25,5 +27,7 @@ module.exports = {
   invite,
   avatar,
   unjoin,
-  trending
+  ranking,
+  globalTrending,
+  customizeTrending
 };

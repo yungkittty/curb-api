@@ -1,5 +1,6 @@
 const Group = require('../models/group');
 const tokenGetPayload = require('./token-invitation/token-get-payload');
+const ranking = require('./ranking');
 const { ApiError } = require('../configurations/error');
 
 async function _getGroup(groupId) {
@@ -32,6 +33,7 @@ async function _tokenJoin(userId, token) {
 
 async function join({ groupId, userId, token }) {
   const id = !token ? await _join(userId, groupId) : await _tokenJoin(userId, token);
+  ranking(groupId);
   return { id };
 }
 

@@ -33,12 +33,7 @@ accountSchema.pre('save', async function(next) {
 // eslint-disable-next-line
 accountSchema.methods.getPublicFields = function() {
   const {
-    password,
-    __v,
-    _id,
-    codePassword,
-    codeVerification,
-    ...publicAccount
+    password, __v, _id, codePassword, codeVerification, ...publicAccount
   } = this.toObject();
   return { id: _id, ...publicAccount };
 };
@@ -48,11 +43,7 @@ accountSchema.post('save', async (error, doc, next) => {
     return next(new ApiError('ACCOUNTS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
-    return next(
-      new ApiError(
-        error.errors[Object.keys(error.errors)[0]].message.toUpperCase()
-      )
-    );
+    return next(new ApiError(error.errors[Object.keys(error.errors)[0]].message.toUpperCase()));
   }
   return next(error);
 });

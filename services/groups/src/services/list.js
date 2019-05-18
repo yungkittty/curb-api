@@ -1,6 +1,8 @@
 const Group = require('../models/group');
 
-async function list({ page = 1, count = 5, authId, ...filters }) {
+async function list({
+  page = 1, count = 5, authId, ...filters
+}) {
   const queryList = Group.find();
   const isUser = !authId ? false : authId === filters.userId;
   const isCreator = !authId ? false : authId === filters.creatorId;
