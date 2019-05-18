@@ -100,7 +100,6 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
     if (!rep.data.creator) {
       return next(new ApiError('CONTENTS_NOT_GROUP_CREATOR'));
     }
-    // TODO WHY ? @Antoine
     const result = await directoryExists(`./uploads/avatars/groups/${req.params.groupId}`);
     if (result) {
       const files = await fs.readdir(`./uploads/avatars/groups/${req.params.groupId}`);
@@ -118,7 +117,6 @@ avatar.use('/users/:userId', async (req, res, next) => {
     if (req.params.userId !== req.authId) {
       throw new ApiError('CONTENTS_FORBIDEN_OPERATION');
     }
-    // TODO WHY ? @Antoine
     const result = await directoryExists(`./uploads/avatars/users/${req.authId}`);
     if (result) {
       const files = await fs.readdir(`./uploads/avatars/users/${req.authId}`);
