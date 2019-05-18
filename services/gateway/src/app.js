@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'test') {
 const whiteList = process.env.DOMAIN_WHITELIST.split(';');
 
 const corsOptions = {
-  origin: function(origin, callback) {
+  origin(origin, callback) {
     console.log('Allow: ', origin);
     if (origin === undefined || whiteList.indexOf(origin) !== -1) {
       callback(null, true);
@@ -26,7 +26,7 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
   maxAge: 86400,
   methods: ['GET', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
-  optionsSuccessStatus: 204
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT, {limit: '100mb'}));
+app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT, { limit: '100mb' }));
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -44,5 +44,6 @@ app.use('/accounts', proxy(process.env.CURB_ACCOUNT));
 app.use('/users', proxy(process.env.CURB_USERS));
 app.use('/groups', proxy(process.env.CURB_GROUPS));
 app.use('/emailing', proxy(process.env.CURB_EMAILING));
+app.use('/notifications', proxy(process.env.CURB_NOTIFICATIONS));
 
 module.exports = app;
