@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const proxy = require('express-http-proxy');
+const proxy = require('http-proxy-middleware');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -35,15 +35,22 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT, { limit: '100mb' }));
+app.use(
+  '/contents',
+  (req, res, next) => {
+    console.log('req.socket.bytesRead=>', req.socket.bytesRead);
+    console.log('content length=>', req.get('content-length'));
+  },
+  proxy({ target: process.env.CURB_GROUP_CONTENT }),
+); // TODO reset la size pour les files , { limit: '100mb' }
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use('/accounts', proxy(process.env.CURB_ACCOUNT));
-app.use('/users', proxy(process.env.CURB_USERS));
-app.use('/groups', proxy(process.env.CURB_GROUPS));
-app.use('/emailing', proxy(process.env.CURB_EMAILING));
-app.use('/notifications', proxy(process.env.CURB_NOTIFICATIONS));
+app.use('/accounts', proxy({ target: process.env.CURB_ACCOUNT, logLevel: 'debug' }));
+app.use('/users', proxy({ target: process.env.CURB_USERS }));
+app.use('/groups', proxy({ target: process.env.CURB_GROUPS }));
+app.use('/emailing', proxy({ target: process.env.CURB_EMAILING }));
+app.use('/notifications', proxy({ target: process.env.CURB_NOTIFICATIONS, ws: true }));
 
 module.exports = app;

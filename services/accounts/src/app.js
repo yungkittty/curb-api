@@ -34,6 +34,15 @@ app.use(cors(corsOptions));
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
+app.get('/test', (req, res, next) => {
+  console.log(req.baseUrl);
+  return res.send(`${process.env.SERVICE_NAME} test`);
+});
+
+app.post('/test', (req, res, next) => {
+  console.log(req.baseUrl);
+  return res.send(`${process.env.SERVICE_NAME} test`);
+});
 
 app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
