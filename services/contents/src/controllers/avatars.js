@@ -50,7 +50,7 @@ async function writeFile(src, dest, size) {
 const userUpload = multer({
   fileFilter: (req, file, callback) => {
     if (!file.originalname.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)) {
-      callback(new Error('Only image files are allowed'));
+      callback(new ApiError('CONTENTS_INVALID_TYPE'));
     }
     callback(null, true);
   },
