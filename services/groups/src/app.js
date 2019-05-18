@@ -14,7 +14,7 @@ mongoose.set('debug', true);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const whiteList = process.env.DOMAIN_WHITELIST.split(';');
+// const whiteList = process.env.DOMAIN_WHITELIST.split(';');
 
 const corsOptions = {
   origin(origin, callback) {
@@ -37,20 +37,22 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
+app.get('/trending', controllers.groupTrending);
+
 app.post('/', middlewares.authentication, controllers.groupCreate);
 app.get('/', controllers.groupList);
 app.get('/:id', controllers.groupRead);
 app.patch('/:id', middlewares.authentication, controllers.groupUpdate);
 app.delete('/:id', middlewares.authentication, controllers.groupDelete);
+
 app.post('/avatars/:groupId', controllers.groupAvatars);
 app.post('/join/:groupId', middlewares.authentication, controllers.groupJoin);
 app.post('/unjoin/:groupId', middlewares.authentication, controllers.groupUnjoin);
-app.post('/join', middlewares.authentication, controllers.groupTokenJoin);
 app.get('/permissions/:groupId/:userId', controllers.groupPermissions);
 app.post('/medias/:groupId/:mediaId', controllers.groupAddPost);
 app.delete('/medias/:groupId/:mediaId', controllers.groupDeletePost);
 app.get('/invite/:groupId', middlewares.authentication, controllers.groupInvite);
-app.post('/trend', controllers.groupTrending);
+
 app.use(middlewares.error);
 
 module.exports = app;

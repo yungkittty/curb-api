@@ -1,5 +1,6 @@
 const Group = require('../models/group');
 const { ApiError } = require('../configurations/error');
+const ranking = require('./ranking');
 
 async function addPost(groupId, mediaId, type) {
   const group = await Group.findById(groupId);
@@ -10,7 +11,8 @@ async function addPost(groupId, mediaId, type) {
   if (group.medias.includes(mediaId)) {
     throw new ApiError('GROUPS_MEDIA_ALREADY_PRESENT');
   }
-  group.medias = [...group.medias, mediaId];
+  group.medias = [mediaId, ...group.medias];
+  ranking(group._id);
   await group.save();
   return group;
 }

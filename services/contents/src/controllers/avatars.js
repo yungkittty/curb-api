@@ -8,8 +8,7 @@ const Path = require('path');
 const directoryExists = require('directory-exists');
 const { ApiError } = require('../configurations/error');
 const { OtherServiceError } = require('../configurations/error');
-
-const avatar = express();
+const sizes = require('../configurations/size');
 
 /**
  *
@@ -40,10 +39,18 @@ const avatar = express();
  *
  */
 
+const avatar = express();
+
+async function writeFile(src, dest, size) {
+  await sharp(src)
+    .resize(size, size)
+    .toFile(dest);
+}
+
 const userUpload = multer({
   fileFilter: (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/)) {
-      callback(new Error('Only image files are allowed'));
+    if (!file.originalname.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)) {
+      callback(new ApiError('CONTENTS_INVALID_TYPE'));
     }
     callback(null, true);
   },
@@ -61,7 +68,7 @@ const userUpload = multer({
 
 const groupUpload = multer({
   fileFilter: (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+    if (!file.originalname.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)) {
       callback(new Error('Only image files are allowed'));
     }
     callback(null, true);
@@ -110,9 +117,6 @@ avatar.use('/users/:userId', async (req, res, next) => {
     if (req.params.userId !== req.authId) {
       throw new ApiError('CONTENTS_FORBIDEN_OPERATION');
     }
-    // if (response.status !== 200 || response.data.id !== req.params.userId) {
-    //   throw new OtherServiceError(response.data.service, response.data.code, response.status);
-    // }
     const result = await directoryExists(`./uploads/avatars/users/${req.authId}`);
     if (result) {
       const files = await fs.readdir(`./uploads/avatars/users/${req.authId}`);
@@ -126,37 +130,24 @@ avatar.use('/users/:userId', async (req, res, next) => {
 
 avatar.post('/groups/:groupId', groupUpload.single('file'), async (req, res, next) => {
   const ext = Path.extname(req.file.originalname);
+  const fragment = new Date().getTime();
+
+  const basePath = `./${process.env.AVATAR_DIRECTORIES_GROUP_PATH}${
+    req.params.groupId
+  }/${fragment}-`;
+
+  const urlPath = `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_GROUP_PATH}${
+    req.params.groupId
+  }/${fragment}-medium${ext}`;
+
   try {
-    await sharp(req.file.path)
-      .resize(
-        parseInt(process.env.AVATAR_SIZE_EXTRA_SMALL, 10),
-        parseInt(process.env.AVATAR_SIZE_EXTRA_SMALL, 10)
-      )
-      .toFile(`./uploads/avatars/groups/${req.params.groupId}/extra_small${ext}`);
-    await sharp(req.file.path)
-      .resize(
-        parseInt(process.env.AVATAR_SIZE_SMALL, 10),
-        parseInt(process.env.AVATAR_SIZE_SMALL, 10)
-      )
-      .toFile(`./uploads/avatars/groups/${req.params.groupId}/small${ext}`);
-    await sharp(req.file.path)
-      .resize(
-        parseInt(process.env.AVATAR_SIZE_MEDIUM, 10),
-        parseInt(process.env.AVATAR_SIZE_MEDIUM, 10)
-      )
-      .toFile(`./uploads/avatars/groups/${req.params.groupId}/medium${ext}`);
-    await sharp(req.file.path)
-      .resize(
-        parseInt(process.env.AVATAR_SIZE_LARGE, 10),
-        parseInt(process.env.AVATAR_SIZE_LARGE, 10)
-      )
-      .toFile(`./uploads/avatars/groups/${req.params.groupId}/large${ext}`);
+    await Promise.all(
+      sizes.map(size => writeFile(req.file.path, `${basePath}${size.name}${ext}`, size.size))
+    );
     const response = await axios({
       method: 'post',
       data: {
-        avatarUrl: `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_GROUP_PATH}/${
-          req.params.groupId
-        }/medium${ext}`
+        avatarUrl: urlPath
       },
       url: `http://curb-groups:4000/avatars/${req.params.groupId}`,
       validateStatus: undefined
@@ -165,9 +156,7 @@ avatar.post('/groups/:groupId', groupUpload.single('file'), async (req, res, nex
       throw new OtherServiceError(response.data.service, response.data.code, response.status);
     }
     return res.status(200).json({
-      avatarUrl: `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_GROUP_PATH}/${
-        req.params.groupId
-      }/medium${ext}`
+      avatarUrl: urlPath
     });
   } catch (error) {
     return next(error);
@@ -176,37 +165,22 @@ avatar.post('/groups/:groupId', groupUpload.single('file'), async (req, res, nex
 
 avatar.post('/users/:userId', userUpload.single('file'), async (req, res, next) => {
   const ext = Path.extname(req.file.originalname);
+  const fragment = new Date().getTime();
+
+  const basePath = `./${process.env.AVATAR_DIRECTORIES_USER_PATH}${req.params.userId}/${fragment}-`;
+
+  const urlPath = `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_USER_PATH}${
+    req.params.userId
+  }/${fragment}-medium${ext}`;
+
   try {
-    await sharp(req.file.path)
-      .resize(
-        parseInt(process.env.AVATAR_SIZE_EXTRA_SMALL, 10),
-        parseInt(process.env.AVATAR_SIZE_EXTRA_SMALL, 10)
-      )
-      .toFile(`./uploads/avatars/users/${req.params.userId}/extra_small${ext}`);
-    await sharp(req.file.path)
-      .resize(
-        parseInt(process.env.AVATAR_SIZE_SMALL, 10),
-        parseInt(process.env.AVATAR_SIZE_SMALL, 10)
-      )
-      .toFile(`./uploads/avatars/users/${req.params.userId}/small${ext}`);
-    await sharp(req.file.path)
-      .resize(
-        parseInt(process.env.AVATAR_SIZE_MEDIUM, 10),
-        parseInt(process.env.AVATAR_SIZE_MEDIUM, 10)
-      )
-      .toFile(`./uploads/avatars/users/${req.params.userId}/medium${ext}`);
-    await sharp(req.file.path)
-      .resize(
-        parseInt(process.env.AVATAR_SIZE_LARGE, 10),
-        parseInt(process.env.AVATAR_SIZE_LARGE, 10)
-      )
-      .toFile(`./uploads/avatars/users/${req.params.userId}/large${ext}`);
+    await Promise.all(
+      sizes.map(size => writeFile(req.file.path, `${basePath}${size.name}${ext}`, size.size))
+    );
     const response = await axios({
       method: 'post',
       data: {
-        avatarUrl: `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_USER_PATH}/${
-          req.params.userId
-        }/medium${ext}`
+        avatarUrl: urlPath
       },
       url: `http://curb-users:4000/avatars/${req.params.userId}`,
       validateStatus: undefined
@@ -215,9 +189,7 @@ avatar.post('/users/:userId', userUpload.single('file'), async (req, res, next) 
       throw new OtherServiceError(response.data.service, response.data.code, response.status);
     }
     return res.status(200).json({
-      avatarUrl: `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_USER_PATH}/${
-        req.params.userId
-      }/medium${ext}`
+      avatarUrl: urlPath
     });
   } catch (error) {
     return next(error);
