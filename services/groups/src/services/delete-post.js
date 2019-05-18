@@ -1,4 +1,5 @@
 const Group = require('../models/group');
+const ranking = require('./ranking');
 const { ApiError } = require('../configurations/error');
 
 async function deletePost(groupId, mediaId) {
@@ -8,6 +9,7 @@ async function deletePost(groupId, mediaId) {
     throw new ApiError('GROUPS_MEDIA_NOT_FOUND');
   }
   group.medias = group.medias.filter(media => media !== mediaId);
+  ranking(group._id);
   await group.save();
   return group;
 }

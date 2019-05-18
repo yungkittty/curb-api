@@ -42,7 +42,10 @@
   users: [String],
   medias: [String],
   mediaTypes: oneOf('location', 'text', 'image','video')
-  theme: {String}
+  theme: {String},
+  rank: {Number},
+  lastUserAdded: {Date},
+  lastMediaAdded: {Date},
 }
 ```
 
