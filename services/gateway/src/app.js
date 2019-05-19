@@ -86,6 +86,9 @@ app.use(
     },
   }),
 );
+
+// https://github.com/chimurai/http-proxy-middleware/blob/master/recipes/websocket.md
+
 app.use(
   '/notifications',
   proxy({
