@@ -35,6 +35,7 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
+// TODO reset la size pour les files , { limit: '100mb' }
 app.use(
   '/contents',
   (req, res, next) => {
@@ -42,15 +43,59 @@ app.use(
     console.log('content length=>', req.get('content-length'));
   },
   proxy({ target: process.env.CURB_GROUP_CONTENT }),
-); // TODO reset la size pour les files , { limit: '100mb' }
+);
 
-app.use(bodyParser.json());
-app.use(cookieParser());
+// OtherWhise break the body for the sub proxy url
+// app.use(bodyParser.json());
+// app.use(cookieParser());
 
-app.use('/accounts', proxy({ target: process.env.CURB_ACCOUNT, logLevel: 'debug' }));
-app.use('/users', proxy({ target: process.env.CURB_USERS }));
-app.use('/groups', proxy({ target: process.env.CURB_GROUPS }));
-app.use('/emailing', proxy({ target: process.env.CURB_EMAILING }));
-app.use('/notifications', proxy({ target: process.env.CURB_NOTIFICATIONS, ws: true }));
+app.use(
+  '/accounts',
+  proxy({
+    target: process.env.CURB_ACCOUNT,
+    logLevel: 'debug',
+    pathRewrite: {
+      '^/accounts': '',
+    },
+  }),
+);
+app.use(
+  '/users',
+  proxy({
+    target: process.env.CURB_USERS,
+    pathRewrite: {
+      '^/users': '',
+    },
+  }),
+);
+app.use(
+  '/groups',
+  proxy({
+    target: process.env.CURB_GROUPS,
+    pathRewrite: {
+      '^/groups': '',
+    },
+  }),
+);
+app.use(
+  '/emailing',
+  proxy({
+    target: process.env.CURB_EMAILING,
+    pathRewrite: {
+      '^/emailing': '',
+    },
+  }),
+);
+app.use(
+  '/notifications',
+  proxy({
+    target: process.env.CURB_NOTIFICATIONS,
+    ws: true,
+    logLevel: 'debug',
+    pathRewrite: {
+      '^/notifications': '',
+    },
+  }),
+);
 
 module.exports = app;
