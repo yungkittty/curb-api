@@ -1,6 +1,7 @@
 const Group = require('../models/group');
 const { ApiError } = require('../configurations/error');
 const ranking = require('./ranking');
+const notification = require('../api-call/notifications');
 
 async function addPost(groupId, mediaId, type) {
   const group = await Group.findById(groupId);
@@ -13,6 +14,9 @@ async function addPost(groupId, mediaId, type) {
   }
   group.medias = [mediaId, ...group.medias];
   ranking(group._id);
+
+  // TODO NOTIFICATION (async)
+  notification(groupId, mediaId, type);
   await group.save();
   return group;
 }
