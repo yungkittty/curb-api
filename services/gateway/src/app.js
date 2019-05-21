@@ -89,16 +89,16 @@ app.use(
 
 // https://github.com/chimurai/http-proxy-middleware/blob/master/recipes/websocket.md
 
-app.use(
-  '/notifications',
-  proxy({
-    target: process.env.CURB_NOTIFICATIONS,
-    ws: true,
-    logLevel: 'debug',
-    pathRewrite: {
-      '^/notifications': '',
-    },
-  }),
-);
+// app.use(
+//   '/notifications',
+//   proxy({
+//     target: process.env.CURB_NOTIFICATIONS,
+//     ws: true,
+//     logLevel: 'debug',
+//     pathRewrite: {
+//       '^/notifications': '',
+//     },
+//   }),
+// );
 
 module.exports = app;

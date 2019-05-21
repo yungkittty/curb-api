@@ -21,7 +21,7 @@ services:
       - curb-groups
       - curb-contents
       - curb-emailing
-      - curb-notifications
+      # - curb-notifications
 
   curb-users:
     build: ./services/users
@@ -56,10 +56,9 @@ services:
       - 4005:4000
     depends_on:
       - db
-
-  curb-notifications:
-    build: ./services/notifications
-    ports:
-      - 4006:4000
-    depends_on:
-      - db
+  # curb-notifications:
+  #   build: ./services/notifications
+  #   ports:
+  #     - 4006:4000
+  #   depends_on:
+  #     - db
