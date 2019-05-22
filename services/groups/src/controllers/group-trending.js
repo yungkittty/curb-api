@@ -1,3 +1,4 @@
+const _ = require('lodash/fp');
 const { globalTrending, customizeTrending } = require('../services/');
 
 /**
@@ -114,21 +115,15 @@ const { globalTrending, customizeTrending } = require('../services/');
 
 async function groupTrending(req, res, next) {
   try {
-    let response;
     const count = req.query.count && parseInt(req.query.count, 10) < 100 ? parseInt(req.query.count, 10) : 100;
-    response = await globalTrending(count);
+    const response = await globalTrending(count);
     if (req.query.userId) {
       const customize = await customizeTrending(count, req.query.userId);
-      response = [...response, customize];
+      response.splice(1, 0, customize);
     }
 
     // TODO fix for @woivre, refacto format in service.
-    const formatted = response.map((obj) => {
-      let group;
-      group = obj;
-      group.data = [{ groups: obj.data }];
-      return group;
-    });
+    const formatted = response.map(obj => ({ ...obj, data: [{ groups: obj.data }] }));
     return res
       .status(200)
       .json(formatted)
