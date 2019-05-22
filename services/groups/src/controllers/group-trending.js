@@ -20,16 +20,16 @@ const { globalTrending, customizeTrending } = require('../services/');
  * [
  *  {
  *    category: 'global',
- *    data: [String]
+ *    data: [{groupId: String}]
  *  },
  *  {
  *    category: '${mediaType}', // image, video, location, text
- *    data: [String]
+ *    data: [{groupId: String}]
  *  }
  *  // if userId
  *  {
  *    category: 'custom',
- *    data: [String]
+ *    data: [{groupId: String}]
  *  }
  * ]
  *
@@ -37,7 +37,7 @@ const { globalTrending, customizeTrending } = require('../services/');
  * [
     {
         "category": "global",
-        "groups": [
+        "data": [
             "5cd59912f3e3eb001d77fb06",
             "5cd7f182fda0fb001c92cd56",
             "5cb7533c2db80f001d431464"
@@ -45,20 +45,20 @@ const { globalTrending, customizeTrending } = require('../services/');
     },
     {
         "category": "location",
-        "groups": [
+        "data": [
             "5cd59912f3e3eb001d77fb06",
             "5cb7533c2db80f001d431464"
         ]
     },
     {
         "category": "image",
-        "groups": [
+        "data": [
             "5cd7f182fda0fb001c92cd56"
         ]
     },
     {
         "category": "text",
-        "groups": [
+        "data": [
             "5cd59912f3e3eb001d77fb06",
             "5cd7f182fda0fb001c92cd56",
             "5cb7533c2db80f001d431464"
@@ -66,7 +66,7 @@ const { globalTrending, customizeTrending } = require('../services/');
     },
     {
         "category": "video",
-        "groups": []
+        "data": []
     }
 ]
  * @apiError BAD_PARAMETER 400
@@ -83,9 +83,17 @@ async function groupTrending(req, res, next) {
       const customize = await customizeTrending(count, req.query.userId);
       response = [...response, customize];
     }
+
+    // TODO fix for @woivre, refacto format in service.
+    const formatted = response.map((obj) => {
+      let group;
+      group = obj;
+      group.data = [{ groups: obj.data }];
+      return group;
+    });
     return res
       .status(200)
-      .json(response)
+      .json(formatted)
       .end();
   } catch (error) {
     return next(error);
