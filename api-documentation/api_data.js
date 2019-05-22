@@ -2374,7 +2374,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "[\n {\n   category: 'global',\n   data: [{groupId: String}]\n },\n {\n   category: '${mediaType}', // image, video, location, text\n   data: [{groupId: String}]\n }\n // if userId\n {\n   category: 'custom',\n   data: [{groupId: String}]\n }\n]",
+          "content": "[\n {\n   category: 'global',\n   data: [{groups: [String]}]\n },\n {\n   category: '${mediaType}', // image, video, location, text\n   data: [{groups: [String]}]\n }\n // if userId\n {\n   category: 'custom',\n   data: [{groups: [String]}]\n }\n]",
           "type": "json"
         },
         {

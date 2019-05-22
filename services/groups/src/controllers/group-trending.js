@@ -20,16 +20,16 @@ const { globalTrending, customizeTrending } = require('../services/');
  * [
  *  {
  *    category: 'global',
- *    data: [{groupId: String}]
+ *    data: [{groups: [String]}]
  *  },
  *  {
  *    category: '${mediaType}', // image, video, location, text
- *    data: [{groupId: String}]
+ *    data: [{groups: [String]}]
  *  }
  *  // if userId
  *  {
  *    category: 'custom',
- *    data: [{groupId: String}]
+  *    data: [{groups: [String]}]
  *  }
  * ]
  *
