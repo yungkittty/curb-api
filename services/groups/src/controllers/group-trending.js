@@ -38,35 +38,73 @@ const { globalTrending, customizeTrending } = require('../services/');
     {
         "category": "global",
         "data": [
-            "5cd59912f3e3eb001d77fb06",
-            "5cd7f182fda0fb001c92cd56",
-            "5cb7533c2db80f001d431464"
+            {
+                "groups": [
+                    "5cdcf29e011c6207cff1ad0b",
+                    "5cdcf19f9dfda2001dcae884",
+                    "5cdcf335011c6207cff1ad1c",
+                ]
+            }
         ]
     },
     {
         "category": "location",
         "data": [
-            "5cd59912f3e3eb001d77fb06",
-            "5cb7533c2db80f001d431464"
+            {
+                "groups": [
+                    "5cddae6c011c6207cff1ad4e",
+                    "5cddae7c011c6207cff1ad53"
+                ]
+            }
         ]
     },
     {
         "category": "image",
         "data": [
-            "5cd7f182fda0fb001c92cd56"
+            {
+                "groups": [
+                    "5cddae81011c6207cff1ad54",
+                    "5ce3dee7e1edb1001c59527e"
+                ]
+            }
         ]
     },
     {
         "category": "text",
         "data": [
-            "5cd59912f3e3eb001d77fb06",
-            "5cd7f182fda0fb001c92cd56",
-            "5cb7533c2db80f001d431464"
+            {
+                "groups": [
+                    "5cdd9184aff354001c3cbd21",
+                    "5cdcf0789dfda2001dcae87e",
+                    "5cdd120a2ea0dd001c28953a"
+                ]
+            }
         ]
     },
     {
         "category": "video",
-        "data": []
+        "data": [
+            {
+                "groups": [
+                    "5cdd9184aff354001c3cbd21",
+                    "5cdcf07c9dfda2001dcae87f",
+                    "5cdd120a2ea0dd001c28953a"
+                ]
+            }
+        ]
+    },
+    {
+        "category": "custom",
+        "data": [
+            {
+                "groups": [
+                    "5cddae77011c6207cff1ad51",
+                    "5cdda92c011c6207cff1ad30",
+                    "5cdd3a15011c6207cff1ad2a",
+
+                ]
+            }
+        ]
     }
 ]
  * @apiError BAD_PARAMETER 400

@@ -1,6 +1,6 @@
 define({
   "name": "curb-api",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "[WIP]",
   "header": {
     "title": "Informations",
@@ -13,7 +13,7 @@ define({
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2019-05-13T08:37:34.001Z",
+    "time": "2019-05-22T12:14:39.129Z",
     "url": "http://apidocjs.com",
     "version": "0.17.7"
   }
