@@ -15,7 +15,7 @@ app.use(cookieParser());
 const whiteList = process.env.DOMAIN_WHITELIST.split(';');
 
 const corsOptions = {
-  origin: function(origin, callback) {
+  origin(origin, callback) {
     // if (origin === undefined || whiteList.indexOf(origin) !== -1) {
     callback(null, true);
     // } else {

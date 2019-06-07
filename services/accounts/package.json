@@ -7,13 +7,13 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "nodemon -L server.js",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --timeout 5000 --recursive --exit",
     "lint": "./node_modules/.bin/eslint ."
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bcrypt": "^3.0.5",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",

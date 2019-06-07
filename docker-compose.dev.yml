@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  curb-gateway:
+    build:
+      context: ./services/gateway
+      dockerfile: Dockerfile-dev
+    command: yarn dev
+    volumes:
+      - ./services/gateway:/src
+
+  curb-users:
+    build:
+      context: ./services/users
+      dockerfile: Dockerfile-dev
+    command: yarn dev
+    volumes:
+      - ./services/users:/src
+
+  curb-accounts:
+    build:
+      context: ./services/accounts
+      dockerfile: Dockerfile-dev
+    command: yarn dev
+    volumes:
+      - ./services/accounts:/src
+
+  curb-groups:
+    build:
+      context: ./services/groups
+      dockerfile: Dockerfile-dev
+    command: yarn dev
+    volumes:
+      - ./services/groups:/src
+
+  curb-contents:
+    build:
+      context: ./services/contents
+      dockerfile: Dockerfile-dev
+    command: yarn dev
+    volumes:
+      - ./services/contents:/src
+
+  curb-emailing:
+    build:
+      context: ./services/emailing
+      dockerfile: Dockerfile-dev
+    command: yarn dev
+    volumes:
+      - ./services/emailing:/src
