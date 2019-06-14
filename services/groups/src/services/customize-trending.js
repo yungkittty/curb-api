@@ -1,6 +1,7 @@
+const _ = require('lodash');
 const mongoose = require('mongoose');
-const uniq = require('lodash/uniq');
-const shuffle = require('lodash/shuffle');
+// const uniq = require('lodash/uniq');
+// const shuffle = require('lodash/shuffle');
 const Group = require('../models/group');
 const aggregateGetSome = require('../aggregators/aggregate-get-some');
 // TEST SUR 5cdcf05889c110001cdef5a8
@@ -181,15 +182,18 @@ async function customizeTrending(count, userId) {
 
   // (Not gonna happen frequently) Not enough friendlyUsers => getSome from best media :
   if (count > groupIds.length) {
-    groupIds = [
-      ...groupIds,
-      ...(await fillFromMedia(userId, count - groupIds.length, countPerMedia))
-    ];
+    const fromMedia = await fillFromMedia(userId, count - groupIds.length, countPerMedia);
+    groupIds = [...groupIds, ...fromMedia];
   }
 
-  // ====> remove Duplicates (from sample of media|friendIds) and shuffle
-  const resp = shuffle(uniq(groupIds));
-  return { category: 'custom', data: resp };
+  // TODO Regler ce problème :
+  const stringified = JSON.stringify(groupIds);
+  const array = JSON.parse(stringified);
+  const uniqueIds = _.uniq(array);
+  //
+
+  console.log('after/before=>', groupIds.length, uniqueIds.length);
+  return { category: 'custom', data: _.shuffle(uniqueIds) };
 }
 
 module.exports = customizeTrending;
