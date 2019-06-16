@@ -1078,91 +1078,6 @@ define({ "api": [
     "title": "ACCOUNT ACTIVATE",
     "name": "ACCOUNTS9",
     "group": "ACCOUNTS",
-    "version": "0.2.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "ttoken",
-            "description": "<p>token from the mail</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    token: '{String}'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "userId",
-            "description": "<p>the userId</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ACCOUNT_NOT_FOUND",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ACCOUNT_ALREADY_ACTIVE",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ACCOUNT_CODE_DIFFERENT",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "DATABASE_ERROR",
-            "description": "<p>500</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "UNDEFINED",
-            "description": "<p>500</p>"
-          }
-        ]
-      }
-    },
-    "filename": "../../services/accounts/src/controllers/account-activate.js",
-    "groupTitle": "ACCOUNTS"
-  },
-  {
-    "type": "POST",
-    "url": "/accounts/activate/:id",
-    "title": "ACCOUNT ACTIVATE",
-    "name": "ACCOUNTS9",
-    "group": "ACCOUNTS",
     "version": "0.1.0",
     "parameter": {
       "fields": {
@@ -1239,7 +1154,7 @@ define({ "api": [
         ]
       }
     },
-    "filename": "../../services/accounts/src/controllers/_apidoc.js",
+    "filename": "../../services/accounts/src/controllers/account-activate.js",
     "groupTitle": "ACCOUNTS"
   },
   {
@@ -2459,12 +2374,12 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "[\n {\n   category: 'global',\n   data: [String]\n },\n {\n   category: '${mediaType}', // image, video, location, text\n   data: [String]\n }\n // if userId\n {\n   category: 'custom',\n   data: [String]\n }\n]",
+          "content": "[\n {\n   category: 'global',\n   data: [{groups: [String]}]\n },\n {\n   category: '${mediaType}', // image, video, location, text\n   data: [{groups: [String]}]\n }\n // if userId\n {\n   category: 'custom',\n   data: [{groups: [String]}]\n }\n]",
           "type": "json"
         },
         {
           "title": "Success-Response:",
-          "content": "[\n    {\n        \"category\": \"global\",\n        \"groups\": [\n            \"5cd59912f3e3eb001d77fb06\",\n            \"5cd7f182fda0fb001c92cd56\",\n            \"5cb7533c2db80f001d431464\"\n        ]\n    },\n    {\n        \"category\": \"location\",\n        \"groups\": [\n            \"5cd59912f3e3eb001d77fb06\",\n            \"5cb7533c2db80f001d431464\"\n        ]\n    },\n    {\n        \"category\": \"image\",\n        \"groups\": [\n            \"5cd7f182fda0fb001c92cd56\"\n        ]\n    },\n    {\n        \"category\": \"text\",\n        \"groups\": [\n            \"5cd59912f3e3eb001d77fb06\",\n            \"5cd7f182fda0fb001c92cd56\",\n            \"5cb7533c2db80f001d431464\"\n        ]\n    },\n    {\n        \"category\": \"video\",\n        \"groups\": []\n    }\n]",
+          "content": "[\n    {\n        \"category\": \"global\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cdcf29e011c6207cff1ad0b\",\n                    \"5cdcf19f9dfda2001dcae884\",\n                    \"5cdcf335011c6207cff1ad1c\",\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"location\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cddae6c011c6207cff1ad4e\",\n                    \"5cddae7c011c6207cff1ad53\"\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"image\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cddae81011c6207cff1ad54\",\n                    \"5ce3dee7e1edb1001c59527e\"\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"text\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cdd9184aff354001c3cbd21\",\n                    \"5cdcf0789dfda2001dcae87e\",\n                    \"5cdd120a2ea0dd001c28953a\"\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"video\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cdd9184aff354001c3cbd21\",\n                    \"5cdcf07c9dfda2001dcae87f\",\n                    \"5cdd120a2ea0dd001c28953a\"\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"custom\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cddae77011c6207cff1ad51\",\n                    \"5cdda92c011c6207cff1ad30\",\n                    \"5cdd3a15011c6207cff1ad2a\",\n\n                ]\n            }\n        ]\n    }\n]",
           "type": "json"
         }
       ]
@@ -2754,13 +2669,6 @@ define({ "api": [
             "optional": false,
             "field": "groupId",
             "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "userId",
-            "description": "<p>from token header</p>"
           }
         ]
       }
@@ -2820,11 +2728,12 @@ define({ "api": [
   },
   {
     "type": "POST",
-    "url": "/groups/join",
+    "url": "/groups/join/:id",
     "title": "GROUPS JOIN",
     "name": "GROUPS6",
     "group": "GROUPS",
-    "version": "0.2.0",
+    "version": "0.1.0",
+    "description": "<h4>Public Group: specify groupId</h4> <h4>Private Group: add the token from invite response in the body </h4><br>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -2832,18 +2741,25 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "userId",
-            "description": "<p>from token header</p>"
+            "field": "groupId",
+            "description": ""
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
-            "field": "groupId",
-            "description": "<p>//</p>"
+            "optional": true,
+            "field": "token",
+            "description": "<p>field to allow user to join private group</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    token: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dWVySWQiOiI1Y2I3NTM1NzlkNGIx\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "success": {
       "fields": {
@@ -2852,7 +2768,7 @@ define({ "api": [
             "group": "200",
             "type": "String",
             "optional": false,
-            "field": "OK",
+            "field": "groupId",
             "description": ""
           }
         ]
@@ -2889,164 +2805,6 @@ define({ "api": [
       }
     },
     "filename": "../../services/groups/src/controllers/group-join.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/join",
-    "title": "GROUPS JOIN",
-    "name": "GROUPS6",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "userId",
-            "description": "<p>from token header</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "groupId",
-            "description": "<p>//</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "OK",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "FORBIDEN_JOIN",
-            "description": "<p>403</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "USER_ALREADY_JOIN",
-            "description": "<p>403</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "UNDEFINED",
-            "description": "<p>500</p>"
-          }
-        ]
-      }
-    },
-    "filename": "../../services/groups/src/controllers/_apidoc.js",
-    "groupTitle": "GROUPS"
-  },
-  {
-    "type": "POST",
-    "url": "/groups/join",
-    "title": "GROUPS TOKEN JOIN",
-    "name": "GROUPS7",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "token",
-            "description": "<p>body</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    token: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dWVySWQiOiI1Y2I3NTM1NzlkNGIx\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "OK",
-            "description": ""
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "TOKEN_EXPIRED",
-            "description": "<p>403</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "TOKEN_AHEAD_OF_TIME",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "INVALID_TOKEN",
-            "description": "<p>403</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "FORBIDEN_JOIN",
-            "description": "<p>403</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "USER_ALREADY_JOIN",
-            "description": "<p>403</p>"
-          }
-        ]
-      }
-    },
-    "filename": "../../services/groups/src/controllers/group-token-join.js",
     "groupTitle": "GROUPS"
   },
   {
