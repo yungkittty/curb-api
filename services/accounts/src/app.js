@@ -3,7 +3,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
 const controllers = require('./controllers');
 const middlewares = require('./middlewares');
 

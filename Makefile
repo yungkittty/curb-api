@@ -1,7 +1,7 @@
-build:
-	docker-compose build
-up:
-	docker-compose -f docker-compose.yml up
+build-prod:
+	docker-compose up --build
+build-dev:
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 accounts:
 	docker-compose run curb-accounts yarn test
 contents:
