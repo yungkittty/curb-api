@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: function(origin, callback) {
+  origin(origin, callback) {
     // console.log('origin=>', origin);
     // if (origin === undefined || whiteList.indexOf(origin) !== -1) {
     callback(null, true);
