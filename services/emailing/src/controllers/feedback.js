@@ -10,14 +10,8 @@ const { ApiError } = require('../configurations/error');
  *
  *
  * @apiParam  {String} data body
- * @apiParam  {String} userId params
  *
  * @apiSuccess (200) {String} OK
- *
- * @apiParamExample  {json} Request-Example:
- * {
- *     email: 'email.email@email.com'
- * }
  *
  * @apiError BAD_PARAMETER 400
  * @apiError OTHER_SERVICE_ERROR XXX
@@ -25,11 +19,11 @@ const { ApiError } = require('../configurations/error');
  */
 
 async function feedback(req, res, next) {
-  if (!req.params.id || !req.body.data) {
+  if (!req.body.data) {
     return next(new ApiError('EMAILING_BAD_PARAMETER'));
   }
   try {
-    await feedbackUser(userId, data);
+    await feedbackUser(req.body.data, req.header('User-Agent'));
     return res.status(200).end();
   } catch (error) {
     return next(error);

@@ -1919,6 +1919,66 @@ define({ "api": [
   },
   {
     "type": "POST",
+    "url": "/emailing/feedback",
+    "title": "EMAILING FEEDBACK USER",
+    "name": "EMAILING3",
+    "group": "EMAILING",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>body</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/emailing/src/controllers/feedback.js",
+    "groupTitle": "EMAILING"
+  },
+  {
+    "type": "POST",
     "url": "/groups/",
     "title": "GROUPS CREATE",
     "name": "GROUPS1",
