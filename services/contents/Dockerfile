@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:12.4.0
 COPY . /src
 WORKDIR /src
 RUN yarn

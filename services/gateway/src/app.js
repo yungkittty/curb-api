@@ -35,6 +35,7 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
+
 // TODO refacto limit size was 100mb ~
 app.use('/contents', proxy(process.env.CURB_GROUP_CONTENT, { limit: '500mb' }));
 

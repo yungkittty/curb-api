@@ -13,7 +13,6 @@ mongoose.set('debug', true);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-
 // const whiteList = process.env.DOMAIN_WHITELIST.split(';');
 
 const corsOptions = {
