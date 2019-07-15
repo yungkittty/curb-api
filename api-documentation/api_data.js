@@ -2406,6 +2406,240 @@ define({ "api": [
     "groupTitle": "GROUPS"
   },
   {
+    "type": "GET",
+    "url": "/groups/trending",
+    "title": "GROUPS LIST CUSTOM",
+    "name": "GROUPS15",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "description": "<h4>List for custom section </h4><br>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "10",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "category",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "group",
+            "description": "<p>public field of the group</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "[\n    {\n      \"count\": 3,\n      \"page\": 1,\n      \"data\": [\n          {\n              \"groups\": [\n                  \"5cddae77011c6207cff1ad51\",\n                  \"5cdda92c011c6207cff1ad30\",\n                  \"5cdd3a15011c6207cff1ad2a\",\n\n              ]\n          }\n      ]\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-list-custom.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "GET",
+    "url": "/groups/trending",
+    "title": "GROUPS LIST GLOBAL",
+    "name": "GROUPS16",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "description": "<h4>List for global section </h4><br>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "10",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "category",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "group",
+            "description": "<p>public field of the group</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "[\n    {\n      \"count\": 3,\n      \"page\": 1,\n      \"data\": [\n          {\n              \"groups\": [\n                  \"5cddae77011c6207cff1ad51\",\n                  \"5cdda92c011c6207cff1ad30\",\n                  \"5cdd3a15011c6207cff1ad2a\",\n\n              ]\n          }\n      ]\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-list-global.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "GET",
+    "url": "/groups/trending",
+    "title": "GROUPS LIST RANDOM",
+    "name": "GROUPS17",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "description": "<h4>List for Random section</h4><br>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "10",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "category",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "group",
+            "description": "<p>public field of the group</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "[\n    {\n      \"count\": 3,\n      \"page\": 1,\n      \"data\": [\n          {\n              \"groups\": [\n                  \"5cddae77011c6207cff1ad51\",\n                  \"5cdda92c011c6207cff1ad30\",\n                  \"5cdd3a15011c6207cff1ad2a\",\n\n              ]\n          }\n      ]\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-list-random.js",
+    "groupTitle": "GROUPS"
+  },
+  {
     "type": "DELETE",
     "url": "/groups/:id",
     "title": "GROUPS DELETE",

@@ -11,6 +11,9 @@ const groupInvite = require('./group-invite');
 const groupAvatars = require('./group-avatars');
 const groupUnjoin = require('./group-unjoin');
 const groupTrending = require('./group-trending');
+const groupListRandom = require('./group-list-random');
+const groupListGlobal = require('./group-list-global');
+const groupListCustom = require('./group-list-custom');
 
 module.exports = {
   groupCreate,
@@ -25,5 +28,8 @@ module.exports = {
   groupInvite,
   groupAvatars,
   groupUnjoin,
-  groupTrending
+  groupTrending,
+  groupListRandom,
+  groupListGlobal,
+  groupListCustom
 };

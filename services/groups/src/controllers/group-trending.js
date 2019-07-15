@@ -1,4 +1,3 @@
-const _ = require('lodash/fp');
 const { globalTrending, customizeTrending } = require('../services/');
 
 /**

@@ -37,6 +37,9 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.get('/trending', controllers.groupTrending);
+app.get('/list-random', controllers.groupListRandom);
+app.get('/list-global', controllers.groupListGlobal);
+app.get('/list-custom', controllers.groupListCustom);
 
 app.post('/', middlewares.authentication, controllers.groupCreate);
 app.get('/', controllers.groupList);
