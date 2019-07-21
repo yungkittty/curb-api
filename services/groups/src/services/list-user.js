@@ -1,13 +1,12 @@
 const Group = require('../models/group');
 const pagination = require('../utils/pagination');
 
-async function listGlobal({ page = 1, count = 5, category = undefined }) {
-  console.log(category);
-  const groupGlobalIds = await Group.aggregate([
+async function listRandom({ page = 1, count = 5, active = undefined }) {
+  const list = await Group.aggregate([
     {
       $match: {
-        status: { $ne: 'private' },
-        category: category === undefined ? null : { $eq: category }
+        status: { $ne: 'private' }
+        // category: category === undefined ? null : { $eq: category }
       }
     },
     {
@@ -22,14 +21,13 @@ async function listGlobal({ page = 1, count = 5, category = undefined }) {
     }
   ]);
 
-  const { ids = [] } = groupGlobalIds[0] || [];
+  const { ids = [] } = list[0] || [];
 
   return {
     count,
     page,
-    section: 'global',
     groups: ids.reduce((acc, id) => acc.concat(id), [])
   };
 }
 
-module.exports = listGlobal;
+module.exports = listRandom;

@@ -45,7 +45,7 @@ const groupSchema = mongoose.Schema(
           'Sport',
           'Lifestyle',
           'Technology',
-          'Food and Dring',
+          'Food and Drink',
           'Business',
           'Science',
           'Travel',

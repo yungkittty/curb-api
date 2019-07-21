@@ -20,7 +20,8 @@ async function listRandom({ page = 1, count = 5, category = undefined }) {
   return {
     count,
     page,
-    data: randomGroupIds.reduce((acc, id) => acc.concat(id), [])
+    section: 'random',
+    groups: randomGroupIds.reduce((acc, id) => acc.concat(id), [])
   };
 }
 

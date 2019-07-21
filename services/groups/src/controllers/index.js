@@ -14,6 +14,9 @@ const groupTrending = require('./group-trending');
 const groupListRandom = require('./group-list-random');
 const groupListGlobal = require('./group-list-global');
 const groupListCustom = require('./group-list-custom');
+const groupListUser = require('./group-list-user');
+const groupListMedia = require('./group-list-media');
+const groupFromIds = require('./group-list-from-id');
 
 module.exports = {
   groupCreate,
@@ -31,5 +34,8 @@ module.exports = {
   groupTrending,
   groupListRandom,
   groupListGlobal,
-  groupListCustom
+  groupListCustom,
+  groupListUser,
+  groupListMedia,
+  groupFromIds
 };

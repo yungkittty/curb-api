@@ -2,37 +2,33 @@ const listGlobal = require('../services/list-global');
 
 /**
  *
- * @api {GET} /groups/trending GROUPS LIST GLOBAL
+ * @api {GET} /groups/list-global GROUPS LIST GLOBAL
  * @apiName GROUPS16
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  * @apiDescription
  * <h4>List for global section </h4><br>
  *
- * @apiParam {Number} [count=10] queryParam
+ * @apiParam {Number} [count=5] queryParam
  * @apiParam {Number} [page=1] queryParam
  * @apiParam {String} [category] queryParam
  *
- * @apiSuccess (200) {Object} group public field of the group
+ * @apiSuccess (200) {Object}
  *
  *
  * @apiSuccessExample {json} Success-Response:
- * [
-    {
-      "count": 3,
-      "page": 1,
-      "data": [
-          {
-              "groups": [
-                  "5cddae77011c6207cff1ad51",
-                  "5cdda92c011c6207cff1ad30",
-                  "5cdd3a15011c6207cff1ad2a",
-
-              ]
-          }
-      ]
-    }
-]
+{
+    "count": 10,
+    "page": 1,
+    "section": "global",
+    "groups": [
+        "5d2c710b2b91f5004c54f8da",
+        "5d2c76ae24839b009e791e6e",
+        "5d2c6c4c97ff050029efc582",
+        "5d2c5f4844f800053656838d",
+        "5d2c45494cb40d03d44ef286"
+    ]
+}
  * @apiError BAD_PARAMETER 400
  * @apiError OTHER_SERVICE_ERROR XXX
  *

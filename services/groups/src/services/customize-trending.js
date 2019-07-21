@@ -131,6 +131,7 @@ async function aggregateUsersFriendlyGroupIds(userId, excludeUserId) {
 async function fillFromMedia(userId, count, countPerMedia) {
   const samples = [0.5, 0.3, 0.15, 0.15];
   const pendings = countPerMedia.map(async (media, idx) => {
+    // TODO aggregateGetSome à changer.
     const aggregate = await aggregateGetSome(samples[idx] * count, [
       {
         $match: {
@@ -190,10 +191,17 @@ async function customizeTrending(count, userId) {
   const stringified = JSON.stringify(groupIds);
   const array = JSON.parse(stringified);
   const uniqueIds = _.uniq(array);
-  //
 
+  // Mongoose unique index =>
+  const map = uniqueIds.map(id => ({ groupId: id }));
+
+  // console.log('mapped=>', map);
+  // console.log(uniqueIds);
   console.log('after/before=>', groupIds.length, uniqueIds.length);
-  return { category: 'custom', data: _.shuffle(uniqueIds) };
+
+  return uniqueIds;
+  // return map;
+  // return { category: 'custom', data: _.shuffle(uniqueIds) };
 }
 
 module.exports = customizeTrending;

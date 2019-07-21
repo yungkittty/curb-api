@@ -4,9 +4,7 @@ const { OtherServiceError, ApiError } = require('../configurations/error');
 function getToken(headers) {
   const find = 'token=';
   const tokenString = headers[0].split(';')[0];
-  return tokenString.slice(
-    tokenString.indexOf(find) + find.length - tokenString.length
-  );
+  return tokenString.slice(tokenString.indexOf(find) + find.length - tokenString.length);
 }
 
 async function authentication(req, res, next) {
@@ -14,6 +12,7 @@ async function authentication(req, res, next) {
     if (req.authId || req.token) {
       return next(new ApiError('GROUPS_BAD_PARAMETER'));
     }
+    console.log('TOK=>', req.cookies.token);
     const response = await axios({
       method: 'post',
       withCredentials: true,
@@ -22,11 +21,7 @@ async function authentication(req, res, next) {
       validateStatus: undefined
     });
     if (response.status !== 200) {
-      throw new OtherServiceError(
-        response.data.service,
-        response.data.code,
-        response.status
-      );
+      throw new OtherServiceError(response.data.service, response.data.code, response.status);
     }
     if (response.headers['set-cookie']) {
       res.cookie('token', getToken(response.headers['set-cookie']), {
