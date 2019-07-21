@@ -31,7 +31,6 @@ const listUser = require('../services/list-user');
 
 async function userList(req, res, next) {
   try {
-    console.log('user-list');
     const response = await listUser({
       page: req.query.page ? parseInt(req.query.page, 10) : undefined,
       count: req.query.count ? parseInt(req.query.count, 10) : undefined
@@ -41,7 +40,6 @@ async function userList(req, res, next) {
       .json(response)
       .end();
   } catch (error) {
-    console.log(error);
     return next(error);
   }
 }

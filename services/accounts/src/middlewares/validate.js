@@ -24,7 +24,7 @@ async function validate(req, res, next) {
         const payload = await refresh(req.cookies.token);
         req.authId = payload.id;
         req.token = payload.token;
-        res.cookie('token', payload.token, { httpOnly: true, secure: true });
+        res.cookie('token', payload.token, { httpOnly: true, secure: true, maxAge: 31536000 });
         return next();
       } catch (refreshError) {
         return next(refreshError);

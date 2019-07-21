@@ -42,17 +42,9 @@ app.get('/list', controllers.groupFromIds);
 app.get('/list-random', controllers.groupListRandom);
 app.get('/list-global', controllers.groupListGlobal);
 // TODO PUT AUTHENTICATION =>
-app.get(
-  '/list-custom',
-  // middlewares.authentication,
-  controllers.groupListCustom
-);
+app.get('/list-custom', middlewares.authentication, controllers.groupListCustom);
 // TODO PUT AUTHENTICATION =>
-app.get(
-  '/list-media',
-  // middlewares.authentication,
-  controllers.groupListMedia
-);
+app.get('/list-media', middlewares.authentication, controllers.groupListMedia);
 // app.get('/:goupId/users/', controllers.groupListUser);
 
 app.post('/', middlewares.authentication, controllers.groupCreate);

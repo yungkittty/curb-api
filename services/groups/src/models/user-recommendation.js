@@ -4,14 +4,15 @@ const { ApiError } = require('../configurations/error');
 
 mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
-const id = mongoose.Schema({
-  groupId: { type: String }
-});
+// const id = mongoose.Schema({
+//   groupId: { type: String }
+// });
 
 const userRecommendationSchema = mongoose.Schema(
   {
-    users: { type: [String] }
-    // groupIds: { type: [String], message: 'GROUPIDS' }
+    // users: { type: [String] }
+    name: String,
+    groupIds: { type: [String] }
   },
   // will generate automaticly createdAt & updateAt
   { timestamps: true }
@@ -35,11 +36,6 @@ userRecommendationSchema.methods.getPublicFields = function() {
   const { __v, _id, ...publicRecommendation } = this.toObject();
   return { id: _id, ...publicRecommendation };
 };
-
-// TODO do rank compute here
-// userRecommendationSchema.pre('save', (doc, next) => {
-//   // return next();
-// });
 
 userRecommendationSchema.post('save', async (error, doc, next) => {
   // console.log('MONGO ERROR:', error);

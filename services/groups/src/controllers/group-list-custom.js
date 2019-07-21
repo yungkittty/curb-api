@@ -35,7 +35,6 @@ const listCustom = require('../services/list-custom');
 
 async function groupListCustom(req, res, next) {
   try {
-    console.log('list-custom');
     const response = await listCustom({
       page: req.query.page ? parseInt(req.query.page, 10) : undefined,
       count: req.query.count ? parseInt(req.query.count, 10) : undefined,

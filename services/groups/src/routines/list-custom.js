@@ -41,13 +41,15 @@ async function fillUsersRecommendation() {
     console.log('###############"done trending=>', groupIds);
     const doc = await UserRecommendation.findOne({ _id: userId });
     if (doc !== null) {
-      doc.groupIds = groupIds;
+      doc.name = 'toto';
+      doc.groupIds = groupIds; // [...groupIds, 'a'];
       // console.log('DONE=>', doc);
       await doc.save();
     } else {
       const newRecommendation = new UserRecommendation({
         _id: mongoose.Types.ObjectId(userId),
-        groupIds
+        name: 'toto',
+        groupIds // [...groupIds, 'a']
       });
       await newRecommendation.save();
     }
