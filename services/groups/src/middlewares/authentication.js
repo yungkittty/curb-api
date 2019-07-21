@@ -12,7 +12,6 @@ async function authentication(req, res, next) {
     if (req.authId || req.token) {
       return next(new ApiError('GROUPS_BAD_PARAMETER'));
     }
-    console.log('TOK=>', req.cookies.token);
     const response = await axios({
       method: 'post',
       withCredentials: true,

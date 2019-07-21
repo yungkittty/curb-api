@@ -36,7 +36,6 @@ const listGlobal = require('../services/list-global');
 
 async function groupListGlobal(req, res, next) {
   try {
-    console.log('list-global');
     const response = await listGlobal({
       page: req.query.page ? parseInt(req.query.page, 10) : undefined,
       count: req.query.count ? parseInt(req.query.count, 10) : undefined,

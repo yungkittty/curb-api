@@ -2,7 +2,6 @@ const Group = require('../models/group');
 const pagination = require('../utils/pagination');
 
 async function listGlobal({ page = 1, count = 5, category = undefined }) {
-  console.log(category);
   const groupGlobalIds = await Group.aggregate([
     {
       $match: {

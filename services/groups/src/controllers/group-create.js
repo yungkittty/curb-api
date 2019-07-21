@@ -59,7 +59,6 @@ async function groupCreate(req, res, next) {
       .json(groupId)
       .end();
   } catch (error) {
-    console.log(error);
     return next(error);
   }
 }

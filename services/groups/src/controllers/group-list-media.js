@@ -56,8 +56,6 @@ async function groupListMedia(req, res, next) {
       }
     }
     const userId = !response ? undefined : response.data.id;
-    console.log('list-media####');
-    console.log(req.query.groupId);
     const list = await listMedia({
       groupId: req.query.groupId,
       page: req.query.page ? parseInt(req.query.page, 10) : undefined,

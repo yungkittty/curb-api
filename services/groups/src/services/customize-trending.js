@@ -192,15 +192,10 @@ async function customizeTrending(count, userId) {
   const array = JSON.parse(stringified);
   const uniqueIds = _.uniq(array);
 
-  // Mongoose unique index =>
-  const map = uniqueIds.map(id => ({ groupId: id }));
-
-  // console.log('mapped=>', map);
-  // console.log(uniqueIds);
+  
   console.log('after/before=>', groupIds.length, uniqueIds.length);
 
   return uniqueIds;
-  // return map;
   // return { category: 'custom', data: _.shuffle(uniqueIds) };
 }
 

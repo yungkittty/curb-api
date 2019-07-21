@@ -1,7 +1,6 @@
 const Group = require('../models/group');
 
 async function listFromId(groupIds, userId = undefined) {
-  console.log(groupIds, typeof groupIds);
   const groups = await Group.find({
     _id: { $in: groupIds }
   });
