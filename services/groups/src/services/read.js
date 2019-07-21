@@ -7,14 +7,16 @@ async function read(groupId, userId = undefined) {
   if (group.status === 'private' && (!group.users.includes(userId) || !userId)) {
     // TODO Change after DELIVERY @(private / 'ghost' / public) :
     const {
-      id, name, avatarUrl, theme, status
+      id, name, avatarUrl, theme, status, description, category
     } = group.getPublicFields();
     return {
       id,
       name,
       avatarUrl,
       theme,
-      status
+      status,
+      description,
+      category
     };
     // throw new ApiError('GROUPS_FORBIDEN_READ');
   }

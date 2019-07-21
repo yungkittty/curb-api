@@ -82,7 +82,7 @@ groupSchema.plugin(uniqueValidator, { message: 'GROUPS_DUPLICATE_{PATH}' });
 // eslint-disable-next-line
 groupSchema.methods.getPublicFields = function() {
   const {
-    __v, _id, rank, ...publicGroup
+    __v, _id, rank, activity, ...publicGroup
   } = this.toObject();
   return { id: _id, ...publicGroup };
 };

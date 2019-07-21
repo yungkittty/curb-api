@@ -27,6 +27,7 @@ const { OtherServiceError } = require('../configurations/error');
 async function groupListFromId(req, res, next) {
   try {
     console.log('LIST FROM IDS');
+    console.log(req.query.groupIds, typeof req.query.groupIds);
     let getUserResponse;
     if (req.cookies.token) {
       getUserResponse = await axios({

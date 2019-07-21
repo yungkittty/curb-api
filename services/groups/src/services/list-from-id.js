@@ -9,14 +9,16 @@ async function listFromId(groupIds, userId = undefined) {
   const response = groups.map((group) => {
     if (group.status === 'private' && (!group.users.includes(userId) || !userId)) {
       const {
-        id, name, avatarUrl, theme, status
+        id, name, avatarUrl, theme, status, description, category
       } = group.getPublicFields();
       return {
         id,
         name,
         avatarUrl,
         theme,
-        status
+        status,
+        description,
+        category
       };
     }
     // TODO when group are private/ghost/public
