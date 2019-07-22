@@ -6,7 +6,6 @@ mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const userRecommendationSchema = mongoose.Schema(
   {
-    name: String,
     groupIds: { type: [String] }
   },
   // will generate automaticly createdAt & updateAt
