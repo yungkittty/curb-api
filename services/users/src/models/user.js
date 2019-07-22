@@ -4,14 +4,18 @@ const { ApiError } = require('../configurations/error');
 
 mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
-const userSchema = mongoose.Schema({
-  _id: { type: mongoose.SchemaTypes.ObjectId, auto: false },
-  name: { type: String, required: [true, 'USERS_MISSING_NAME'], unique: true },
-  dateCreation: Date,
-  avatarUrl: {
-    type: String
-  }
-});
+const userSchema = mongoose.Schema(
+  {
+    _id: { type: mongoose.SchemaTypes.ObjectId, auto: false },
+    name: { type: String, required: [true, 'USERS_MISSING_NAME'], unique: true },
+    dateCreation: Date,
+    avatarUrl: {
+      type: String
+    }
+  },
+  // will generate automaticly createdAt & updateAt
+  { timestamps: true }
+);
 
 userSchema.plugin(uniqueValidator, { message: 'USERS_DUPLICATE_{PATH}' });
 

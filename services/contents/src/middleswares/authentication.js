@@ -29,10 +29,7 @@ async function authentication(req, res, next) {
       );
     }
     if (response.headers['set-cookie']) {
-      res.cookie('token', getToken(response.headers['set-cookie']), {
-        httpOnly: true,
-        secure: true
-      });
+      res.cookie('token', getToken(response.headers['set-cookie']), { httpOnly: true, secure: true, maxAge: 31536000 });
     }
     req.authId = response.data.id;
     return next();

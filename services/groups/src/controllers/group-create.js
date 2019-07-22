@@ -12,7 +12,8 @@ const { ApiError } = require('../configurations/error');
  * @apiParam  {String} email //
  * @apiParam  {String} password //
  * @apiParam  {String} name //
- *
+ * @apiParam  [String] description //
+ * @apiParam  [String] category //
  *
  * @apiSuccess (200) {Object} Group Public field of the group
  *
@@ -37,7 +38,9 @@ const { ApiError } = require('../configurations/error');
 
 async function groupCreate(req, res, next) {
   if (!req.body) return next(new ApiError('GROUPS_BAD_PARAMETER'));
-  const { name, status, mediaTypes, theme } = req.body;
+  const {
+    name, status, mediaTypes, theme, description, category
+  } = req.body;
   if (!name || !status || !mediaTypes || !theme) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
@@ -47,7 +50,9 @@ async function groupCreate(req, res, next) {
       name,
       status,
       mediaTypes,
-      theme
+      theme,
+      description,
+      category
     });
     return res
       .status(200)

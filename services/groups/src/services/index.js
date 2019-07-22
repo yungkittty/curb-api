@@ -11,7 +11,6 @@ const invite = require('./invite');
 const avatar = require('./avatar');
 const unjoin = require('./unjoin');
 const ranking = require('./ranking');
-const globalTrending = require('./global-trending');
 const customizeTrending = require('./customize-trending');
 
 module.exports = {
@@ -28,6 +27,5 @@ module.exports = {
   avatar,
   unjoin,
   ranking,
-  globalTrending,
   customizeTrending
 };

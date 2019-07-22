@@ -7,6 +7,8 @@ async function create(group) {
     status: group.status,
     mediaTypes: group.mediaTypes,
     theme: group.theme,
+    description: group.description,
+    category: group.category,
     dateCreation: new Date()
   });
   newGroup.users = [...newGroup.users, group.creatorId];

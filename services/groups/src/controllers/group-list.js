@@ -10,11 +10,11 @@ const { OtherServiceError } = require('../configurations/error');
  * @apiVersion  0.1.0
  *
  *
- * @apiParam  {String} [userId] QueryParam
- * @apiParam  {String} [creatorId] QueryParam
- * @apiParam  {String} [page=5] QueryParam
- * @apiParam  {String} [count=5] QueryParam
- *
+ * @apiParam {String} [userId] QueryParam
+ * @apiParam {String} [creatorId] QueryParam
+ * @apiParam {String} [page=5] QueryParam
+ * @apiParam {String} [count=5] QueryParam
+ * @apiParam [String] [groupIds] QueryParam
  * @apiSuccess (200) [String] groups list of groupId
  *
  * @apiParamExample  {json} Request-Example:
@@ -53,8 +53,7 @@ async function groupList(req, res, next) {
         );
       }
     }
-    const authId =
-      !authResponse || !authResponse.status ? undefined : authResponse.data.id;
+    const authId = !authResponse || !authResponse.status ? undefined : authResponse.data.id;
     const response = await list({
       ...req.query,
       count: req.query.count ? parseInt(req.query.count, 10) : undefined,
