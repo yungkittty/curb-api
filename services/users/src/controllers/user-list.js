@@ -6,7 +6,8 @@ const listUser = require('../services/list-user');
  * @apiName USERS6
  * @apiGroup USERS
  * @apiVersion  0.1.0
-* <h4>List of users</h4><br>
+ * @apiDescription
+ * <h4>List of users</h4><br>
  *
  * @apiParam {Number} [count=10] queryParam
  * @apiParam {Number} [page=1] queryParam

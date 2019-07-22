@@ -4,13 +4,8 @@ const { ApiError } = require('../configurations/error');
 
 mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
-// const id = mongoose.Schema({
-//   groupId: { type: String }
-// });
-
 const userRecommendationSchema = mongoose.Schema(
   {
-    // users: { type: [String] }
     name: String,
     groupIds: { type: [String] }
   },

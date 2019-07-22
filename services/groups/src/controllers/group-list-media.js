@@ -17,7 +17,7 @@ const { OtherServiceError } = require('../configurations/error');
  * @apiParam [String] [mediaType=undefined] queryParam
  * @apiParam {String} [CookieToken=undefine] queryParam in case of a private group
  *
- * @apiSuccess (200) {Object}
+ * @apiSuccess (200) {Object} Object
  *
  *
  * @apiSuccessExample {json} Success-Response:

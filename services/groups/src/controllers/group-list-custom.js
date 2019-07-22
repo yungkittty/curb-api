@@ -11,9 +11,10 @@ const listCustom = require('../services/list-custom');
  *
  * @apiParam {Number} [count=5] queryParam
  * @apiParam {Number} [page=1] queryParam
- * @apiParam {String} [category] queryParam
+ * @apiParam {String} [category] queryParam NOT USED ATM
  * @apiParam {String} [userId] queryParam
- * @apiSuccess (200) {Object}
+ *
+ * @apiSuccess (200) {Object} Object
  *
  *
  * @apiSuccessExample {json} Success-Response:

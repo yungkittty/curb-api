@@ -3,7 +3,6 @@ const https = require('https');
 const fs = require('fs');
 const app = require('./src/app');
 
-// app.listen(4000);
 https
   .createServer(
     {

@@ -13,7 +13,7 @@ const listRandom = require('../services/list-random');
  * @apiParam {Number} [page=1] queryParam
  * @apiParam {String} [category] queryParam
  *
- * @apiSuccess (200) {Object}
+ * @apiSuccess (200) {Object} Object
  *
  *
  * @apiSuccessExample {json} Success-Response:

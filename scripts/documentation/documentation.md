@@ -4,13 +4,15 @@
 
 ```
  {
-  id: {Uuid},
-  email: {String},
-  password: {String},
-  dateCreation: {Date},
-  active: {Boolean},
-  codeVerification: {String},
-  codePassword: {String}
+  id: Uuid,
+  email: String,
+  password: Hash,
+  dateCreation: Date,
+  active: Boolean,
+  codeVerification: String,
+  codePassword: String,
+  createdAt: Date,
+  updateAt: Date
  }
 ```
 
@@ -20,10 +22,12 @@
 
 ```
 {
-  id: {Uuid},
-  name: {String},
-  dateCreation: {Date},
-  avatarUrl: {String}
+  id: Uuid,
+  name: String,
+  dateCreation: Date,
+  avatarUrl: String,
+  createdAt: Date,
+  updateAt: Date
 }
 ```
 
@@ -33,21 +37,41 @@
 
 ```
 {
-  id: {Uuid},
-  creatorId: {Uuid},
-  name: {String},
+  id: Uuid,
+  creatorId: Uuid,
+  name: String,
   status: oneOf('public', 'private'),
-  avatarUrl: {String},
-  dateCreation: {String},
+  avatarUrl: String,
+  dateCreation: String,
   users: [String],
   medias: [String],
   mediaTypes: oneOf('location', 'text', 'image','video')
-  theme: {String},
-  rank: {Number},
-  lastUserAdded: {Date},
-  lastMediaAdded: {Date},
+  theme: String,
+  description: String // max = 300
+  category: String
+  rank: Number,
+  createdAt: Date,
+  updateAt: Date
 }
 ```
+
+##### CATEGORY
+
+    'Gaming',
+    'Sport',
+    'Lifestyle',
+    'Technology',
+    'Food and Drink',
+    'Business',
+    'Science',
+    'Travel',
+    'Careers',
+    'Health',
+    'Fashion',
+    'Pets',
+    'Music',
+    'Movies',
+    'Events'
 
 ### CONTENTS
 
@@ -55,12 +79,27 @@
 
 ```
 {
-  id: {Uuid}, [Unique]
-  creatorId: {Uuid}, [Unique]
-  groupId: {Uuid}, [Unique]
+  id: Uuid, [Unique]
+  creatorId: Uuid, [Unique]
+  groupId: Uuid, [Unique]
   type: oneOf('location', 'text', 'image','video')
-  dateCreation: {Date},
-  data: {String} [image;video:file_path,location;text: raw_string]
+  dateCreation: Date,
+  data: String [image;video:file_path,location;text: raw_string],
+  createdAt: Date,
+  updateAt: Date
+}
+```
+
+### USERRECOMMENDATION
+
+#### Model
+
+```
+{
+  id: Uuid,
+  groupIds: [String],
+  createdAt: Date,
+  updateAt: Date
 }
 ```
 

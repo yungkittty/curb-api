@@ -12,7 +12,7 @@ const { OtherServiceError } = require('../configurations/error');
  *
  * @apiParam {Number} [groupIds] queryParam
  *
- * @apiSuccess (200) {Object}
+ * @apiSuccess (200) {Object} Object
  *
  *
  * @apiSuccessExample {json} Success-Response:

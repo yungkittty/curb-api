@@ -37,15 +37,13 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-app.get('/trending', controllers.groupTrending);
 app.get('/list', controllers.groupFromIds);
 app.get('/list-random', controllers.groupListRandom);
 app.get('/list-global', controllers.groupListGlobal);
-// TODO PUT AUTHENTICATION =>
 app.get('/list-custom', middlewares.authentication, controllers.groupListCustom);
-// TODO PUT AUTHENTICATION =>
-app.get('/list-media', middlewares.authentication, controllers.groupListMedia);
-// app.get('/:goupId/users/', controllers.groupListUser);
+
+// app.get('/list-media', middlewares.authentication, controllers.groupListMedia);
+// app.get('/list-user/', controllers.groupListUser);
 
 app.post('/', middlewares.authentication, controllers.groupCreate);
 app.get('/', controllers.groupList);

@@ -6,7 +6,6 @@ async function listRandom({ page = 1, count = 5, active = undefined }) {
     {
       $match: {
         status: { $ne: 'private' }
-        // category: category === undefined ? null : { $eq: category }
       }
     },
     {

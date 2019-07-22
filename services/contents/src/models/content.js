@@ -3,20 +3,23 @@ const { ApiError } = require('../configurations/error');
 
 mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
-const contentSchema = mongoose.Schema({
-  creatorId: { type: String, required: [true, 'CONTENTS_MISSING_CREATOR_ID'] },
-  groupId: { type: String, required: [true, 'CONTENTS_MISSING_GROUP_ID'] },
-  dateCreation: Date,
-  type: {
-    type: String,
-    required: [true, 'CONTENTS_MISSING_TYPE'],
-    enum: {
-      values: ['location', 'text', 'image', 'video'],
-      message: 'CONTENTS_BAD_TYPE'
-    }
-  },
-  data: String
-});
+const contentSchema = mongoose.Schema(
+  {
+    creatorId: { type: String, required: [true, 'CONTENTS_MISSING_CREATOR_ID'] },
+    groupId: { type: String, required: [true, 'CONTENTS_MISSING_GROUP_ID'] },
+    dateCreation: Date,
+    type: {
+      type: String,
+      required: [true, 'CONTENTS_MISSING_TYPE'],
+      enum: {
+        values: ['location', 'text', 'image', 'video'],
+        message: 'CONTENTS_BAD_TYPE'
+      }
+    },
+    data: String
+  }, // will generate automaticly createdAt & updateAt
+  { timestamps: true }
+);
 
 // eslint-disable-next-line
 contentSchema.methods.getPublicFields = function() {
