@@ -10,7 +10,12 @@ const groupDeletePost = require('./group-delete-post');
 const groupInvite = require('./group-invite');
 const groupAvatars = require('./group-avatars');
 const groupUnjoin = require('./group-unjoin');
-const groupTrending = require('./group-trending');
+const groupListRandom = require('./group-list-random');
+const groupListGlobal = require('./group-list-global');
+const groupListCustom = require('./group-list-custom');
+const groupListUser = require('./group-list-user');
+const groupListMedia = require('./group-list-media');
+const groupFromIds = require('./group-list-from-id');
 
 module.exports = {
   groupCreate,
@@ -25,5 +30,10 @@ module.exports = {
   groupInvite,
   groupAvatars,
   groupUnjoin,
-  groupTrending
+  groupListRandom,
+  groupListGlobal,
+  groupListCustom,
+  groupListUser,
+  groupListMedia,
+  groupFromIds
 };

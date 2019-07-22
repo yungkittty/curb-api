@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const controllers = require('./controllers');
 const middlewares = require('./middlewares');
+const initRoutines = require('./routines');
 
 const app = express();
 
@@ -36,10 +37,17 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-app.get('/trending', controllers.groupTrending);
+app.get('/list', controllers.groupFromIds);
+app.get('/list-random', controllers.groupListRandom);
+app.get('/list-global', controllers.groupListGlobal);
+app.get('/list-custom', middlewares.authentication, controllers.groupListCustom);
+
+// app.get('/list-media', middlewares.authentication, controllers.groupListMedia);
+// app.get('/list-user/', controllers.groupListUser);
 
 app.post('/', middlewares.authentication, controllers.groupCreate);
 app.get('/', controllers.groupList);
+
 app.get('/:id', controllers.groupRead);
 app.patch('/:id', middlewares.authentication, controllers.groupUpdate);
 app.delete('/:id', middlewares.authentication, controllers.groupDelete);
@@ -53,5 +61,7 @@ app.delete('/medias/:groupId/:mediaId', controllers.groupDeletePost);
 app.get('/invite/:groupId', middlewares.authentication, controllers.groupInvite);
 
 app.use(middlewares.error);
+
+initRoutines();
 
 module.exports = app;

@@ -60,7 +60,7 @@ async function signUp(req, res, next) {
     });
     return res
       .status(200)
-      .cookie('token', signed.token, { httpOnly: true, secure: true })
+      .cookie('token', signed.token, { httpOnly: true, secure: true, maxAge: 31536000 })
       .json({ id })
       .end();
   } catch (error) {

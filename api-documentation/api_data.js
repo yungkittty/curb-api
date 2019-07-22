@@ -1259,6 +1259,207 @@ define({ "api": [
     "groupTitle": "CONTENTS"
   },
   {
+    "type": "GET",
+    "url": "/:id",
+    "title": "CONTENT POST DELETE",
+    "name": "CONTENTS10",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    ...content: {Object}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/post-delete.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "GET",
+    "url": "/:id",
+    "title": "CONTENT POST READ",
+    "name": "CONTENTS11",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    ...content: {Object}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/post-read.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "GET",
+    "url": "/:id",
+    "title": "CONTENT POST UPDATE",
+    "name": "CONTENTS12",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    ...content: {Object}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/post-update.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
     "type": "POST",
     "url": "/images/:groupId/:userId",
     "title": "CONTENT ADD IMAGE",
@@ -1696,6 +1897,73 @@ define({ "api": [
     "groupTitle": "CONTENTS"
   },
   {
+    "type": "GET",
+    "url": "/:id",
+    "title": "CONTENT POST READ",
+    "name": "CONTENTS9",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    ...content: {Object}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/post-create.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
     "type": "POST",
     "url": "/avatars/${groups/users}/:id",
     "title": "AVATARS FOR GROUPS/USERS",
@@ -2007,6 +2275,12 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": true,
+            "field": "String",
+            "description": "<p>description //</p>"
           }
         ]
       },
@@ -2098,6 +2372,12 @@ define({ "api": [
             "field": "count",
             "defaultValue": "5",
             "description": "<p>QueryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": true,
+            "field": "String",
+            "description": "<p>[groupIds] QueryParam</p>"
           }
         ]
       },
@@ -2392,28 +2672,43 @@ define({ "api": [
   },
   {
     "type": "GET",
-    "url": "/groups/trending",
-    "title": "GROUPS TRENDING",
-    "name": "GROUPS14",
+    "url": "/groups/list-custom",
+    "title": "GROUPS LIST CUSTOM",
+    "name": "GROUPS15",
     "group": "GROUPS",
     "version": "0.1.0",
-    "description": "<h4>GlobalTrending: if no parameter are given it will return the global trending.</h4> <h4>CustomizeTrending: if you give userId return the global trending and the custom trending.</h4><br>",
+    "description": "<h4>List for custom section </h4><br>",
     "parameter": {
       "fields": {
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Number",
             "optional": true,
-            "field": "userId",
-            "description": "<p>queryParam, customizeTrending</p>"
+            "field": "count",
+            "defaultValue": "5",
+            "description": "<p>queryParam</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
             "optional": true,
-            "field": "count",
-            "defaultValue": "100",
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "category",
+            "description": "<p>queryParam NOT USED ATM</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "userId",
             "description": "<p>queryParam</p>"
           }
         ]
@@ -2426,20 +2721,15 @@ define({ "api": [
             "group": "200",
             "type": "Object",
             "optional": false,
-            "field": "group",
-            "description": "<p>public field of the group</p>"
+            "field": "Object",
+            "description": ""
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "[\n {\n   category: 'global',\n   data: [{groups: [String]}]\n },\n {\n   category: '${mediaType}', // image, video, location, text\n   data: [{groups: [String]}]\n }\n // if userId\n {\n   category: 'custom',\n   data: [{groups: [String]}]\n }\n]",
-          "type": "json"
-        },
-        {
-          "title": "Success-Response:",
-          "content": "[\n    {\n        \"category\": \"global\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cdcf29e011c6207cff1ad0b\",\n                    \"5cdcf19f9dfda2001dcae884\",\n                    \"5cdcf335011c6207cff1ad1c\",\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"location\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cddae6c011c6207cff1ad4e\",\n                    \"5cddae7c011c6207cff1ad53\"\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"image\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cddae81011c6207cff1ad54\",\n                    \"5ce3dee7e1edb1001c59527e\"\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"text\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cdd9184aff354001c3cbd21\",\n                    \"5cdcf0789dfda2001dcae87e\",\n                    \"5cdd120a2ea0dd001c28953a\"\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"video\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cdd9184aff354001c3cbd21\",\n                    \"5cdcf07c9dfda2001dcae87f\",\n                    \"5cdd120a2ea0dd001c28953a\"\n                ]\n            }\n        ]\n    },\n    {\n        \"category\": \"custom\",\n        \"data\": [\n            {\n                \"groups\": [\n                    \"5cddae77011c6207cff1ad51\",\n                    \"5cdda92c011c6207cff1ad30\",\n                    \"5cdd3a15011c6207cff1ad2a\",\n\n                ]\n            }\n        ]\n    }\n]",
+          "content": "  {\n    \"count\": 3,\n    \"page\": 1,\n   \"groups\": [\n      \"5d2c710b2b91f5004c54f8da\",\n      \"5d2c76ae24839b009e791e6e\",\n      \"5d2c6c4c97ff050029efc582\",\n      \"5d2c5f4844f800053656838d\",\n      \"5d2c45494cb40d03d44ef286\"\n  ]\n}",
           "type": "json"
         }
       ]
@@ -2462,7 +2752,333 @@ define({ "api": [
         ]
       }
     },
-    "filename": "../../services/groups/src/controllers/group-trending.js",
+    "filename": "../../services/groups/src/controllers/group-list-custom.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "GET",
+    "url": "/groups/list-global",
+    "title": "GROUPS LIST GLOBAL",
+    "name": "GROUPS16",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "description": "<h4>List for global section </h4><br>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "5",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "category",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "Object",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    \"count\": 10,\n    \"page\": 1,\n    \"section\": \"global\",\n    \"groups\": [\n        \"5d2c710b2b91f5004c54f8da\",\n        \"5d2c76ae24839b009e791e6e\",\n        \"5d2c6c4c97ff050029efc582\",\n        \"5d2c5f4844f800053656838d\",\n        \"5d2c45494cb40d03d44ef286\"\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-list-global.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "GET",
+    "url": "/groups/list-random",
+    "title": "GROUPS LIST RANDOM",
+    "name": "GROUPS17",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "description": "<h4>List for Random section</h4><br>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "5",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "category",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "Object",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    \"count\": 5,\n    \"page\": 1,\n    \"section\": \"random\",\n    \"groups\": [\n        \"5d2c710b2b91f5004c54f8da\",\n        \"5d2c76ae24839b009e791e6e\",\n        \"5d2c6c4c97ff050029efc582\",\n        \"5d2c5f4844f800053656838d\",\n        \"5d2c45494cb40d03d44ef286\"\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-list-random.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "GET",
+    "url": "/groups/route?",
+    "title": "GROUPS LIST USERS",
+    "name": "GROUPS18",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "description": "<h4>List of users in a group</h4><br>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "10",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": true,
+            "field": "active",
+            "description": "<p>queryParam can only pass true</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "list",
+            "description": "<p>of userIds</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n  \"count\": 3,\n  \"page\": 1,\n  \"data\": [\n        \"5cddae77011c6207cff1ad51\",\n        \"5cdda92c011c6207cff1ad30\",\n        \"5cdd3a15011c6207cff1ad2a\",\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-list-user.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "GET",
+    "url": "/groups/list-media",
+    "title": "GROUPS LIST MEDIA",
+    "name": "GROUPS19",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "description": "<h4>List for media </h4><br>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "groupId",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "5",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": true,
+            "field": "String",
+            "description": "<p>[mediaType=undefined] queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "CookieToken",
+            "defaultValue": "undefine",
+            "description": "<p>queryParam in case of a private group</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "Object",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    \"count\": 10,\n    \"page\": 1,\n    \"mediaType\": \"mediaType || undefined\",\n    \"groups\": [\n        \"5d2c710b2b91f5004c54f8da\",\n        \"5d2c76ae24839b009e791e6e\",\n        \"5d2c6c4c97ff050029efc582\",\n        \"5d2c5f4844f800053656838d\",\n        \"5d2c45494cb40d03d44ef286\"\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-list-media.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2523,6 +3139,68 @@ define({ "api": [
       }
     },
     "filename": "../../services/groups/src/controllers/group-delete.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "GET",
+    "url": "/groups/list",
+    "title": "GROUPS LIST FROM GROUP IDS",
+    "name": "GROUPS20",
+    "group": "GROUPS",
+    "version": "0.1.0",
+    "description": "<h4>List for multiple id </h4><br>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "groupIds",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "Object",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-list-from-id.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -2651,30 +3329,9 @@ define({ "api": [
           },
           {
             "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "status",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "200",
             "optional": true,
             "field": "String",
-            "description": "<p>mediaTypes //</p>"
-          },
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "theme",
-            "description": "<p>//</p>"
+            "description": "<p>name //</p>"
           }
         ]
       },
@@ -3377,6 +4034,77 @@ define({ "api": [
       }
     },
     "filename": "../../services/users/src/controllers/user-avatars.js",
+    "groupTitle": "USERS"
+  },
+  {
+    "type": "POST",
+    "url": "/users/",
+    "title": "USER LISTS",
+    "name": "USERS6",
+    "group": "USERS",
+    "version": "0.1.0",
+    "description": "<h4>List of users</h4><br>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "count",
+            "defaultValue": "10",
+            "description": "<p>queryParam</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "list",
+            "description": "<p>of userIds</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n  \"count\": 3,\n  \"page\": 1,\n  \"data\": [\n        \"5cddae77011c6207cff1ad51\",\n        \"5cdda92c011c6207cff1ad30\",\n        \"5cdd3a15011c6207cff1ad2a\",\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/users/src/controllers/user-list.js",
     "groupTitle": "USERS"
   }
 ] });

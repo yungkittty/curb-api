@@ -13,7 +13,7 @@ async function aggregateGetSome(count = 1, pipeline = []) {
       $project: { ids: true, _id: false }
     }
   ]);
-  const { ids } = groupIdsForUser[0] || [];
+  const { ids = [] } = groupIdsForUser[0] || [];
   return ids;
 }
 

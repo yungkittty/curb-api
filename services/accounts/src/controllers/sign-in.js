@@ -51,7 +51,7 @@ async function signIn(req, res, next) {
     const signed = await authService.authenticate({ email, password });
     return res
       .status(200)
-      .cookie('token', signed.token, { httpOnly: true, secure: true })
+      .cookie('token', signed.token, { httpOnly: true, secure: true, maxAge: 31536000 })
       .json({
         id: signed.id
       })
