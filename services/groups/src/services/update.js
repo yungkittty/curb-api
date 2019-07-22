@@ -9,10 +9,10 @@ async function update(group, groupId, userId) {
   }
   updatedGroup.status = group.status ? group.status : updatedGroup.status;
   updatedGroup.name = group.name ? group.name : updatedGroup.name;
-  updatedGroup.mediaTypes = group.mediaTypes
-    ? group.mediaTypes
-    : updatedGroup.mediaTypes;
+  updatedGroup.mediaTypes = group.mediaTypes ? group.mediaTypes : updatedGroup.mediaTypes;
   updatedGroup.theme = group.theme ? group.theme : updatedGroup.theme;
+  updatedGroup.description = group.description ? group.description : updatedGroup.description;
+  updatedGroup.category = group.category ? group.category : updatedGroup.category;
   await updatedGroup.save();
   return group;
 }

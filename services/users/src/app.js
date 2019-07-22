@@ -36,10 +36,11 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-app.get('/', (req, res) => {
-  res.send(`${process.env.SERVICE_NAME} endpoint`);
-});
+// app.get('/', (req, res) => {
+//   res.send(`${process.env.SERVICE_NAME} endpoint`);
+// });
 
+app.get('/', controllers.userList);
 app.post('/', controllers.userCreate);
 app.post('/avatars/:userId', controllers.userAvatars);
 app.get('/:id', controllers.userRead);

@@ -15,11 +15,12 @@ const { ApiError } = require('../configurations/error');
  *
  *
  * @apiSuccess (200) {String} id queryParam
- * @apiSuccess (200) {String} name //
- * @apiSuccess (200) {String} status //
+ * @apiSuccess (200) [String] name //
+ * @apiSuccess (200) [String] status //
  * @apiSuccess (200) [String] mediaTypes //
- * @apiSuccess (200) {String} theme //
- *
+ * @apiSuccess (200) [String] theme //
+ * @apiSuccess (200) [String] description //
+ * @apiSuccess (200) [String] category //
  *
  * @apiParamExample  {json} Request-Example:
  * {
