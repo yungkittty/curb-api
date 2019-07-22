@@ -192,7 +192,6 @@ async function customizeTrending(count, userId) {
   const array = JSON.parse(stringified);
   const uniqueIds = _.uniq(array);
 
-  
   console.log('after/before=>', groupIds.length, uniqueIds.length);
 
   return uniqueIds;

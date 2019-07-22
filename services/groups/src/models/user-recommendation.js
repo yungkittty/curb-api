@@ -35,7 +35,6 @@ userRecommendationSchema.methods.getPublicFields = function() {
 userRecommendationSchema.post('save', async (error, doc, next) => {
   // console.log('MONGO ERROR:', error);
   if (error.name === 'MongoError' && error.code === 11000) {
-    console.log(error);
     return next(new ApiError('USER_RECOMMENDATION_DUPLICATE'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {

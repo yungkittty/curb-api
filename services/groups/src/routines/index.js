@@ -1,11 +1,11 @@
 const schedule = require('node-schedule');
-const { userRecommendationRoutine } = require('./list-custom');
+const { userRecommendation } = require('./user-recommendation');
 
 function initRoutines(routines = []) {
-  userRecommendationRoutine();
+  userRecommendation();
 
   schedule.scheduleJob('0 4 * * *', () => {
-    userRecommendationRoutine();
+    userRecommendation();
   });
 }
 

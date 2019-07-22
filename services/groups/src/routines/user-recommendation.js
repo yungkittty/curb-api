@@ -37,41 +37,35 @@ async function fillUsersRecommendation() {
   userIds.forEach(async (userId) => {
     // call list-custom
     const groupIds = await customizeTrending(50, userId);
-    // console.log('TYPEOF', typeof groupIds, groupIds);
-    console.log('###############"done trending=>', groupIds);
     const doc = await UserRecommendation.findOne({ _id: userId });
     if (doc !== null) {
-      doc.name = 'toto';
-      doc.groupIds = groupIds; // [...groupIds, 'a'];
-      // console.log('DONE=>', doc);
+      doc.groupIds = groupIds;
       await doc.save();
     } else {
       const newRecommendation = new UserRecommendation({
         _id: mongoose.Types.ObjectId(userId),
-        name: 'toto',
-        groupIds // [...groupIds, 'a']
+        groupIds
       });
       await newRecommendation.save();
     }
   });
 }
 
-// get all users
-async function userRecommendationRoutine() {
-  console.log('call~~~~~~~');
+async function userRecommendation() {
   await fillUsersRecommendation();
 }
 
-async function newUserRecommendationRoutine(userId) {
-  const groupIds = customizeTrending(50, userId);
+async function newUserRecommendation(userId) {
+  const groupIds = await customizeTrending(50, userId);
   const newRecommendation = new UserRecommendation({
     _id: mongoose.Types.ObjectId(userId),
     groupIds
   });
   await newRecommendation.save();
+  return groupIds;
 }
 
 module.exports = {
-  userRecommendationRoutine,
-  newUserRecommendationRoutine
+  userRecommendation,
+  newUserRecommendation
 };
