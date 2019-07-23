@@ -4,9 +4,7 @@ const { OtherServiceError, ApiError } = require('../configurations/error');
 function getToken(headers) {
   const find = 'token=';
   const tokenString = headers[0].split(';')[0];
-  return tokenString.slice(
-    tokenString.indexOf(find) + find.length - tokenString.length
-  );
+  return tokenString.slice(tokenString.indexOf(find) + find.length - tokenString.length);
 }
 
 async function authentication(req, res, next) {
@@ -22,17 +20,10 @@ async function authentication(req, res, next) {
       validateStatus: undefined
     });
     if (response.status !== 200) {
-      throw new OtherServiceError(
-        response.data.service,
-        response.data.code,
-        response.status
-      );
+      throw new OtherServiceError(response.data.service, response.data.code, response.status);
     }
     if (response.headers['set-cookie']) {
-      res.cookie('token', getToken(response.headers['set-cookie']), {
-        httpOnly: true,
-        secure: true
-      });
+      res.cookie('token', getToken(response.headers['set-cookie']), { httpOnly: true, secure: true, maxAge: 31536000 });
     }
     req.authId = response.data.id;
     return next();

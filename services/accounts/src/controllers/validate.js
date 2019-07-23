@@ -67,7 +67,7 @@ async function validate(req, res, next) {
         const payload = await refresh(req.cookies.token);
         return res
           .status(200)
-          .cookie('token', payload.token, { httpOnly: true, secure: true })
+          .cookie('token', payload.token, { httpOnly: true, secure: true, maxAge: 31536000 })
           .json({ id: payload.id })
           .end();
       } catch (refreshError) {
