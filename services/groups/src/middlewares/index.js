@@ -1,9 +1,9 @@
 const authentication = require('./authentication');
 const error = require('./error');
-const optionalUserId = require('./optional-user-id');
+const optionalAuthId = require('./optional-auth-id');
 
 module.exports = {
   authentication,
   error,
-  optionalUserId
+  optionalAuthId
 };

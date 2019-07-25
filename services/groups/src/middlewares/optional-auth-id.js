@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-async function optionalUserId(req, res, next) {
+async function optionalAuthId(req, res, next) {
   try {
     const response = await axios({
       method: 'post',
@@ -19,4 +19,4 @@ async function optionalUserId(req, res, next) {
   }
 }
 
-module.exports = optionalUserId;
+module.exports = optionalAuthId;
