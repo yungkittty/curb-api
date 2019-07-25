@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 
 app.post('/verification', controllers.verification);
 app.post('/reset', controllers.reset);
+app.post('/feedback', controllers.feedback);
 
 app.use(middlewares.error);
 
