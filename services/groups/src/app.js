@@ -37,9 +37,9 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-app.get('/list', controllers.groupFromIds);
-app.get('/list-random', controllers.groupListRandom);
-app.get('/list-global', controllers.groupListGlobal);
+app.get('/list', middlewares.optionalUserId, controllers.groupFromIds);
+app.get('/list-random', middlewares.optionalUserId, controllers.groupListRandom);
+app.get('/list-global', middlewares.optionalUserId, controllers.groupListGlobal);
 app.get('/list-custom', middlewares.authentication, controllers.groupListCustom);
 
 // app.get('/list-media', middlewares.authentication, controllers.groupListMedia);

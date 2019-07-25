@@ -1,6 +1,5 @@
-const axios = require('axios');
 const listFromId = require('../services/list-from-id');
-const { OtherServiceError } = require('../configurations/error');
+
 /**
  *
  * @api {GET} /groups/list GROUPS LIST FROM GROUP IDS
@@ -26,27 +25,8 @@ const { OtherServiceError } = require('../configurations/error');
 
 async function groupListFromId(req, res, next) {
   try {
-    let getUserResponse;
-    if (req.cookies.token) {
-      getUserResponse = await axios({
-        method: 'post',
-        withCredentials: true,
-        headers: { Cookie: `token=${req.cookies.token}` },
-        url: 'http://curb-accounts:4000/validate',
-        validateStatus: undefined
-      });
-      if (getUserResponse.status !== 200) {
-        return next(
-          new OtherServiceError(
-            getUserResponse.data.service,
-            getUserResponse.data.code,
-            getUserResponse.status
-          )
-        );
-      }
-    }
-    const userId = !getUserResponse ? undefined : getUserResponse.data.id;
     const groupIds = JSON.parse(req.query.groupIds);
+    const userId = req.authId;
     const response = await listFromId(groupIds, userId);
     return res
       .status(200)
