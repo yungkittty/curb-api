@@ -1,4 +1,5 @@
-const Group = require('../models/group');
+const { Group } = require('../models/group');
+
 
 // TODO faire une aggregation
 async function list({

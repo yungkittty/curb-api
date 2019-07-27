@@ -43,7 +43,7 @@ app.get('/list-global', controllers.groupListGlobal);
 app.get('/list-custom', middlewares.authentication, controllers.groupListCustom);
 
 // app.get('/list-media', middlewares.authentication, controllers.groupListMedia);
-// app.get('/list-user/', controllers.groupListUser);
+// app.get('/list-user/:groupId', controllers.groupListUser);
 
 app.post('/', middlewares.authentication, controllers.groupCreate);
 app.get('/', controllers.groupList);

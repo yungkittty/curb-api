@@ -1,4 +1,5 @@
-const Group = require('../models/group');
+const { Group } = require('../models/group');
+const addGroupUser = require('../utils/mongoose/add-group-user');
 
 async function create(group) {
   const newGroup = new Group({
@@ -11,7 +12,9 @@ async function create(group) {
     category: group.category,
     dateCreation: new Date()
   });
-  newGroup.users = [...newGroup.users, group.creatorId];
+
+  await addGroupUser(newGroup, group.creatorId);
+
   try {
     await newGroup.save();
   } catch (error) {

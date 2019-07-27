@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const { userGroupSchema } = require('./user-group');
 const { ApiError } = require('../configurations/error');
 
 mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
@@ -21,7 +22,8 @@ const groupSchema = mongoose.Schema(
       type: String
     },
     dateCreation: Date,
-    users: { type: [String] },
+    // users: { type: [String] },
+    users: [userGroupSchema],
     medias: { type: [String], maxlength: 10 },
     mediaTypes: {
       type: [String],
@@ -61,7 +63,8 @@ const groupSchema = mongoose.Schema(
       }
     },
     rank: { type: Number, default: 0 },
-    activity: { type: Number, default: 0 }
+    activity: { type: Number, default: 0 },
+    quartile: { type: Number, default: 0 }
   },
   // will generate automaticly createdAt & updateAt
   { timestamps: true }
@@ -105,4 +108,6 @@ groupSchema.post('save', async (error, doc, next) => {
 
 // TODO Ajouter un record => chaque semaine add Activity to Ranke
 
-module.exports = mongoose.model('groups', groupSchema);
+module.exports.Group = mongoose.model('groups', groupSchema);
+module.exports.groupSchema = groupSchema;
+// module.exports = mongoose.model('groups', groupSchema);

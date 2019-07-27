@@ -1,4 +1,5 @@
-const Group = require('../models/group');
+const { Group } = require('../models/group');
+
 const pagination = require('../utils/pagination');
 
 async function listRandom({ page = 1, count = 5, active = undefined }) {

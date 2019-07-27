@@ -1,4 +1,5 @@
-const Group = require('../models/group');
+const { Group } = require('../models/group');
+
 const { ApiError } = require('../configurations/error');
 const ranking = require('./ranking');
 

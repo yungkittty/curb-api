@@ -1,38 +1,34 @@
-const Group = require('../models/group');
+const { Group } = require('../models/group');
 const tokenGetPayload = require('./token-invitation/token-get-payload');
 const ranking = require('./ranking');
 const { ApiError } = require('../configurations/error');
+const addGroupUser = require('../utils/mongoose/add-group-user');
+const isUserInGroup = require('../utils/mongoose/is-user-in-group');
 
-async function _getGroup(groupId) {
+async function getGroup(groupId) {
   const group = await Group.findById(groupId);
   if (!group) throw new ApiError('GROUPS_NOT_FOUND');
   return group;
 }
 
-async function _join(userId, groupId) {
-  const group = await _getGroup(groupId);
+async function basicJoin(userId, groupId) {
+  const group = await getGroup(groupId);
   if (group.status === 'private') throw new ApiError('GROUPS_FORBIDEN_JOIN');
-  if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
-  group.users = [...group.users, userId];
-  await group.save();
+  await addGroupUser(group, userId);
   return group._id.toString();
 }
 
-async function _tokenJoin(userId, token) {
+async function tokenJoin(userId, token) {
   const payload = tokenGetPayload(token);
   if (!payload) throw new ApiError('GROUPS_INVALID_TOKEN');
-  const group = await _getGroup(payload.groupId);
-  if (!group.users.includes(payload.issuerId)) {
-    throw new ApiError('GROUPS_FORBIDEN_JOIN');
-  }
-  if (group.users.includes(userId)) throw new ApiError('GROUPS_USER_ALREADY_JOIN');
-  group.users = [...group.users, userId];
-  await group.save();
+  const group = await getGroup(payload.groupId);
+  if (!(await isUserInGroup(group._id, payload.issuerId))) throw new ApiError('GROUPS_FORBIDEN_JOIN');
+  await addGroupUser(group, userId);
   return group._id.toString();
 }
 
 async function join({ groupId, userId, token }) {
-  const id = !token ? await _join(userId, groupId) : await _tokenJoin(userId, token);
+  const id = !token ? await basicJoin(userId, groupId) : await tokenJoin(userId, token);
   ranking(groupId);
   return { id };
 }

@@ -2,7 +2,7 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 // const uniq = require('lodash/uniq');
 // const shuffle = require('lodash/shuffle');
-const Group = require('../models/group');
+const { Group } = require('../models/group');
 const aggregateGetSome = require('../aggregators/aggregate-get-some');
 // TEST SUR 5cdcf05889c110001cdef5a8
 

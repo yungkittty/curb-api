@@ -1,5 +1,6 @@
 const axios = require('axios');
-const Group = require('../models/group');
+const { Group } = require('../models/group');
+const isUserInGroup = require('../utils/mongoose/is-user-in-group');
 const tokenGenerate = require('./token-invitation/token-generate');
 const { ApiError, OtherServiceError } = require('../configurations/error');
 
@@ -18,7 +19,8 @@ async function invite(groupId, issuerId) {
       userResponse.status
     );
   }
-  if (!group.users.includes(issuerId)) {
+
+  if (!(await isUserInGroup(groupId, issuerId))) {
     throw new ApiError('GROUPS_USER_NOT_IN_GROUP');
   }
   return { token: tokenGenerate(groupId, issuerId) };
