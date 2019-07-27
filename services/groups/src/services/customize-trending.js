@@ -83,7 +83,7 @@ async function aggregateUserIdsFriendly(userId) {
     },
     {
       $match: {
-        users: { $ne: userId }
+        users: { $nin: [userId] } // => before $ne:userId
       }
     },
     {
