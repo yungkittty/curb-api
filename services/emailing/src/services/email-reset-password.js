@@ -1,7 +1,19 @@
 const axios = require('axios');
+const generateCode = require('../utils/generate-code');
 const { OtherServiceError } = require('../configurations/error');
-const { mailResetPassword } = require('./emailing');
+const sendMail = require('./emailing');
 const { getAccountByEmail } = require('../utils/getAccount');
+
+const resetPasswordEmailTemplate = (name, code) => ({
+  subject: `Curb: [RESET-PASSWORD] ${name}`,
+  text: `Reset Password Code: ${code}`
+});
+
+async function mailResetPassword(name, email) {
+  const code = await generateCode();
+  await sendMail(email, resetPasswordEmailTemplate(name, code));
+  return code;
+}
 
 async function emailResetPassword(email) {
   const user = await getAccountByEmail(email);
@@ -16,11 +28,7 @@ async function emailResetPassword(email) {
     }
   });
   if (response.status !== 200) {
-    throw new OtherServiceError(
-      response.data.service,
-      response.data.code,
-      response.status
-    );
+    throw new OtherServiceError(response.data.service, response.data.code, response.status);
   }
 }
 
