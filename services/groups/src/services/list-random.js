@@ -1,12 +1,15 @@
 const aggregateGetSome = require('../aggregators/aggregate-get-some');
 
-async function listRandom({ page = 1, count = 5, category = undefined }) {
+async function listRandom({
+  page = 1, count = 5, category = undefined, authId = undefined
+}) {
   const next = count * 2;
   const pipeline = [
     {
       $match: {
         status: { $ne: 'private' },
-        category: category === undefined ? null : { $eq: category }
+        category: category === undefined ? null : { $eq: category },
+        users: authId ? { $ne: authId } : { $ne: null }
       }
     },
     {
