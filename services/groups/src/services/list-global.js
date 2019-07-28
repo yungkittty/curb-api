@@ -31,7 +31,7 @@ async function listGlobal({
     count,
     page,
     section: 'global',
-    groups: ids.reduce((acc, id) => acc.concat(id), [])
+    data: ids.reduce((acc, id) => acc.concat(id), [])
   };
 }
 

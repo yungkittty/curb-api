@@ -41,9 +41,9 @@ app.get('/list', middlewares.optionalAuthId, controllers.groupFromIds);
 app.get('/list-random', middlewares.optionalAuthId, controllers.groupListRandom);
 app.get('/list-global', middlewares.optionalAuthId, controllers.groupListGlobal);
 app.get('/list-custom', middlewares.authentication, controllers.groupListCustom);
+app.get('/list-user/:groupId', middlewares.authentication, controllers.groupListUser);
 
 // app.get('/list-media', middlewares.authentication, controllers.groupListMedia);
-// app.get('/list-user/:groupId', controllers.groupListUser);
 
 app.post('/', middlewares.authentication, controllers.groupCreate);
 app.get('/', controllers.groupList);

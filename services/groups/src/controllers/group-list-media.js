@@ -25,7 +25,7 @@ const { OtherServiceError } = require('../configurations/error');
     "count": 10,
     "page": 1,
     "mediaType": "mediaType || undefined",
-    "groups": [
+    "data": [
         "5d2c710b2b91f5004c54f8da",
         "5d2c76ae24839b009e791e6e",
         "5d2c6c4c97ff050029efc582",

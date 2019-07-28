@@ -21,7 +21,7 @@ const listCustom = require('../services/list-custom');
     {
       "count": 3,
       "page": 1,
-     "groups": [
+     "data": [
         "5d2c710b2b91f5004c54f8da",
         "5d2c76ae24839b009e791e6e",
         "5d2c6c4c97ff050029efc582",

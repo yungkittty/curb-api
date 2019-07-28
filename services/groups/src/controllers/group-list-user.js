@@ -2,7 +2,7 @@ const listUser = require('../services/list-user');
 
 /**
  *
- * @api {GET} /groups/route? GROUPS LIST USERS
+ * @api {GET} /groups/list-user/:groupId GROUPS LIST USERS
  * @apiName GROUPS18
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
@@ -12,6 +12,7 @@ const listUser = require('../services/list-user');
  * @apiParam {Number} [count=10] queryParam
  * @apiParam {Number} [page=1] queryParam
  * @apiParam {Boolean} [active] queryParam can only pass true
+ * @apiParam {Cookie} userId
  *
  * @apiSuccess (200) {Object} list of userIds
  *
@@ -36,7 +37,9 @@ async function groupListRandom(req, res, next) {
     const response = await listUser({
       page: req.query.page ? parseInt(req.query.page, 10) : undefined,
       count: req.query.count ? parseInt(req.query.count, 10) : undefined,
-      active: req.query.active
+      active: req.query.active,
+      groupId: req.params.groupId,
+      userId: req.authId
     });
     return res
       .status(200)

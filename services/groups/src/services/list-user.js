@@ -1,33 +1,31 @@
+const mongoose = require('mongoose');
 const { Group } = require('../models/group');
 
-const pagination = require('../utils/pagination');
-
-async function listRandom({ page = 1, count = 5, active = undefined }) {
+// Ajouter optional ID,
+async function listRandom({
+  page = 1,
+  count = 5,
+  active = undefined,
+  groupId,
+  userId = undefined
+}) {
+  const response = { page, count };
+  const skip = (page - 1) * count;
   const list = await Group.aggregate([
     {
       $match: {
+        _id: mongoose.Types.ObjectId(groupId),
         status: { $ne: 'private' }
       }
     },
     {
-      $sort: { rank: -1 }
-    },
-    ...pagination(page, count),
-    {
-      $group: { _id: null, ids: { $push: '$_id' } }
-    },
-    {
-      $project: { ids: true, _id: false }
+      $project: { _id: false, users: { $slice: ['$users', skip, count] } }
     }
   ]);
 
-  const { ids = [] } = list[0] || [];
-
-  return {
-    count,
-    page,
-    groups: ids.reduce((acc, id) => acc.concat(id), [])
-  };
+  const { users = [] } = list[0] || [];
+  console.log('===<', users);
+  return { ...response, data: users };
 }
 
 module.exports = listRandom;

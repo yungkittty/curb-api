@@ -24,7 +24,7 @@ async function listRandom({
     count,
     page,
     section: 'random',
-    groups: randomGroupIds.reduce((acc, id) => acc.concat(id), [])
+    data: randomGroupIds.reduce((acc, id) => acc.concat(id), [])
   };
 }
 
