@@ -2,8 +2,9 @@ const { Group } = require('../models/group');
 
 const { ApiError } = require('../configurations/error');
 const ranking = require('./ranking');
+const userActivity = require('../utils/mongoose/user-activity');
 
-async function addPost(groupId, mediaId, type) {
+async function addPost(groupId, mediaId, type, userId) {
   const group = await Group.findById(groupId);
   if (!group) throw new ApiError('GROUPS_NOT_FOUND');
   if (!group.mediaTypes.includes(type)) {
@@ -14,6 +15,7 @@ async function addPost(groupId, mediaId, type) {
   }
   group.medias = [mediaId, ...group.medias];
   ranking(group._id);
+  await userActivity(group._id, userId, '+post');
   await group.save();
   return group;
 }

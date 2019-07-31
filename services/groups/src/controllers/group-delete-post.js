@@ -15,6 +15,10 @@ const { ApiError } = require('../configurations/error');
  *
  * @apiSuccess (200) {String} OK
  *
+ * @apiParamExample  {json} Request-Example:
+ * {
+ *     userId: '1'
+ * }
  *
  * @apiSuccessExample {json} Success-Response:
  * {
@@ -33,7 +37,7 @@ async function groupAddPost(req, res, next) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
-    await deletePost(req.params.groupId, req.params.mediaId);
+    await deletePost(req.params.groupId, req.params.mediaId, req.body.userId);
     return res.status(200).end();
   } catch (error) {
     return next(error);

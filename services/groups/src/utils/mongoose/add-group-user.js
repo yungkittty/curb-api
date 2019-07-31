@@ -21,7 +21,6 @@ async function addGroupUser(group, userId) {
       }
     }
   );
-
   if (modified.nModified === 0 || modified.ok !== 1) {
     throw new ApiError('GROUPS_USER_ALREADY_JOIN');
   }

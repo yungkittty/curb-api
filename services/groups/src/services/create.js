@@ -12,7 +12,7 @@ async function create(group) {
     category: group.category,
     dateCreation: new Date()
   });
-
+  await newGroup.save();
   await addGroupUser(newGroup, group.creatorId);
 
   try {

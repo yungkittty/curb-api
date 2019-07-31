@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { ApiError } = require('../configurations/error');
 const { OtherServiceError } = require('../configurations/error');
+const deleteGroupContent = require('../utils/delete-group-content');
 
 const Content = require('../models/content');
 
@@ -42,12 +43,12 @@ async function contentDelete(req, res, next) {
     const remove = await Content.findByIdAndRemove(req.params.contentId);
     if (!remove) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
 
-    const mediaDelete = await axios({
-      method: 'delete',
-      headers: { Cookie: `token=${req.cookies.token}` },
-      url: `http://curb-groups:4000/medias/${req.params.groupId}/${remove._id.toString()}`,
-      validateStatus: undefined
-    });
+    const mediaDelete = await deleteGroupContent(
+      req.cookies.token,
+      req.params.groupId,
+      remove._id.toString(),
+      req.authId
+    );
     if (mediaDelete.status !== 200) {
       throw new OtherServiceError(
         mediaDelete.data.service,

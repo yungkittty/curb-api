@@ -7,6 +7,7 @@ const create = require('../services/content-create');
 const Content = require('../models/content');
 const { ApiError } = require('../configurations/error');
 const { OtherServiceError } = require('../configurations/error');
+const postGroupContent = require('../utils/post-group-content');
 
 const videos = express();
 
@@ -91,22 +92,21 @@ videos.post('/:groupId/:userId', upload.single('file'), async (req, res, next) =
       'video',
       req.params.groupId,
       req.params.userId,
-      `/contents/uploads/groups/${req.params.groupId}/videos/${req.params.userId}/${
-        req.file.filename
-      }`
+      `/contents/uploads/groups/${req.params.groupId}/videos/${req.params.userId}/${req.file.filename}`
     );
     if (!check) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-    const response = await axios({
-      method: 'post',
-      headers: { Cookie: `token=${req.cookies.token}` },
-      data: { type: 'video' },
-      url: `http://curb-groups:4000/medias/${req.params.groupId}/${check.id}`,
-      validateStatus: undefined
-    });
+
+    const response = await postGroupContent(
+      req.cookies.token,
+      req.params.groupId,
+      check.id,
+      req.params.userId
+    );
     if (response.status !== 200) {
       await Content.findByIdAndRemove(check.id);
       throw new OtherServiceError(response.data.service, response.data.code, response.status);
     }
+
     return res.status(200).json({
       id: check.id,
       file: check.data

@@ -19,6 +19,7 @@ const { ApiError } = require('../configurations/error');
  * @apiParamExample  {json} Request-Example:
  * {
  *     type: 'localsation',
+ *     userId: '1'
  * }
  *
  * @apiError BAD_PARAMETER 400
@@ -33,7 +34,7 @@ async function groupPost(req, res, next) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
-    await addPost(req.params.groupId, req.params.mediaId, req.body.type);
+    await addPost(req.params.groupId, req.params.mediaId, req.body.type, req.body.userId);
     return res.status(200).end();
   } catch (error) {
     return next(error);
