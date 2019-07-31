@@ -1,4 +1,6 @@
 const { Group } = require('../models/group');
+const UserRecommendation = require('../models/user-recommendation');
+
 const tokenGetPayload = require('./token-invitation/token-get-payload');
 const ranking = require('./ranking');
 const { ApiError } = require('../configurations/error');
@@ -29,6 +31,11 @@ async function tokenJoin(userId, token) {
 
 async function join({ groupId, userId, token }) {
   const id = !token ? await basicJoin(userId, groupId) : await tokenJoin(userId, token);
+  // userRecommendation => unfill groupId
+  const userRecommendation = await UserRecommendation.findOne({ _id: userId });
+  if (userRecommendation !== null && userRecommendation.groupIds.includes(groupId)) {
+    userRecommendation.groupIds = userRecommendation.map(grpId => grpId !== groupId);
+  }
   ranking(groupId);
   return { id };
 }
