@@ -50,11 +50,6 @@ app.use('/locations', middlewares.authentication, controllers.locations);
 app.use('/avatars', middlewares.authentication, controllers.avatars);
 app.use('/texts', middlewares.authentication, controllers.texts);
 
-// app.post('/post/:postId', controllers.postCreate);
-// app.get('/post/:postId', controllers.postRead);
-// app.patch('/post/:postId', controllers.postUpdate);
-// app.delete('/post/:postId', controllers.postDelete);
-
 app.use(middlewares.error);
 
 module.exports = app;

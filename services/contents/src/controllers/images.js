@@ -7,20 +7,20 @@ const create = require('../services/content-create');
 const Content = require('../models/content');
 const { ApiError } = require('../configurations/error');
 const { OtherServiceError } = require('../configurations/error');
-const postGroupContent = require('../utils/post-group-content');
+const groupContentPost = require('../utils/group-content-post');
+const middlewares = require('../middleswares');
 
 const images = express();
 
 /**
  *
- * @api {POST} /images/:groupId/:userId CONTENT ADD IMAGE
+ * @api {POST} /images/:groupId/ CONTENT ADD IMAGE
  * @apiName CONTENTS2
  * @apiGroup CONTENTS
  * @apiVersion  0.1.0
  *
  *
  * @apiParam  {String} groupId //
- * @apiParam  {String} userId //
  * @apiParam  {String} file file path
  *
  * @apiParamExample  {form-data} Request-Example:
@@ -57,7 +57,7 @@ const upload = multer({
   },
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
-      const path = `./uploads/groups/${req.params.groupId}/images/${req.params.userId}`;
+      const path = `./uploads/groups/${req.params.groupId}/images/${req.authId}`;
       fs.mkdirsSync(path);
       callback(null, path);
     },
@@ -67,53 +67,42 @@ const upload = multer({
   })
 });
 
-images.use('/:groupId/:userId', async (req, res, next) => {
-  if (!req.params.groupId || !req.params.userId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
-  try {
-    if (req.authId !== req.params.userId) {
-      return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+images.post(
+  '/:groupId/',
+  middlewares.permissions,
+  upload.single('file'),
+  async (req, res, next) => {
+    try {
+      if (!req.permissions.write) return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+
+      const content = await create(
+        'image',
+        req.params.groupId,
+        req.authId,
+        `/contents/uploads/groups/${req.params.groupId}/images/${req.authId}/${req.file.filename}`
+      );
+
+      if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
+
+      const response = await groupContentPost(
+        req.cookies.token,
+        req.params.groupId,
+        content.id,
+        req.authId
+      );
+      if (response.status !== 200) {
+        await Content.findByIdAndRemove(content.id);
+        throw new OtherServiceError(response.data.service, response.data.code, response.status);
+      }
+
+      return res.status(200).json({
+        id: content.id,
+        file: content.data
+      });
+    } catch (error) {
+      return next(error);
     }
-    const response = await axios.get(
-      `http://curb-groups:4000/permissions/${req.params.groupId}/${req.authId}`
-    );
-    if (response.status !== 200) {
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
-    }
-    if (!response.data.write) return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
-    return next();
-  } catch (error) {
-    return next(error);
   }
-});
-
-images.post('/:groupId/:userId', upload.single('file'), async (req, res, next) => {
-  try {
-    const check = await create(
-      'image',
-      req.params.groupId,
-      req.params.userId,
-      `/contents/uploads/groups/${req.params.groupId}/images/${req.params.userId}/${req.file.filename}`
-    );
-    if (!check) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-
-    const response = await postGroupContent(
-      req.cookies.token,
-      req.params.groupId,
-      check.id,
-      req.params.userId
-    );
-    if (response.status !== 200) {
-      await Content.findByIdAndRemove(check.id);
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
-    }
-
-    return res.status(200).json({
-      id: check.id,
-      file: check.data
-    });
-  } catch (error) {
-    return next(error);
-  }
-});
+);
 
 module.exports = images;

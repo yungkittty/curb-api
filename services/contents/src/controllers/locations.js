@@ -4,20 +4,20 @@ const create = require('../services/content-create');
 const Content = require('../models/content');
 const { ApiError } = require('../configurations/error');
 const { OtherServiceError } = require('../configurations/error');
-const postGroupContent = require('../utils/post-group-content');
+const groupContentPost = require('../utils/group-content-post');
+const middlewares = require('../middleswares');
 
 const locations = express();
 
 /**
  *
- * @api {POST} /locations/:groupId/:userId CONTENT ADD LOCATIONS
+ * @api {POST} /locations/:groupId/ CONTENT ADD LOCATIONS
  * @apiName CONTENTS4
  * @apiGroup CONTENTS
  * @apiVersion  0.1.0
  *
  *
  * @apiParam  {String} groupId //
- * @apiParam  {String} userId //
  * @apiParam  {String} data locations data
  *
  * @apiParamExample  {json} Request-Example:
@@ -42,44 +42,27 @@ const locations = express();
  *
  */
 
-locations.use('/:groupId/:userId', async (req, res, next) => {
-  if (!req.params.groupId || !req.params.userId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
+locations.post('/:groupId/', middlewares.permissions, async (req, res, next) => {
   try {
-    if (req.authId !== req.params.userId) {
-      return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
-    }
-    const response = await axios.get(
-      `http://curb-groups:4000/permissions/${req.params.groupId}/${req.authId}`
-    );
-    if (response.status !== 200) {
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
-    }
-    if (!response.data.write) return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
-    return next();
-  } catch (error) {
-    return next(error);
-  }
-});
+    if (!req.permissions.write) return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
 
-locations.post('/:groupId/:userId', async (req, res, next) => {
-  try {
-    const check = await create('location', req.params.groupId, req.params.userId, req.body.data);
-    if (!check) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
+    const content = await create('location', req.params.groupId, req.authId, req.body.data);
+    if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
 
-    const response = await postGroupContent(
+    const response = await groupContentPost(
       req.cookies.token,
       req.params.groupId,
-      check.id,
-      req.params.userId
+      content.id,
+      req.authId
     );
     if (response.status !== 200) {
-      await Content.findByIdAndRemove(check.id);
+      await Content.findByIdAndRemove(content.id);
       throw new OtherServiceError(response.data.service, response.data.code, response.status);
     }
 
     return res.status(200).json({
-      id: check.id,
-      data: check.data
+      id: content.id,
+      data: content.data
     });
   } catch (error) {
     return next(error);

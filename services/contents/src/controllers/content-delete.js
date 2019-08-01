@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { ApiError } = require('../configurations/error');
 const { OtherServiceError } = require('../configurations/error');
-const deleteGroupContent = require('../utils/delete-group-content');
+const groupContentDelete = require('../utils/group-content-delete');
 
 const Content = require('../models/content');
 
@@ -43,7 +43,7 @@ async function contentDelete(req, res, next) {
     const remove = await Content.findByIdAndRemove(req.params.contentId);
     if (!remove) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
 
-    const mediaDelete = await deleteGroupContent(
+    const mediaDelete = await groupContentDelete(
       req.cookies.token,
       req.params.groupId,
       remove._id.toString(),
