@@ -1,26 +1,20 @@
 const express = require('express');
-const multer = require('multer');
-const fs = require('fs-extra');
-const uuidv4 = require('uuid/v4');
-const axios = require('axios');
-const create = require('../services/content-create');
-const Content = require('../models/content');
+const { upload, fileFilter } = require('../configurations/multer');
+const addContent = require('../services/content/content-add');
 const { ApiError } = require('../configurations/error');
-const { OtherServiceError } = require('../configurations/error');
-const groupContentPost = require('../utils/group-content-post');
 const middlewares = require('../middleswares');
 
 const images = express();
 
 /**
  *
- * @api {POST} /images/:groupId/ CONTENT ADD IMAGE
+ * @api {POST} /images/:postId/ CONTENT UPLOAD IMAGE
  * @apiName CONTENTS2
  * @apiGroup CONTENTS
- * @apiVersion  0.1.0
+ * @apiVersion  0.2.0
  *
  *
- * @apiParam  {String} groupId //
+ * @apiParam  {String} postId //
  * @apiParam  {String} file file path
  *
  * @apiParamExample  {form-data} Request-Example:
@@ -28,13 +22,13 @@ const images = express();
  *     file: '${imagePath}',
  * }
  *
- * @apiSuccess (200) {String} id id of the created content
- * @apiSuccess (200) {String} file file path of the created content
+ * @apiSuccess (200) {String} id contentId
+ * @apiSuccess (200) {String} data urlPath
  *
  * @apiSuccessExample {json} Success-Response:
  * {
  *     id: 'uuid',
- *     file: '/contents/uploads/groups/${groupId}/images/${userId}/${filename}'
+ *     data: '/contents/uploads/groups/${groupId}/images/${postId}/${filename}'
  * }
  *
  *
@@ -45,59 +39,31 @@ const images = express();
  *
  */
 
-const upload = multer({
-  fileFilter: (req, file, callback) => {
-    if (!file.originalname.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)) {
-      callback(new ApiError('CONTENTS_INVALID_TYPE'));
-    }
-    callback(null, true);
-  },
-  limits: {
-    fieldSize: process.env.IMAGE_LIMIT_SIZE * 1024 * 1024
-  },
-  storage: multer.diskStorage({
-    destination: (req, file, callback) => {
-      const path = `./uploads/groups/${req.params.groupId}/images/${req.authId}`;
-      fs.mkdirsSync(path);
-      callback(null, path);
-    },
-    filename: (req, file, callback) => {
-      callback(null, `${uuidv4()}.${file.originalname.split('.').reverse()[0]}`);
-    }
-  })
-});
-
 images.post(
-  '/:groupId/',
+  '/:postId',
   middlewares.permissions,
-  upload.single('file'),
+  upload('images', fileFilter(/\.(jpg|jpeg|png|gif)$/)),
   async (req, res, next) => {
     try {
       if (!req.permissions.write) return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
-
-      const content = await create(
-        'image',
-        req.params.groupId,
-        req.authId,
-        `/contents/uploads/groups/${req.params.groupId}/images/${req.authId}/${req.file.filename}`
-      );
+      const content = await addContent('image', req.params.postId, req.authId, req.urlPath);
 
       if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
 
-      const response = await groupContentPost(
-        req.cookies.token,
-        req.params.groupId,
-        content.id,
-        req.authId
-      );
-      if (response.status !== 200) {
-        await Content.findByIdAndRemove(content.id);
-        throw new OtherServiceError(response.data.service, response.data.code, response.status);
-      }
+      // const response = await groupContentPost(
+      //   req.cookies.token,
+      //   req.params.groupId,
+      //   content.id,
+      //   req.authId
+      // );
+      // if (response.status !== 200) {
+      //   await Content.findByIdAndRemove(content.id);
+      //   throw new OtherServiceError(response.data.service, response.data.code, response.status);
+      // }
 
       return res.status(200).json({
         id: content.id,
-        file: content.data
+        data: content.data
       });
     } catch (error) {
       return next(error);

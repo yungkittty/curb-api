@@ -7,6 +7,8 @@ const locations = require('./locations');
 const texts = require('./texts');
 const avatars = require('./avatars');
 
+const post = require('./post');
+
 module.exports = {
   contentRead,
   contentUpdate,
@@ -15,5 +17,6 @@ module.exports = {
   videos,
   locations,
   texts,
-  avatars
+  avatars,
+  ...post
 };

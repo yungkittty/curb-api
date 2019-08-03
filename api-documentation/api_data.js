@@ -1159,7 +1159,101 @@ define({ "api": [
   },
   {
     "type": "POST",
-    "url": "/texts/:groupId/:userId",
+    "url": "/texts/:postId/",
+    "title": "CONTENT UPLOAD TEXT",
+    "name": "CONTENTS1",
+    "group": "CONTENTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>text</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    data: '${textInput}',\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>contentId</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>text</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: '${textInput}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/texts.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/texts/:groupId/",
     "title": "CONTENT ADD TEXT",
     "name": "CONTENTS1",
     "group": "CONTENTS",
@@ -1172,13 +1266,6 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "groupId",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "userId",
             "description": "<p>//</p>"
           },
           {
@@ -1255,7 +1342,7 @@ define({ "api": [
         ]
       }
     },
-    "filename": "../../services/contents/src/controllers/texts.js",
+    "filename": "../../services/contents/src/controllers/_apidoc.js",
     "groupTitle": "CONTENTS"
   },
   {
@@ -1461,7 +1548,101 @@ define({ "api": [
   },
   {
     "type": "POST",
-    "url": "/images/:groupId/:userId",
+    "url": "/images/:postId/",
+    "title": "CONTENT UPLOAD IMAGE",
+    "name": "CONTENTS2",
+    "group": "CONTENTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "file",
+            "description": "<p>file path</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    file: '${imagePath}',\n}",
+          "type": "form-data"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>contentId</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>urlPath</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: '/contents/uploads/groups/${groupId}/images/${postId}/${filename}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/images.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/images/:groupId/",
     "title": "CONTENT ADD IMAGE",
     "name": "CONTENTS2",
     "group": "CONTENTS",
@@ -1474,13 +1655,6 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "groupId",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "userId",
             "description": "<p>//</p>"
           },
           {
@@ -1557,12 +1731,106 @@ define({ "api": [
         ]
       }
     },
-    "filename": "../../services/contents/src/controllers/images.js",
+    "filename": "../../services/contents/src/controllers/_apidoc.js",
     "groupTitle": "CONTENTS"
   },
   {
     "type": "POST",
-    "url": "/texts/:groupId/:userId",
+    "url": "/texts/:postId/",
+    "title": "CONTENT UPLOAD VIDEO",
+    "name": "CONTENTS3",
+    "group": "CONTENTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "file",
+            "description": "<p>file path</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    file: '${videoPath}',\n}",
+          "type": "form-data"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>contentId</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>urlPath</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: '/contents/uploads/groups/${groupId}/videos/${postId}/${filename}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/videos.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/texts/:groupId/",
     "title": "CONTENT ADD VIDEO",
     "name": "CONTENTS3",
     "group": "CONTENTS",
@@ -1575,13 +1843,6 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "groupId",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "userId",
             "description": "<p>//</p>"
           },
           {
@@ -1658,12 +1919,106 @@ define({ "api": [
         ]
       }
     },
-    "filename": "../../services/contents/src/controllers/videos.js",
+    "filename": "../../services/contents/src/controllers/_apidoc.js",
     "groupTitle": "CONTENTS"
   },
   {
     "type": "POST",
-    "url": "/locations/:groupId/:userId",
+    "url": "/locations/:postId/",
+    "title": "CONTENT UPLOAD LOCATIONS",
+    "name": "CONTENTS4",
+    "group": "CONTENTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>locations data</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    data: '${locationsInput}',\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>contentId</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>location</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: '${locationsInput}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/locations.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/locations/:groupId/",
     "title": "CONTENT ADD LOCATIONS",
     "name": "CONTENTS4",
     "group": "CONTENTS",
@@ -1676,13 +2031,6 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "groupId",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "userId",
             "description": "<p>//</p>"
           },
           {
@@ -1759,7 +2107,7 @@ define({ "api": [
         ]
       }
     },
-    "filename": "../../services/contents/src/controllers/locations.js",
+    "filename": "../../services/contents/src/controllers/_apidoc.js",
     "groupTitle": "CONTENTS"
   },
   {
@@ -3679,6 +4027,243 @@ define({ "api": [
     },
     "filename": "../../services/groups/src/controllers/group-permissions.js",
     "groupTitle": "GROUPS"
+  },
+  {
+    "type": "POST",
+    "url": "/contents/posts/",
+    "title": "POST CREATE",
+    "name": "POST1",
+    "group": "POST",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "POST",
+            "description": "<p>ID</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: \"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/post/post-create.js",
+    "groupTitle": "POST"
+  },
+  {
+    "type": "DELETE",
+    "url": "/contents/posts/:postId",
+    "title": "POST DELETE",
+    "name": "POST2",
+    "group": "POST",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/post/post-delete.js",
+    "groupTitle": "POST"
+  },
+  {
+    "type": "GET",
+    "url": "/contents/posts/:postId",
+    "title": "POST READ",
+    "name": "POST3",
+    "group": "POST",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "POST",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    [WIP]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/post/post-read.js",
+    "groupTitle": "POST"
+  },
+  {
+    "type": "PATCH",
+    "url": "/contents/posts/",
+    "title": "POST CREATE",
+    "name": "POST4",
+    "group": "POST",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "POST",
+            "description": "<p>ID</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: \"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/post/post-update.js",
+    "groupTitle": "POST"
   },
   {
     "type": "POST",

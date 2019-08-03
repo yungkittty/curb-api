@@ -10,8 +10,6 @@ async function getGroupUser(groupId, userId) {
   user.activity += 1;
   await user.save();
   await group.save();
-  // TODO => https://stackoverflow.com/questions/57291201/saving-parent-doc-doesnt-save-subdoc-individually
-  // TODO => UserGroup not getting updated as wanted
   return user;
 }
 

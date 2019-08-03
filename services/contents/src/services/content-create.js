@@ -1,4 +1,4 @@
-const Content = require('../models/content');
+const { Content } = require('../models/content');
 
 async function contentCreate(name, inputgroupId, inputuserId, inputData) {
   const newContent = new Content({

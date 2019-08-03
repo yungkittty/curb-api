@@ -1,4 +1,4 @@
-const Content = require('../models/content');
+const { Content } = require('../models/content');
 
 async function contentUpdate(req, res) {
   // if (!req.params.contentId || req.body.dateCreation

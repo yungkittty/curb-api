@@ -3,7 +3,7 @@ const { ApiError } = require('../configurations/error');
 const { OtherServiceError } = require('../configurations/error');
 const groupContentDelete = require('../utils/group-content-delete');
 
-const Content = require('../models/content');
+const { Content } = require('../models/content');
 
 /**
  *
