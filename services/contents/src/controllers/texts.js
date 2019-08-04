@@ -40,25 +40,12 @@ const texts = express();
 
 texts.post('/:postId', middlewares.permissions, async (req, res, next) => {
   try {
-    if (!req.permissions.write) return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+    if (!req.permissions.write) {
+      return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+    }
 
     const content = await addContent('text', req.params.postId, req.authId, req.body.data);
     if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-
-    // TODO LE FAIRE AU CREATE POST ====>
-
-    // Poster le post sur le group
-    // const response = await groupContentPost(
-    //   req.cookies.token,
-    //   req.params.groupId,
-    //   content.id,
-    //   req.authId
-    // );
-    // if (response.status !== 200) {
-    //   await Content.findByIdAndRemove(content.id);
-    //   throw new OtherServiceError(response.data.service, response.data.code, response.status);
-    // }
-
     return res.status(200).json({
       id: content.id,
       data: content.data

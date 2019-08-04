@@ -1,17 +1,18 @@
 const axios = require('axios');
 
-async function deleteGroupContent(token, groupId, contentId, userId) {
+async function groupPostAdd(token, groupId, postId, userId) {
   const response = await axios({
-    method: 'delete',
+    method: 'post',
+    withCredentials: true,
     headers: { Cookie: `token=${token}` },
     data: {
       type: 'image',
       userId
     },
-    url: `http://curb-groups:4000/medias/${groupId}/${contentId}`,
+    url: `http://curb-groups:4000/posts/${groupId}/${postId}`,
     validateStatus: undefined
   });
   return response;
 }
 
-module.exports = deleteGroupContent;
+module.exports = groupPostAdd;

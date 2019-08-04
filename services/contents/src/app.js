@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const serve = require('./serve');
 const controllers = require('./controllers');
 const middlewares = require('./middleswares');
-const test = require('./models/test');
 
 const app = express();
 
@@ -42,7 +41,12 @@ app.get('/', (req, res) => {
 
 app.get('/:contentId', controllers.contentRead);
 app.patch('/:contentId', middlewares.authentication, controllers.contentUpdate);
-app.delete('/:contentId/:groupId', middlewares.authentication, controllers.contentDelete);
+app.delete(
+  '/:contentId/',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.contentDelete
+);
 
 app.use('/uploads', serve);
 app.use('/images', middlewares.authentication, controllers.images);
@@ -51,12 +55,10 @@ app.use('/locations', middlewares.authentication, controllers.locations);
 app.use('/avatars', middlewares.authentication, controllers.avatars);
 app.use('/texts', middlewares.authentication, controllers.texts);
 
-
 /**
  * TODO
  * [ ] Refaire la Doc
- * [ ] Changer le path des files sauvegardés
- * [ ] Supprimer les fichiers lors d'un delete
+ * [ ] faire les permissions
  */
 
 app.post(
@@ -82,6 +84,13 @@ app.get(
   middlewares.optionalAuthId,
   middlewares.permissions,
   controllers.postRead
+);
+
+app.post(
+  '/posts/pin/:postId/',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.postPin
 );
 
 app.use(middlewares.error);

@@ -1,6 +1,15 @@
 const { OtherServiceError, ApiError } = require('../configurations/error');
 const groupPermissions = require('../utils/group-permissions');
 const { Post } = require('../models/post');
+const { Content } = require('../models/content');
+
+async function getPermissions(groupId, authId) {
+  const response = await groupPermissions(groupId, authId);
+  if (response.status !== 200) {
+    throw new OtherServiceError(response.data.service, response.data.code, response.status);
+  }
+  return response.data;
+}
 
 async function permissions(req, res, next) {
   try {
@@ -8,24 +17,22 @@ async function permissions(req, res, next) {
       return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
     }
     if (req.params.groupId) {
-      const response = await groupPermissions(req.params.groupId, req.authId);
-      if (response.status !== 200) {
-        throw new OtherServiceError(response.data.service, response.data.code, response.status);
-      }
-      req.permissions = response.data;
+      req.permissions = await getPermissions(req.params.groupId, req.authId);
       return next();
     }
     if (req.params.postId) {
-      const { groupId = null } = await Post.findOne({ _id: req.params.postId });
-      console.log('PERMISSION=>groupId :', groupId);
-      if (groupId === null) {
-        return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+      const post = await Post.findOne({ _id: req.params.postId });
+      if (post === null) {
+        return next(new ApiError('CONTENTS_NOT_FOUND'));
       }
-      const response = await groupPermissions(groupId, req.authId);
-      if (response.status !== 200) {
-        throw new OtherServiceError(response.data.service, response.data.code, response.status);
-      }
-      req.permissions = response.data;
+      req.permissions = await getPermissions(post.groupId, req.authId);
+      return next();
+    }
+    if (req.params.contentId) {
+      const content = await Content.findOne({ _id: req.params.contentId })
+        .populate('post')
+        .exec();
+      req.permissions = await getPermissions(content.post.groupId, req.authId);
       return next();
     }
     return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));

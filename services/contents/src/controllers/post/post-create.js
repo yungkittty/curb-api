@@ -27,7 +27,7 @@ const { ApiError } = require('../../configurations/error');
 async function postCreate(req, res, next) {
   try {
     if (!req.params.groupId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
-    const postId = await create(req.params.groupId, req.authId);
+    const postId = await create(req.cookies.token, req.params.groupId, req.authId);
     return res
       .status(200)
       .json(postId)

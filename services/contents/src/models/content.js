@@ -5,7 +5,7 @@ mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const contentSchema = mongoose.Schema(
   {
-    postId: { type: mongoose.SchemaTypes.ObjectId, ref: 'posts' },
+    post: { type: mongoose.SchemaTypes.ObjectId, ref: 'posts' },
     type: {
       type: String,
       required: [true, 'CONTENTS_MISSING_TYPE'],
@@ -33,7 +33,11 @@ contentSchema.post('save', async (error, doc, next) => {
     return next(new ApiError('CONTENTS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
-    return next(new ApiError(error.errors[Object.keys(error.errors)[0]].message.toUpperCase()));
+    return next(
+      new ApiError(
+        error.errors[Object.keys(error.errors)[0]].message.toUpperCase()
+      )
+    );
   }
   return next(error);
 });

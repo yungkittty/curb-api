@@ -1,34 +1,35 @@
-const remove = require('../../services/post/remove');
+const pin = require('../../services/post/pin');
 const { ApiError } = require('../../configurations/error');
 
 /**
  *
- * @api {DELETE} /contents/posts/:postId POST DELETE
- * @apiName POST2
+ * @api {POST} /contents/posts/pin/:postId POST PIN
+ * @apiName POST5
  * @apiGroup POST
  * @apiVersion  0.1.0
  *
  *
  * @apiParam  {String} postId //
+
+ * @apiSuccess (200) {String}
  *
- * @apiSuccess (200) {String} OK
  *
  * @apiError BAD_PARAMETER 400
  * @apiError UNDEFINED 500
  *
  */
 
-async function postCreate(req, res, next) {
+async function postPin(req, res, next) {
   try {
     if (!req.params.postId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
-    await remove(req.cookies.token, req.params.postId);
+    const postId = await pin(req.params.postId);
     return res
       .status(200)
-      .json()
+      .json(postId)
       .end();
   } catch (error) {
     return next(error);
   }
 }
 
-module.exports = postCreate;
+module.exports = postPin;

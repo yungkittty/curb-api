@@ -1,11 +1,13 @@
 const { Post } = require('../../models/post');
-const { Content } = require('../../models/content');
+const groupPostDelete = require('../../utils/group-post-delete');
+const removeContent = require('../../services/content/remove');
 
-// [WIP]
-async function remove(postId) {
+async function remove(token, postId) {
   const post = await Post.findOneAndRemove({ _id: postId });
-  const deleted = await Content.remove({ postId });
-  console.log(deleted);
+  post.medias.forEach(async (medias) => {
+    await removeContent(medias, false);
+  });
+  await groupPostDelete(token, post.groupId, post.id);
   return post;
 }
 

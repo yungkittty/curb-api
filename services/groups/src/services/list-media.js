@@ -21,7 +21,7 @@ async function listMedia({
   //   count,
   //   page,
   //   mediaType,
-  //   medias: ids.reduce((acc, id) => acc.concat(id), [])
+  //   posts: ids.reduce((acc, id) => acc.concat(id), [])
   // };
 }
 

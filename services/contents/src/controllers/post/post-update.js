@@ -2,7 +2,7 @@ const update = require('../../services/post/update');
 
 /**
  *
- * @api {PATCH} /contents/posts/ POST CREATE
+ * @api {PATCH} /contents/posts/ POST UPDATE
  * @apiName POST4
  * @apiGroup POST
  * @apiVersion  0.1.0

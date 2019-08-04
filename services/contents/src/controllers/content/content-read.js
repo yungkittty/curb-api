@@ -1,10 +1,10 @@
-const { Content } = require('../models/content');
-const { ApiError } = require('../configurations/error');
+const { Content } = require('../../models/content');
+const { ApiError } = require('../../configurations/error');
 
 /**
  *
- * @api {GET} /:id CONTENT POST READ
- * @apiName CONTENTS11
+ * @api {GET} /:id CONTENT READ BY ID
+ * @apiName CONTENTS7
  * @apiGroup CONTENTS
  * @apiVersion  0.1.0
  *
@@ -23,11 +23,13 @@ const { ApiError } = require('../configurations/error');
  *
  */
 
-async function postRead(req, res, next) {
+async function contentRead(req, res, next) {
   if (!req.params.contentId) {
     return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   }
   try {
+    if (!req.permissions.creator || !req.permissions.write) return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+
     const content = await Content.findById(req.params.contentId);
     if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
     return res.status(200).json({
@@ -38,4 +40,4 @@ async function postRead(req, res, next) {
   }
 }
 
-module.exports = postRead;
+module.exports = contentRead;

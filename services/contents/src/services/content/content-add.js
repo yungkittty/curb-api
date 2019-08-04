@@ -5,7 +5,7 @@ const { ApiError } = require('../../configurations/error');
 
 async function contentAdd(type, postId, userId, data) {
   const content = new Content({
-    postId: new mongoose.Types.ObjectId(),
+    post: new mongoose.Types.ObjectId(postId),
     type,
     data
   });

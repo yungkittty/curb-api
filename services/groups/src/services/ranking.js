@@ -11,7 +11,7 @@ const countGroupUser = require('../utils/mongoose/count-group-user');
 async function ranking(id) {
   const group = await Group.findById(id);
   if (!group) throw new ApiError('GROUPS_NOT_FOUND');
-  const numberOfMedia = group.medias.length;
+  const numberOfMedia = group.posts.length;
   const numberOfUser = await countGroupUser(group);
   const rank = (numberOfMedia + 0.5 * numberOfUser)
     / (1 + 0.4 * ((Date.now() - new Date(group.updatedAt).getTime()) / 3600000));

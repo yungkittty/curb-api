@@ -24,7 +24,7 @@ const groupSchema = mongoose.Schema(
     dateCreation: Date,
     // users: { type: [String] },
     users: [userGroupSchema],
-    medias: { type: [String], maxlength: 10 },
+    posts: { type: [String], maxlength: 10 },
     mediaTypes: {
       type: [String],
       required: true,

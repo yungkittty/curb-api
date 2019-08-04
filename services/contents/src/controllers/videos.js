@@ -45,22 +45,12 @@ videos.post(
   upload('videos', fileFilter(/\.(mp4|avi)$/)),
   async (req, res, next) => {
     try {
-      if (!req.permissions.write) return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
-
+      if (!req.permissions.write) {
+        return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+      }
       const content = await addContent('video', req.params.postId, req.authId, req.urlPath);
 
       if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-
-      // const response = await groupContentPost(
-      //   req.cookies.token,
-      //   req.params.groupId,
-      //   content.id,
-      //   req.authId
-      // );
-      // if (response.status !== 200) {
-      //   await Content.findByIdAndRemove(content.id);
-      //   throw new OtherServiceError(response.data.service, response.data.code, response.status);
-      // }
 
       return res.status(200).json({
         id: content.id,
