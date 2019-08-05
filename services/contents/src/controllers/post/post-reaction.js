@@ -1,10 +1,10 @@
-const pin = require('../../services/post/pin');
+const reaction = require('../../services/post/reaction');
 const { ApiError } = require('../../configurations/error');
 
 /**
  *
- * @api {POST} /contents/posts/pin/:postId POST PIN
- * @apiName POST5
+ * @api {POST} /contents/posts/reaction/:postId POST PIN
+ * @apiName POST6
  * @apiGroup POST
  * @apiVersion  0.1.0
  *
@@ -13,26 +13,30 @@ const { ApiError } = require('../../configurations/error');
 
  * @apiSuccess (200) {String}
  *
+ *  * @apiSuccessExample {json} Success-Response:
+ * {
+ *     reaction: 200
+ * }
  *
  * @apiError BAD_PARAMETER 400
  * @apiError UNDEFINED 500
  *
  */
 
-async function postPin(req, res, next) {
+async function postReaction(req, res, next) {
   try {
     if (!req.params.postId) return next(new ApiError('POSTS_BAD_PARAMETER'));
-    if (!req.permissions.creator) {
+    if (!req.permissions.creator || !req.permissions.write) {
       return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
-    const postId = await pin(req.params.postId);
+    const reactionNumber = await reaction(req.params.postId, req.authId);
     return res
       .status(200)
-      .json(postId)
+      .json(reactionNumber)
       .end();
   } catch (error) {
     return next(error);
   }
 }
 
-module.exports = postPin;
+module.exports = postReaction;

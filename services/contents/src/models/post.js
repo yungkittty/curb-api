@@ -9,7 +9,10 @@ const postSchema = mongoose.Schema(
     groupId: { type: String, required: [true, 'POSTS_MISSING_GROUP_ID'] },
     medias: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'contents' }],
     pinned: { type: Boolean, default: false },
-    reaction: { type: Number, default: 0 }
+    reaction: {
+      number: { type: Number, default: 0 },
+      ids: { type: [String] }
+    }
   } // will generate automaticly createdAt & updateAt
   // { timestamps: true }
 );

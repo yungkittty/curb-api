@@ -18,6 +18,7 @@ async function permissions(req, res, next) {
     }
     if (req.params.groupId) {
       req.permissions = await getPermissions(req.params.groupId, req.authId);
+      console.log('RERERE', req.permissions);
       return next();
     }
     if (req.params.postId) {

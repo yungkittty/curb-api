@@ -1,4 +1,5 @@
 const update = require('../../services/post/update');
+const { ApiError } = require('../../configurations/error');
 
 /**
  *
@@ -25,6 +26,9 @@ const update = require('../../services/post/update');
 
 async function postUpdate(req, res, next) {
   try {
+    if (!req.permissions.write) {
+      return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
+    }
     const postId = await update(req.authId);
     return res
       .status(200)

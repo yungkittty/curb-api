@@ -58,7 +58,6 @@ app.use('/texts', middlewares.authentication, controllers.texts);
 /**
  * TODO
  * [ ] Refaire la Doc
- * [ ] faire les permissions
  */
 
 app.post(
@@ -91,6 +90,20 @@ app.post(
   middlewares.authentication,
   middlewares.permissions,
   controllers.postPin
+);
+
+app.post(
+  '/posts/reaction/:postId/',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.postReaction
+);
+
+app.get(
+  '/posts/list/:groupId/',
+  middlewares.optionalAuthId,
+  middlewares.permissions,
+  controllers.postList
 );
 
 app.use(middlewares.error);

@@ -1,4 +1,5 @@
 const read = require('../../services/post/read');
+const { ApiError } = require('../../configurations/error');
 
 /**
  *
@@ -25,7 +26,11 @@ const read = require('../../services/post/read');
 
 async function postRead(req, res, next) {
   try {
+    if (!req.permissions.read) {
+      return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
+    }
     const post = await read(req.authId);
+
     return res
       .status(200)
       .json(post)

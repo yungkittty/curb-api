@@ -33,11 +33,7 @@ contentSchema.post('save', async (error, doc, next) => {
     return next(new ApiError('CONTENTS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
-    return next(
-      new ApiError(
-        error.errors[Object.keys(error.errors)[0]].message.toUpperCase()
-      )
-    );
+    return next(new ApiError(error.errors[Object.keys(error.errors)[0]].message.toUpperCase()));
   }
   return next(error);
 });

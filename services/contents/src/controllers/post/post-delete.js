@@ -18,9 +18,12 @@ const { ApiError } = require('../../configurations/error');
  *
  */
 
-async function postCreate(req, res, next) {
+async function postDelete(req, res, next) {
   try {
-    if (!req.params.postId) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
+    if (!req.params.postId) return next(new ApiError('POSTS_BAD_PARAMETER'));
+    if (!req.permissions.creator || !req.permissions.write) {
+      return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
+    }
     await remove(req.cookies.token, req.params.postId);
     return res
       .status(200)
@@ -31,4 +34,4 @@ async function postCreate(req, res, next) {
   }
 }
 
-module.exports = postCreate;
+module.exports = postDelete;
