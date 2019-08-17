@@ -18,10 +18,6 @@ async function contentAdd(type, postId, userId, data) {
   await content.save();
   post.medias.unshift(content.id);
   await post.save();
-  // const t = await Post.findOne({ _id: postId })
-  //   .populate('medias')
-  //   .exec();
-  // console.log('POPULATE=>', t);
   return content;
 }
 
