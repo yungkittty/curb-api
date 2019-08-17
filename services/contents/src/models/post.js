@@ -13,8 +13,8 @@ const postSchema = mongoose.Schema(
       number: { type: Number, default: 0 },
       ids: { type: [String] }
     }
-  } // will generate automaticly createdAt & updateAt
-  // { timestamps: true }
+  }, // will generate automaticly createdAt & updateAt
+  { timestamps: true }
 );
 
 // eslint-disable-next-line

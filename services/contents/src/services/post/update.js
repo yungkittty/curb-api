@@ -1,7 +1,7 @@
-const { Post } = require('../../models/post');
+const { ApiError } = require('../../configurations/error');
 
 async function update() {
-  return 'OK';
+  throw new ApiError('not implemented');
 }
 
 module.exports = update;
