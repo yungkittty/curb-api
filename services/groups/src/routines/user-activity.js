@@ -51,10 +51,6 @@ async function userActivityPerGroup() {
   for (let call = await gen.next(); call.done !== true; call = await gen.next()) {
     computeThirdQuartile(call.value);
   }
-
-  // const group = await Group.findOne({ _id: mongoose.Types.ObjectId('5d406ddfcc0ed201c229e0cd') });
-  // // console.log(group);
-  // await computeThirdQuartile(group);
 }
 
 module.exports = userActivityPerGroup;

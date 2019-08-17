@@ -106,8 +106,5 @@ groupSchema.post('save', async (error, doc, next) => {
   return next(error);
 });
 
-// TODO Ajouter un record => chaque semaine add Activity to Ranke
-
 module.exports.Group = mongoose.model('groups', groupSchema);
 module.exports.groupSchema = groupSchema;
-// module.exports = mongoose.model('groups', groupSchema);
