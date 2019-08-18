@@ -45,7 +45,7 @@ async function postList(req, res, next) {
     if (!req.authId) {
       const response = groupGet(req.params.groupId);
       if (response.status !== 200) {
-        throw new OtherServiceError(response.data.service, response.data.code, response.status);
+        throw new OtherServiceError(response);
       }
       if (response.data.status === 'private') {
         throw new ApiError('POSTS_FORBIDEN_OPERATION');

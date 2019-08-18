@@ -6,7 +6,7 @@ const { Content } = require('../models/content');
 async function getPermissions(groupId, authId) {
   const response = await groupPermissions(groupId, authId);
   if (response.status !== 200) {
-    throw new OtherServiceError(response.data.service, response.data.code, response.status);
+    throw new OtherServiceError(response);
   }
   return response.data;
 }

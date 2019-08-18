@@ -50,9 +50,7 @@ async function groupListMedia(req, res, next) {
         validateStatus: undefined
       });
       if (response.status !== 200) {
-        return next(
-          new OtherServiceError(response.data.service, response.data.code, response.status)
-        );
+        return next(new OtherServiceError(response));
       }
     }
     const userId = !response ? undefined : response.data.id;

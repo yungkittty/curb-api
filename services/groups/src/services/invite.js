@@ -13,11 +13,7 @@ async function invite(groupId, issuerId) {
     validateStatus: undefined
   });
   if (userResponse.status !== 200) {
-    throw new OtherServiceError(
-      userResponse.data.service,
-      userResponse.data.code,
-      userResponse.status
-    );
+    throw new OtherServiceError(response);
   }
 
   if (!(await isUserInGroup(groupId, issuerId))) {

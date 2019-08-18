@@ -13,11 +13,7 @@ async function remove(id, token) {
     validateStatus: undefined
   });
   if (response.status !== 200) {
-    throw new OtherServiceError(
-      response.data.service,
-      response.data.code,
-      response.status
-    );
+    throw new OtherServiceError(response);
   }
   await Account.deleteOne({ _id: id });
   return account;

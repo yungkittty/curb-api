@@ -9,11 +9,7 @@ async function create(token, groupId, creatorId) {
   });
   const response = await groupPostAdd(token, groupId, post.id);
   if (response.status !== 200) {
-    throw new OtherServiceError(
-      response.data.service,
-      response.data.code,
-      response.status
-    );
+    throw new OtherServiceError(response);
   }
   await post.save();
   return { id: post.id };

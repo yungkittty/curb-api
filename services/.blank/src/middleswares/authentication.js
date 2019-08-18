@@ -1,9 +1,9 @@
-const axios = require('axios');
-const { OtherServiceError, ApiError } = require('../configurations/error');
+const axios = require("axios");
+const { OtherServiceError, ApiError } = require("../configurations/error");
 
 function getToken(headers) {
-  const find = 'token=';
-  const tokenString = headers[0].split(';')[0];
+  const find = "token=";
+  const tokenString = headers[0].split(";")[0];
   return tokenString.slice(
     tokenString.indexOf(find) + find.length - tokenString.length
   );
@@ -12,24 +12,24 @@ function getToken(headers) {
 async function authentication(req, res, next) {
   try {
     if (req.authId || req.token) {
-      return next(new ApiError('ACCOUNT_BAD_PARAMETER'));
+      return next(new ApiError("ACCOUNT_BAD_PARAMETER"));
     }
     const response = await axios({
-      method: 'post',
+      method: "post",
       withCredentials: true,
       headers: { Cookie: `token=${req.cookies.token}` },
-      url: 'http://curb-accounts:4000/validate',
+      url: "http://curb-accounts:4000/validate",
       validateStatus: undefined
     });
     if (response.status !== 200) {
-      throw new OtherServiceError(
-        response.data.service,
-        response.data.code,
-        response.status
-      );
+      throw new OtherServiceError(response);
     }
-    if (response.headers['set-cookie']) {
-      res.cookie('token', getToken(response.headers['set-cookie']), { httpOnly: true, secure: true, maxAge: 31536000 });
+    if (response.headers["set-cookie"]) {
+      res.cookie("token", getToken(response.headers["set-cookie"]), {
+        httpOnly: true,
+        secure: true,
+        maxAge: 31536000
+      });
     }
     req.authId = response.data.id;
     return next();
