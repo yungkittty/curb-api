@@ -9,7 +9,7 @@ const { OtherServiceError } = require('../configurations/error');
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  * @apiDescription
- * <h4>List for media </h4><br>
+ * <h4>List for media, [WIP] </h4><br>
  *
  * @apiParam {String} [groupId] queryParam
  * @apiParam {Number} [count=5] queryParam

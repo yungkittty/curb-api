@@ -10,10 +10,10 @@ const { ApiError } = require('../../configurations/error');
  *
  *
  * @apiParam  {String} postId //
-
- * @apiSuccess (200) {String}
  *
- *  * @apiSuccessExample {json} Success-Response:
+ * @apiSuccess (200) {String} OK
+ *
+ * @apiSuccessExample {json} Success-Response:
  * {
  *     reaction: 200
  * }

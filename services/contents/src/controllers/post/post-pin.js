@@ -10,8 +10,8 @@ const { ApiError } = require('../../configurations/error');
  *
  *
  * @apiParam  {String} postId //
-
- * @apiSuccess (200) {String}
+ *
+ * @apiSuccess (200) {Object} OK
  *
  *
  * @apiError BAD_PARAMETER 400

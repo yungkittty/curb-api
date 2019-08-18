@@ -11,14 +11,14 @@ const { ApiError } = require('../configurations/error');
  *
  * @apiParam  {String} groupId //
  * @apiParam  {String} postId //
- * @apiParam  {String} type mediaType
+ * @apiParam  {String} type Body: mediaType
  *
  *
  * @apiSuccess (200) {String} OK
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     type: 'localsation',
+ *     type: 'location',
  * }
  *
  * @apiError BAD_PARAMETER 400
@@ -33,12 +33,7 @@ async function groupPost(req, res, next) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
-    await addPost(
-      req.params.groupId,
-      req.params.postId,
-      req.body.type,
-      req.authId
-    );
+    await addPost(req.params.groupId, req.params.postId, req.body.type, req.authId);
     return res.status(200).end();
   } catch (error) {
     return next(error);

@@ -79,12 +79,28 @@
 
 ```
 {
-  id: Uuid, [Unique]
-  creatorId: Uuid, [Unique]
-  groupId: Uuid, [Unique]
-  type: oneOf('location', 'text', 'image','video')
-  dateCreation: Date,
+  id: Uuid, [Unique],
+  post: Uuid, (transform => {Post}),
+  type: oneOf('location', 'text', 'image','video'),
   data: String [image;video:file_path,location;text: raw_string],
+  createdAt: Date,
+  updateAt: Date
+}
+```
+
+###
+
+```
+{
+  id: Uuid, [Unique],
+  creatorId: Uuid,
+  groupId: Uuid,
+  medias: [Uuid] (transform => [Content]),
+  pinned: Boolean,
+  reaction: {
+    number: Number,
+    ids: [Uuid] (userId wich reacted)
+  },
   createdAt: Date,
   updateAt: Date
 }
