@@ -9,11 +9,7 @@ async function getUser(id) {
     headers: { 'Content-Type': 'application/json' }
   });
   if (response.status !== 200) {
-    throw new OtherServiceError(
-      response.data.service,
-      response.data.code,
-      response.status
-    );
+    throw new OtherServiceError(response);
   }
   return response.data;
 }
@@ -26,11 +22,7 @@ async function getAccountById(id) {
     headers: { 'Content-Type': 'application/json' }
   });
   if (response.status !== 200) {
-    throw new OtherServiceError(
-      response.data.service,
-      response.data.code,
-      response.status
-    );
+    throw new OtherServiceError(response);
   }
   const user = await getUser(id);
   return { ...response.data, ...user };
@@ -47,11 +39,7 @@ async function getAccountByEmail(email) {
     }
   });
   if (response.status !== 200) {
-    throw new OtherServiceError(
-      response.data.service,
-      response.data.code,
-      response.status
-    );
+    throw new OtherServiceError(response);
   }
   const user = await getUser(response.data.id);
   return { ...response.data, ...user };

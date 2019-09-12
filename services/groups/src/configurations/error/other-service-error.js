@@ -1,12 +1,12 @@
 const ApiError = require('./api-error');
 
 class OtherServiceError extends ApiError {
-  constructor(from, code, status) {
+  constructor(response) {
     super('OTHER_SERVICE');
     this.name = this.constructor.name;
-    this.from = from;
-    this.code = code;
-    this.status = status;
+    this.from = response.data.service;
+    this.code = response.data.code;
+    this.status = response.status;
   }
 }
 

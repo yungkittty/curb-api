@@ -9,7 +9,7 @@ const { OtherServiceError } = require('../configurations/error');
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  * @apiDescription
- * <h4>List for media </h4><br>
+ * <h4>List for media, [WIP] </h4><br>
  *
  * @apiParam {String} [groupId] queryParam
  * @apiParam {Number} [count=5] queryParam
@@ -25,7 +25,7 @@ const { OtherServiceError } = require('../configurations/error');
     "count": 10,
     "page": 1,
     "mediaType": "mediaType || undefined",
-    "groups": [
+    "data": [
         "5d2c710b2b91f5004c54f8da",
         "5d2c76ae24839b009e791e6e",
         "5d2c6c4c97ff050029efc582",
@@ -50,9 +50,7 @@ async function groupListMedia(req, res, next) {
         validateStatus: undefined
       });
       if (response.status !== 200) {
-        return next(
-          new OtherServiceError(response.data.service, response.data.code, response.status)
-        );
+        return next(new OtherServiceError(response));
       }
     }
     const userId = !response ? undefined : response.data.id;

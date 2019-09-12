@@ -1,32 +1,54 @@
-const Group = require('../models/group');
-const pagination = require('../utils/pagination');
+const mongoose = require('mongoose');
+const { Group } = require('../models/group');
+const isUserInGroup = require('../utils/mongoose/is-user-in-group');
+const { ApiError } = require('../configurations/error');
 
-async function listRandom({ page = 1, count = 5, active = undefined }) {
+async function listUser({
+  page = 1, count = 5, active = undefined, groupId, userId = undefined
+}) {
+  const response = { page, count };
+  const skip = (page - 1) * count;
+
+  const group = Group.findOne({ _id: groupId });
+  const userInGroup = await isUserInGroup(group._id, userId);
+  if (group.status === 'private' && (!userInGroup || !userId)) {
+    throw new ApiError('GROUPS_FORBIDEN_READ');
+  }
+
   const list = await Group.aggregate([
     {
       $match: {
+        _id: mongoose.Types.ObjectId(groupId),
         status: { $ne: 'private' }
       }
     },
     {
-      $sort: { rank: -1 }
+      $project: {
+        _id: false,
+        users: active
+          ? {
+            $filter: {
+              input: '$users',
+              as: 'user',
+              cond: { $eq: ['$$user.active', true] }
+            }
+          }
+          : {
+            $filter: {
+              input: '$users',
+              as: 'user',
+              cond: { $ne: ['$$user.active', null] }
+            }
+          }
+      }
     },
-    ...pagination(page, count),
     {
-      $group: { _id: null, ids: { $push: '$_id' } }
-    },
-    {
-      $project: { ids: true, _id: false }
+      $project: { _id: false, users: { $slice: ['$users', skip, count] } }
     }
   ]);
 
-  const { ids = [] } = list[0] || [];
-
-  return {
-    count,
-    page,
-    groups: ids.reduce((acc, id) => acc.concat(id), [])
-  };
+  const { users = [] } = list[0] || [];
+  return { ...response, data: users };
 }
 
-module.exports = listRandom;
+module.exports = listUser;

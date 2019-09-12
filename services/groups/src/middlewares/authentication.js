@@ -20,10 +20,14 @@ async function authentication(req, res, next) {
       validateStatus: undefined
     });
     if (response.status !== 200) {
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
+      throw new OtherServiceError(response);
     }
     if (response.headers['set-cookie']) {
-      res.cookie('token', getToken(response.headers['set-cookie']), { httpOnly: true, secure: true, maxAge: 31536000 });
+      res.cookie('token', getToken(response.headers['set-cookie']), {
+        httpOnly: true,
+        secure: true,
+        maxAge: 31536000
+      });
     }
     req.authId = response.data.id;
     return next();

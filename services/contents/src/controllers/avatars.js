@@ -95,7 +95,7 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
       validateStatus: undefined
     });
     if (rep.status !== 200) {
-      throw new OtherServiceError(rep.data.service, rep.data.code, rep.data.status);
+      throw new OtherServiceError(rep);
     }
     if (!rep.data.creator) {
       return next(new ApiError('CONTENTS_NOT_GROUP_CREATOR'));
@@ -132,13 +132,9 @@ avatar.post('/groups/:groupId', groupUpload.single('file'), async (req, res, nex
   const ext = Path.extname(req.file.originalname);
   const fragment = new Date().getTime();
 
-  const basePath = `./${process.env.AVATAR_DIRECTORIES_GROUP_PATH}${
-    req.params.groupId
-  }/${fragment}-`;
+  const basePath = `./${process.env.AVATAR_DIRECTORIES_GROUP_PATH}${req.params.groupId}/${fragment}-`;
 
-  const urlPath = `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_GROUP_PATH}${
-    req.params.groupId
-  }/${fragment}-medium${ext}`;
+  const urlPath = `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_GROUP_PATH}${req.params.groupId}/${fragment}-medium${ext}`;
 
   try {
     await Promise.all(
@@ -153,7 +149,7 @@ avatar.post('/groups/:groupId', groupUpload.single('file'), async (req, res, nex
       validateStatus: undefined
     });
     if (response.status !== 200) {
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
+      throw new OtherServiceError(response);
     }
     return res.status(200).json({
       avatarUrl: urlPath
@@ -169,9 +165,7 @@ avatar.post('/users/:userId', userUpload.single('file'), async (req, res, next) 
 
   const basePath = `./${process.env.AVATAR_DIRECTORIES_USER_PATH}${req.params.userId}/${fragment}-`;
 
-  const urlPath = `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_USER_PATH}${
-    req.params.userId
-  }/${fragment}-medium${ext}`;
+  const urlPath = `/${process.env.SERVICE_NAME}/${process.env.AVATAR_DIRECTORIES_USER_PATH}${req.params.userId}/${fragment}-medium${ext}`;
 
   try {
     await Promise.all(
@@ -186,7 +180,7 @@ avatar.post('/users/:userId', userUpload.single('file'), async (req, res, next) 
       validateStatus: undefined
     });
     if (response.status !== 200) {
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
+      throw new OtherServiceError(response);
     }
     return res.status(200).json({
       avatarUrl: urlPath

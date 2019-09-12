@@ -5,9 +5,7 @@ mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const contentSchema = mongoose.Schema(
   {
-    creatorId: { type: String, required: [true, 'CONTENTS_MISSING_CREATOR_ID'] },
-    groupId: { type: String, required: [true, 'CONTENTS_MISSING_GROUP_ID'] },
-    dateCreation: Date,
+    post: { type: mongoose.SchemaTypes.ObjectId, ref: 'posts' },
     type: {
       type: String,
       required: [true, 'CONTENTS_MISSING_TYPE'],
@@ -40,4 +38,5 @@ contentSchema.post('save', async (error, doc, next) => {
   return next(error);
 });
 
-module.exports = mongoose.model('contents', contentSchema);
+module.exports.Content = mongoose.model('contents', contentSchema);
+module.exports.contentSchema = contentSchema;

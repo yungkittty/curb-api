@@ -48,7 +48,7 @@ async function listCustom({
     }
   }
 
-  return { ...response, groups: ids.reduce((acc, id) => acc.concat(id), []) };
+  return { ...response, data: ids.reduce((acc, id) => acc.concat(id), []) };
 }
 
 module.exports = listCustom;

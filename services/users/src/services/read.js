@@ -20,7 +20,7 @@ async function read(id, token = undefined) {
     }
   });
   if (response.status !== 200) {
-    throw new OtherServiceError(response.data.service, response.data.code, response.status);
+    throw new OtherServiceError(response);
   }
   return { ...user.getPublicFields(), groups: response.data.groups };
 }

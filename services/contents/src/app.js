@@ -41,7 +41,12 @@ app.get('/', (req, res) => {
 
 app.get('/:contentId', controllers.contentRead);
 app.patch('/:contentId', middlewares.authentication, controllers.contentUpdate);
-app.delete('/:contentId/:groupId', middlewares.authentication, controllers.contentDelete);
+app.delete(
+  '/:contentId/',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.contentDelete
+);
 
 app.use('/uploads', serve);
 app.use('/images', middlewares.authentication, controllers.images);
@@ -50,10 +55,56 @@ app.use('/locations', middlewares.authentication, controllers.locations);
 app.use('/avatars', middlewares.authentication, controllers.avatars);
 app.use('/texts', middlewares.authentication, controllers.texts);
 
-// app.post('/post/:postId', controllers.postCreate);
-// app.get('/post/:postId', controllers.postRead);
-// app.patch('/post/:postId', controllers.postUpdate);
-// app.delete('/post/:postId', controllers.postDelete);
+/**
+ * TODO
+ * [ ] Refaire la Doc
+ */
+
+app.post(
+  '/posts/:groupId',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.postCreate
+);
+app.delete(
+  '/posts/:postId',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.postDelete
+);
+app.patch(
+  '/posts/:postId',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.postUpdate
+);
+app.get(
+  '/posts/:postId',
+  middlewares.optionalAuthId,
+  middlewares.permissions,
+  controllers.postRead
+);
+
+app.post(
+  '/posts/pin/:postId/',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.postPin
+);
+
+app.post(
+  '/posts/reaction/:postId/',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.postReaction
+);
+
+app.get(
+  '/posts/list/:groupId/',
+  middlewares.optionalAuthId,
+  middlewares.permissions,
+  controllers.postList
+);
 
 app.use(middlewares.error);
 

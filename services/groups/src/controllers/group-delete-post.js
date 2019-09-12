@@ -3,18 +3,17 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {DELETE} /medias/:groupId/:mediaId GROUPS PRIVATE DELETE MEDIA
+ * @api {DELETE} /posts/:groupId/:postId GROUPS PRIVATE DELETE MEDIA
  * @apiName GROUPS12
  * @apiGroup GROUPS
  * @apiVersion  0.1.0
  *
  *
  * @apiParam  {String} groupId //
- * @apiParam  {String} mediaId //
+ * @apiParam  {String} postId //
  *
  *
  * @apiSuccess (200) {String} OK
- *
  *
  * @apiSuccessExample {json} Success-Response:
  * {
@@ -29,11 +28,11 @@ const { ApiError } = require('../configurations/error');
  */
 
 async function groupAddPost(req, res, next) {
-  if (!req.params.groupId || !req.params.mediaId) {
+  if (!req.params.groupId || !req.params.postId) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
-    await deletePost(req.params.groupId, req.params.mediaId);
+    await deletePost(req.params.groupId, req.params.postId, req.authId);
     return res.status(200).end();
   } catch (error) {
     return next(error);

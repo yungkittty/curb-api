@@ -44,13 +44,7 @@ async function groupList(req, res, next) {
         validateStatus: undefined
       });
       if (authResponse.status !== 200) {
-        return next(
-          new OtherServiceError(
-            authResponse.data.service,
-            authResponse.data.code,
-            authResponse.status
-          )
-        );
+        return next(new OtherServiceError(authResponse));
       }
     }
     const authId = !authResponse || !authResponse.status ? undefined : authResponse.data.id;

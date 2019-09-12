@@ -1,4 +1,5 @@
-const Group = require('../models/group');
+const { Group } = require('../models/group');
+
 const pagination = require('../utils/pagination');
 
 async function listGlobal({
@@ -30,7 +31,7 @@ async function listGlobal({
     count,
     page,
     section: 'global',
-    groups: ids.reduce((acc, id) => acc.concat(id), [])
+    data: ids.reduce((acc, id) => acc.concat(id), [])
   };
 }
 

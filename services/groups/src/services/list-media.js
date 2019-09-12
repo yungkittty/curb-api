@@ -1,4 +1,5 @@
-const Group = require('../models/group');
+const { Group } = require('../models/group');
+
 const pagination = require('../utils/pagination');
 
 async function listMedia({
@@ -20,7 +21,7 @@ async function listMedia({
   //   count,
   //   page,
   //   mediaType,
-  //   medias: ids.reduce((acc, id) => acc.concat(id), [])
+  //   posts: ids.reduce((acc, id) => acc.concat(id), [])
   // };
 }
 

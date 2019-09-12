@@ -1,4 +1,4 @@
-const Group = require('../models/group');
+const { Group } = require('../models/group');
 
 async function aggregateGetSome(count = 1, pipeline = []) {
   const groupIdsForUser = await Group.aggregate([

@@ -17,7 +17,7 @@ async function getUserList(page = 1) {
     }
   });
   if (response.status !== 200) {
-    throw new OtherServiceError(response.data.service, response.data.code, response.status);
+    throw new OtherServiceError(response);
   }
   return response.data.data;
 }

@@ -1,4 +1,5 @@
-const Group = require('../models/group');
+const { Group } = require('../models/group');
+
 
 async function aggregateUserInGroup(userId, pipeline) {
   // AM => $unwid: userId puis $match $eq userId (format) ?

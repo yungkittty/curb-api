@@ -1,22 +1,19 @@
 const express = require('express');
-const axios = require('axios');
-const create = require('../services/content-create');
-const Content = require('../models/content');
+const addContent = require('../services/content/content-add');
 const { ApiError } = require('../configurations/error');
-const { OtherServiceError } = require('../configurations/error');
+const middlewares = require('../middleswares');
 
 const texts = express();
 
 /**
  *
- * @api {POST} /texts/:groupId/:userId CONTENT ADD TEXT
+ * @api {POST} /texts/:postId/ CONTENT UPLOAD TEXT
  * @apiName CONTENTS1
  * @apiGroup CONTENTS
- * @apiVersion  0.1.0
+ * @apiVersion  0.2.0
  *
  *
- * @apiParam  {String} groupId //
- * @apiParam  {String} userId //
+ * @apiParam  {String} postId //
  * @apiParam  {String} data text
  *
  * @apiParamExample  {json} Request-Example:
@@ -24,8 +21,8 @@ const texts = express();
  *     data: '${textInput}',
  * }
  *
- * @apiSuccess (200) {String} id id of the created content
- * @apiSuccess (200) {String} data text of the created content
+ * @apiSuccess (200) {String} id contentId
+ * @apiSuccess (200) {String} data text
  *
  * @apiSuccessExample {json} Success-Response:
  * {
@@ -41,43 +38,17 @@ const texts = express();
  *
  */
 
-texts.use('/:groupId/:userId', async (req, res, next) => {
-  if (!req.params.groupId || !req.params.userId || !req.body.data) return next(new ApiError('CONTENTS_BAD_PARAMETER'));
+texts.post('/:postId', middlewares.permissions, async (req, res, next) => {
   try {
-    if (req.authId !== req.params.userId) {
-      return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+    if (!req.permissions.write) {
+      return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
     }
-    const response = await axios.get(
-      `http://curb-groups:4000/permissions/${req.params.groupId}/${req.params.userId}`
-    );
-    if (response.status !== 200) {
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
-    }
-    if (!response.data.write) return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
-    return next();
-  } catch (error) {
-    return next(error);
-  }
-});
 
-texts.post('/:groupId/:userId', async (req, res, next) => {
-  try {
-    const check = await create('text', req.params.groupId, req.params.userId, req.body.data);
-    if (!check) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-    const response = await axios({
-      method: 'post',
-      headers: { Cookie: `token=${req.cookies.token}` },
-      data: { type: 'text' },
-      url: `http://curb-groups:4000/medias/${req.params.groupId}/${check.id}`,
-      validateStatus: undefined
-    });
-    if (response.status !== 200) {
-      await Content.findByIdAndRemove(check.id);
-      throw new OtherServiceError(response.data.service, response.data.code, response.status);
-    }
+    const content = await addContent('text', req.params.postId, req.authId, req.body.data);
+    if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
     return res.status(200).json({
-      id: check.id,
-      data: check.data
+      id: content.id,
+      data: content.data
     });
   } catch (error) {
     return next(error);
