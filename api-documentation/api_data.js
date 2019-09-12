@@ -2332,35 +2332,43 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
             "field": "name",
             "description": "<p>//</p>"
           },
           {
             "group": "Parameter",
-            "optional": true,
-            "field": "String",
-            "description": "<p>description //</p>"
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "category",
+            "description": "<p>//</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    name: 'toto',\n    status: 'private',\n    mediaTypes: '['location', 'text'],\n    theme: 'red'\n}",
+          "content": "\n{\n \"name\": \"a4za4\",\n \"status\": \"private\",\n\"mediaTypes\": [\"video\", \"text\", \"image\", \"location\"],\n\"theme\": \"red\",\n\"category\": \"Music\",\n\"description\": \"c'est une description\"\n}",
           "type": "json"
         }
       ]
@@ -3284,7 +3292,7 @@ define({ "api": [
     "groupTitle": "GROUPS"
   },
   {
-    "type": "POST",
+    "type": "GET",
     "url": "/groups/:id",
     "title": "GROUPS READ BY ID",
     "name": "GROUPS3",
@@ -3317,8 +3325,13 @@ define({ "api": [
       },
       "examples": [
         {
-          "title": "Success-Response:",
+          "title": "Disconnected:",
           "content": "{\n    ...group: {Object}\n}",
+          "type": "json"
+        },
+        {
+          "title": "Log-in:",
+          "content": "{\n ..\n}",
           "type": "json"
         }
       ]
@@ -4328,7 +4341,7 @@ define({ "api": [
   },
   {
     "type": "GET",
-    "url": "/groups/:id",
+    "url": "/users/:id",
     "title": "USERS READ BY ID",
     "name": "USERS3",
     "group": "USERS",

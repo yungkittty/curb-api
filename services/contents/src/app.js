@@ -55,11 +55,6 @@ app.use('/locations', middlewares.authentication, controllers.locations);
 app.use('/avatars', middlewares.authentication, controllers.avatars);
 app.use('/texts', middlewares.authentication, controllers.texts);
 
-/**
- * TODO
- * [ ] Refaire la Doc
- */
-
 app.post(
   '/posts/:groupId',
   middlewares.authentication,

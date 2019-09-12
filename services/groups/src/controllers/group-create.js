@@ -9,20 +9,25 @@ const { ApiError } = require('../configurations/error');
  * @apiVersion  0.1.0
  *
  *
- * @apiParam  {String} email //
- * @apiParam  {String} password //
  * @apiParam  {String} name //
- * @apiParam  [String] description //
- * @apiParam  [String] category //
+ * @apiParam {String} status //
+ * @apiPram [String] mediaTypes //
+ * @apiParam {String} theme //
+ * @apiParam  {String} description //
+ * @apiParam  {String}  category //
+ *
  *
  * @apiSuccess (200) {Object} Group Public field of the group
  *
  * @apiParamExample  {json} Request-Example:
+ *
  * {
- *     name: 'toto',
- *     status: 'private',
- *     mediaTypes: '['location', 'text'],
- *     theme: 'red'
+ *  "name": "a4za4",
+ *  "status": "private",
+ * "mediaTypes": ["video", "text", "image", "location"],
+ * "theme": "red",
+ * "category": "Music",
+ * "description": "c'est une description"
  * }
  *
  *
