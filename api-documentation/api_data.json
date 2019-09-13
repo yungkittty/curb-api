@@ -1910,6 +1910,181 @@
     "groupTitle": "CONTENTS"
   },
   {
+    "type": "POST",
+    "url": "/avatars/${groups/users}/:id",
+    "title": "AVATARS FOR GROUPS/USERS",
+    "name": "CONTENTS5",
+    "group": "CONTENTS",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>GROUP/USER id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "file",
+            "description": "<p>avatar file path from user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    file: ${avatarPath}\n}",
+          "type": "form-data"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "avatarUrl",
+            "description": "<p>//</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    avatarUrl: '/contents/uploads/avatars/${groupId/userId}/medium.${extension}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_NOT_GROUP_CREATOR",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/avatars.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/events/:postId/",
+    "title": "CONTENT UPLOAD EVENTS",
+    "name": "CONTENTS6",
+    "group": "CONTENTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>UTCSTRNG date.toUTCString() and eventName</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    data: '{date: 'UTCSTRING', name: '${eventName}'}',\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>contentId</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>UTCSTRNG date.toUTCString() and eventName</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: '{date: 'UTCSTRING', name: '${eventName}'}'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/events.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
     "type": "DELETE",
     "url": "/:id",
     "title": "CONTENT DELETE",
@@ -2034,87 +2209,6 @@
       }
     },
     "filename": "../../services/contents/src/controllers/content/content-read.js",
-    "groupTitle": "CONTENTS"
-  },
-  {
-    "type": "POST",
-    "url": "/avatars/${groups/users}/:id",
-    "title": "AVATARS FOR GROUPS/USERS",
-    "name": "USERS5",
-    "group": "CONTENTS",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>GROUP/USER id</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "file",
-            "description": "<p>avatar file path from user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n    file: ${avatarPath}\n}",
-          "type": "form-data"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "String",
-            "optional": false,
-            "field": "avatarUrl",
-            "description": "<p>//</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    avatarUrl: '/contents/uploads/avatars/${groupId/userId}/medium.${extension}'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "CONTENTS_BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "CONTENTS_NOT_GROUP_CREATOR",
-            "description": "<p>403</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "UNDEFINED",
-            "description": "<p>500</p>"
-          }
-        ]
-      }
-    },
-    "filename": "../../services/contents/src/controllers/avatars.js",
     "groupTitle": "CONTENTS"
   },
   {

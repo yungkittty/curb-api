@@ -54,7 +54,7 @@ app.use('/videos', middlewares.authentication, controllers.videos);
 app.use('/locations', middlewares.authentication, controllers.locations);
 app.use('/avatars', middlewares.authentication, controllers.avatars);
 app.use('/texts', middlewares.authentication, controllers.texts);
-
+app.use('/events', middlewares.authentication, controllers.events);
 /**
  * TODO
  * [ ] Refaire la Doc

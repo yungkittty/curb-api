@@ -13,7 +13,7 @@ const sizes = require('../configurations/size');
 /**
  *
  * @api {POST} /avatars/${groups/users}/:id  AVATARS FOR GROUPS/USERS
- * @apiName USERS5
+ * @apiName CONTENTS5
  * @apiGroup CONTENTS
  * @apiVersion  0.1.0
  *

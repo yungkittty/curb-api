@@ -10,7 +10,7 @@ const contentSchema = mongoose.Schema(
       type: String,
       required: [true, 'CONTENTS_MISSING_TYPE'],
       enum: {
-        values: ['location', 'text', 'image', 'video'],
+        values: ['location', 'text', 'image', 'video', 'events'],
         message: 'CONTENTS_BAD_TYPE'
       }
     },
