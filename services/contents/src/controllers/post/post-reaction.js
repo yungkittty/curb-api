@@ -3,7 +3,7 @@ const { ApiError } = require('../../configurations/error');
 
 /**
  *
- * @api {POST} /contents/posts/reaction/:postId POST PIN
+ * @api {POST} /contents/posts/reaction/:postId POST REACTION
  * @apiName POST6
  * @apiGroup POST
  * @apiVersion  0.1.0

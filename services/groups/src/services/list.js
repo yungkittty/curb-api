@@ -1,6 +1,5 @@
 const { Group } = require('../models/group');
 
-
 // TODO faire une aggregation
 async function list({
   page = 1, count = 5, authId, ...filters
@@ -11,7 +10,7 @@ async function list({
   const skip = (page - 1) * count;
 
   if (filters.creatorId) queryList.where('creatorId').equals(filters.creatorId);
-  if (filters.userId) queryList.where('users').equals(filters.userId);
+  if (filters.userId) queryList.where('users.userId').equals(filters.userId);
   if (!isUser && !isCreator) queryList.where('status').equals('public');
 
   queryList
