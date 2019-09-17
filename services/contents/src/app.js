@@ -104,6 +104,13 @@ app.get(
   controllers.postList
 );
 
+app.post(
+  '/posts/report/:postId/',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.postReport
+);
+
 app.use(middlewares.error);
 
 module.exports = app;

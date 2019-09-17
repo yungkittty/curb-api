@@ -6,6 +6,7 @@ async function read(groupId, userId = undefined) {
   const group = await Group.findById(groupId);
   if (!group) throw new ApiError('GROUPS_NOT_FOUND');
   const userInGroup = await isUserInGroup(group._id, userId);
+  const userNumber = group.users.length;
   if (group.status === 'private' && (!userInGroup || !userId)) {
     // TODO Change after DELIVERY @(private / 'ghost' / public) :
     const {
@@ -18,11 +19,12 @@ async function read(groupId, userId = undefined) {
       theme,
       status,
       description,
-      category
+      category,
+      users: userNumber
     };
     // throw new ApiError('GROUPS_FORBIDEN_READ');
   }
-  return group.getPublicFields();
+  return { ...group.getPublicFields(), users: userNumber };
 }
 
 module.exports = read;

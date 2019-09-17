@@ -29,6 +29,7 @@ async function authentication(req, res, next) {
         maxAge: 31536000
       });
     }
+    req.token = req.cookies.token;
     req.authId = response.data.id;
     return next();
   } catch (error) {

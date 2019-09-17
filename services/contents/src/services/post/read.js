@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { Post } = require('../../models/post');
 
 async function read(postId) {
-  console.log(postId);
   const aggregation = await Post.aggregate([
     {
       $match: {

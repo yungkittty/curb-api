@@ -7,7 +7,7 @@ const { ApiError, OtherServiceError } = require('../configurations/error');
  * @api {GET} /groups/:id GROUPS READ BY ID
  * @apiName GROUPS3
  * @apiGroup GROUPS
- * @apiVersion  0.1.0
+ * @apiVersion  0.2.0
  *
  *
  * @apiParam  {String} id queryParam
@@ -43,16 +43,7 @@ const { ApiError, OtherServiceError } = require('../configurations/error');
  *   "description": "c'est une description",
  *   "category": "Music",
  *   "dateCreation": "2019-09-12T15:32:02.660Z",
- *   "users": [
- *       {
- *           "active": false,
- *           "activity": 0,
- *           "userId": "5d499299e1fa4b002a207a06",
- *           "updatedAt": "2019-09-12T15:32:02.688Z",
- *           "createdAt": "2019-09-12T15:32:02.688Z",
- *           "id": "5d7a64f2b25c260080f19058"
- *       }
- *   ],
+ *   "users": 43,
  *   "createdAt": "2019-09-12T15:32:02.667Z",
  *    "updatedAt": "2019-09-12T15:32:02.688Z"
  * }
@@ -69,7 +60,6 @@ async function groupRead(req, res, next) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
-    console.log('GETTIG TO GROUP READ ===============<');
     let response;
     if (req.cookies.token) {
       response = await axios({

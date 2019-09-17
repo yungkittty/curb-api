@@ -3210,6 +3210,84 @@
     "title": "GROUPS READ BY ID",
     "name": "GROUPS3",
     "group": "GROUPS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>queryParam</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "group",
+            "description": "<p>public field of the group</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Disconnected:",
+          "content": "{\n  \"id\": \"5d7a64f2b25c260080f19057\",\n  \"name\": \" nbbn\",\n  \"theme\": \"red\",\n  \"status\": \"private\",\n  \"description\": \"c'est une description\",\n  \"category\": \"Music\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Log-in:",
+          "content": "{\n  \"id\": \"5d7a64f2b25c260080f19057\",\n  \"posts\": [],\n  \"mediaTypes\": [\n      \"video\",\n      \"text\",\n      \"image\",\n      \"location\"\n  ],\n  \"quartile\": 0,\n  \"creatorId\": \"5d499299e1fa4b002a207a06\",\n  \"name\": \" nbbn\",\n  \"status\": \"private\",\n  \"theme\": \"red\",\n  \"description\": \"c'est une description\",\n  \"category\": \"Music\",\n  \"dateCreation\": \"2019-09-12T15:32:02.660Z\",\n  \"users\": 43,\n  \"createdAt\": \"2019-09-12T15:32:02.667Z\",\n   \"updatedAt\": \"2019-09-12T15:32:02.688Z\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "GROUP_NOT_FOUND",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FORBIDEN_READ",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "OTHER_SERVICE_ERROR",
+            "description": "<p>XXX</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/groups/src/controllers/group-read.js",
+    "groupTitle": "GROUPS"
+  },
+  {
+    "type": "GET",
+    "url": "/groups/:id",
+    "title": "GROUPS READ BY ID",
+    "name": "GROUPS3",
+    "group": "GROUPS",
     "version": "0.1.0",
     "parameter": {
       "fields": {
@@ -3279,7 +3357,7 @@
         ]
       }
     },
-    "filename": "../../services/groups/src/controllers/group-read.js",
+    "filename": "../../services/groups/src/controllers/_apidoc.js",
     "groupTitle": "GROUPS"
   },
   {
@@ -4115,6 +4193,67 @@
       }
     },
     "filename": "../../services/contents/src/controllers/post/post-list.js",
+    "groupTitle": "POSTS"
+  },
+  {
+    "type": "POST",
+    "url": "/contents/posts/reaction/:postId",
+    "title": "POST REPORT",
+    "name": "POSTS8",
+    "group": "POSTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "OK",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n     deleted: {Boolean}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/post/post-report.js",
     "groupTitle": "POSTS"
   },
   {

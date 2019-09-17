@@ -26,7 +26,7 @@ const { ApiError } = require('../../configurations/error');
 async function postReaction(req, res, next) {
   try {
     if (!req.params.postId) return next(new ApiError('POSTS_BAD_PARAMETER'));
-    if (!req.permissions.creator || !req.permissions.write) {
+    if (!req.permissions.write) {
       return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
     const reactionNumber = await reaction(req.params.postId, req.authId);

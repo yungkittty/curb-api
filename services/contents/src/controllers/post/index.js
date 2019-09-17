@@ -5,6 +5,7 @@ const postUpdate = require('./post-update');
 const postPin = require('./post-pin');
 const postReaction = require('./post-reaction');
 const postList = require('./post-list');
+const postReport = require('./post-report');
 
 module.exports = {
   postCreate,
@@ -13,5 +14,6 @@ module.exports = {
   postUpdate,
   postPin,
   postReaction,
-  postList
+  postList,
+  postReport
 };
