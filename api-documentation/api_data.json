@@ -2344,6 +2344,12 @@
           },
           {
             "group": "Parameter",
+            "optional": true,
+            "field": "String",
+            "description": "<p>mediaTypes //</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "theme",
@@ -3078,98 +3084,6 @@
     "groupTitle": "GROUPS"
   },
   {
-    "type": "GET",
-    "url": "/groups/list-media",
-    "title": "GROUPS LIST MEDIA",
-    "name": "GROUPS19",
-    "group": "GROUPS",
-    "version": "0.1.0",
-    "description": "<h4>List for media, [WIP] </h4><br>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": true,
-            "field": "groupId",
-            "description": "<p>queryParam</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": true,
-            "field": "count",
-            "defaultValue": "5",
-            "description": "<p>queryParam</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": true,
-            "field": "page",
-            "defaultValue": "1",
-            "description": "<p>queryParam</p>"
-          },
-          {
-            "group": "Parameter",
-            "optional": true,
-            "field": "String",
-            "description": "<p>[mediaType=undefined] queryParam</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": true,
-            "field": "CookieToken",
-            "defaultValue": "undefine",
-            "description": "<p>queryParam in case of a private group</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "200": [
-          {
-            "group": "200",
-            "type": "Object",
-            "optional": false,
-            "field": "Object",
-            "description": ""
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\n    \"count\": 10,\n    \"page\": 1,\n    \"mediaType\": \"mediaType || undefined\",\n    \"data\": [\n        \"5d2c710b2b91f5004c54f8da\",\n        \"5d2c76ae24839b009e791e6e\",\n        \"5d2c6c4c97ff050029efc582\",\n        \"5d2c5f4844f800053656838d\",\n        \"5d2c45494cb40d03d44ef286\"\n    ]\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "BAD_PARAMETER",
-            "description": "<p>400</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "OTHER_SERVICE_ERROR",
-            "description": "<p>XXX</p>"
-          }
-        ]
-      }
-    },
-    "filename": "../../services/groups/src/controllers/group-list-media.js",
-    "groupTitle": "GROUPS"
-  },
-  {
     "type": "DELETE",
     "url": "/groups/:id",
     "title": "GROUPS DELETE",
@@ -3242,10 +3156,9 @@
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
             "optional": true,
-            "field": "groupIds",
-            "description": "<p>queryParam</p>"
+            "field": "String",
+            "description": "<p>[groupIds] queryParam</p>"
           }
         ]
       }
@@ -3326,12 +3239,12 @@
       "examples": [
         {
           "title": "Disconnected:",
-          "content": "{\n    ...group: {Object}\n}",
+          "content": "{\n  \"id\": \"5d7a64f2b25c260080f19057\",\n  \"name\": \" nbbn\",\n  \"theme\": \"red\",\n  \"status\": \"private\",\n  \"description\": \"c'est une description\",\n  \"category\": \"Music\"\n}",
           "type": "json"
         },
         {
           "title": "Log-in:",
-          "content": "{\n ..\n}",
+          "content": "{\n  \"id\": \"5d7a64f2b25c260080f19057\",\n  \"posts\": [],\n  \"mediaTypes\": [\n      \"video\",\n      \"text\",\n      \"image\",\n      \"location\"\n  ],\n  \"quartile\": 0,\n  \"creatorId\": \"5d499299e1fa4b002a207a06\",\n  \"name\": \" nbbn\",\n  \"status\": \"private\",\n  \"theme\": \"red\",\n  \"description\": \"c'est une description\",\n  \"category\": \"Music\",\n  \"dateCreation\": \"2019-09-12T15:32:02.660Z\",\n  \"users\": [\n      {\n          \"active\": false,\n          \"activity\": 0,\n          \"userId\": \"5d499299e1fa4b002a207a06\",\n          \"updatedAt\": \"2019-09-12T15:32:02.688Z\",\n          \"createdAt\": \"2019-09-12T15:32:02.688Z\",\n          \"id\": \"5d7a64f2b25c260080f19058\"\n      }\n  ],\n  \"createdAt\": \"2019-09-12T15:32:02.667Z\",\n   \"updatedAt\": \"2019-09-12T15:32:02.688Z\"\n}",
           "type": "json"
         }
       ]
@@ -3910,7 +3823,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    [WIP]\n}",
+          "content": "{\n    \"id\": \"5d7f8af330243d00300c79ec\",\n    \"creatorId\": \"5d499299e1fa4b002a207a06\",\n    \"groupId\": \"5d7f8aed4244b60030c9a8e0\",\n    \"pinned\": false,\n    \"reaction\": {\n        \"number\": 0,\n        \"ids\": []\n    },\n    \"createdAt\": \"2019-09-16T13:15:31.182Z\",\n    \"updatedAt\": \"2019-09-16T13:15:55.866Z\",\n    \"medias\": [\n        {\n            \"id\": \"5d7f8af930243d00300c79ed\",\n            \"postId\": \"5d7f8af330243d00300c79ec\",\n            \"type\": \"text\",\n            \"data\": \"aze\",\n            \"createdAt\": \"2019-09-16T13:15:37.303Z\",\n            \"updatedAt\": \"2019-09-16T13:15:37.303Z\"\n        },\n        {\n            \"id\": \"5d7f8afe30243d00300c79ee\",\n            \"postId\": \"5d7f8af330243d00300c79ec\",\n            \"type\": \"location\",\n            \"data\": \"l:10;l:20\",\n            \"createdAt\": \"2019-09-16T13:15:42.159Z\",\n            \"updatedAt\": \"2019-09-16T13:15:42.159Z\"\n        },\n        {\n            \"id\": \"5d7f8b0130243d00300c79ef\",\n            \"postId\": \"5d7f8af330243d00300c79ec\",\n            \"type\": \"text\",\n            \"data\": \"aze\",\n            \"createdAt\": \"2019-09-16T13:15:45.860Z\",\n            \"updatedAt\": \"2019-09-16T13:15:45.860Z\"\n        },\n        {\n            \"id\": \"5d7f8b0530243d00300c79f0\",\n            \"postId\": \"5d7f8af330243d00300c79ec\",\n            \"type\": \"image\",\n            \"data\": \"/contents/uploads/groups/5d7f8aed4244b60030c/.../3e75e7d.jpeg\",\n            \"createdAt\": \"2019-09-16T13:15:49.726Z\",\n            \"updatedAt\": \"2019-09-16T13:15:49.726Z\"\n        },\n        {\n            \"id\": \"5d7f8b0b30243d00300c79f1\",\n            \"postId\": \"5d7f8af330243d00300c79ec\",\n            \"type\": \"video\",\n            \"data\": \"/contents/uploads/groups/5d7f8aed4244b60030/.../d2.mp4\",\n            \"createdAt\": \"2019-09-16T13:15:55.861Z\",\n            \"updatedAt\": \"2019-09-16T13:15:55.861Z\"\n        }\n    ]\n}",
           "type": "json"
         }
       ]
@@ -4054,7 +3967,7 @@
   {
     "type": "POST",
     "url": "/contents/posts/reaction/:postId",
-    "title": "POST PIN",
+    "title": "POST REACTION",
     "name": "POST6",
     "group": "POST",
     "version": "0.1.0",
@@ -4178,7 +4091,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    \"count\": 10,\n    \"page\": 1,\n    \"mediaType\": \"mediaType || undefined\",\n    \"data\": [\n\n    ]\n}",
+          "content": "{\n    \"count\": 100,\n    \"page\": 1,\n    \"data\": [\n        {\n            \"id\": \"5d7f8af330243d00300c79ec\",\n            \"creatorId\": \"5d499299e1fa4b002a207a06\",\n            \"groupId\": \"5d7f8aed4244b60030c9a8e0\",\n            \"pinned\": false,\n            \"reaction\": {\n                \"number\": 0,\n                \"ids\": []\n            },\n            \"createdAt\": \"2019-09-16T13:15:31.182Z\",\n            \"updatedAt\": \"2019-09-16T13:15:55.866Z\",\n            \"medias\": [\n                {\n                    \"id\": \"5d7f8af930243d00300c79ed\",\n                    \"postId\": \"5d7f8af330243d00300c79ec\",\n                    \"type\": \"text\",\n                    \"data\": \"aze\",\n                    \"createdAt\": \"2019-09-16T13:15:37.303Z\",\n                    \"updatedAt\": \"2019-09-16T13:15:37.303Z\"\n                },\n                {\n                    \"id\": \"5d7f8afe30243d00300c79ee\",\n                    \"postId\": \"5d7f8af330243d00300c79ec\",\n                    \"type\": \"location\",\n                    \"data\": \"l:10;l:20\",\n                    \"createdAt\": \"2019-09-16T13:15:42.159Z\",\n                    \"updatedAt\": \"2019-09-16T13:15:42.159Z\"\n                },\n                {\n                    \"id\": \"5d7f8b0130243d00300c79ef\",\n                    \"postId\": \"5d7f8af330243d00300c79ec\",\n                    \"type\": \"text\",\n                    \"data\": \"aze\",\n                    \"createdAt\": \"2019-09-16T13:15:45.860Z\",\n                    \"updatedAt\": \"2019-09-16T13:15:45.860Z\"\n                },\n                {\n                    \"id\": \"5d7f8b0530243d00300c79f0\",\n                    \"postId\": \"5d7f8af330243d00300c79ec\",\n                    \"type\": \"image\",\n                    \"data\": \"/contents/uploads/groups/5d7f8ae/.../f6-a600-ca5bf3e75e7d.jpeg\",\n                    \"createdAt\": \"2019-09-16T13:15:49.726Z\",\n                    \"updatedAt\": \"2019-09-16T13:15:49.726Z\"\n                },\n                {\n                    \"id\": \"5d7f8b0b30243d00300c79f1\",\n                    \"postId\": \"5d7f8af330243d00300c79ec\",\n                    \"type\": \"video\",\n                    \"data\": \"/contents/uploads/groups/5d7f8ae/.../51-a7e7-ff3a51e324d2.mp4\",\n                    \"createdAt\": \"2019-09-16T13:15:55.861Z\",\n                    \"updatedAt\": \"2019-09-16T13:15:55.861Z\"\n                }\n            ]\n        },\n        {\n            \"id\": \"5d7fdfd5e5eb76010d978007\",\n            \"creatorId\": \"5d499299e1fa4b002a207a06\",\n            \"groupId\": \"5d7f8aed4244b60030c9a8e0\",\n            \"pinned\": false,\n            \"reaction\": {\n                \"number\": 0,\n                \"ids\": []\n            },\n            \"createdAt\": \"2019-09-16T19:17:41.986Z\",\n            \"updatedAt\": \"2019-09-16T19:17:54.722Z\",\n            \"medias\": [\n                {\n                    \"id\": \"5d7fdfdee5eb76010d978008\",\n                    \"postId\": \"5d7fdfd5e5eb76010d978007\",\n                    \"type\": \"text\",\n                    \"data\": \"aze\",\n                    \"createdAt\": \"2019-09-16T19:17:50.579Z\",\n                    \"updatedAt\": \"2019-09-16T19:17:50.579Z\"\n                },\n                {\n                    \"id\": \"5d7fdfe2e5eb76010d978009\",\n                    \"postId\": \"5d7fdfd5e5eb76010d978007\",\n                    \"type\": \"location\",\n                    \"data\": \"l:10;l:20\",\n                    \"createdAt\": \"2019-09-16T19:17:54.711Z\",\n                    \"updatedAt\": \"2019-09-16T19:17:54.711Z\"\n                }\n            ]\n        }\n    ]\n}",
           "type": "json"
         }
       ]

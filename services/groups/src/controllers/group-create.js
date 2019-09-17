@@ -11,7 +11,7 @@ const { ApiError } = require('../configurations/error');
  *
  * @apiParam  {String} name //
  * @apiParam {String} status //
- * @apiPram [String] mediaTypes //
+ * @apiParam [String] mediaTypes //
  * @apiParam {String} theme //
  * @apiParam  {String} description //
  * @apiParam  {String}  category //
