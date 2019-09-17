@@ -29,7 +29,7 @@ async function postRead(req, res, next) {
     if (!req.permissions.read) {
       return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
-    const post = await read(req.authId);
+    const post = await read(req.params.postId);
 
     return res
       .status(200)
