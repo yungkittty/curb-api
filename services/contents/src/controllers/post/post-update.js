@@ -4,8 +4,8 @@ const { ApiError } = require('../../configurations/error');
 /**
  *
  * @api {PATCH} /contents/posts/ POST UPDATE
- * @apiName POST4
- * @apiGroup POST
+ * @apiName POSTS4
+ * @apiGroup POSTS
  * @apiVersion  0.1.0
  *
  *

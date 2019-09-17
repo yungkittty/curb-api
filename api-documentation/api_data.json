@@ -3676,8 +3676,8 @@
     "type": "POST",
     "url": "/contents/posts/:groupId",
     "title": "POST CREATE",
-    "name": "POST1",
-    "group": "POST",
+    "name": "POSTS1",
+    "group": "POSTS",
     "version": "0.1.0",
     "description": "<h4>To create a posts :  <li>    call /contents/posts/:groupId  </li>  <li>    Then call /contents/${mediaType}/:postId, to upload medias for the corresponding post  </li> </h4><br>",
     "parameter": {
@@ -3732,14 +3732,14 @@
       }
     },
     "filename": "../../services/contents/src/controllers/post/post-create.js",
-    "groupTitle": "POST"
+    "groupTitle": "POSTS"
   },
   {
     "type": "DELETE",
     "url": "/contents/posts/:postId",
     "title": "POST DELETE",
-    "name": "POST2",
-    "group": "POST",
+    "name": "POSTS2",
+    "group": "POSTS",
     "version": "0.1.0",
     "parameter": {
       "fields": {
@@ -3786,14 +3786,14 @@
       }
     },
     "filename": "../../services/contents/src/controllers/post/post-delete.js",
-    "groupTitle": "POST"
+    "groupTitle": "POSTS"
   },
   {
     "type": "GET",
     "url": "/contents/posts/:postId",
     "title": "POST READ",
-    "name": "POST3",
-    "group": "POST",
+    "name": "POSTS3",
+    "group": "POSTS",
     "version": "0.1.0",
     "parameter": {
       "fields": {
@@ -3847,14 +3847,14 @@
       }
     },
     "filename": "../../services/contents/src/controllers/post/post-read.js",
-    "groupTitle": "POST"
+    "groupTitle": "POSTS"
   },
   {
     "type": "PATCH",
     "url": "/contents/posts/",
     "title": "POST UPDATE",
-    "name": "POST4",
-    "group": "POST",
+    "name": "POSTS4",
+    "group": "POSTS",
     "version": "0.1.0",
     "parameter": {
       "fields": {
@@ -3908,14 +3908,14 @@
       }
     },
     "filename": "../../services/contents/src/controllers/post/post-update.js",
-    "groupTitle": "POST"
+    "groupTitle": "POSTS"
   },
   {
     "type": "POST",
     "url": "/contents/posts/pin/:postId",
     "title": "POST PIN",
-    "name": "POST5",
-    "group": "POST",
+    "name": "POSTS5",
+    "group": "POSTS",
     "version": "0.1.0",
     "parameter": {
       "fields": {
@@ -3962,14 +3962,14 @@
       }
     },
     "filename": "../../services/contents/src/controllers/post/post-pin.js",
-    "groupTitle": "POST"
+    "groupTitle": "POSTS"
   },
   {
     "type": "POST",
     "url": "/contents/posts/reaction/:postId",
     "title": "POST REACTION",
-    "name": "POST6",
-    "group": "POST",
+    "name": "POSTS6",
+    "group": "POSTS",
     "version": "0.1.0",
     "parameter": {
       "fields": {
@@ -4023,7 +4023,7 @@
       }
     },
     "filename": "../../services/contents/src/controllers/post/post-reaction.js",
-    "groupTitle": "POST"
+    "groupTitle": "POSTS"
   },
   {
     "type": "GET",

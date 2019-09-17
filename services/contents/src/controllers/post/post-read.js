@@ -4,8 +4,8 @@ const { ApiError } = require('../../configurations/error');
 /**
  *
  * @api {GET} /contents/posts/:postId POST READ
- * @apiName POST3
- * @apiGroup POST
+ * @apiName POSTS3
+ * @apiGroup POSTS
  * @apiVersion  0.1.0
  *
  *
