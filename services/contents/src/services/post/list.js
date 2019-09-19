@@ -49,15 +49,35 @@ async function list({
         : { 'medias.type': { $ne: null } }
     },
     {
+      $project: {
+        _id: false,
+        id: '$_id',
+        reaction: '$reaction',
+        pinned: '$pinned',
+        groupId: '$groupId',
+        creatorId: '$creatorId',
+        createdAt: '$createdAt',
+        updatedAt: '$updatedAt',
+        medias: {
+          id: '$medias._id',
+          postId: '$medias.post',
+          type: '$medias.type',
+          data: '$medias.data',
+          createdAt: '$medias.createdAt',
+          updatedAt: '$medias.updatedAt'
+        }
+      }
+    },
+    {
       $group: {
         _id: {
-          _id: '$_id',
+          id: '$id',
           creatorId: '$creatorId',
           groupId: '$groupId',
           pinned: '$pinned',
           reaction: '$reaction',
           createdAt: '$createdAt',
-          updateAt: '$updateAt'
+          updatedAt: '$updatedAt'
         },
         medias: {
           $push: '$medias'
@@ -69,19 +89,18 @@ async function list({
       $project: {
         _id: false,
         post: {
-          _id: '$_id._id',
+          id: '$_id.id',
           creatorId: '$_id.creatorId',
           groupId: '$_id.groupId',
           pinned: '$_id.pinned',
           reaction: '$_id.reaction',
           createdAt: '$_id.createdAt',
-          updateAt: '$_id.updateAt',
+          updatedAt: '$_id.updatedAt',
           medias: '$medias'
         }
       }
     }
   ]);
-
   return {
     count,
     page,

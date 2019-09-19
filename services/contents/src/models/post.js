@@ -12,6 +12,9 @@ const postSchema = mongoose.Schema(
     reaction: {
       number: { type: Number, default: 0 },
       ids: { type: [String] }
+    },
+    report: {
+      ids: { type: [String] }
     }
   }, // will generate automaticly createdAt & updateAt
   { timestamps: true }

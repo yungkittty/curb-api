@@ -3,7 +3,7 @@ const { ApiError } = require('../configurations/error');
 
 /**
  *
- * @api {GET} /groups/:id USERS READ BY ID
+ * @api {GET} /users/:id USERS READ BY ID
  * @apiName USERS3
  * @apiGroup USERS
  * @apiVersion  0.1.0
@@ -13,6 +13,7 @@ const { ApiError } = require('../configurations/error');
  *
  *
  * @apiSuccess (200) {Object} User user public Fields
+ *
  *
  *
  * @apiSuccessExample {json} Success-Response:

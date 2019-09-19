@@ -4,8 +4,8 @@ const { ApiError } = require('../../configurations/error');
 /**
  *
  * @api {POST} /contents/posts/:groupId POST CREATE
- * @apiName POST1
- * @apiGroup POST
+ * @apiName POSTS1
+ * @apiGroup POSTS
  * @apiVersion  0.1.0
 * @apiDescription
  * <h4>To create a posts :
@@ -34,7 +34,7 @@ const { ApiError } = require('../../configurations/error');
 async function postCreate(req, res, next) {
   try {
     if (!req.params.groupId) return next(new ApiError('POSTS_BAD_PARAMETER'));
-    if (!req.permissions.creator || !req.permissions.write) {
+    if (!req.permissions.write) {
       return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
     const postId = await create(req.cookies.token, req.params.groupId, req.authId);

@@ -9,7 +9,7 @@ const listFromId = require('../services/list-from-id');
  * @apiDescription
  * <h4>List for multiple id </h4><br>
  *
- * @apiParam {Number} [groupIds] queryParam
+ * @apiParam [String] [groupIds] queryParam
  *
  * @apiSuccess (200) {Object} Object
  *

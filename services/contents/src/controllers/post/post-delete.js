@@ -4,8 +4,8 @@ const { ApiError } = require('../../configurations/error');
 /**
  *
  * @api {DELETE} /contents/posts/:postId POST DELETE
- * @apiName POST2
- * @apiGroup POST
+ * @apiName POSTS2
+ * @apiGroup POSTS
  * @apiVersion  0.1.0
  *
  *
@@ -21,7 +21,7 @@ const { ApiError } = require('../../configurations/error');
 async function postDelete(req, res, next) {
   try {
     if (!req.params.postId) return next(new ApiError('POSTS_BAD_PARAMETER'));
-    if (!req.permissions.creator || !req.permissions.write) {
+    if (!req.permissions.creator) {
       return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
     await remove(req.cookies.token, req.params.postId);

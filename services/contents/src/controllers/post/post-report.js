@@ -1,22 +1,21 @@
-const update = require('../../services/post/update');
+const report = require('../../services/post/report');
 const { ApiError } = require('../../configurations/error');
 
 /**
  *
- * @api {PATCH} /contents/posts/ POST UPDATE
- * @apiName POSTS4
+ * @api {POST} /contents/posts/reaction/:postId POST REPORT
+ * @apiName POSTS8
  * @apiGroup POSTS
- * @apiVersion  0.1.0
+ * @apiVersion  0.2.0
  *
  *
  * @apiParam  {String} postId //
-
- * @apiSuccess (200) {Object} POST ID
  *
+ * @apiSuccess (200) {String} OK
  *
  * @apiSuccessExample {json} Success-Response:
  * {
- *     id: "1"
+ *      deleted: {Boolean}
  * }
  *
  * @apiError BAD_PARAMETER 400
@@ -24,19 +23,20 @@ const { ApiError } = require('../../configurations/error');
  *
  */
 
-async function postUpdate(req, res, next) {
+async function postReport(req, res, next) {
   try {
+    if (!req.params.postId) return next(new ApiError('POSTS_BAD_PARAMETER'));
     if (!req.permissions.write) {
       return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
-    const postId = await update(req.authId);
+    const response = await report(req.params.postId, req.authId, req.token);
     return res
       .status(200)
-      .json(postId)
+      .json(response)
       .end();
   } catch (error) {
     return next(error);
   }
 }
 
-module.exports = postUpdate;
+module.exports = postReport;

@@ -55,29 +55,27 @@ app.use('/locations', middlewares.authentication, controllers.locations);
 app.use('/avatars', middlewares.authentication, controllers.avatars);
 app.use('/texts', middlewares.authentication, controllers.texts);
 
-/**
- * TODO
- * [ ] Refaire la Doc
- */
-
 app.post(
   '/posts/:groupId',
   middlewares.authentication,
   middlewares.permissions,
   controllers.postCreate
 );
+
 app.delete(
   '/posts/:postId',
   middlewares.authentication,
   middlewares.permissions,
   controllers.postDelete
 );
+
 app.patch(
   '/posts/:postId',
   middlewares.authentication,
   middlewares.permissions,
   controllers.postUpdate
 );
+
 app.get(
   '/posts/:postId',
   middlewares.optionalAuthId,
@@ -104,6 +102,13 @@ app.get(
   middlewares.optionalAuthId,
   middlewares.permissions,
   controllers.postList
+);
+
+app.post(
+  '/posts/report/:postId/',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.postReport
 );
 
 app.use(middlewares.error);
