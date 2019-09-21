@@ -101,8 +101,11 @@
   pinned: Boolean,
   reaction: {
     number: Number,
-    ids: [Uuid] (userId wich reacted)
+    ids: [Uuid] (userId which reacted to the post)
   },
+  report: {
+    ids: [Uuid] (userId which reported to the post)
+  }
   createdAt: Date,
   updateAt: Date
 }
