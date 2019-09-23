@@ -3,7 +3,7 @@ const { ApiError } = require('../../configurations/error');
 
 /**
  *
- * @api {POST} /contents/posts/reaction/:postId POST REPORT
+ * @api {POST} /contents/posts/report/:postId POST REPORT
  * @apiName POSTS8
  * @apiGroup POSTS
  * @apiVersion  0.2.0
@@ -15,7 +15,10 @@ const { ApiError } = require('../../configurations/error');
  *
  * @apiSuccessExample {json} Success-Response:
  * {
- *      deleted: {Boolean}
+ *     report: {
+ *        ids: [Uuid]
+ *     },
+ *     deleted: [Boolean]
  * }
  *
  * @apiError BAD_PARAMETER 400
