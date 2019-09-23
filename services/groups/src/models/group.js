@@ -22,7 +22,6 @@ const groupSchema = mongoose.Schema(
       type: String
     },
     dateCreation: Date,
-    // users: { type: [String] },
     users: [userGroupSchema],
     posts: { type: [String], maxlength: 10 },
     mediaTypes: {
@@ -41,23 +40,30 @@ const groupSchema = mongoose.Schema(
     },
     category: {
       type: String,
+      // default: 'other',
       enum: {
         values: [
-          'Gaming',
-          'Sport',
-          'Lifestyle',
-          'Technology',
-          'Food and Drink',
-          'Business',
-          'Science',
-          'Travel',
-          'Careers',
-          'Health',
-          'Fashion',
-          'Pets',
-          'Music',
-          'Movies',
-          'Events'
+          'business',
+          'science',
+          'games',
+          'events',
+          'movies',
+          'music',
+          'reading',
+          'sport',
+          'spirituality',
+          'foodAndDrink',
+          'art',
+          'nature',
+          'politics',
+          'philosophy',
+          'travel',
+          'vehicles',
+          'beauty',
+          'clothing',
+          'computers',
+          'electronics',
+          'other'
         ],
         message: 'GROUPS_UNKNOW_CATEGORY'
       }
@@ -85,7 +91,7 @@ groupSchema.plugin(uniqueValidator, { message: 'GROUPS_DUPLICATE_{PATH}' });
 // eslint-disable-next-line
 groupSchema.methods.getPublicFields = function() {
   const {
-    __v, _id, rank, activity, users, ...publicGroup
+    __v, _id, rank, activity, ...publicGroup
   } = this.toObject();
   return { id: _id, ...publicGroup };
 };
