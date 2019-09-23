@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const UserRecommendation = require('../models/user-recommendation');
 const listRandom = require('./list-random');
+const customizeTrending = require('./customize-trending');
 
 async function listCustom({
   page = 1, count = 5, category = undefined, userId
@@ -18,33 +19,22 @@ async function listCustom({
   ]);
 
   const { ids = [] } = groupCustomIds[0] || [];
-
-  if (ids.length === 0) {
+  if (ids === null || ids.length === 0) {
     const recommendation = await UserRecommendation.findOne({ _id: userId });
     if (recommendation === null) {
-      const { groups: groupIds } = await listRandom({ page: 1, count: 50 });
+      const { data: groupIds } = await listRandom({ page, count });
       const newRecommendation = new UserRecommendation({
         _id: mongoose.Types.ObjectId(userId),
         groupIds
       });
       await newRecommendation.save();
-      return await listCustom({
-        page,
-        count,
-        category,
-        userId
-      });
+      return { ...response, data: groupIds };
     }
     if (recommendation.groupIds.length === 0) {
-      const { groups: groupIds } = await listRandom({ page: 1, count: 50 });
+      const { data: groupIds } = await listRandom({ page, count });
       recommendation.groupIds = groupIds;
       await recommendation.save();
-      return await listCustom({
-        page,
-        count,
-        category,
-        userId
-      });
+      return { ...response, data: groupIds };
     }
   }
 

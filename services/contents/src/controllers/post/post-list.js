@@ -4,7 +4,7 @@ const groupGet = require('../../utils/group-get');
 
 /**
  *
- * @api {GET} /posts/list/:groupId POSTS LIST
+ * @api {GET} /contents/posts/list/:groupId POSTS LIST
  * @apiName POSTS7
  * @apiGroup POSTS
  * @apiVersion  0.1.0
