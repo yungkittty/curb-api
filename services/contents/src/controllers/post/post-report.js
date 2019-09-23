@@ -15,9 +15,7 @@ const { ApiError } = require('../../configurations/error');
  *
  * @apiSuccessExample {json} Success-Response:
  * {
- *     report: {
- *        ids: [Uuid]
- *     },
+ *     report: [Uuid],
  *     deleted: [Boolean]
  * }
  *

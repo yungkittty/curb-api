@@ -4084,7 +4084,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    reaction: {\n       ids: [Uuid]\n    }\n}",
+          "content": "{\n    reaction: [Uuid]\n}",
           "type": "json"
         }
       ]
@@ -4237,7 +4237,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    report: {\n       ids: [Uuid]\n    },\n    deleted: [Boolean]\n}",
+          "content": "{\n    report: [Uuid],\n    deleted: [Boolean]\n}",
           "type": "json"
         }
       ]
