@@ -2,6 +2,8 @@ const express = require('express');
 const addContent = require('../services/content/content-add');
 const { ApiError } = require('../configurations/error');
 const middlewares = require('../middleswares');
+const join = require('../services/content/event-join');
+const exit = require('../services/content/event-exit');
 
 const events = express();
 
@@ -13,11 +15,11 @@ const events = express();
  * @apiVersion  0.2.0
  *
  *  @apiParam  {String} postId //
- * @apiParam  {String} data UTCSTRNG date.toUTCString() and eventName
+ *  @apiParam  {String} data UTCSTRNG date.toUTCString() and eventName, data doit être un json
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     data: '{date: 'UTCSTRING', name: '${eventName}'}',
+ *     data: "{\"date\": \"Fri, 13 Sep 2019 20:22:04 GMT\", \"name\": \"toto\"}",
  * }
  *
  * @apiSuccess (200) {String} id contentId
@@ -26,7 +28,7 @@ const events = express();
  * @apiSuccessExample {json} Success-Response:
  * {
  *     id: 'uuid',
- *     data: '{date: 'UTCSTRING', name: '${eventName}'}'
+ *     data: "{\"date\": \"Fri, 13 Sep 2019 20:22:04 GMT\", \"name\": \"toto\"}"
  * }
  *
  *
@@ -49,6 +51,32 @@ events.post('/:postId', middlewares.permissions, async (req, res, next) => {
       id: content.id,
       data: content.data
     });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+events.post('/join/:contentId', middlewares.permissions, async (req, res, next) => {
+  try {
+    if (!req.permissions.write) {
+      return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+    }
+
+    const response = await join(req.params.contentId, req.authId);
+    return res.status(200).json(response);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+events.post('/exit/:contentId', middlewares.permissions, async (req, res, next) => {
+  try {
+    if (!req.permissions.write) {
+      return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+    }
+
+    const response = await exit(req.params.contentId, req.authId);
+    return res.status(200).json(response);
   } catch (error) {
     return next(error);
   }

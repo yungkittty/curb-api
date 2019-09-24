@@ -32,6 +32,15 @@ async function contentRead(req, res, next) {
 
     const content = await Content.findById(req.params.contentId);
     if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
+    if (content.meta) {
+      const publicContent = content.getPublicFields();
+      const serialized = JSON.parse(content.data);
+      const d = { ...serialized, participants: content.meta };
+      return res.status(200).json({
+        ...publicContent,
+        data: JSON.stringify(d)
+      });
+    }
     return res.status(200).json({
       ...content.getPublicFields()
     });

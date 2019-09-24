@@ -39,7 +39,12 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.get('/:contentId', controllers.contentRead);
+app.get(
+  '/:contentId',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.contentRead
+);
 app.patch('/:contentId', middlewares.authentication, controllers.contentUpdate);
 app.delete(
   '/:contentId/',
