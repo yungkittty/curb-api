@@ -4084,7 +4084,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    reaction: 200\n}",
+          "content": "{\n    reaction: [Uuid]\n}",
           "type": "json"
         }
       ]
@@ -4204,7 +4204,7 @@
   },
   {
     "type": "POST",
-    "url": "/contents/posts/reaction/:postId",
+    "url": "/contents/posts/report/:postId",
     "title": "POST REPORT",
     "name": "POSTS8",
     "group": "POSTS",
@@ -4237,7 +4237,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n     deleted: {Boolean}\n}",
+          "content": "{\n    report: [Uuid],\n    deleted: [Boolean]\n}",
           "type": "json"
         }
       ]

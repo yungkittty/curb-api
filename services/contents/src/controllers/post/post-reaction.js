@@ -15,7 +15,7 @@ const { ApiError } = require('../../configurations/error');
  *
  * @apiSuccessExample {json} Success-Response:
  * {
- *     reaction: 200
+ *     reaction: [Uuid]
  * }
  *
  * @apiError BAD_PARAMETER 400
