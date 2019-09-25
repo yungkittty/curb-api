@@ -10,11 +10,12 @@ const contentSchema = mongoose.Schema(
       type: String,
       required: [true, 'CONTENTS_MISSING_TYPE'],
       enum: {
-        values: ['location', 'text', 'image', 'video'],
+        values: ['location', 'text', 'image', 'video', 'events'],
         message: 'CONTENTS_BAD_TYPE'
       }
     },
-    data: String
+    data: String,
+    meta: Array
   }, // will generate automaticly createdAt & updateAt
   { timestamps: true }
 );
@@ -22,7 +23,7 @@ const contentSchema = mongoose.Schema(
 // eslint-disable-next-line
 contentSchema.methods.getPublicFields = function() {
   // eslint-disable-next-line
-  const { __v, _id, ...content } = this.toObject();
+  const { __v, _id, meta, ...content } = this.toObject();
   return { id: _id, ...content };
 };
 

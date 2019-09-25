@@ -39,7 +39,12 @@ app.get('/', (req, res) => {
   res.send(`${process.env.SERVICE_NAME} endpoint`);
 });
 
-app.get('/:contentId', controllers.contentRead);
+app.get(
+  '/:contentId',
+  middlewares.authentication,
+  middlewares.permissions,
+  controllers.contentRead
+);
 app.patch('/:contentId', middlewares.authentication, controllers.contentUpdate);
 app.delete(
   '/:contentId/',
@@ -54,6 +59,7 @@ app.use('/videos', middlewares.authentication, controllers.videos);
 app.use('/locations', middlewares.authentication, controllers.locations);
 app.use('/avatars', middlewares.authentication, controllers.avatars);
 app.use('/texts', middlewares.authentication, controllers.texts);
+app.use('/events', middlewares.authentication, controllers.events);
 
 app.post(
   '/posts/:groupId',

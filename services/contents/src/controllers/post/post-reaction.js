@@ -6,7 +6,7 @@ const { ApiError } = require('../../configurations/error');
  * @api {POST} /contents/posts/reaction/:postId POST REACTION
  * @apiName POSTS6
  * @apiGroup POSTS
- * @apiVersion  0.1.0
+ * @apiVersion  0.2.0
  *
  *
  * @apiParam  {String} postId //

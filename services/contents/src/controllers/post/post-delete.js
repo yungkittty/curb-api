@@ -4,9 +4,9 @@ const { ApiError } = require('../../configurations/error');
 /**
  *
  * @api {DELETE} /contents/posts/:postId POST DELETE
- * @apiName POSTS2
+ * @apiName POST2
  * @apiGroup POSTS
- * @apiVersion  0.1.0
+ * @apiVersion  0.2.0
  *
  *
  * @apiParam  {String} postId //

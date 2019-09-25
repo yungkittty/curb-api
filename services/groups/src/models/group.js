@@ -28,7 +28,7 @@ const groupSchema = mongoose.Schema(
       type: [String],
       required: true,
       enum: {
-        values: ['location', 'text', 'image', 'video'],
+        values: ['location', 'text', 'image', 'video', 'events'],
         message: 'GROUPS_BAD_MEDIATYPES'
       }
     },

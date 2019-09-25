@@ -4,9 +4,9 @@ const { ApiError } = require('../../configurations/error');
 /**
  *
  * @api {POST} /contents/posts/:groupId POST CREATE
- * @apiName POSTS1
+ * @apiName POST1
  * @apiGroup POSTS
- * @apiVersion  0.1.0
+ * @apiVersion  0.2.0
 * @apiDescription
  * <h4>To create a posts :
  *  <li>
