@@ -5,9 +5,8 @@ async function listFromId(groupIds, userId = undefined) {
   const groups = await Group.find({
     _id: { $in: groupIds }
   });
-
   const response = groups.map(async (group) => {
-    const userInGroup = await isUserInGroup(groupIds, userId);
+    const userInGroup = await isUserInGroup(group._id, userId);
     if (group.status === 'private' && (!userInGroup || !userId)) {
       const {
         id, name, avatarUrl, theme, status, description, category
@@ -26,7 +25,7 @@ async function listFromId(groupIds, userId = undefined) {
     // skip ==>
     return group.getPublicFields();
   });
-  return response;
+  return await Promise.all(response);
 }
 
 module.exports = listFromId;

@@ -5,7 +5,7 @@ const { ApiError } = require('../../configurations/error');
  *
  * @api {POST} /contents/posts/pin/:postId POST PIN
  * @apiName POST5
- * @apiGroup POST
+ * @apiGroup POSTS
  * @apiVersion  0.2.0
  *
  *

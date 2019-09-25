@@ -100,9 +100,11 @@
   medias: [Uuid] (transform => [Content]),
   pinned: Boolean,
   reaction: {
-    number: Number,
-    ids: [Uuid] (userId wich reacted)
+    ids: [Uuid] (userId which reacted)
   },
+  report: {
+    ids: [Uuid] (userId which reported)
+  }
   createdAt: Date,
   updateAt: Date
 }

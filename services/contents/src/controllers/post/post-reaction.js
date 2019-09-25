@@ -3,9 +3,9 @@ const { ApiError } = require('../../configurations/error');
 
 /**
  *
- * @api {POST} /contents/posts/reaction/:postId POST PIN
- * @apiName POST6
- * @apiGroup POST
+ * @api {POST} /contents/posts/reaction/:postId POST REACTION
+ * @apiName POSTS6
+ * @apiGroup POSTS
  * @apiVersion  0.2.0
  *
  *
@@ -15,7 +15,7 @@ const { ApiError } = require('../../configurations/error');
  *
  * @apiSuccessExample {json} Success-Response:
  * {
- *     reaction: 200
+ *     reaction: [Uuid]
  * }
  *
  * @apiError BAD_PARAMETER 400
@@ -26,7 +26,7 @@ const { ApiError } = require('../../configurations/error');
 async function postReaction(req, res, next) {
   try {
     if (!req.params.postId) return next(new ApiError('POSTS_BAD_PARAMETER'));
-    if (!req.permissions.creator || !req.permissions.write) {
+    if (!req.permissions.write) {
       return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
     const reactionNumber = await reaction(req.params.postId, req.authId);

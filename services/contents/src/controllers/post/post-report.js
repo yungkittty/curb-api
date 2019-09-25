@@ -1,10 +1,10 @@
-const remove = require('../../services/post/remove');
+const report = require('../../services/post/report');
 const { ApiError } = require('../../configurations/error');
 
 /**
  *
- * @api {DELETE} /contents/posts/:postId POST DELETE
- * @apiName POST2
+ * @api {POST} /contents/posts/report/:postId POST REPORT
+ * @apiName POSTS8
  * @apiGroup POSTS
  * @apiVersion  0.2.0
  *
@@ -13,25 +13,31 @@ const { ApiError } = require('../../configurations/error');
  *
  * @apiSuccess (200) {String} OK
  *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     report: [Uuid],
+ *     deleted: [Boolean]
+ * }
+ *
  * @apiError BAD_PARAMETER 400
  * @apiError UNDEFINED 500
  *
  */
 
-async function postDelete(req, res, next) {
+async function postReport(req, res, next) {
   try {
     if (!req.params.postId) return next(new ApiError('POSTS_BAD_PARAMETER'));
-    if (!req.permissions.creator) {
+    if (!req.permissions.write) {
       return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
-    await remove(req.cookies.token, req.params.postId);
+    const response = await report(req.params.postId, req.authId, req.token);
     return res
       .status(200)
-      .json()
+      .json(response)
       .end();
   } catch (error) {
     return next(error);
   }
 }
 
-module.exports = postDelete;
+module.exports = postReport;

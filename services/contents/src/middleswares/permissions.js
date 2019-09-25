@@ -14,7 +14,7 @@ async function getPermissions(groupId, authId) {
 async function permissions(req, res, next) {
   try {
     if (!req.authId) {
-      return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+      return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
     if (req.params.groupId) {
       req.permissions = await getPermissions(req.params.groupId, req.authId);
@@ -23,7 +23,7 @@ async function permissions(req, res, next) {
     if (req.params.postId) {
       const post = await Post.findOne({ _id: req.params.postId });
       if (post === null) {
-        return next(new ApiError('CONTENTS_NOT_FOUND'));
+        return next(new ApiError('POSTS_NOT_FOUND'));
       }
       req.permissions = await getPermissions(post.groupId, req.authId);
       return next();
@@ -35,7 +35,7 @@ async function permissions(req, res, next) {
       req.permissions = await getPermissions(content.post.groupId, req.authId);
       return next();
     }
-    return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+    return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
   } catch (error) {
     return next(error);
   }
