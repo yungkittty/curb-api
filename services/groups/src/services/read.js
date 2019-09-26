@@ -3,6 +3,7 @@ const { ApiError } = require('../configurations/error');
 const isUserInGroup = require('../utils/mongoose/is-user-in-group');
 
 async function read(groupId, userId = undefined) {
+  // comment
   const group = await Group.findById(groupId);
   if (!group) throw new ApiError('GROUPS_NOT_FOUND');
   const userInGroup = await isUserInGroup(group._id, userId);
