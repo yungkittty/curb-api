@@ -9,7 +9,14 @@ async function listFromId(groupIds, userId = undefined) {
     const userInGroup = await isUserInGroup(group._id, userId);
     if (group.status === 'private' && (!userInGroup || !userId)) {
       const {
-        id, name, avatarUrl, theme, status, description, category
+        id,
+        name,
+        avatarUrl,
+        theme,
+        status,
+        description,
+        category,
+        users
       } = group.getPublicFields();
       return {
         id,
@@ -18,12 +25,17 @@ async function listFromId(groupIds, userId = undefined) {
         theme,
         status,
         description,
-        category
+        category,
+        users: users.map(user => user.userId)
       };
     }
     // TODO when group are private/ghost/public
     // skip ==>
-    return group.getPublicFields();
+    const grp = group.getPublicFields();
+    return {
+      ...grp,
+      users: grp.users.map(user => user.userId)
+    };
   });
   return await Promise.all(response);
 }
