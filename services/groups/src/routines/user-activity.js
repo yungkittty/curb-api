@@ -47,7 +47,6 @@ async function* getAllGroups() {
 }
 
 async function userActivityPerGroup() {
-  console.log('##################################');
   const gen = getAllGroups();
   for (let call = await gen.next(); call.done !== true; call = await gen.next()) {
     computeThirdQuartile(call.value);
