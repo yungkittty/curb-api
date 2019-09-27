@@ -15,7 +15,13 @@ const { ApiError } = require('../../configurations/error');
  *
  * @apiSuccessExample {json} Success-Response:
  * {
+<<<<<<< Updated upstream
  *     reaction: [Uuid]
+=======
+ *     reaction: {
+ *        ids: [Uuid]
+ *     }
+>>>>>>> Stashed changes
  * }
  *
  * @apiError BAD_PARAMETER 400

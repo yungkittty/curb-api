@@ -15,7 +15,13 @@ const { ApiError } = require('../../configurations/error');
  *
  * @apiSuccessExample {json} Success-Response:
  * {
+<<<<<<< Updated upstream
  *     report: [Uuid],
+=======
+ *     report: {
+ *        ids: [Uuid]
+ *     },
+>>>>>>> Stashed changes
  *     deleted: [Boolean]
  * }
  *
