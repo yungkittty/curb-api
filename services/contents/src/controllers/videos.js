@@ -52,7 +52,7 @@ const upload = multer({
     callback(null, true);
   },
   limits: {
-    fieldSize: process.env.VIDEO_LIMIT_SIZE * 1024 * 1024
+    fieldSize: process.env.VIDEO_LIMIT_SIZE
   },
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
@@ -91,9 +91,7 @@ videos.post('/:groupId/:userId', upload.single('file'), async (req, res, next) =
       'video',
       req.params.groupId,
       req.params.userId,
-      `/contents/uploads/groups/${req.params.groupId}/videos/${req.params.userId}/${
-        req.file.filename
-      }`
+      `/contents/uploads/groups/${req.params.groupId}/videos/${req.params.userId}/${req.file.filename}`
     );
     if (!check) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
     const response = await axios({
