@@ -8,8 +8,9 @@ async function eventExit(contentId, userId) {
   content.meta.splice(content.meta.indexOf(userId), 1);
   const serialized = JSON.parse(content.data);
   const d = { ...serialized, participants: content.meta };
+  content.data = JSON.stringify(d);
   await content.save();
-  return { data: JSON.stringify(d) };
+  return { data: content.data };
 }
 
 module.exports = eventExit;

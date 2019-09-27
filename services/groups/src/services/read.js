@@ -27,17 +27,17 @@ async function read(groupId, userId = undefined) {
       status,
       description,
       category,
-      // users: userNumber,
-      users: users.map(user => user.userId)
+      users: userNumber,
+      // users: users.map(user => user.userId)
     };
     // throw new ApiError('GROUPS_FORBIDEN_READ');
   }
-  // return { ...group.getPublicFields(), users: userNumber };
-  const grp = group.getPublicFields();
-  return {
-    ...grp,
-    users: grp.users.map(user => user.userId)
-  };
+  return { ...group.getPublicFields(), users: userNumber };
+  // const grp = group.getPublicFields();
+  // return {
+  //   ...grp,
+  //   users: grp.users.map(user => user.userId)
+  // };
 }
 
 module.exports = read;

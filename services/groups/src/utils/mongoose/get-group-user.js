@@ -7,7 +7,6 @@ async function getGroupUser(groupId, userId) {
     _id: mongoose.Types.ObjectId(groupId)
   });
   const user = group.users.filter(usr => usr.userId.toString() === userId).pop();
-  user.activity += 1;
   await user.save();
   await group.save();
   return user;
