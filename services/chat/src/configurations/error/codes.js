@@ -1,0 +1,4 @@
+module.exports = {
+  BLANK_BAD_PARAMETER: 400,
+  BLANK_DATABASE_ERROR: 500
+};

@@ -1,0 +1,5 @@
+FROM node:12.4.0
+WORKDIR /src
+RUN yarn
+EXPOSE 4000
+CMD yarn dev
