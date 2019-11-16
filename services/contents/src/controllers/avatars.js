@@ -1,6 +1,5 @@
 const express = require('express');
 const multer = require('multer');
-// const sharp = require('sharp');
 const Jimp = require('jimp');
 const fs = require('fs-extra');
 const uuidv4 = require('uuid/v4');
@@ -41,12 +40,6 @@ const sizes = require('../configurations/size');
  */
 
 const avatar = express();
-
-// async function writeFile(src, dest, size) {
-//   await sharp(src)
-//     .resize(size, size)
-//     .toFile(dest);
-// }
 
 async function writeFile(src, dest, size, quality) {
   Jimp.read(src)
