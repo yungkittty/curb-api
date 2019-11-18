@@ -1,4 +1,7 @@
 const express = require('express');
+const ffmpeg = require('fluent-ffmpeg');
+// const ffmpeg = require('ffmpeg');
+const Path = require('path');
 const { upload, fileFilter } = require('../configurations/multer');
 const addContent = require('../services/content/content-add');
 const { ApiError } = require('../configurations/error');
@@ -51,7 +54,36 @@ videos.post(
       const content = await addContent('video', req.params.postId, req.authId, req.urlPath);
 
       if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-
+      const ext = Path.extname(req.file.originalname);
+      const nameSplit = req.file.originalname.split('.');
+      // console.log('URL PATH : ', req.urlPath);
+      // const process = new ffmpeg(req.urlPath);
+      // process.then((video) => {
+      //   video
+      //     .setVideoAspectRatio('16:9')
+      //     .setVideoSize('640x360', true, false)
+      //     .save(`${req.filePath}/${nameSplit[0]}_360p${ext}`);
+      // });
+      console.log('ORIGINAL NAME :', req.file.originalname);
+      console.log('splitted name :', nameSplit[0]);
+      console.log('EXTENSION : ', ext);
+      console.log('PATH BEFORE NAME : ', req.filePath);
+      // const basePath = `./${process.env.VIDEO_DIRECTORIES_GROUP_PATH}`;
+      const command = ffmpeg(req.urlPath)
+        .audioCodec('libfaac')
+        .videoCodec('libx264');
+      command
+        .clone()
+        .size('640x360')
+        .save(`${req.filePath}/${nameSplit[0]}_360p${ext}`);
+      command
+        .clone()
+        .size('854x480')
+        .save(`${req.filePath}/${nameSplit[0]}_480p${ext}`);
+      command
+        .clone()
+        .size('1280x720')
+        .save(`${req.filePath}/${nameSplit[0]}_720p${ext}`);
       return res.status(200).json({
         id: content.id,
         data: content.data
