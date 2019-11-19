@@ -1,6 +1,6 @@
 const express = require('express');
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
-// const ffmpeg = require('ffmpeg');
 const Path = require('path');
 const { upload, fileFilter } = require('../configurations/multer');
 const addContent = require('../services/content/content-add');
@@ -51,39 +51,46 @@ videos.post(
       if (!req.permissions.write) {
         return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
       }
-      const content = await addContent('video', req.params.postId, req.authId, req.urlPath);
+      const content = await addContent(
+        'video',
+        req.params.postId,
+        req.authId,
+        req.urlPath
+      );
 
       if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
       const ext = Path.extname(req.file.originalname);
-      const nameSplit = req.file.originalname.split('.');
-      // console.log('URL PATH : ', req.urlPath);
-      // const process = new ffmpeg(req.urlPath);
-      // process.then((video) => {
-      //   video
-      //     .setVideoAspectRatio('16:9')
-      //     .setVideoSize('640x360', true, false)
-      //     .save(`${req.filePath}/${nameSplit[0]}_360p${ext}`);
-      // });
+      const nameSplit = req.file.filename.split('.');
+      console.log('URL PATH : ', req.urlPath);
       console.log('ORIGINAL NAME :', req.file.originalname);
       console.log('splitted name :', nameSplit[0]);
       console.log('EXTENSION : ', ext);
       console.log('PATH BEFORE NAME : ', req.filePath);
-      // const basePath = `./${process.env.VIDEO_DIRECTORIES_GROUP_PATH}`;
-      const command = ffmpeg(req.urlPath)
-        .audioCodec('libfaac')
-        .videoCodec('libx264');
+      console.log(
+        'FICHIER 360p : ',
+        `${req.filePath}/${nameSplit[0]}_low${ext}`
+      );
+      console.log('LE NOM IMPORTANT DU FICHIER : ', req.file.filename);
+      ffmpeg.setFfmpegPath(ffmpegPath);
+      const command = ffmpeg(req.file.path);
+      // .audioCodec('libfaac')
+      // .videoCodec('libx264');
       command
         .clone()
-        .size('640x360')
-        .save(`${req.filePath}/${nameSplit[0]}_360p${ext}`);
+        .size('?x360')
+        .videoBitrate(400)
+        // .aspect('4:3')
+        .save(`${req.filePath}/${nameSplit[0]}_low${ext}`);
       command
         .clone()
-        .size('854x480')
-        .save(`${req.filePath}/${nameSplit[0]}_480p${ext}`);
+        .size('?x480')
+        .videoBitrate(1500)
+        .save(`${req.filePath}/${nameSplit[0]}_medium${ext}`);
       command
         .clone()
-        .size('1280x720')
-        .save(`${req.filePath}/${nameSplit[0]}_720p${ext}`);
+        .size('?x720')
+        .videoBitrate(4000)
+        .save(`${req.filePath}/${nameSplit[0]}_high${ext}`);
       return res.status(200).json({
         id: content.id,
         data: content.data
