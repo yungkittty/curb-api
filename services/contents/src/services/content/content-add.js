@@ -10,7 +10,6 @@ async function contentAdd(type, postId, userId, data) {
     data
   });
   const post = await Post.findOne({ _id: postId });
-
   if (userId !== post.creatorId) {
     throw new ApiError('CONTENTS_FORBIDDEN_WRITE');
   }

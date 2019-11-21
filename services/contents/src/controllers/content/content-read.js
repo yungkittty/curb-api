@@ -28,11 +28,13 @@ async function contentRead(req, res, next) {
     return next(new ApiError('CONTENTS_BAD_PARAMETER'));
   }
   try {
-    if (!req.permissions.creator || !req.permissions.write) return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+    if (!req.permissions.creator || !req.permissions.write) {
+      return next(new ApiError('CONTENTS_FORBIDEN_OPERATION'));
+    }
 
     const content = await Content.findById(req.params.contentId);
     if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-    if (content.meta) {
+    if (content.meta && content.meta.length !== 0) {
       const publicContent = content.getPublicFields();
       const serialized = JSON.parse(content.data);
       const d = { ...serialized, participants: content.meta };
