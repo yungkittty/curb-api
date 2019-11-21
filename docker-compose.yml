@@ -56,3 +56,10 @@ services:
       - 4005:4000
     depends_on:
       - db
+
+  curb-chat:
+    build: ./services/chat
+    ports:
+      - 4006:4000
+    depends_on:
+      - db

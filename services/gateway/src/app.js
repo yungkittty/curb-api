@@ -46,5 +46,6 @@ app.use('/accounts', proxy(process.env.CURB_ACCOUNT));
 app.use('/users', proxy(process.env.CURB_USERS));
 app.use('/groups', proxy(process.env.CURB_GROUPS));
 app.use('/emailing', proxy(process.env.CURB_EMAILING));
+app.use('/chat', proxy(process.env.CURB_CHAT));
 
 module.exports = app;
