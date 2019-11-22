@@ -13,6 +13,7 @@ services:
 
   curb-gateway:
     build: ./services/gateway
+    image: eliasdem/curb-gateway
     ports:
       - 4000:4000
     depends_on:
@@ -24,6 +25,7 @@ services:
 
   curb-users:
     build: ./services/users
+    image: eliasdem/curb-users
     ports:
       - 4003:4000
     depends_on:
@@ -31,6 +33,7 @@ services:
 
   curb-accounts:
     build: ./services/accounts
+    image: eliasdem/curb-accounts
     ports:
       - 4001:4000
     depends_on:
@@ -38,6 +41,7 @@ services:
 
   curb-groups:
     build: ./services/groups
+    image: eliasdem/curb-groups
     ports:
       - 4002:4000
     depends_on:
@@ -45,6 +49,7 @@ services:
 
   curb-contents:
     build: ./services/contents
+    image: eliasdem/curb-contents
     ports:
       - 4004:4000
     depends_on:
@@ -52,6 +57,7 @@ services:
 
   curb-emailing:
     build: ./services/emailing
+    image: eliasdem/curb-emailing
     ports:
       - 4005:4000
     depends_on:
@@ -59,6 +65,7 @@ services:
 
   curb-chat:
     build: ./services/chat
+    image: eliasdem/curb-chat
     ports:
       - 4006:4000
     depends_on:

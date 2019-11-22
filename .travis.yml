@@ -1,0 +1,38 @@
+if: branch = develop
+
+language: node_js
+
+services:
+  - docker
+
+env:
+  global:
+    - secure: LpL63vPy+oWhIciSu5aisR0FBnbpkPl2RzB7CYgT9B+YaQexluZe6+HDf0ToH5yNqivDNkZaodCi5L8PPxBXas+/o1fthD4Uwg7x5u1FxFb+337Xfy7zqs7S+2wAUdySDaVNfh2Jki1SJpr64mavlwQA1SZ1q43ITEeAo8KRTA5HvGcbINESCVQemyVJsxTa4B0fGYNDlE45EhP5giRHATS7Vr2T0x4WDLYn7SnP8BAGUWoPSsBMLRbamyn2LrkrRHoeFBsxYaw/QyTKDozAXQ+fF1sSfat/4L0UrPMwr6fE1feF2Lbi/X8kRyq9yulv+SKMROgv3ReuvymwvKnF6DteVZQN04AwsOCXDX1bduDRrN+f+1+RtSTPkyeXfdwOYbVfL2lNbULRSzcEGlrJdI4Js8/tWpiecg6EbA9OjFZdViOd3Aw4Le43ZHuj67bxDedVWQLZvpN13G8exPgX0qTquFMtG7KBKA9J2eCIaZB20KcBdZMMOFAb2g32/VvvxIWghU/1LCH9GgOmYqlYEcSlGn/j9wX3g+dmJQ9pO9R7rnod69/PmPjL9yGTvwa52viIMchI3wimYz+agaWH95F4zm4Zpvl4Xuc7LxQAvQxO/dikWs4FPe/XcDO9plN4y3lNt2gc67BAMfl+4woV6rM8nP00vc4HdgNlznDv8GM=
+    - secure: EeyCLFwm+dVFRq4gL1s7bAHIOb3Xec+JJ87pylAxMtva9w5aNUxC2XUwR+8KbY3TGDWLodOiPAE1yjabezuoo9NFS9oLVZQiqUVROxY2Eq7x/u7e+5Ng5ATtlq4Z6fLB43Pfxk/pU1xvJCgvp9Q5hrKiKhN/eZ/94EtTHr/paCTglTNqciyRjdA4AtEcQTYMZekwy3bNnNbqm2o8G184/MAXkjFMShHSP8kU+Qk2gG2ZOE+7oJqh3fl3JFQWb3pEQ9dZjMX3Bz9u0prfloGAVNbG+35DEX98+UvWM4N5ySr+46uSGZacMGder6JO4Y+QyoSM9OSEeewg+JhkdatkuZkH228j/EBb/lw6bBU7GbXJAU7w4lI6wOTLQdDMv3sTuswo//Lft3ykC50s7/79RITrxH9hjdh4yEfzpWVIUGM54W/DRQw1k1r3deP/0kuKmU1NFYYeMUip9K2cAp+DjdzZHHMTeWAW7pUSZvaZGUpFbd/ul5d9x5V3BpJh0EtD2+fVIZpqRe8qjwwC3i5fntJFR2pTbobssYOdXGSwBNkdAhLhiIue9nz78loPFhOx299g0/CExznQ+7lraK0tvi4yOz8IjafJzJC+Z0mT8RZDcxbRh5+6e5noJzdNVPEpRYvh9J1Y13Tzf/iqDA/KeTfWILzRfW7BcBujMhy2Xfs=
+  - DOCKER_COMPOSE_VERSION=1.23.2
+  - DOCKER_HUB_USR=eliasdem
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+jobs:
+  include:
+    - stage: Test
+      script:
+        - echo "Should be testing here"
+    - stage: Build
+      script:
+        - echo "$DOCKER_HUB_PWD" | docker login -u "$DOCKER_HUB_USR"
+        - docker-compose build --pull
+        - docker-compose push
+    - stage: Deploy
+      script:
+        - ssh root:$VULTR_PWD@45.76.157.24
+        - cd curb-api
+        - docker-compose stop
+        - docker-compose pull
+        - docker-compose up
+        
