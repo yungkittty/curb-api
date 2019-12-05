@@ -70,3 +70,11 @@ services:
       - 4006:4000
     depends_on:
       - db
+  
+  curb-notif:
+    build: ./services/notif
+    image: eliasdem/curb-notif
+    ports:
+      - 4007:4000
+    depends_on:
+      - db

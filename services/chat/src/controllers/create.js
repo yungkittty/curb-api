@@ -1,3 +1,4 @@
+const Axios = require('axios');
 const { Chat } = require('../models/chat');
 
 const create = async (req, res) => {
@@ -8,7 +9,10 @@ const create = async (req, res) => {
   });
 
   try {
-    await newChat.save();
+    const postedChat = await newChat.save();
+    await Axios.post(`http://curb-notif:4000/${req.params.groupId}/notif`, {
+      notif: postedChat,
+    });
   } catch (error) {
     return res.status(400).end();
   }
