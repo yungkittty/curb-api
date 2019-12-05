@@ -15,12 +15,13 @@ const whiteList = process.env.DOMAIN_WHITELIST.split(';');
 
 const corsOptions = {
   origin(origin, callback) {
-    console.log('Allow: ', origin);
-    if (origin === undefined || whiteList.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('BAD_CORS'));
-    }
+    callback(null, true);
+    // console.log('Allow: ', origin);
+    // if (origin === undefined || whiteList.indexOf(origin) !== -1) {
+    //   callback(null, true);
+    // } else {
+    //   callback(new Error('BAD_CORS'));
+    // }
   },
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
