@@ -3,8 +3,8 @@ const { Chat } = require('../models/chat');
 
 const create = async (req, res) => {
   const newChat = new Chat({
-    from: req.body.from,
-    message: req.body.message,
+    userId: req.body.userId,
+    data: req.body.data,
     group: req.params.groupId,
   });
 
