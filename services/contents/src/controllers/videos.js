@@ -61,10 +61,7 @@ videos.post(
       if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
       const ext = Path.extname(req.file.originalname);
       const nameSplit = req.file.filename.split('.');
-      console.log('URL PATH : ', req.urlPath);
       console.log('ORIGINAL NAME :', req.file.originalname);
-      console.log('splitted name :', nameSplit[0]);
-      console.log('EXTENSION : ', ext);
       console.log('PATH BEFORE NAME : ', req.filePath);
       console.log(
         'FICHIER 360p : ',
@@ -77,19 +74,18 @@ videos.post(
       // .videoCodec('libx264');
       command
         .clone()
+        // .videoBitrate(400, true)
         .size('?x360')
-        .videoBitrate(400)
-        // .aspect('4:3')
         .save(`${req.filePath}/${nameSplit[0]}_low${ext}`);
       command
         .clone()
+        // .videoBitrate(1500, true)
         .size('?x480')
-        .videoBitrate(1500)
         .save(`${req.filePath}/${nameSplit[0]}_medium${ext}`);
       command
         .clone()
+        // .videoBitrate(4000, true)
         .size('?x720')
-        .videoBitrate(4000)
         .save(`${req.filePath}/${nameSplit[0]}_high${ext}`);
       return res.status(200).json({
         id: content.id,
