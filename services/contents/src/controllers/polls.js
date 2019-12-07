@@ -38,30 +38,35 @@ const polls = express();
  *
  */
 
-polls.post('/:postId', middlewares.permissions, async (req, res, next) => {
-  try {
-    if (!req.permissions.write) {
-      return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
-    }
+polls.post(
+  '/:postId',
+  middlewares.permissions,
+  middlewares.mediaType,
+  async (req, res, next) => {
+    try {
+      if (!req.permissions.write) {
+        return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+      }
 
-    const content = await addContent(
-      'polls',
-      req.params.postId,
-      req.authId,
-      req.body.data
-    );
-    if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-    return res
-      .status(200)
-      .json({
-        id: content.id,
-        data: content.data
-      })
-      .end();
-  } catch (error) {
-    return next(error);
+      const content = await addContent(
+        'polls',
+        req.params.postId,
+        req.authId,
+        req.body.data
+      );
+      if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
+      return res
+        .status(200)
+        .json({
+          id: content.id,
+          data: content.data
+        })
+        .end();
+    } catch (error) {
+      return next(error);
+    }
   }
-});
+);
 
 polls.post(
   '/vote/:contentId/:option',

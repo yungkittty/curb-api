@@ -61,7 +61,6 @@ app.use('/avatars', middlewares.authentication, controllers.avatars);
 app.use('/texts', middlewares.authentication, controllers.texts);
 app.use('/events', middlewares.authentication, controllers.events);
 app.use('/pools', middlewares.authentication, controllers.pools);
-
 app.post(
   '/posts/:groupId',
   middlewares.authentication,

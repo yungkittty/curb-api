@@ -42,6 +42,7 @@ const images = express();
 images.post(
   '/:postId',
   middlewares.permissions,
+  middlewares.mediaType,
   upload('images', fileFilter(/\.(jpg|jpeg|png|gif)$/)),
   async (req, res, next) => {
     try {
@@ -49,7 +50,12 @@ images.post(
         return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
       }
 
-      const content = await addContent('image', req.params.postId, req.authId, req.urlPath);
+      const content = await addContent(
+        'image',
+        req.params.postId,
+        req.authId,
+        req.urlPath
+      );
       if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
 
       return res.status(200).json({

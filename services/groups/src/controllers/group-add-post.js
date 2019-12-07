@@ -28,7 +28,7 @@ const { ApiError } = require('../configurations/error');
  */
 
 async function groupPost(req, res, next) {
-  if (!req.params.groupId || !req.params.postId || !req.body.type) {
+  if (!req.params.groupId || !req.params.postId) {
     return next(new ApiError('GROUPS_BAD_PARAMETER'));
   }
   try {
