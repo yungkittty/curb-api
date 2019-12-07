@@ -2166,14 +2166,14 @@
             "type": "String",
             "optional": false,
             "field": "data",
-            "description": "<p>UTCSTRNG date.toUTCString() and eventName, data doit être un json</p>"
+            "description": "<p>&quot;question&quot;, [options]</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    data: \"{\\\"question\\\": \\\"TOOT?\\\", \\\"options\\\": [\\\"toto\\\", \\\"no\\\"]}\"\n}",
+          "content": "{\n    data: \"{\\\"question\\\":\\\"are you ready?\\\",\\\"options\\\":[\\\"yes\\\",\\\"no\\\",\\\"maybe\\\"]}\"\n}",
           "type": "json"
         }
       ]
@@ -2193,14 +2193,14 @@
             "type": "String",
             "optional": false,
             "field": "data",
-            "description": "<p>UTCSTRNG date.toUTCString() and eventName</p>"
+            "description": "<p>STRING</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    id: 'uuid',\n    data: \"{\\\"question\\\": \\\"TOOT?\\\", \\\"options\\\": [\\\"toto\\\", \\\"no\\\"]}\"\n}",
+          "content": "{\n    id: 'uuid',\n    data: \"{\\\"question\\\":\\\"are you ready?\\\",\\\"options\\\":[\\\"yes\\\",\\\"no\\\",\\\"maybe\\\"]}\"\n}",
           "type": "json"
         }
       ]
@@ -2303,6 +2303,93 @@
       }
     },
     "filename": "../../services/contents/src/controllers/content/content-read.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/polls/:postId/:option",
+    "title": "CONTENT VOTE POLLS",
+    "name": "CONTENTS8",
+    "group": "CONTENTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>option: STRING</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>contentId</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>STRING</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: \"{\\\"question\\\":\\\"are you ready?\\\",\\\"options\\\":[\\\"co\\\",\\\"po\\\",\\\"poo\\\"],\\\"answers\\\":{\\\"co\\\":[\\\"5ddf88cf21dbf700298c81e3\\\"],\\\"po\\\":[],\\\"poo\\\":[]}}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/polls.js",
     "groupTitle": "CONTENTS"
   },
   {

@@ -84,7 +84,7 @@ polls.post(
  * @apiSuccessExample {json} Success-Response:
  * {
  *     id: 'uuid',
- *     data: "{\"question\":\"are you ready?\",\"options\":[\"yes\",\"no\",\"maybe\"], \"answers":[{}]}"
+ *     data: "{\"question\":\"are you ready?\",\"options\":[\"co\",\"po\",\"poo\"],\"answers\":{\"co\":[\"5ddf88cf21dbf700298c81e3\"],\"po\":[],\"poo\":[]}}"
  * }
  *
  *

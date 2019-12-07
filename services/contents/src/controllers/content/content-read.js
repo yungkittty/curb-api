@@ -46,7 +46,7 @@ async function contentRead(req, res, next) {
         case 'poll':
           return res.status(200).json({
             ...publicContent,
-            data: JSON.stringify({ ...serialized, answers: content.meta })
+            data: JSON.stringify({ ...serialized, answers: content.meta[0] })
           });
         default:
           break;
