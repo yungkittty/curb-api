@@ -15,12 +15,13 @@ const whiteList = process.env.DOMAIN_WHITELIST.split(';');
 
 const corsOptions = {
   origin(origin, callback) {
-    console.log('Allow: ', origin);
-    if (origin === undefined || whiteList.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('BAD_CORS'));
-    }
+    callback(null, true);
+    // console.log('Allow: ', origin);
+    // if (origin === undefined || whiteList.indexOf(origin) !== -1) {
+    //   callback(null, true);
+    // } else {
+    //   callback(new Error('BAD_CORS'));
+    // }
   },
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -46,5 +47,7 @@ app.use('/accounts', proxy(process.env.CURB_ACCOUNT));
 app.use('/users', proxy(process.env.CURB_USERS));
 app.use('/groups', proxy(process.env.CURB_GROUPS));
 app.use('/emailing', proxy(process.env.CURB_EMAILING));
+app.use('/chat', proxy(process.env.CURB_CHAT));
+app.use('/notif', proxy(process.env.CURB_NOTIF));
 
 module.exports = app;

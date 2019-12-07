@@ -1,0 +1,39 @@
+if: branch = develop
+
+language: node_js
+
+services:
+  - docker
+
+env:
+  global:
+    - VULTR_PWD="Ya8)L9K)mWVbDUBw"
+    - secure: "B02RjshUioc1n++YBnpJJHR4BjiBy0wlbO63nNqPUxx0+Vh6wmRyZdcmZe7IEjR/7+qWg/fzci+W/Vx1gwzLF4BskKevtYj8jqVK1n4u9ebzIcOtFNciuuXBjxNzLLrCoFkEKAbXIavRv4y6cWFCf/td2CLbXUt36/Lc3Vg6QzxeNVOJ506iK4y77VmMJivUgbn/42NV9yY8KXjUe9ZhKtE2ZZ7HE/QrkgpiRWRBJORP5rButaqB18AA3lRtNcRkmWDsDnXsR86Gqx++MAh+KnOabLzZr+BV+NayCWtJ3+mX7qIXY4RJfmyKZGF0e/l+gpVzGp/dWg7xEWr9XvCe7k9eU4qxrEHueeNNkGfi1r19UHsYDSij+J4SuuT8FORmniXe3NlKA2pIU7qEpvX5PY4rWUXdFMHP2d5QTslecaYwuYMXrSsTDfTrpXoYeDQ9F410+tH8snbWrW+czISXkAKzoXi3st8+VrwR+pxup/KFKzo0CQMzn6v2Ksgwwj37WCf14rV/it0AN1hZFCbqXnfLcYJjDRw3s92HxV33AOkFVEHnHtWUUOoqGVd6L/nmp4VGVESDSbBXttetqtCSmEES3MIrhdsClkIoNh9nJ8K6/IXa2Gg/5kNCFs85G602VNQZthginCf4Nkohkj8UMNzbTGd8+0Id9FnMgJ4+WIc="
+    - DOCKER_COMPOSE_VERSION=1.23.2
+    - DOCKER_HUB_USR=eliasdem
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - sudo apt-get install sshpass
+
+jobs:
+  include:
+    - stage: Test
+      script:
+        - echo "Should be testing here"
+    - stage: Build
+      script:
+        - docker login -u "$DOCKER_HUB_USR"
+        - docker-compose build --pull
+        - docker-compose push
+    - stage: Deploy
+      script:
+        - sshpass -p $VULTR_PWD ssh -o StrictHostKeyChecking=no root@45.76.157.24
+        - cd curb-api
+        - docker-compose stop
+        - docker-compose pull
+        - docker-compose up
+        
