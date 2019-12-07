@@ -50,7 +50,7 @@ events.post(
       }
 
       const content = await addContent(
-        'events',
+        'event',
         req.params.postId,
         req.authId,
         req.body.data

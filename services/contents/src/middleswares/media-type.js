@@ -2,7 +2,6 @@ const { OtherServiceError, ApiError } = require('../configurations/error');
 const { Post } = require('../models/post');
 const groupGet = require('../utils/group-get');
 
-// Inject req.post and req.group and verify mediaType for the upload request
 async function mediaType(req, res, next) {
   try {
     if (!req.params.postId) return next();

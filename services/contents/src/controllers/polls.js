@@ -14,20 +14,20 @@ const polls = express();
  * @apiVersion  0.2.0
  *
  *  @apiParam  {String} postId //
- *  @apiParam  {String} data UTCSTRNG date.toUTCString() and eventName, data doit être un json
+ *  @apiParam  {String} data "question", [options]
  *
  * @apiParamExample  {json} Request-Example:
  * {
- *     data: "{\"question\": \"TOOT?\", \"options\": [\"toto\", \"no\"]}"
+ *     data: "{\"question\":\"are you ready?\",\"options\":[\"yes\",\"no\",\"maybe\"]}"
  * }
  *
  * @apiSuccess (200) {String} id contentId
- * @apiSuccess (200) {String} data UTCSTRNG date.toUTCString() and eventName
+ * @apiSuccess (200) {String} data STRING
  *
  * @apiSuccessExample {json} Success-Response:
  * {
  *     id: 'uuid',
- *     data: "{\"question\": \"TOOT?\", \"options\": [\"toto\", \"no\"]}"
+ *     data: "{\"question\":\"are you ready?\",\"options\":[\"yes\",\"no\",\"maybe\"]}"
  * }
  *
  *
@@ -49,7 +49,7 @@ polls.post(
       }
 
       const content = await addContent(
-        'polls',
+        'poll',
         req.params.postId,
         req.authId,
         req.body.data
@@ -67,6 +67,33 @@ polls.post(
     }
   }
 );
+
+/**
+ *
+ * @api {POST} /polls/:postId/:option CONTENT VOTE POLLS
+ * @apiName CONTENTS8
+ * @apiGroup CONTENTS
+ * @apiVersion  0.2.0
+ *
+ *  @apiParam  {String} postId //
+ *  @apiParam  {String} data option: STRING
+ *
+ * @apiSuccess (200) {String} id contentId
+ * @apiSuccess (200) {String} data STRING
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     id: 'uuid',
+ *     data: "{\"question\":\"are you ready?\",\"options\":[\"yes\",\"no\",\"maybe\"], \"answers":[{}]}"
+ * }
+ *
+ *
+ * @apiError CONTENTS_BAD_PARAMETER 400
+ * @apiError CONTENTS_FORBIDDEN_WRITE 403
+ * @apiError CONTENTS_INEXISTENT_CONTENT 404
+ * @apiError UNDEFINED 500
+ *
+ */
 
 polls.post(
   '/vote/:contentId/:option',

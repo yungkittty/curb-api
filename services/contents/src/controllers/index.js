@@ -4,7 +4,7 @@ const locations = require('./locations');
 const texts = require('./texts');
 const avatars = require('./avatars');
 const events = require('./events');
-const pools = require('./polls');
+const polls = require('./polls');
 
 const post = require('./post');
 const content = require('./content');
@@ -16,7 +16,7 @@ module.exports = {
   texts,
   avatars,
   events,
-  pools,
+  polls,
   ...post,
   ...content
 };
