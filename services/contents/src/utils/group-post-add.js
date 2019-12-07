@@ -6,7 +6,6 @@ async function groupPostAdd(token, groupId, postId, userId) {
     withCredentials: true,
     headers: { Cookie: `token=${token}` },
     data: {
-      type: 'image',
       userId
     },
     url: `http://curb-groups:4000/posts/${groupId}/${postId}`,

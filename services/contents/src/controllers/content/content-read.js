@@ -35,11 +35,20 @@ async function contentRead(req, res, next) {
     if (content.meta) {
       const publicContent = content.getPublicFields();
       const serialized = JSON.parse(content.data);
-      const d = { ...serialized, participants: content.meta };
-      return res.status(200).json({
-        ...publicContent,
-        data: JSON.stringify(d)
-      });
+      switch (content.type) {
+        case 'events':
+          return res.status(200).json({
+            ...publicContent,
+            data: JSON.stringify({ ...serialized, participants: content.meta })
+          });
+        case 'polls':
+          return res.status(200).json({
+            ...publicContent,
+            data: JSON.stringify({ ...serialized, answers: content.meta })
+          });
+        default:
+          throw new ApiError('CONTENTS_NOT_FOUND');
+      }
     }
     return res.status(200).json({
       ...content.getPublicFields()

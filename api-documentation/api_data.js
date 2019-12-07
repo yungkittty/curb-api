@@ -2012,14 +2012,14 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "data",
-            "description": "<p>UTCSTRNG date.toUTCString() and eventName</p>"
+            "description": "<p>UTCSTRNG date.toUTCString() and eventName, data doit être un json</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request-Example:",
-          "content": "{\n    data: '{date: 'UTCSTRING', name: '${eventName}'}',\n}",
+          "content": "{\n    data: \"{\\\"date\\\": \\\"Fri, 13 Sep 2019 20:22:04 GMT\\\", \\\"name\\\": \\\"toto\\\"}\",\n}",
           "type": "json"
         }
       ]
@@ -2046,7 +2046,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\n    id: 'uuid',\n    data: '{date: 'UTCSTRING', name: '${eventName}'}'\n}",
+          "content": "{\n    id: 'uuid',\n    data: \"{\\\"date\\\": \\\"Fri, 13 Sep 2019 20:22:04 GMT\\\", \\\"name\\\": \\\"toto\\\"}\"\n}",
           "type": "json"
         }
       ]
@@ -2142,6 +2142,100 @@ define({ "api": [
       }
     },
     "filename": "../../services/contents/src/controllers/content/content-delete.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/polls/:postId/",
+    "title": "CONTENT UPLOAD POLLS",
+    "name": "CONTENTS7",
+    "group": "CONTENTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postId",
+            "description": "<p>//</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>UTCSTRNG date.toUTCString() and eventName, data doit être un json</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    data: \"{\\\"question\\\": \\\"TOOT?\\\", \\\"options\\\": [\\\"toto\\\", \\\"no\\\"]}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>contentId</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>UTCSTRNG date.toUTCString() and eventName</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: \"{\\\"question\\\": \\\"TOOT?\\\", \\\"options\\\": [\\\"toto\\\", \\\"no\\\"]}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/polls.js",
     "groupTitle": "CONTENTS"
   },
   {
@@ -2639,13 +2733,6 @@ define({ "api": [
             "optional": false,
             "field": "postId",
             "description": "<p>//</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "type",
-            "description": "<p>Body: mediaType</p>"
           }
         ]
       },
@@ -3855,7 +3942,7 @@ define({ "api": [
     "type": "POST",
     "url": "/contents/posts/:groupId",
     "title": "POST CREATE",
-    "name": "POSTS1",
+    "name": "POST1",
     "group": "POSTS",
     "version": "0.2.0",
     "description": "<h4>To create a posts :  <li>    call /contents/posts/:groupId  </li>  <li>    Then call /contents/${mediaType}/:postId, to upload medias for the corresponding post  </li> </h4><br>",
@@ -3917,7 +4004,7 @@ define({ "api": [
     "type": "DELETE",
     "url": "/contents/posts/:postId",
     "title": "POST DELETE",
-    "name": "POSTS2",
+    "name": "POST2",
     "group": "POSTS",
     "version": "0.2.0",
     "parameter": {
@@ -3971,7 +4058,7 @@ define({ "api": [
     "type": "GET",
     "url": "/contents/posts/:postId",
     "title": "POST READ",
-    "name": "POSTS3",
+    "name": "POST3",
     "group": "POSTS",
     "version": "0.2.0",
     "parameter": {
@@ -4032,7 +4119,7 @@ define({ "api": [
     "type": "PATCH",
     "url": "/contents/posts/",
     "title": "POST UPDATE",
-    "name": "POSTS4",
+    "name": "POST4",
     "group": "POSTS",
     "version": "0.2.0",
     "parameter": {
@@ -4093,7 +4180,7 @@ define({ "api": [
     "type": "POST",
     "url": "/contents/posts/pin/:postId",
     "title": "POST PIN",
-    "name": "POSTS5",
+    "name": "POST5",
     "group": "POSTS",
     "version": "0.2.0",
     "parameter": {
