@@ -4,8 +4,8 @@ mongoose.connect('mongodb://db/Curb', { useNewUrlParser: true });
 
 const chatSchema = mongoose.Schema(
   {
-    from: String,
-    message: String,
+    userId: String,
+    data: String,
     group: String,
   },
   { timestamps: true }
