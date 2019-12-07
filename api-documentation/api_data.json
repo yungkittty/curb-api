@@ -4423,8 +4423,16 @@
             "type": "String",
             "optional": true,
             "field": "CookieToken",
-            "defaultValue": "undefine",
+            "defaultValue": "undefined",
             "description": "<p>queryParam in case of a private group</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "pinned",
+            "defaultValue": "false",
+            "description": "<p>queryParam WILL only return pinned or non-pinned post</p>"
           }
         ]
       }
