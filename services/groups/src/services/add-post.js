@@ -4,12 +4,10 @@ const { ApiError } = require('../configurations/error');
 const ranking = require('./ranking');
 const userActivity = require('../utils/mongoose/user-activity');
 
-async function addPost(groupId, postId, type, userId) {
+async function addPost(groupId, postId, userId) {
   const group = await Group.findById(groupId);
   if (!group) throw new ApiError('GROUPS_NOT_FOUND');
-  if (!group.mediaTypes.includes(type)) {
-    throw new ApiError('GROUPS_BAD_MEDIATYPES');
-  }
+
   if (group.posts.includes(postId)) {
     throw new ApiError('GROUPS_MEDIA_ALREADY_PRESENT');
   }

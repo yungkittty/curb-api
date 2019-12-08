@@ -28,7 +28,7 @@ const groupSchema = mongoose.Schema(
       type: [String],
       required: true,
       enum: {
-        values: ['location', 'text', 'image', 'video', 'events'],
+        values: ['location', 'text', 'image', 'video', 'event', 'poll', 'chat'],
         message: 'GROUPS_BAD_MEDIATYPES'
       }
     },
@@ -90,9 +90,7 @@ groupSchema.plugin(uniqueValidator, { message: 'GROUPS_DUPLICATE_{PATH}' });
 
 // eslint-disable-next-line
 groupSchema.methods.getPublicFields = function() {
-  const {
-    __v, _id, rank, activity, users, ...publicGroup
-  } = this.toObject();
+  const { __v, _id, rank, activity, ...publicGroup } = this.toObject();
   return { id: _id, ...publicGroup };
 };
 
@@ -107,7 +105,11 @@ groupSchema.post('save', async (error, doc, next) => {
     return next(new ApiError('GROUPS_ALREADY_EXIST'));
   }
   if (error.errors[Object.keys(error.errors)[0]]) {
-    return next(new ApiError(error.errors[Object.keys(error.errors)[0]].message.toUpperCase()));
+    return next(
+      new ApiError(
+        error.errors[Object.keys(error.errors)[0]].message.toUpperCase()
+      )
+    );
   }
   return next(error);
 });

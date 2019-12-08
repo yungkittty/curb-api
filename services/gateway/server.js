@@ -8,8 +8,8 @@ https
     {
       key: fs.readFileSync('./encryption/key.pem'),
       cert: fs.readFileSync('./encryption/cert.pem'),
-      passphrase: '8xK58u33WwxCBiW',
+      passphrase: '8xK58u33WwxCBiW'
     },
-    app,
+    app
   )
   .listen(4000);

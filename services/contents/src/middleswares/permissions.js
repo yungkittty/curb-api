@@ -32,6 +32,7 @@ async function permissions(req, res, next) {
       const content = await Content.findOne({ _id: req.params.contentId })
         .populate('post')
         .exec();
+      if (!content) return next(new ApiError('CONTENTS_NOT_FOUND'));
       req.permissions = await getPermissions(content.post.groupId, req.authId);
       return next();
     }

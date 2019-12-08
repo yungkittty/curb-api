@@ -14,7 +14,12 @@ async function contentAdd(type, postId, userId, data) {
   if (userId !== post.creatorId) {
     throw new ApiError('CONTENTS_FORBIDDEN_WRITE');
   }
-
+  if (type === 'poll') {
+    const parsedData = JSON.parse(content.data);
+    content.meta.push(
+      parsedData.options.reduce((acc, opt) => ({ ...acc, [opt]: [] }), {})
+    );
+  }
   await content.save();
   post.medias.unshift(content.id);
   await post.save();
