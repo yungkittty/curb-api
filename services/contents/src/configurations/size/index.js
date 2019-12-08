@@ -25,7 +25,7 @@ const sizes = [
     quality: 0
   },
   {
-    name: 'extra-extra_large-compress-low',
+    name: 'extra-extra-large-compress-low',
     size: 300, // process.env.AVATAR_SIZE_EXTRA_EXTRA_LARGE,
     quality: 0
   },
