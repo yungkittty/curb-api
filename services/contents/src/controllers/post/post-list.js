@@ -15,7 +15,8 @@ const groupGet = require('../../utils/group-get');
  * @apiParam {Number} [count=5] queryParam
  * @apiParam {Number} [page=1] queryParam
  * @apiParam [String] [mediaType=undefined] queryParam
- * @apiParam {String} [CookieToken=undefine] queryParam in case of a private group
+ * @apiParam {String} [CookieToken=undefined] queryParam in case of a private group
+ * @apiParam {String} [pinned=false] queryParam WILL only return pinned or non-pinned post
  *
  * @apiSuccess (200) {Object} Object
  *
@@ -137,7 +138,10 @@ async function postList(req, res, next) {
       groupId: req.params.groupId,
       page: req.query.page ? parseInt(req.query.page, 10) : undefined,
       count: req.query.count ? parseInt(req.query.count, 10) : undefined,
-      mediaType: req.query.mediaType ? JSON.parse(req.query.mediaType) : undefined
+      mediaType: req.query.mediaType
+        ? JSON.parse(req.query.mediaType)
+        : undefined,
+      pinned: req.query.pinned === 'true'
     });
     return res
       .status(200)

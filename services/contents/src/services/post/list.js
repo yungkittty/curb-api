@@ -17,37 +17,52 @@ const pagination = require('../../utils/pagination');
  */
 
 async function list({
-  groupId, page = 1, count = 5, mediaType = undefined
+  groupId,
+  page = 1,
+  count = 5,
+  mediaType = undefined,
+  pinned = false
 }) {
-  const aggregation = await Post.aggregate([
-    {
-      $match: {
-        groupId: { $eq: groupId }
-      }
-    },
-    {
-      $sort: {
-        createdAt: -1
-      }
-    },
-    {
-      $lookup: {
-        from: 'contents',
-        localField: 'medias',
-        foreignField: '_id',
-        as: 'medias'
-      }
-    },
-    {
-      $unwind: '$medias'
-    },
-    {
-      $match: mediaType
-        ? {
+  const pipelines = [];
+  const match = {
+    $match: {
+      groupId: { $eq: groupId }
+    }
+  };
+  const sort = {
+    $sort: {
+      createdAt: -1
+    }
+  };
+  const populate = {
+    $lookup: {
+      from: 'contents',
+      localField: 'medias',
+      foreignField: '_id',
+      as: 'medias'
+    }
+  };
+  const unwind = {
+    $unwind: '$medias'
+  };
+  const mediaTypesMatch = {
+    $match: mediaType
+      ? {
           $or: mediaType.map(media => ({ 'medias.type': media }))
         }
-        : { 'medias.type': { $ne: null } }
-    },
+      : { 'medias.type': { $ne: null } }
+  };
+
+  const pinnedMatch =
+    pinned === true
+      ? {
+          $match: { pinned: { $eq: true } }
+        }
+      : {
+          $match: { pinned: { $eq: false } }
+        };
+  pipelines.push(match, sort, populate, unwind, mediaTypesMatch, pinnedMatch);
+  const projection = [
     {
       $project: {
         _id: false,
@@ -100,12 +115,14 @@ async function list({
         }
       }
     }
-  ]);
+  ];
+  pipelines.push(...projection);
+  const aggregation = await Post.aggregate(pipelines);
   return {
     count,
     page,
     mediaType,
-    data: aggregation.map((p) => {
+    data: aggregation.map(p => {
       const { post } = p;
       return post;
     })

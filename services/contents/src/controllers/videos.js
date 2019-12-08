@@ -42,13 +42,19 @@ const videos = express();
 videos.post(
   '/:postId',
   middlewares.permissions,
+  middlewares.mediaType,
   upload('videos', fileFilter(/\.(mp4|avi)$/)),
   async (req, res, next) => {
     try {
       if (!req.permissions.write) {
         return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
       }
-      const content = await addContent('video', req.params.postId, req.authId, req.urlPath);
+      const content = await addContent(
+        'video',
+        req.params.postId,
+        req.authId,
+        req.urlPath
+      );
 
       if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
 

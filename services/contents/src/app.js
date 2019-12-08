@@ -60,6 +60,7 @@ app.use('/locations', middlewares.authentication, controllers.locations);
 app.use('/avatars', middlewares.authentication, controllers.avatars);
 app.use('/texts', middlewares.authentication, controllers.texts);
 app.use('/events', middlewares.authentication, controllers.events);
+app.use('/polls', middlewares.authentication, controllers.polls);
 
 app.post(
   '/posts/:groupId',

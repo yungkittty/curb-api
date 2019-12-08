@@ -39,47 +39,65 @@ const events = express();
  *
  */
 
-events.post('/:postId', middlewares.permissions, async (req, res, next) => {
-  try {
-    if (!req.permissions.write) {
-      return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+events.post(
+  '/:postId',
+  middlewares.permissions,
+  middlewares.mediaType,
+  async (req, res, next) => {
+    try {
+      if (!req.permissions.write) {
+        return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+      }
+
+      const content = await addContent(
+        'event',
+        req.params.postId,
+        req.authId,
+        req.body.data
+      );
+      if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
+      return res.status(200).json({
+        id: content.id,
+        data: content.data
+      });
+    } catch (error) {
+      return next(error);
     }
-
-    const content = await addContent('events', req.params.postId, req.authId, req.body.data);
-    if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-    return res.status(200).json({
-      id: content.id,
-      data: content.data
-    });
-  } catch (error) {
-    return next(error);
   }
-});
+);
 
-events.post('/join/:contentId', middlewares.permissions, async (req, res, next) => {
-  try {
-    if (!req.permissions.write) {
-      return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+events.post(
+  '/join/:contentId',
+  middlewares.permissions,
+  async (req, res, next) => {
+    try {
+      if (!req.permissions.write) {
+        return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+      }
+
+      const response = await join(req.params.contentId, req.authId);
+      return res.status(200).json(response);
+    } catch (error) {
+      return next(error);
     }
-
-    const response = await join(req.params.contentId, req.authId);
-    return res.status(200).json(response);
-  } catch (error) {
-    return next(error);
   }
-});
+);
 
-events.post('/exit/:contentId', middlewares.permissions, async (req, res, next) => {
-  try {
-    if (!req.permissions.write) {
-      return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+events.post(
+  '/exit/:contentId',
+  middlewares.permissions,
+  async (req, res, next) => {
+    try {
+      if (!req.permissions.write) {
+        return next(new ApiError('CONTENTS_FORBIDDEN_WRITE'));
+      }
+
+      const response = await exit(req.params.contentId, req.authId);
+      return res.status(200).json(response);
+    } catch (error) {
+      return next(error);
     }
-
-    const response = await exit(req.params.contentId, req.authId);
-    return res.status(200).json(response);
-  } catch (error) {
-    return next(error);
   }
-});
+);
 
 module.exports = events;
