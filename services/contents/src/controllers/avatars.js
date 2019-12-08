@@ -1,6 +1,8 @@
 const express = require('express');
 const multer = require('multer');
 const Jimp = require('jimp');
+const sharp = require('sharp');
+const sizeOf = require('image-size');
 const fs = require('fs-extra');
 const uuidv4 = require('uuid/v4');
 const axios = require('axios');
@@ -167,6 +169,12 @@ avatar.post(
       process.env.AVATAR_DIRECTORIES_GROUP_PATH
     }${req.params.groupId}/${fragment}-medium-compress-high${ext}`;
 
+    const convertRatio = 1.77778;
+    const dimensions = sizeOf(req.file.path);
+    const convertedHeight = Math.round(dimensions.width / convertRatio);
+    await sharp(req.file.path)
+      .resize({ width: dimensions.width, height: convertedHeight })
+      .toFile(`${basePath}landscape${ext}`);
     try {
       await Promise.all(
         sizes.map(size =>

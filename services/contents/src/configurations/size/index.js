@@ -1,6 +1,6 @@
 const sizes = [
   {
-    name: 'extra_small-compress-low',
+    name: 'extra-small-compress-low',
     size: 40, // process.env.AVATAR_SIZE_EXTRA_SMALL,
     quality: 0
   },
@@ -20,17 +20,17 @@ const sizes = [
     quality: 0
   },
   {
-    name: 'extra_large-compress-low',
+    name: 'extra-large-compress-low',
     size: 200, // process.env.AVATAR_SIZE_EXTRA_LARGE,
     quality: 0
   },
   {
-    name: 'extra_extra_large-compress-low',
+    name: 'extra-extra_large-compress-low',
     size: 300, // process.env.AVATAR_SIZE_EXTRA_EXTRA_LARGE,
     quality: 0
   },
   {
-    name: 'extra_small-compress-medium',
+    name: 'extra-small-compress-medium',
     size: 40, // process.env.AVATAR_SIZE_EXTRA_SMALL,
     quality: 1
   },
@@ -50,17 +50,17 @@ const sizes = [
     quality: 1
   },
   {
-    name: 'extra_large-compress-medium',
+    name: 'extra-large-compress-medium',
     size: 200, // process.env.AVATAR_SIZE_EXTRA_LARGE,
     quality: 1
   },
   {
-    name: 'extra_extra_large-compress-medium',
+    name: 'extra-extra-large-compress-medium',
     size: 300, // process.env.AVATAR_SIZE_EXTRA_EXTRA_LARGE,
     quality: 1
   },
   {
-    name: 'extra_small-compress-high',
+    name: 'extra-small-compress-high',
     size: 40, // process.env.AVATAR_SIZE_EXTRA_SMALL,
     quality: 2
   },
@@ -80,12 +80,12 @@ const sizes = [
     quality: 2
   },
   {
-    name: 'extra_large-compress-high',
+    name: 'extra-large-compress-high',
     size: 200, // process.env.AVATAR_SIZE_EXTRA_LARGE,
     quality: 2
   },
   {
-    name: 'extra_extra_large-compress-high',
+    name: 'extra-extra-large-compress-high',
     size: 300, // process.env.AVATAR_SIZE_EXTRA_EXTRA_LARGE,
     quality: 2
   }
