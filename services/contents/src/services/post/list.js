@@ -34,6 +34,11 @@ async function list({
       createdAt: -1
     }
   };
+  const sortProjection = {
+    $sort: {
+      'post.createdAt': -1
+    }
+  };
   const populate = {
     $lookup: {
       from: 'contents',
@@ -116,7 +121,7 @@ async function list({
       }
     }
   ];
-  pipelines.push(...projection);
+  pipelines.push(...projection, sortProjection);
   const aggregation = await Post.aggregate(pipelines);
   return {
     count,
