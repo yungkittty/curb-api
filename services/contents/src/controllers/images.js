@@ -1,4 +1,7 @@
 const express = require('express');
+const sharp = require('sharp');
+const Path = require('path');
+const sizeOf = require('image-size');
 const { upload, fileFilter } = require('../configurations/multer');
 const addContent = require('../services/content/content-add');
 const { ApiError } = require('../configurations/error');
@@ -57,7 +60,14 @@ images.post(
         req.urlPath
       );
       if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-
+      const ext = Path.extname(req.file.originalname);
+      const nameSplit = req.file.filename.split('.');
+      const convertRatio = 1.77778;
+      const dimensions = sizeOf(req.file.path);
+      const convertedHeight = Math.round(dimensions.width / convertRatio);
+      await sharp(req.file.path)
+        .resize({ width: dimensions.width, height: convertedHeight })
+        .toFile(`${req.filePath}/${nameSplit[0]}_landscape${ext}`);
       return res.status(200).json({
         id: content.id,
         data: content.data

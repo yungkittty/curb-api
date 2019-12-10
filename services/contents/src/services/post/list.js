@@ -53,19 +53,18 @@ async function list({
   const mediaTypesMatch = {
     $match: mediaType
       ? {
-          $or: mediaType.map(media => ({ 'medias.type': media }))
-        }
+        $or: mediaType.map(media => ({ 'medias.type': media }))
+      }
       : { 'medias.type': { $ne: null } }
   };
 
-  const pinnedMatch =
-    pinned === true
+  const pinnedMatch =    pinned === true
       ? {
-          $match: { pinned: { $eq: true } }
-        }
+        $match: { pinned: { $eq: true } }
+      }
       : {
-          $match: { pinned: { $eq: false } }
-        };
+        $match: { pinned: { $eq: false } }
+      };
   pipelines.push(match, sort, populate, unwind, mediaTypesMatch, pinnedMatch);
   const projection = [
     {
@@ -127,7 +126,7 @@ async function list({
     count,
     page,
     mediaType,
-    data: aggregation.map(p => {
+    data: aggregation.map((p) => {
       const { post } = p;
       return post;
     })
