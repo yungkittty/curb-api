@@ -9,6 +9,7 @@
     "lint": "./node_modules/.bin/eslint ."
   },
   "dependencies": {
+    "@gumlet/gif-resize": "^1.0.4",
     "axios": "^0.18.1",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
