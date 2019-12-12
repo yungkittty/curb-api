@@ -107,7 +107,6 @@ app.post(
 app.get(
   '/posts/list/:groupId/',
   middlewares.optionalAuthId,
-  middlewares.permissions,
   controllers.postList
 );
 

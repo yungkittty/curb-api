@@ -1347,6 +1347,79 @@ define({ "api": [
   },
   {
     "type": "POST",
+    "url": "/events/exit/:contentId/",
+    "title": "CONTENT EXIT EVENTS",
+    "name": "CONTENTS10",
+    "group": "CONTENTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "contentId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "content",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: \"{\\\"date\\\": \\\"Fri, 13 Sep 2019 20:22:04 GMT\\\", \\\"name\\\": \\\"toto\\\", \\\"participants\\\":[\\\"id\\\"]}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/events.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
     "url": "/images/:postId/",
     "title": "CONTENT UPLOAD IMAGE",
     "name": "CONTENTS2",
@@ -2390,6 +2463,79 @@ define({ "api": [
       }
     },
     "filename": "../../services/contents/src/controllers/polls.js",
+    "groupTitle": "CONTENTS"
+  },
+  {
+    "type": "POST",
+    "url": "/events/join/:contentId/",
+    "title": "CONTENT JOIN EVENTS",
+    "name": "CONTENTS9",
+    "group": "CONTENTS",
+    "version": "0.2.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "contentId",
+            "description": "<p>//</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "content",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    id: 'uuid',\n    data: \"{\\\"date\\\": \\\"Fri, 13 Sep 2019 20:22:04 GMT\\\", \\\"name\\\": \\\"toto\\\", \\\"participants\\\":[\\\"id\\\"]}\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_BAD_PARAMETER",
+            "description": "<p>400</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_FORBIDDEN_WRITE",
+            "description": "<p>403</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CONTENTS_INEXISTENT_CONTENT",
+            "description": "<p>404</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UNDEFINED",
+            "description": "<p>500</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../../services/contents/src/controllers/events.js",
     "groupTitle": "CONTENTS"
   },
   {

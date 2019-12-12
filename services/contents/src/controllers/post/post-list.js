@@ -122,11 +122,8 @@ async function postList(req, res, next) {
     if (!req.params.groupId) {
       throw new ApiError('POSTS_BAD_PARAMETER');
     }
-    if (!req.permissions.read) {
-      throw new ApiError('POSTS_FORBIDEN_OPERATION');
-    }
     if (!req.authId) {
-      const response = groupGet(req.params.groupId);
+      const response = await groupGet(req.params.groupId);
       if (response.status !== 200) {
         throw new OtherServiceError(response);
       }
