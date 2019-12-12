@@ -1348,7 +1348,7 @@ define({ "api": [
   {
     "type": "POST",
     "url": "/events/exit/:contentId/",
-    "title": "CONTENT JOIN EVENTS",
+    "title": "CONTENT EXIT EVENTS",
     "name": "CONTENTS10",
     "group": "CONTENTS",
     "version": "0.2.0",

@@ -110,7 +110,7 @@ events.post(
 
 /**
  *
- * @api {POST} /events/exit/:contentId/ CONTENT JOIN EVENTS
+ * @api {POST} /events/exit/:contentId/ CONTENT EXIT EVENTS
  * @apiName CONTENTS10
  * @apiGroup CONTENTS
  * @apiVersion  0.2.0
