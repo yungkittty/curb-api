@@ -66,6 +66,31 @@ events.post(
   }
 );
 
+/**
+ *
+ * @api {POST} /events/join/:contentId/ CONTENT JOIN EVENTS
+ * @apiName CONTENTS9
+ * @apiGroup CONTENTS
+ * @apiVersion  0.2.0
+ *
+ *  @apiParam  {String} contentId //
+ *
+ * @apiSuccess (200) {Object} content
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     id: 'uuid',
+ *     data: "{\"date\": \"Fri, 13 Sep 2019 20:22:04 GMT\", \"name\": \"toto\", \"participants\":[\"id\"]}"
+ * }
+ *
+ *
+ * @apiError CONTENTS_BAD_PARAMETER 400
+ * @apiError CONTENTS_FORBIDDEN_WRITE 403
+ * @apiError CONTENTS_INEXISTENT_CONTENT 404
+ * @apiError UNDEFINED 500
+ *
+ */
+
 events.post(
   '/join/:contentId',
   middlewares.permissions,
@@ -82,6 +107,31 @@ events.post(
     }
   }
 );
+
+/**
+ *
+ * @api {POST} /events/exit/:contentId/ CONTENT JOIN EVENTS
+ * @apiName CONTENTS10
+ * @apiGroup CONTENTS
+ * @apiVersion  0.2.0
+ *
+ *  @apiParam  {String} contentId //
+ *
+ * @apiSuccess (200) {Object} content
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *     id: 'uuid',
+ *     data: "{\"date\": \"Fri, 13 Sep 2019 20:22:04 GMT\", \"name\": \"toto\", \"participants\":[\"id\"]}"
+ * }
+ *
+ *
+ * @apiError CONTENTS_BAD_PARAMETER 400
+ * @apiError CONTENTS_FORBIDDEN_WRITE 403
+ * @apiError CONTENTS_INEXISTENT_CONTENT 404
+ * @apiError UNDEFINED 500
+ *
+ */
 
 events.post(
   '/exit/:contentId',
