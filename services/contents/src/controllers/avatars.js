@@ -48,23 +48,18 @@ async function writeFile(src, dest, size, quality) {
   const extension = src.slice(src.lastIndexOf('.') + 1);
   if (extension === 'gif') {
     const buffer = fs.readFileSync(src);
-    gifResize({
+    const resizedBuffer = await gifResize({
       width: size,
       height: size
-    })(buffer).then(data => {
-      fs.writeFileSync(dest, data, err => {
-        console.log('WRITING FILE FAILED:', err);
-      });
-    });
+    })(buffer);
+    fs.writeFileSync(dest, resizedBuffer);
     return;
   }
   Jimp.read(src)
-    .then(image =>
-      image
+    .then(image => image
         .cover(size, size)
         .quality((quality + 1) * 10)
-        .write(dest)
-    )
+        .write(dest))
     .catch(error => console.log(error));
 }
 const userUpload = multer({
@@ -133,11 +128,9 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
       const files = await fs.readdir(
         `./uploads/avatars/groups/${req.params.groupId}`
       );
-      files.forEach(file =>
-        fs.unlink(
+      files.forEach(file => fs.unlink(
           Path.join(`./uploads/avatars/groups/${req.params.groupId}`, file)
-        )
-      );
+        ));
     }
     return next();
   } catch (error) {
@@ -156,9 +149,7 @@ avatar.use('/users/:userId', async (req, res, next) => {
     );
     if (result) {
       const files = await fs.readdir(`./uploads/avatars/users/${req.authId}`);
-      files.forEach(file =>
-        fs.unlink(Path.join(`./uploads/avatars/users/${req.authId}`, file))
-      );
+      files.forEach(file => fs.unlink(Path.join(`./uploads/avatars/users/${req.authId}`, file)));
     }
     return next();
   } catch (error) {
@@ -185,14 +176,12 @@ avatar.post(
       .toFile(`${basePath}landscape${ext}`);
     try {
       await Promise.all(
-        sizes.map(size =>
-          writeFile(
+        sizes.map(size => writeFile(
             req.file.path,
             `${basePath}${size.name}${ext}`,
             size.size,
             size.quality
-          )
-        )
+          ))
       );
       const response = await axios({
         method: 'post',
@@ -227,14 +216,12 @@ avatar.post(
 
     try {
       await Promise.all(
-        sizes.map(size =>
-          writeFile(
+        sizes.map(size => writeFile(
             req.file.path,
             `${basePath}${size.name}${ext}`,
             size.size,
             size.quality
-          )
-        )
+          ))
       );
       const response = await axios({
         method: 'post',

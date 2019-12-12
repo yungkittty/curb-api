@@ -35,15 +35,12 @@ async function join({ groupId, userId, token }) {
   const id = !token
     ? await basicJoin(userId, groupId)
     : await tokenJoin(userId, token);
-  // userRecommendation => unfill groupId
   const userRecommendation = await UserRecommendation.findOne({ _id: userId });
-  if (
-    userRecommendation !== null &&
-    userRecommendation.groupIds.includes(groupId)
-  ) {
+  if (userRecommendation && userRecommendation.groupIds.includes(groupId)) {
     userRecommendation.groupIds = userRecommendation.groupIds.map(
       grpId => grpId !== groupId
     );
+    await userRecommendation.save();
   }
   ranking(groupId);
   return { id };
