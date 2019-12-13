@@ -5,25 +5,33 @@ async function listFromId(groupIds, userId = undefined) {
   const groups = await Group.find({
     _id: { $in: groupIds }
   });
+  console.log('there');
   const response = groups.map(async (group) => {
-    const userInGroup = await isUserInGroup(group._id, userId);
-    if (group.status === 'private' && (!userInGroup || !userId)) {
-      const {
-        id, name, avatarUrl, theme, status, description, category
-      } = group.getPublicFields();
-      return {
-        id,
-        name,
-        avatarUrl,
-        theme,
-        status,
-        description,
-        category
-      };
-    }
+    // const userInGroup = await isUserInGroup(group._id, userId);
+    // if (group.status === 'private' && (!userInGroup || !userId)) {
+    //   const {
+    //     id,
+    //     name,
+    //     avatarUrl,
+    //     theme,
+    //     status,
+    //     description,
+    //     category
+    //   } = group.getPublicFields();
+    //   return {
+    //     id,
+    //     name,
+    //     avatarUrl,
+    //     theme,
+    //     status,
+    //     description,
+    //     category
+    //   };
+    // }
     // TODO when group are private/ghost/public
     // skip ==>
-    return group.getPublicFields();
+    const grp = group.getPublicFields();
+    return { ...grp, users: grp.users.map(user => user.userId) };
   });
   return await Promise.all(response);
 }
