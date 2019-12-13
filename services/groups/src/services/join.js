@@ -37,7 +37,7 @@ async function join({ groupId, userId, token }) {
     : await tokenJoin(userId, token);
   const userRecommendation = await UserRecommendation.findOne({ _id: userId });
   if (userRecommendation && userRecommendation.groupIds.includes(groupId)) {
-    userRecommendation.groupIds = userRecommendation.groupIds.map(
+    userRecommendation.groupIds = userRecommendation.groupIds.filter(
       grpId => grpId !== groupId
     );
     await userRecommendation.save();
