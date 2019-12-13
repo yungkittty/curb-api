@@ -83,12 +83,7 @@ app.patch(
   controllers.postUpdate
 );
 
-app.get(
-  '/posts/:postId',
-  middlewares.optionalAuthId,
-  middlewares.permissions,
-  controllers.postRead
-);
+app.get('/posts/:postId', middlewares.optionalAuthId, controllers.postRead);
 
 app.post(
   '/posts/pin/:postId/',

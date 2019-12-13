@@ -1,6 +1,7 @@
 const read = require('../../services/post/read');
-const { ApiError } = require('../../configurations/error');
-
+const { ApiError, OtherServiceError } = require('../../configurations/error');
+const groupGet = require('../../utils/group-get');
+const { Post } = require('../../models/post');
 /**
  *
  * @api {GET} /contents/posts/:postId POST READ
@@ -77,8 +78,16 @@ const { ApiError } = require('../../configurations/error');
 
 async function postRead(req, res, next) {
   try {
-    if (!req.permissions.read) {
-      return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
+    if (!req.authId) {
+      const post = await Post.findById(req.params.postId);
+      if (!post) throw new ApiError('POSTS_NOT_FOUND');
+      const response = await groupGet(post.groupId);
+      if (response.status !== 200) {
+        throw new OtherServiceError(response);
+      }
+      if (response.data.status === 'private') {
+        throw new ApiError('POSTS_FORBIDEN_OPERATION');
+      }
     }
     const post = await read(req.params.postId);
 

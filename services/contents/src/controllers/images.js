@@ -62,24 +62,15 @@ images.post(
         req.urlPath
       );
       if (!content) return next(new ApiError('CONTENTS_INEXISTENT_CONTENT'));
-      const ext = Path.extname(req.file.originalname);
-      const nameSplit = req.file.filename.split('.');
-      const convertRatio = 1.77778;
-      const dimensions = sizeOf(req.file.path);
-      const convertedHeight = Math.round(dimensions.width / convertRatio);
-      const landscapeFile = `${req.filePath}/${nameSplit[0]}_landscape${ext}`;
-      if (ext === '.gif') {
-        const buffer = fs.readFileSync(req.file.path);
-        const resizedBuffer = await gifResize({
-          width: dimensions.width,
-          height: convertedHeight
-        })(buffer);
-        fs.writeFileSync(landscapeFile, resizedBuffer);
-      } else {
-        await sharp(req.file.path)
-          .resize({ width: dimensions.width, height: convertedHeight })
-          .toFile(landscapeFile);
-      }
+      // const ext = Path.extname(req.file.originalname);
+      // const nameSplit = req.file.filename.split('.');
+      // const convertRatio = 1.77778;
+      // const dimensions = sizeOf(req.file.path);
+      // const convertedHeight = Math.round(dimensions.width / convertRatio);
+      // const landscapeFile = `${req.filePath}/${nameSplit[0]}_landscape${ext}`;
+      // await sharp(req.file.path)
+      //   .resize({ width: dimensions.width, height: convertedHeight })
+      //   .toFile(landscapeFile);
       return res.status(200).json({
         id: content.id,
         data: content.data
