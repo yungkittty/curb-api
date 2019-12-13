@@ -179,7 +179,6 @@ avatar.post(
     const convertedHeight = Math.round(dimensions.width / convertRatio);
     const landscapeFile = `${basePath}landscape${ext}`;
     // landscape should not be there.
-    console.log('there');
     if (ext === '.gif') {
       const buffer = fs.readFileSync(req.file.path);
       const resizedBuffer = await gifResize({
@@ -188,8 +187,6 @@ avatar.post(
       })(buffer);
       fs.writeFileSync(landscapeFile, resizedBuffer);
     } else {
-      console.log('there2222');
-      console.log('file=>', landscapeFile);
       await sharp(req.file.path)
         .resize({ width: dimensions.width, height: convertedHeight })
         .toFile(landscapeFile);
