@@ -5,7 +5,6 @@ async function listFromId(groupIds, userId = undefined) {
   const groups = await Group.find({
     _id: { $in: groupIds }
   });
-  console.log('there');
   const response = groups.map(async (group) => {
     // const userInGroup = await isUserInGroup(group._id, userId);
     // if (group.status === 'private' && (!userInGroup || !userId)) {
