@@ -21,7 +21,7 @@ const { ApiError } = require('../../configurations/error');
 async function postDelete(req, res, next) {
   try {
     if (!req.params.postId) return next(new ApiError('POSTS_BAD_PARAMETER'));
-    if (!req.permissions.creator) {
+    if (!req.permissions.creator && !req.permissions.write) {
       return next(new ApiError('POSTS_FORBIDEN_OPERATION'));
     }
     await remove(req.cookies.token, req.params.postId);

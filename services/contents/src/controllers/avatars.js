@@ -56,10 +56,12 @@ async function writeFile(src, dest, size, quality) {
     return;
   }
   Jimp.read(src)
-    .then(image => image
+    .then(image =>
+      image
         .cover(size, size)
         .quality((quality + 1) * 10)
-        .write(dest))
+        .write(dest)
+    )
     .catch(error => console.log(error));
 }
 const userUpload = multer({
@@ -128,9 +130,11 @@ avatar.use('/groups/:groupId', async (req, res, next) => {
       const files = await fs.readdir(
         `./uploads/avatars/groups/${req.params.groupId}`
       );
-      files.forEach(file => fs.unlink(
+      files.forEach(file =>
+        fs.unlink(
           Path.join(`./uploads/avatars/groups/${req.params.groupId}`, file)
-        ));
+        )
+      );
     }
     return next();
   } catch (error) {
@@ -149,7 +153,9 @@ avatar.use('/users/:userId', async (req, res, next) => {
     );
     if (result) {
       const files = await fs.readdir(`./uploads/avatars/users/${req.authId}`);
-      files.forEach(file => fs.unlink(Path.join(`./uploads/avatars/users/${req.authId}`, file)));
+      files.forEach(file =>
+        fs.unlink(Path.join(`./uploads/avatars/users/${req.authId}`, file))
+      );
     }
     return next();
   } catch (error) {
@@ -171,17 +177,30 @@ avatar.post(
     const convertRatio = 1.77778;
     const dimensions = sizeOf(req.file.path);
     const convertedHeight = Math.round(dimensions.width / convertRatio);
-    await sharp(req.file.path)
-      .resize({ width: dimensions.width, height: convertedHeight })
-      .toFile(`${basePath}landscape${ext}`);
+    const landscapeFile = `${basePath}landscape${ext}`;
+    // landscape should not be there.
+    if (ext === '.gif') {
+      const buffer = fs.readFileSync(req.file.path);
+      const resizedBuffer = await gifResize({
+        width: dimensions.width,
+        height: convertedHeight
+      })(buffer);
+      fs.writeFileSync(landscapeFile, resizedBuffer);
+    } else {
+      await sharp(req.file.path)
+        .resize({ width: dimensions.width, height: convertedHeight })
+        .toFile(landscapeFile);
+    }
     try {
       await Promise.all(
-        sizes.map(size => writeFile(
+        sizes.map(size =>
+          writeFile(
             req.file.path,
             `${basePath}${size.name}${ext}`,
             size.size,
             size.quality
-          ))
+          )
+        )
       );
       const response = await axios({
         method: 'post',
@@ -216,12 +235,14 @@ avatar.post(
 
     try {
       await Promise.all(
-        sizes.map(size => writeFile(
+        sizes.map(size =>
+          writeFile(
             req.file.path,
             `${basePath}${size.name}${ext}`,
             size.size,
             size.quality
-          ))
+          )
+        )
       );
       const response = await axios({
         method: 'post',

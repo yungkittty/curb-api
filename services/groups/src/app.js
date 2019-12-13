@@ -38,10 +38,26 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.get('/list', middlewares.optionalAuthId, controllers.groupFromIds);
-app.get('/list-random', middlewares.optionalAuthId, controllers.groupListRandom);
-app.get('/list-global', middlewares.optionalAuthId, controllers.groupListGlobal);
-app.get('/list-custom', middlewares.authentication, controllers.groupListCustom);
-app.get('/list-user/:groupId', middlewares.optionalAuthId, controllers.groupListUser);
+app.get(
+  '/list-random',
+  middlewares.optionalAuthId,
+  controllers.groupListRandom
+);
+app.get(
+  '/list-global',
+  middlewares.optionalAuthId,
+  controllers.groupListGlobal
+);
+app.get(
+  '/list-custom',
+  middlewares.authentication,
+  controllers.groupListCustom
+);
+app.get(
+  '/list-user/:groupId',
+  middlewares.optionalAuthId,
+  controllers.groupListUser
+);
 
 app.post('/', middlewares.authentication, controllers.groupCreate);
 app.get('/', controllers.groupList);
@@ -52,11 +68,27 @@ app.delete('/:id', middlewares.authentication, controllers.groupDelete);
 
 app.post('/avatars/:groupId', controllers.groupAvatars);
 app.post('/join/:groupId', middlewares.authentication, controllers.groupJoin);
-app.post('/unjoin/:groupId', middlewares.authentication, controllers.groupUnjoin);
+app.post(
+  '/unjoin/:groupId',
+  middlewares.authentication,
+  controllers.groupUnjoin
+);
 app.get('/permissions/:groupId/:userId', controllers.groupPermissions);
-app.post('/posts/:groupId/:postId', middlewares.authentication, controllers.groupAddPost);
-app.delete('/posts/:groupId/:postId', middlewares.authentication, controllers.groupDeletePost);
-app.get('/invite/:groupId', middlewares.authentication, controllers.groupInvite);
+app.post(
+  '/posts/:groupId/:postId',
+  middlewares.authentication,
+  controllers.groupAddPost
+);
+app.delete(
+  '/posts/:groupId/:postId',
+  middlewares.authentication,
+  controllers.groupDeletePost
+);
+app.get(
+  '/invite/:groupId',
+  middlewares.authentication,
+  controllers.groupInvite
+);
 
 app.use(middlewares.error);
 
